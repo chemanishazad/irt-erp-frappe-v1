@@ -1,0 +1,51 @@
+# Frappe Bench .gitignore
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.py~
+
+# Virtual environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs
+logs/
+*.log
+
+# Redis dumps
+dump.rdb
+*.rdb
+
+# Site data (contains sensitive info)
+sites/*/site_config.json
+sites/*/private/
+sites/*/public/files/
+sites/*/locks/
+sites/assets/
+
+# Config locks and runtime
+config/pids/
+config/bench_build.lock
+config/site_config.lock
+config/scheduler_process
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Node
+node_modules/
+
