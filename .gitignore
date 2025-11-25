@@ -1,18 +1,7 @@
 # Frappe Bench .gitignore
 
-# Python cache
-__pycache__/
-*.py[cod]
-*$py.class
-*.pyc
-*.py~
-
 # Virtual environment
 env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
 # Logs
 logs/
@@ -22,30 +11,39 @@ logs/
 dump.rdb
 *.rdb
 
-# Site data (contains sensitive info)
+# Site data (contains passwords and sensitive info)
 sites/*/site_config.json
 sites/*/private/
 sites/*/public/files/
 sites/*/locks/
+
+# Assets (can be rebuilt)
 sites/assets/
 
-# Config locks and runtime
+# Config runtime files
 config/pids/
 config/bench_build.lock
 config/site_config.lock
 config/scheduler_process
 
+# Python cache
+__pycache__/
+*.pyc
+*.py[cod]
+
+# Node
+node_modules/
+
 # Temporary files
 *.tmp
-*.temp
+*.bak
+*.backup
 
 # IDE
 .vscode/
 .idea/
 *.swp
-*.swo
 .DS_Store
 
-# Node
-node_modules/
-
+# Build artifacts
+*.map
