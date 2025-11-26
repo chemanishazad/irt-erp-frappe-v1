@@ -23,28 +23,11 @@ class AssetManager {
 	constructor() {
 		this._executed = [];
 		this._handlers = {
-			js: (url) => {
-				return new Promise((resolve) => {
-					const script = document.createElement("script");
-					script.type = "text/javascript";
-					script.src = url;
-					script.onload = resolve;
-					// for backward compatibility, resolve even on error
-					script.onerror = resolve;
-					document.head.appendChild(script);
-				});
+			js: function (txt) {
+				frappe.dom.eval(txt);
 			},
-			css: (url) => {
-				return new Promise((resolve) => {
-					const link = document.createElement("link");
-					link.type = "text/css";
-					link.rel = "stylesheet";
-					link.href = url;
-					link.onload = resolve;
-					// for backward compatibility, resolve even on error
-					link.onerror = resolve;
-					document.head.appendChild(link);
-				});
+			css: function (txt) {
+				frappe.dom.set_style(txt);
 			},
 		};
 	}
@@ -94,16 +77,11 @@ class AssetManager {
 		console.log("localStorage cleared");
 	}
 
-	load_asset(path, url) {
-		if (this._executed.includes(path)) {
-			return Promise.resolve();
-		}
-
-		const ext = this.extn(path);
-		const handler = this._handlers[ext];
-		return handler(url).then(() => {
+	eval_assets(path, content) {
+		if (!this._executed.includes(path)) {
+			this._handlers[this.extn(path)](content);
 			this._executed.push(path);
-		});
+		}
 	}
 
 	execute(items, callback) {
@@ -113,7 +91,8 @@ class AssetManager {
 		const version_string =
 			frappe.boot.developer_mode || window.dev_server ? Date.now() : window._version_number;
 
-		let load_promises = items.map((path) => {
+		let fetched_assets = {};
+		async function fetch_item(path) {
 			let url = new URL(path, window.location.origin);
 
 			// Add the version to the URL to bust the cache for non-bundled assets
@@ -124,12 +103,17 @@ class AssetManager {
 			) {
 				url.searchParams.append("v", version_string);
 			}
-
-			return me.load_asset(path, url.toString());
-		});
+			const response = await fetch(url.toString());
+			fetched_assets[path] = await response.text();
+		}
 
 		frappe.dom.freeze();
-		Promise.all(load_promises).then(() => {
+		const fetch_promises = items.map(fetch_item);
+		Promise.all(fetch_promises).then(() => {
+			items.forEach((path) => {
+				let body = fetched_assets[path];
+				me.eval_assets(path, body);
+			});
 			frappe.dom.unfreeze();
 			callback?.();
 		});

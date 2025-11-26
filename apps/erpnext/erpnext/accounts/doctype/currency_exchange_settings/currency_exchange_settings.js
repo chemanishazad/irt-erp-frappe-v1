@@ -19,7 +19,7 @@ frappe.ui.form.on("Currency Exchange Settings", {
 							to: "{to_currency}",
 						};
 						add_param(frm, r.message, params, result);
-					} else if (frm.doc.service_provider == "frankfurter.dev") {
+					} else if (frm.doc.service_provider == "frankfurter.app") {
 						let result = ["rates", "{to_currency}"];
 						let params = {
 							base: "{from_currency}",

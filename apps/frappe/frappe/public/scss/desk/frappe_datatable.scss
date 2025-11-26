@@ -134,7 +134,8 @@
 	}
 
 	.dt-scrollable {
-		height: calc(100vh - 290px);
+		max-height: calc(100vh - 250px);
+		min-height: 100px;
 		scrollbar-width: thin;
 		border-top: 0 !important;
 	}

@@ -186,8 +186,6 @@ class TestCustomerLedgerSummary(AccountsTestMixin, IntegrationTestCase):
 		expected = {
 			"party": "_Test Customer",
 			"customer_name": "_Test Customer",
-			"customer_group": "_Test Customer Group",
-			"territory": "_Test Territory",
 			"party_name": "_Test Customer",
 			"opening_balance": 0,
 			"invoiced_amount": 100.0,
@@ -215,8 +213,6 @@ class TestCustomerLedgerSummary(AccountsTestMixin, IntegrationTestCase):
 		expected = {
 			"party": "_Test Customer",
 			"customer_name": "_Test Customer",
-			"customer_group": "_Test Customer Group",
-			"territory": "_Test Territory",
 			"party_name": "_Test Customer",
 			"opening_balance": 0,
 			"invoiced_amount": 100.0,

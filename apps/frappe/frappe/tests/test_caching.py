@@ -5,7 +5,6 @@ import frappe
 from frappe.core.doctype.doctype.test_doctype import new_doctype
 from frappe.tests import IntegrationTestCase
 from frappe.tests.test_api import FrappeAPITestCase
-from frappe.tests.utils import whitelist_for_tests
 from frappe.utils.caching import redis_cache, request_cache, site_cache
 
 CACHE_TTL = 4
@@ -22,14 +21,14 @@ def request_specific_api(a: list | tuple | dict | int, b: int) -> int:
 	return a**b * todays_value
 
 
-@whitelist_for_tests(allow_guest=True)
+@frappe.whitelist(allow_guest=True)
 @site_cache
 def ping() -> str:
 	register_with_external_service(frappe.local.site)
 	return "pong"
 
 
-@whitelist_for_tests(allow_guest=True)
+@frappe.whitelist(allow_guest=True)
 @site_cache(ttl=CACHE_TTL)
 def ping_with_ttl() -> str:
 	register_with_external_service(frappe.local.site)

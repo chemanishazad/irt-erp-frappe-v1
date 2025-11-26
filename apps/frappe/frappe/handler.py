@@ -105,13 +105,13 @@ def is_valid_http_method(method):
 		frappe.throw_permission_error()
 
 
-@frappe.whitelist(allow_guest=True, methods=["POST"])
+@frappe.whitelist(allow_guest=True)
 def logout():
 	frappe.local.login_manager.logout()
 	frappe.db.commit()
 
 
-@frappe.whitelist(allow_guest=True, methods=["POST"])
+@frappe.whitelist(allow_guest=True)
 def web_logout():
 	frappe.local.login_manager.logout()
 	frappe.db.commit()
@@ -120,7 +120,7 @@ def web_logout():
 	)
 
 
-@frappe.whitelist(allow_guest=True, methods=["POST"])
+@frappe.whitelist(allow_guest=True)
 def upload_file():
 	user = None
 	if frappe.session.user == "Guest":

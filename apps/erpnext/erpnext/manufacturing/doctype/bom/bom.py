@@ -916,9 +916,7 @@ class BOM(WebsiteGenerator):
 				)
 
 			d.base_rate = flt(d.rate) * flt(self.conversion_rate)
-			d.amount = flt(
-				flt(d.rate, d.precision("rate")) * flt(d.qty, d.precision("qty")), d.precision("amount")
-			)
+			d.amount = flt(d.rate, d.precision("rate")) * flt(d.qty, d.precision("qty"))
 			d.base_amount = d.amount * flt(self.conversion_rate)
 			d.qty_consumed_per_unit = flt(d.stock_qty, d.precision("stock_qty")) / flt(
 				self.quantity, self.precision("quantity")
@@ -941,10 +939,7 @@ class BOM(WebsiteGenerator):
 			d.base_rate = flt(d.rate, d.precision("rate")) * flt(
 				self.conversion_rate, self.precision("conversion_rate")
 			)
-			d.amount = flt(
-				flt(d.rate, d.precision("rate")) * flt(d.stock_qty, d.precision("stock_qty")),
-				d.precision("amount"),
-			)
+			d.amount = flt(d.rate, d.precision("rate")) * flt(d.stock_qty, d.precision("stock_qty"))
 			d.base_amount = flt(d.amount, d.precision("amount")) * flt(
 				self.conversion_rate, self.precision("conversion_rate")
 			)
@@ -1413,7 +1408,7 @@ def validate_bom_no(item, bom_no):
 
 
 @frappe.whitelist()
-def get_children(parent=None, is_root=False, **filters):
+def get_children(parent=None, return_all=True, fetch_phantom_items=False, is_root=False, **filters):
 	if not parent or parent == "BOM":
 		frappe.msgprint(_("Please select a BOM"))
 		return
@@ -1425,10 +1420,13 @@ def get_children(parent=None, is_root=False, **filters):
 		bom_doc = frappe.get_cached_doc("BOM", frappe.form_dict.parent)
 		frappe.has_permission("BOM", doc=bom_doc, throw=True)
 
+		filters = [["parent", "=", frappe.form_dict.parent]]
+		if not return_all:
+			filters.append(["is_phantom_item", "=", cint(fetch_phantom_items)])
 		bom_items = frappe.get_all(
 			"BOM Item",
 			fields=["item_code", "bom_no as value", "stock_qty", "qty", "is_phantom_item", "bom_no"],
-			filters=[["parent", "=", frappe.form_dict.parent]],
+			filters=filters,
 			order_by="idx",
 		)
 

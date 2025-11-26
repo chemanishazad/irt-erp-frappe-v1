@@ -1031,11 +1031,11 @@ Object.assign(frappe.utils, {
 		}
 		return decoded;
 	},
-	copy_to_clipboard(string, message) {
+	copy_to_clipboard(string) {
 		const show_success_alert = () => {
 			frappe.show_alert({
 				indicator: "green",
-				message: message || __("Copied to clipboard."),
+				message: __("Copied to clipboard."),
 			});
 		};
 		if (navigator.clipboard && window.isSecureContext) {

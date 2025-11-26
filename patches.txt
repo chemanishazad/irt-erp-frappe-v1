@@ -1,3 +1,7 @@
+# Bench Patches - Executed
+# This file tracks which bench-level patches have been executed
+# Patches prevent duplicate execution during bench updates
+
 bench.patches.v3.deprecate_old_config
 bench.patches.v3.celery_to_rq
 bench.patches.v3.redis_bind_ip

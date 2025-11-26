@@ -27,9 +27,9 @@ Access at: `http://localhost:8000`
 
 ### Update System
 ```bash
-# Pull latest code from upstream
-cd apps/frappe && git pull upstream develop && cd ../..
-cd apps/erpnext && git pull upstream develop && cd ../..
+# Pull latest code from upstream (version 16 beta)
+cd apps/frappe && git pull upstream version-16-beta && cd ../..
+cd apps/erpnext && git pull upstream version-16-beta && cd ../..
 cd apps/hrms && git pull upstream develop && cd ../..
 
 # Update dependencies
@@ -117,10 +117,12 @@ git commit -m "Description of your changes"
 
 ## 📦 Installed Apps
 
-- **frappe** - Framework (v15.x.x-develop)
-- **erpnext** - ERP System (v15.x.x-develop)
-- **hrms** - HR Management (v16.0.0-dev)
-- **irt_hrms** - Your customizations (v0.0.1)
+- **frappe** - Framework (v16.0.0-dev) - `version-16-beta` branch
+- **erpnext** - ERP System (v16.0.0-dev) - `version-16-beta` branch
+- **hrms** - HR Management (v16.0.0-dev) - `develop` branch
+- **irt_hrms** - Your customizations (v0.0.1) - `main` branch
+
+> **Note:** System is running on **ERPNext Version 16 Beta**. All core apps are on version 16.
 
 ## 🔧 Troubleshooting
 
@@ -161,6 +163,8 @@ bench --site irt migrate
 - Use `bench --site irt console` for Python debugging
 - Check logs in `logs/` directory if something goes wrong
 - Keep your `irt_hrms` app updated in git regularly
+- **Version 16 Beta**: Running on beta version - expect some breaking changes during updates
+- To check current versions: `bench --site irt list-apps`
 
 ---
 

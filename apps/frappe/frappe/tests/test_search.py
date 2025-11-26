@@ -2,13 +2,11 @@
 # License: MIT. See LICENSE
 
 import re
-from contextlib import contextmanager
 from functools import partial
 
 import frappe
 from frappe.desk.search import get_names_for_mentions, search_link, search_widget
 from frappe.tests import IntegrationTestCase
-from frappe.tests.utils import whitelist_for_tests
 
 
 class TestSearch(IntegrationTestCase):
@@ -79,17 +77,20 @@ class TestSearch(IntegrationTestCase):
 		# Check whether searching for parent also list out children
 		self.assertEqual(len(results), len(self.child_doctypes_names) + 1)
 
+	# Search for the word "pay", part of the word "pays" (country) in french.
 	def test_link_search_in_foreign_language(self):
-		with custom_translation("fr", "Country", "Pays"), use_language("fr"):
+		try:
+			frappe.local.lang = "fr"
 			output = search_widget(doctype="DocType", txt="pay", page_length=20)
-			results = [result[0] for result in output]
-			self.assertIn(
-				"Country", results, "Search results for 'pay' in French should include 'Country' ('Pays')"
-			)
+
+			result = [["found" for x in y if x == "Country"] for y in output]
+			self.assertTrue(["found"] in result)
+		finally:
+			frappe.local.lang = "en"
 
 	def test_doctype_search_in_foreign_language(self):
 		def do_search(txt: str):
-			results = search_link(
+			return search_link(
 				doctype="DocType",
 				txt=txt,
 				query="frappe.core.report.permitted_documents_for_user.permitted_documents_for_user.query_doctypes",
@@ -97,23 +98,21 @@ class TestSearch(IntegrationTestCase):
 				page_length=20,
 				searchfield=None,
 			)
-			return [x["value"] for x in results]
 
-		self.assertIn("User", do_search("user"))
+		try:
+			frappe.local.lang = "en"
+			results = do_search("user")
+			self.assertIn("User", [x["value"] for x in results])
 
-		with custom_translation("fr", "User", "Utilisateur"), use_language("fr"):
-			self.assertIn(
-				"User",
-				do_search("utilisateur"),
-				"Search results for 'utilisateur' in French should include 'User' ('Utilisateur')",
-			)
+			frappe.local.lang = "fr"
+			results = do_search("utilisateur")
+			self.assertIn("User", [x["value"] for x in results])
 
-		with custom_translation("de", "User", "Nutzer"), use_language("de"):
-			self.assertIn(
-				"User",
-				do_search("nutzer"),
-				"Search results for 'nutzer' in German should include 'User' ('Nutzer')",
-			)
+			frappe.local.lang = "de"
+			results = do_search("nutzer")
+			self.assertIn("User", [x["value"] for x in results])
+		finally:
+			frappe.local.lang = "en"
 
 	def test_validate_and_sanitize_search_inputs(self):
 		# should raise error if searchfield is injectable
@@ -187,7 +186,7 @@ def get_data(doctype, txt, searchfield, start, page_len, filters):
 	return [doctype, txt, searchfield, start, page_len, filters]
 
 
-@whitelist_for_tests()
+@frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
 def query_with_reference_doctype(doctype, txt, searchfield, start, page_len, filters, reference_doctype=None):
 	return []
@@ -233,31 +232,6 @@ def setup_test_link_field_order(TestCase):
 			}
 		).insert(ignore_if_duplicate=True)
 		TestCase.child_doctype_list.append(temp)
-
-
-@contextmanager
-def custom_translation(language: str, source_text: str, translated_text: str):
-	doc = frappe.new_doc("Translation")
-	doc.language = language
-	doc.source_text = source_text
-	doc.translated_text = translated_text
-	doc.save()
-
-	try:
-		yield
-	finally:
-		doc.delete()
-
-
-@contextmanager
-def use_language(language: str):
-	original_lang = frappe.local.lang
-	frappe.local.lang = language
-
-	try:
-		yield
-	finally:
-		frappe.local.lang = original_lang
 
 
 def teardown_test_link_field_order(TestCase):

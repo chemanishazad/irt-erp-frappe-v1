@@ -219,25 +219,19 @@ class Supplier(TransactionBase):
 
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
-def get_supplier_primary(doctype, txt, searchfield, start, page_len, filters):
+def get_supplier_primary_contact(doctype, txt, searchfield, start, page_len, filters):
 	supplier = filters.get("supplier")
-	type = filters.get("type")
-	type_doctype = frappe.qb.DocType(type)
+	contact = frappe.qb.DocType("Contact")
 	dynamic_link = frappe.qb.DocType("Dynamic Link")
 
-	query = (
-		frappe.qb.from_(type_doctype)
+	return (
+		frappe.qb.from_(contact)
 		.join(dynamic_link)
-		.on(type_doctype.name == dynamic_link.parent)
-		.select(type_doctype.name)
+		.on(contact.name == dynamic_link.parent)
+		.select(contact.name, contact.email_id)
 		.where(
 			(dynamic_link.link_name == supplier)
 			& (dynamic_link.link_doctype == "Supplier")
-			& (type_doctype.name.like(f"%{txt}%"))
+			& (contact.name.like(f"%{txt}%"))
 		)
-	)
-
-	if type == "Contact":
-		query = query.select(type_doctype.email_id)
-
-	return query.run()
+	).run(as_dict=False)
