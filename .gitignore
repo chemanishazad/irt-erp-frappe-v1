@@ -20,8 +20,8 @@ sites/*/locks/
 sites/*/indexes/
 sites/*/touched_tables.json
 
-# Assets (can be rebuilt, but you may want to track changes)
-# sites/assets/
+# Assets (can be rebuilt - don't track)
+sites/assets/
 
 # Config runtime files
 config/pids/
