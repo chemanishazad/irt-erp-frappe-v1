@@ -1,67 +1,167 @@
 # IRT ERP v3 - Frappe Bench
 
-Custom Frappe/ERPNext setup with `irt_hrms` app for all customizations.
+Welcome! This is your custom Frappe/ERPNext setup with all IRT-specific customizations.
 
-## Structure
+## 📁 Project Structure
 
-- **Core Apps** (tracked for changes, upgradable):
-  - `apps/frappe/` - Frappe framework
-  - `apps/erpnext/` - ERPNext
-  - `apps/hrms/` - HRMS
-  
-- **Custom App** (all customizations here):
-  - `apps/irt_hrms/` - IRT customizations
+```
+frappe-bench/
+├── apps/
+│   ├── frappe/          # Frappe Framework (core)
+│   ├── erpnext/         # ERPNext (core)
+│   ├── hrms/            # HRMS (core)
+│   └── irt_hrms/        # ✨ Your custom app (all customizations here!)
+├── sites/
+│   └── irt/             # Your site
+├── env/                 # Python virtual environment
+└── config/              # Bench configuration
+```
 
-## Quick Start
+## 🚀 Quick Commands
+
+### Start Development Server
+```bash
+bench start
+```
+Access at: `http://localhost:8000`
 
 ### Update System
 ```bash
-./bench-update.sh
+# Pull latest code from upstream
+cd apps/frappe && git pull upstream develop && cd ../..
+cd apps/erpnext && git pull upstream develop && cd ../..
+cd apps/hrms && git pull upstream develop && cd ../..
+
+# Update dependencies
+bench setup requirements
+
+# Build assets
+bench build --force
+
+# Run migrations
+bench --site irt migrate
 ```
 
-This script:
-1. Pulls updates from `upstream/develop` for all apps
-2. Updates requirements
-3. Builds assets
-4. Runs migrations
-
-### Initial Setup (One-time)
-If `bench update` fails with git errors, run:
+### Common Bench Commands
 ```bash
-./fix_bench_update.sh
+# Clear cache
+bench --site irt clear-cache
+
+# Restart bench
+bench restart
+
+# Check bench status
+bench status
+
+# List installed apps
+bench --site irt list-apps
+
+# Open console
+bench --site irt console
 ```
 
-## Git Tracking
+## 📝 Where to Make Changes
 
-All files are tracked so you can see every change:
-- Core app files (frappe, erpnext, hrms) - tracked
-- Custom app files (irt_hrms) - tracked
-- Configuration files - tracked
+### ✅ DO: Make changes in `apps/irt_hrms/`
+All your customizations should go here:
+- Custom DocTypes
+- Custom Reports
+- Custom Scripts
+- Custom Forms
+- Custom Workflows
+- Any module customizations
 
-Only ignored:
+### ❌ DON'T: Modify core apps directly
+- `apps/frappe/` - Don't modify (upgrades will overwrite)
+- `apps/erpnext/` - Don't modify (upgrades will overwrite)
+- `apps/hrms/` - Don't modify (upgrades will overwrite)
+
+**Why?** Keeping customizations in `irt_hrms` allows you to upgrade core apps without losing your work!
+
+## 🔍 Tracking Changes with Git
+
+All files are tracked in git so you can see every change:
+
+```bash
+# See what files changed
+git status
+
+# See changes in your custom app
+git diff apps/irt_hrms/
+
+# See changes in core apps (if you accidentally modified them)
+git diff apps/frappe/
+git diff apps/erpnext/
+git diff apps/hrms/
+
+# Commit your changes
+git add .
+git commit -m "Description of your changes"
+```
+
+### What's Ignored (not tracked)
 - `env/` - Virtual environment
 - `logs/` - Log files
 - `*.pyc`, `__pycache__/` - Python cache
 - `node_modules/` - Node dependencies
-- `sites/*/site_config.json` - Passwords (sensitive)
+- `sites/*/site_config.json` - Contains passwords
 - `sites/*/private/` - Private files
-- `apps/*/.git/` - App git repos
 
-## Manual Updates
+## 🛠️ Development Workflow
 
-If you need to pull updates manually:
+1. **Make changes** in `apps/irt_hrms/`
+2. **Test locally** with `bench start`
+3. **Check changes** with `git status`
+4. **Commit changes** with `git commit`
+5. **Deploy** to production
+
+## 📦 Installed Apps
+
+- **frappe** - Framework (v15.x.x-develop)
+- **erpnext** - ERP System (v15.x.x-develop)
+- **hrms** - HR Management (v16.0.0-dev)
+- **irt_hrms** - Your customizations (v0.0.1)
+
+## 🔧 Troubleshooting
+
+### Port already in use
 ```bash
-cd apps/frappe && git pull upstream develop
-cd ../erpnext && git pull upstream develop
-cd ../hrms && git pull upstream develop
-cd ../..
-bench setup requirements
-bench build --force
+# Find and kill process on port 8000
+lsof -i :8000
+kill -9 <PID>
+
+# Or kill all bench processes
+pkill -f "bench start"
+```
+
+### Clear everything and restart
+```bash
+bench --site irt clear-cache
+bench restart
+```
+
+### Database issues
+```bash
+# Backup first!
+bench --site irt backup
+
+# Then migrate
 bench --site irt migrate
 ```
 
-## Files
+## 📚 Useful Links
 
-- `bench-update.sh` - Main update script
-- `fix_bench_update.sh` - One-time git setup script
-- `patches.txt` - Bench patch tracking
+- [Frappe Documentation](https://frappeframework.com/docs)
+- [ERPNext Documentation](https://docs.erpnext.com)
+- [Frappe Forum](https://discuss.frappe.io)
+
+## 💡 Tips
+
+- Always backup before major changes: `bench --site irt backup`
+- Use `bench --site irt console` for Python debugging
+- Check logs in `logs/` directory if something goes wrong
+- Keep your `irt_hrms` app updated in git regularly
+
+---
+
+**Happy Coding! 🎉**
