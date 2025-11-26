@@ -27,5 +27,15 @@
         "required": [],
         "idx": 3,
         "version": "16.0.0-dev"
+    },
+    "irt_hrms": {
+        "is_repo": true,
+        "resolution": {
+            "commit_hash": "e16212ffaa7265895d909e9b39296247ac91f792",
+            "branch": "main"
+        },
+        "required": [],
+        "idx": 4,
+        "version": "0.0.1"
     }
 }
