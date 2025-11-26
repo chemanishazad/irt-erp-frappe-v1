@@ -16,6 +16,8 @@ sites/*/site_config.json
 sites/*/private/
 sites/*/public/files/
 sites/*/locks/
+sites/*/indexes/
+sites/*/touched_tables.json
 
 # Assets (can be rebuilt)
 sites/assets/
@@ -55,3 +57,6 @@ node_modules/
 *.secret
 .env
 .env.local
+
+# Apps directory (typically separate repositories)
+apps/
