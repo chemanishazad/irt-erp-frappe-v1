@@ -1,0 +1,425 @@
+/**
+ * Custom Login Page Styles
+ *
+ * This file contains all custom styling for the login page.
+ * Changes made:
+ * - Custom gradient background
+ * - Enhanced card design with modern shadows
+ * - Improved input fields with focus states
+ * - Eye icon for password visibility toggle
+ * - Removed forgot password and email login sections
+ * - Responsive design improvements
+ *
+ * Last Updated: 2024
+ */
+
+/* Main Layout */
+body {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Animated background overlay */
+body::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:
+		radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+		radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* Login Sections */
+.for-login {
+	width: 100%;
+	max-width: 450px;
+	position: relative;
+	z-index: 1;
+}
+
+/* Hide unwanted sections */
+.for-forgot,
+.for-login-with-email-link,
+.for-email-login,
+.for-signup {
+	display: none !important;
+}
+
+/* Card Head (Logo Section) */
+.page-card-head {
+	padding: 30px 0 25px 0;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.page-card-head img.app-logo {
+	max-height: 90px;
+	width: auto;
+	margin-bottom: 20px;
+	filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+	transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.page-card-head img.app-logo:hover {
+	transform: scale(1.08) rotate(2deg);
+}
+
+.page-card-head h4 {
+	color: #2d3748;
+	font-size: 26px;
+	font-weight: 700;
+	margin-top: 15px;
+	letter-spacing: -0.03em;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Login Card */
+.login-content.page-card {
+	padding: 45px 35px;
+	background: #ffffff;
+	border-radius: 20px;
+	box-shadow:
+		0 25px 70px rgba(0, 0, 0, 0.35),
+		0 0 0 1px rgba(255, 255, 255, 0.1);
+	border: none;
+	margin-top: 0;
+	backdrop-filter: blur(10px);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-content.page-card:hover {
+	transform: translateY(-2px);
+	box-shadow:
+		0 30px 80px rgba(0, 0, 0, 0.4),
+		0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.page-card-body {
+	margin-bottom: 25px;
+}
+
+/* Form Fields */
+.email-field,
+.password-field {
+	position: relative;
+	margin-bottom: 24px;
+}
+
+.email-field input,
+.password-field input {
+	padding: 16px 50px 16px 50px;
+	border: 2px solid #e2e8f0;
+	border-radius: 12px;
+	font-size: 15px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #f8fafc;
+	width: 100%;
+	color: #1a202c;
+	font-weight: 500;
+}
+
+/* Password field needs extra padding on right for eye icon */
+.password-field input {
+	padding-right: 60px !important;
+}
+
+.email-field input::placeholder,
+.password-field input::placeholder {
+	color: #a0aec0;
+	font-weight: 400;
+}
+
+.email-field input:focus,
+.password-field input:focus {
+	outline: none;
+	border-color: #667eea;
+	background-color: #ffffff;
+	box-shadow:
+		0 0 0 4px rgba(102, 126, 234, 0.1),
+		0 4px 12px rgba(102, 126, 234, 0.15);
+	transform: translateY(-1px);
+}
+
+.email-field input:hover:not(:focus),
+.password-field input:hover:not(:focus) {
+	border-color: #cbd5e0;
+	background-color: #f1f5f9;
+}
+
+/* Field Icons */
+.field-icon {
+	left: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	position: absolute;
+	z-index: 2;
+	fill: #718096;
+	transition: all 0.3s ease;
+	width: 18px;
+	height: 18px;
+}
+
+.email-field:focus-within .field-icon,
+.password-field:focus-within .field-icon {
+	fill: #667eea;
+	transform: translateY(-50%) scale(1.1);
+}
+
+/* Password Toggle (Eye Icon) - Standard Implementation */
+.toggle-password {
+	right: 16px;
+	top: 50%;
+	transform: translateY(-50%);
+	position: absolute;
+	z-index: 10;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 8px;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	background: transparent;
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+
+.toggle-password:focus {
+	outline: 2px solid rgba(102, 126, 234, 0.5);
+	outline-offset: 2px;
+}
+
+.toggle-password:hover {
+	background-color: rgba(102, 126, 234, 0.08);
+}
+
+.toggle-password:active {
+	background-color: rgba(102, 126, 234, 0.15);
+	transform: translateY(-50%) scale(0.95);
+}
+
+/* Eye Icon SVG Styling - Adjusted for perfect vertical centering */
+.toggle-password .eye-icon {
+	width: 20px;
+	height: 20px;
+	display: block;
+	pointer-events: none;
+	transform: translateY(55%); /* Fine-tuned to align with input text center */
+}
+
+.toggle-password .eye-icon path,
+.toggle-password .eye-icon circle {
+	stroke: #718096;
+	stroke-width: 1.5;
+	fill: none;
+	transition: stroke 0.2s ease;
+}
+
+.toggle-password:hover .eye-icon path,
+.toggle-password:hover .eye-icon circle {
+	stroke: #667eea;
+}
+
+.toggle-password.active .eye-icon path,
+.toggle-password.active .eye-icon circle {
+	stroke: #667eea;
+}
+
+/* Remove forgot password message */
+.forgot-password-message {
+	display: none !important;
+}
+
+/* Login Button */
+.btn-login {
+	padding: 16px 28px;
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 12px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: none;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	margin-top: 10px;
+	box-shadow:
+		0 4px 15px rgba(102, 126, 234, 0.4),
+		0 0 0 0 rgba(102, 126, 234, 0.4);
+	color: #ffffff;
+	text-transform: none;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+}
+
+.btn-login:hover {
+	transform: translateY(-2px);
+	box-shadow:
+		0 8px 25px rgba(102, 126, 234, 0.5),
+		0 0 0 4px rgba(102, 126, 234, 0.2);
+	background: linear-gradient(135deg, #5568d3 0%, #6b3fa0 100%);
+}
+
+.btn-login:active {
+	transform: translateY(0);
+	box-shadow:
+		0 2px 10px rgba(102, 126, 234, 0.3),
+		0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.btn-login:focus {
+	outline: none;
+	box-shadow:
+		0 4px 15px rgba(102, 126, 234, 0.4),
+		0 0 0 4px rgba(102, 126, 234, 0.3);
+}
+
+/* LDAP Login Button */
+.btn-ldap-login {
+	background: #ffffff;
+	color: #667eea;
+	border: 2px solid #667eea;
+	padding: 14px 24px;
+	border-radius: 12px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.btn-ldap-login:hover {
+	background: #667eea;
+	color: #ffffff;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Social Login Buttons */
+.social-login-buttons .btn-login-option {
+	border-radius: 12px;
+	padding: 14px;
+	margin-bottom: 12px;
+	transition: all 0.3s ease;
+	border: 2px solid #e2e8f0;
+	font-weight: 500;
+}
+
+.social-login-buttons .btn-login-option:hover {
+	border-color: #667eea;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+	background-color: #f8fafc;
+}
+
+.login-divider {
+	margin: 28px 0;
+	color: #a0aec0;
+	font-size: 14px;
+	position: relative;
+	font-weight: 500;
+}
+
+.login-divider::before,
+.login-divider::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: 45%;
+	height: 1px;
+	background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+}
+
+.login-divider::before {
+	left: 0;
+}
+
+.login-divider::after {
+	right: 0;
+}
+
+/* Validation States */
+.page-card-body.invalid input {
+	border-color: #e53e3e !important;
+	box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.1) !important, 0 4px 12px rgba(229, 62, 62, 0.15) !important;
+	animation: shake 0.5s ease-in-out;
+}
+
+.invalid-login {
+	animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+	20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+/* Loading State */
+.btn-primary[disabled] {
+	opacity: 0.7;
+	cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+	body {
+		padding: 15px;
+	}
+
+	.login-content.page-card {
+		padding: 35px 25px;
+		border-radius: 16px;
+	}
+
+	.page-card-head {
+		padding: 25px 0 20px 0;
+	}
+
+	.page-card-head img.app-logo {
+		max-height: 70px;
+		margin-bottom: 15px;
+	}
+
+	.page-card-head h4 {
+		font-size: 22px;
+	}
+
+	.email-field input,
+	.password-field input {
+		padding: 14px 45px 14px 45px;
+		font-size: 14px;
+	}
+
+	.btn-login {
+		padding: 14px 24px;
+		font-size: 15px;
+	}
+}
+
+/* Hide sign up messages */
+.sign-up-message {
+	display: none !important;
+}
+
+/* Additional polish */
+.login-wrapper {
+	width: 100%;
+	max-width: 450px;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+	transition-property: color, background-color, border-color, transform, box-shadow;
+	transition-duration: 0.2s;
+	transition-timing-function: ease;
+}
+

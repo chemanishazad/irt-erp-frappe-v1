@@ -32,6 +32,11 @@ app_license = "mit"
 # web_include_css = "/assets/irt_hrms/css/irt_hrms.css"
 # web_include_js = "/assets/irt_hrms/js/irt_hrms.js"
 
+# Custom UI files for login page
+page_js = {
+	"login": "/assets/irt_hrms/js/custom/login.js"
+}
+
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "irt_hrms/public/scss/website"
 
@@ -177,9 +182,9 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "irt_hrms.event.get_events"
-# }
+override_whitelisted_methods = {
+	"frappe.www.login.get_context": "irt_hrms.www.login.get_context"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
