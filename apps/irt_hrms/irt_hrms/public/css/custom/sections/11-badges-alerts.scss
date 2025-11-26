@@ -1,0 +1,54 @@
+/**
+ * Badges and Alerts - Standard UI Patterns
+ */
+
+@import 'variables';
+@import 'mixins';
+
+// ============================================
+//   BADGES
+// ============================================
+.badge-primary,
+.label-primary {
+	background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+	color: $bg-white;
+	@include border-radius($border-radius-md);
+	padding: 6px $spacing-md;
+	font-weight: $font-weight-semibold;
+	font-size: $font-size-xs;
+	box-shadow: $shadow-primary;
+}
+
+.badge-success {
+	background: $success;
+	color: $bg-white;
+}
+
+.badge-danger {
+	background: $error;
+	color: $bg-white;
+}
+
+// ============================================
+//   ALERTS
+// ============================================
+.alert {
+	@include border-radius($spacing-md);
+	border: none;
+	padding: $spacing-lg $spacing-xl;
+	margin-bottom: $spacing-xl;
+	@include shadow(sm);
+}
+
+.alert-success {
+	background: #f0fdf4;
+	color: #166534;
+	border-left: 4px solid $success;
+}
+
+.alert-danger {
+	background: #fef2f2;
+	color: #991b1b;
+	border-left: 4px solid $error;
+}
+

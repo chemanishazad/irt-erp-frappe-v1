@@ -212,7 +212,7 @@ body::before {
 	transform: translateY(-50%) scale(0.95);
 }
 
-/* Eye Icon SVG Styling - Adjusted for perfect vertical centering */
+/* Eye Icon SVG Styling - Fixed vertical centering */
 .toggle-password .eye-icon {
 	width: 20px;
 	height: 20px;
@@ -349,7 +349,7 @@ body::before {
 /* Validation States */
 .page-card-body.invalid input {
 	border-color: #e53e3e !important;
-	box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.1) !important, 0 4px 12px rgba(229, 62, 62, 0.15) !important;
+	box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.1), 0 4px 12px rgba(229, 62, 62, 0.15) !important;
 	animation: shake 0.5s ease-in-out;
 }
 
@@ -417,9 +417,44 @@ body::before {
 }
 
 /* Smooth transitions for all interactive elements */
-* {
+.login-content *,
+.for-login * {
 	transition-property: color, background-color, border-color, transform, box-shadow;
 	transition-duration: 0.2s;
 	transition-timing-function: ease;
+}
+
+/* Fix for form group spacing */
+.form-group {
+	margin-bottom: 0;
+}
+
+/* Ensure proper z-index stacking */
+.login-wrapper {
+	position: relative;
+	z-index: 1;
+}
+
+/* Fix for page card body padding */
+.page-card-body {
+	padding: 0;
+}
+
+/* Ensure proper button alignment */
+.page-card-actions {
+	margin-top: 0;
+	padding-top: 10px;
+}
+
+/* Fix for social login buttons container */
+.social-login-buttons {
+	margin-top: 20px;
+}
+
+/* Ensure proper logo display */
+.page-card-head img.app-logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 

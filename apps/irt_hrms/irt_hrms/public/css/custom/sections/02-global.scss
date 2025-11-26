@@ -1,0 +1,42 @@
+/**
+ * Global Styles - Base Styles and Resets
+ */
+
+@import 'variables';
+@import 'mixins';
+
+// ============================================
+//   BODY & HTML
+// ============================================
+body,
+html {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+// ============================================
+//   BOX SIZING
+// ============================================
+* {
+	box-sizing: border-box;
+}
+
+// ============================================
+//   BODY WRAPPER
+// ============================================
+#body,
+.body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+// ============================================
+//   FRAPPE CARD BASE
+// ============================================
+.frappe-card {
+	display: flex;
+	flex-direction: column;
+}
+

@@ -1,0 +1,165 @@
+/**
+ * Header Styles - Standard UI Patterns
+ */
+
+@import 'variables';
+@import 'mixins';
+
+// ============================================
+//   NAVBAR
+// ============================================
+.sticky-top {
+	position: sticky;
+	top: 0;
+	z-index: $z-index-navbar;
+	background: $bg-white;
+}
+
+.navbar,
+.navbar-default {
+	background: $bg-white;
+	@include border-bottom;
+	@include shadow(sm);
+	padding: 0;
+	padding-left: $spacing-lg;
+	position: relative;
+	min-height: $navbar-height;
+	height: $navbar-height;
+	margin: 0;
+	width: 100%;
+	@include transition;
+
+	.container {
+		@include flex-between;
+		width: 100%;
+		max-width: 100%;
+		padding: 0 $spacing-xl;
+		height: 100%;
+	}
+}
+
+// ============================================
+//   NAVBAR BRAND
+// ============================================
+.navbar-brand,
+.navbar-home {
+	@include flex-center;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+
+	img {
+		max-height: 32px;
+		width: auto;
+	}
+}
+
+// ============================================
+//   PAGE HEAD
+// ============================================
+.page-head {
+	position: sticky;
+	top: $navbar-height;
+	z-index: $z-index-base;
+	background: $bg-white;
+	@include border-bottom;
+	@include shadow(sm);
+	margin: 0;
+	padding-left: calc(#{$sidebar-width} + #{$spacing-lg});
+	width: 100%;
+
+	.page-head-content {
+		padding: $spacing-xl !important;
+		margin: 0;
+		@include flex-between($spacing-md);
+		min-height: $page-head-height;
+
+		.page-title {
+			font-size: $font-size-2xl;
+			font-weight: $font-weight-semibold;
+			color: $text-primary;
+			margin: 0;
+			line-height: $line-height-normal;
+
+			&-desc {
+				font-size: $font-size-md;
+				color: $text-light;
+				margin: 0;
+			}
+		}
+
+		.page-actions {
+			@include flex-center($spacing-sm);
+			flex-wrap: wrap;
+			flex-shrink: 0;
+
+			.btn {
+				@include button-base(28px);
+
+				&.btn-primary {
+					background: $primary;
+					border-color: $primary;
+					color: $bg-white;
+
+					&:hover {
+						background: $primary-dark;
+						border-color: $primary-dark;
+						transform: translateY(-1px);
+						box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+					}
+				}
+
+				&.btn-secondary,
+				&.btn-default {
+					background: $bg-white;
+					border-color: $border-color;
+					color: $text-primary;
+
+					&:hover {
+						background: $bg-gray-light;
+						border-color: $border-color;
+						color: $text-primary;
+					}
+				}
+			}
+		}
+	}
+
+	+ *,
+	~ .page-form,
+	~ .frappe-list {
+		margin-top: 0;
+		padding-top: 0;
+	}
+}
+
+// ============================================
+//   CONTENT PADDING
+// ============================================
+.page-content,
+.page-content-wrapper > *,
+.layout-main-section > * {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.page-content-wrapper .page_content {
+	padding: $spacing-xl;
+}
+
+// ============================================
+//   RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+	.page-head {
+		margin-left: 0;
+		padding-left: 0;
+		width: 100%;
+		top: $navbar-height;
+
+		.page-head-content {
+			padding: $spacing-md $spacing-lg;
+			flex-wrap: wrap;
+		}
+	}
+}

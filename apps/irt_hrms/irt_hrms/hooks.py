@@ -25,8 +25,18 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/irt_hrms/css/irt_hrms.css"
-# app_include_js = "/assets/irt_hrms/js/irt_hrms.js"
+app_include_css = [
+	"/assets/irt_hrms/css/custom/sections/main.css"
+]
+
+app_include_js = [
+	"/assets/irt_hrms/js/custom/modern-ui.js",
+	"/assets/irt_hrms/js/custom/scroll-effects.js",
+	"/assets/irt_hrms/js/custom/sidebar-enhancements.js",
+	"/assets/irt_hrms/js/custom/sidebar-logo.js",
+	"/assets/irt_hrms/js/custom/sidebar-title.js",
+	"/assets/irt_hrms/js/custom/unified-filter.js"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/irt_hrms/css/irt_hrms.css"

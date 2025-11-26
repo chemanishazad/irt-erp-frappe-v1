@@ -1,0 +1,493 @@
+/**
+ * Table Styles - Standard UI Patterns
+ */
+
+@import 'variables';
+@import 'mixins';
+
+// ============================================
+//   LIST CONTAINER
+// ============================================
+.frappe-list,
+.list-container {
+	background: $bg-white;
+	@include border-radius($border-radius-md);
+	overflow: hidden;
+	@include border;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+// ============================================
+//   CHECKBOX STYLING (Header & Rows)
+// ============================================
+input[type="checkbox"].list-header-checkbox,
+input[type="checkbox"].list-row-checkbox,
+input[type="checkbox"].list-check-all {
+	width: 16px !important;
+	height: 16px !important;
+	min-width: 16px !important;
+	min-height: 16px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	flex-shrink: 0;
+	cursor: pointer;
+	position: relative;
+}
+
+.select-like,
+.render-list-checkbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	min-width: 24px;
+	min-height: 24px;
+	padding: 0;
+	margin: 0;
+	margin-right: $spacing-md;
+	flex-shrink: 0;
+	cursor: default;
+}
+
+// ============================================
+//   LIST HEADER (Table Column Titles)
+// ============================================
+.frappe-list .list-header,
+.frappe-list .list-head,
+.list-header,
+.list-row-head {
+	background: $bg-gray;
+	@include border-bottom($border-width-2);
+	padding: 0;
+	margin: 0;
+	height: 44px;
+	min-height: 44px;
+	display: flex;
+	align-items: center;
+	border-radius: $border-radius-md $border-radius-md 0 0;
+
+	.list-row-col,
+	.list-subject {
+		padding: 0 $spacing-lg;
+		margin: 0;
+		font-weight: $font-weight-semibold;
+		color: $text-primary;
+		font-size: $font-size-sm;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		line-height: $line-height-normal;
+		display: flex;
+		align-items: center;
+		gap: $spacing-xs;
+		height: 44px;
+		min-height: 44px;
+
+		// Column title text
+		span:not(.level-item):not(.select-like) {
+			color: $text-primary;
+			font-weight: $font-weight-semibold;
+			font-size: $font-size-sm;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		// Sortable columns
+		&[data-sort-by] {
+			cursor: pointer;
+			@include transition;
+
+			&:hover {
+				color: $info;
+				background: $bg-gray-light;
+			}
+		}
+	}
+
+	// Subject column (first column)
+	.list-subject {
+		font-weight: $font-weight-semibold;
+		color: $text-primary;
+		padding-left: $spacing-lg;
+		padding-right: $spacing-lg;
+	}
+
+	// Level item (checkbox container)
+	.level-item {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+	th {
+		background: $bg-gray;
+		@include border-bottom($border-width-2);
+		padding: $spacing-md $spacing-lg;
+		font-weight: $font-weight-semibold;
+		color: $text-primary;
+		font-size: $font-size-sm;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		text-align: left;
+		line-height: $line-height-normal;
+		height: 44px;
+		min-height: 44px;
+
+		&:first-child {
+			padding-left: $spacing-lg;
+		}
+
+		&:last-child {
+			padding-right: $spacing-lg;
+		}
+
+		&:hover {
+			background: $bg-gray-light;
+		}
+	}
+}
+
+// ============================================
+//   LIST ROWS
+// ============================================
+.frappe-list .list-row-container {
+	@include border-bottom($border-width, $bg-gray-light);
+	background: $bg-white;
+	margin: 0;
+	padding: 0;
+	@include transition(background-color);
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&:hover {
+		background: $bg-gray;
+	}
+}
+
+.frappe-list .list-row {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	min-height: 48px;
+	height: 48px;
+	@include transition(background-color);
+
+	&:hover {
+		background: $bg-gray;
+	}
+
+	.list-row-col,
+	.list-subject {
+		padding: 0 $spacing-lg;
+		margin: 0;
+		color: $text-secondary;
+		font-size: $font-size-base;
+		line-height: $line-height-relaxed;
+		display: flex;
+		align-items: center;
+		height: 48px;
+		min-height: 48px;
+
+		&:first-child {
+			padding-left: $spacing-lg;
+		}
+
+		&:last-child {
+			padding-right: $spacing-lg;
+		}
+	}
+
+	td,
+	.list-row-content {
+		padding: 0 $spacing-lg;
+		margin: 0;
+		color: $text-secondary;
+		font-size: $font-size-base;
+		line-height: $line-height-relaxed;
+		display: flex;
+		align-items: center;
+		height: 48px;
+		min-height: 48px;
+
+		&:first-child {
+			padding-left: $spacing-lg;
+		}
+
+		&:last-child {
+			padding-right: $spacing-lg;
+		}
+
+		strong {
+			color: $text-primary;
+			font-weight: $font-weight-semibold;
+		}
+
+		a {
+			color: $text-secondary;
+			text-decoration: none;
+			@include transition(color);
+
+			&:hover {
+				color: $info;
+			}
+		}
+	}
+}
+
+// ============================================
+//   STATUS BADGES
+// ============================================
+.badge,
+.indicator-pill {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px $spacing-md;
+	@include border-radius($border-radius);
+	font-size: $font-size-xs;
+	font-weight: $font-weight-semibold;
+	line-height: $line-height-normal;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	min-height: 22px;
+}
+
+.badge-success,
+.indicator-pill.green {
+	background: #d1fae5;
+	color: #065f46;
+	border: 1px solid #a7f3d0;
+}
+
+.badge-secondary,
+.indicator-pill.grey {
+	background: $bg-tertiary;
+	color: $text-secondary;
+	@include border($border-width, $border-color);
+}
+
+.badge-warning,
+.indicator-pill.yellow {
+	background: #fef3c7;
+	color: #92400e;
+	border: 1px solid #fde68a;
+}
+
+.badge-danger,
+.indicator-pill.red {
+	background: #fee2e2;
+	color: #991b1b;
+	border: 1px solid #fecaca;
+}
+
+// ============================================
+//   TABLES
+// ============================================
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	background: $bg-white;
+	@include border;
+	@include border-radius($border-radius-md);
+	overflow: hidden;
+
+	thead {
+		background: $bg-gray;
+
+		th {
+			background: $bg-gray;
+			@include border-bottom($border-width-2);
+			padding: $spacing-md $spacing-lg;
+			font-weight: $font-weight-semibold;
+			color: $text-primary;
+			font-size: $font-size-sm;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			text-align: left;
+			line-height: $line-height-normal;
+			height: 44px;
+			min-height: 44px;
+
+			&:first-child {
+				padding-left: $spacing-lg;
+			}
+
+			&:last-child {
+				padding-right: $spacing-lg;
+			}
+		}
+	}
+
+	tbody {
+		tr {
+			@include border-bottom($border-width, $bg-gray-light);
+			@include transition(background-color);
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&:hover {
+				background: $bg-gray;
+			}
+		}
+
+		td {
+			padding: $spacing-md $spacing-lg;
+			color: $text-secondary;
+			font-size: $font-size-base;
+			line-height: $line-height-relaxed;
+
+			&:first-child {
+				padding-left: $spacing-lg;
+			}
+
+			&:last-child {
+				padding-right: $spacing-lg;
+			}
+		}
+	}
+}
+
+// ============================================
+//   LIST COUNT & ACTIONS
+// ============================================
+.list-count {
+	font-size: $font-size-sm;
+	color: $text-muted;
+	font-weight: $font-weight-medium;
+	padding: $spacing-sm $spacing-md;
+	@include border-radius;
+	background: $bg-gray-light;
+	@include border;
+	margin-right: $spacing-sm;
+}
+
+.list-liked-by-me {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	@include border-radius;
+	@include border;
+	background: $bg-white;
+	@include transition;
+
+	&:hover {
+		background: $bg-gray-light;
+		@include border($border-width, $info);
+	}
+
+	.like-icon {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+// ============================================
+//   EMPTY STATE
+// ============================================
+.frappe-list .msg-box,
+.list-container .msg-box {
+	background: $bg-white;
+	@include border-radius($border-radius-md);
+	@include border;
+	padding: 48px $spacing-2xl;
+	text-align: center;
+	margin: $spacing-2xl;
+
+	.null-state {
+		width: 120px;
+		height: 120px;
+		margin: 0 auto $spacing-2xl;
+		opacity: 0.6;
+	}
+
+	p {
+		font-size: $font-size-lg;
+		color: $text-muted;
+		margin: 0 0 $spacing-sm 0;
+	}
+}
+
+// ============================================
+//   PAGINATION AREA
+// ============================================
+.list-paging-area,
+.footnote-area {
+	padding: $spacing-md $spacing-xl;
+	@include border-top;
+	background: $bg-gray;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: $spacing-md;
+
+	.btn-group {
+		@include flex-center($spacing-xs);
+		@include border;
+		@include border-radius;
+		overflow: hidden;
+
+		.btn-paging {
+			@include button-base(32px);
+			padding: $spacing-xs $spacing-md;
+			font-size: $font-size-sm;
+			background: $bg-white;
+			@include border($border-width, transparent);
+
+			&:hover {
+				background: $bg-gray-light;
+			}
+
+			&.btn-info,
+			&.active {
+				background: $info;
+				color: $bg-white;
+				@include border($border-width, $info);
+			}
+		}
+	}
+}
+
+// ============================================
+//   RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+	.frappe-list .list-row {
+		padding: $spacing-md;
+		padding-left: $spacing-lg;
+	}
+
+	.frappe-list .list-header,
+	.frappe-list .list-head {
+		.list-row-col {
+			padding: $spacing-sm $spacing-md;
+			font-size: $font-size-xs;
+		}
+
+		th {
+			padding: $spacing-sm $spacing-md;
+			font-size: $font-size-xs;
+		}
+	}
+
+	.table td,
+	.table th {
+		padding: $spacing-sm $spacing-md;
+		font-size: $font-size-sm;
+	}
+}
+
