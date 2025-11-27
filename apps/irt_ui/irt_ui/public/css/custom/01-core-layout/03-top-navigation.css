@@ -10,16 +10,14 @@
 	height: 63px;
 	background: var(--color-bg-white);
 	padding: 0;
-	padding-bottom: 0px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 	position: sticky;
 	top: 0;
-	z-index: 10000 !important;
+	z-index: 10000;
 	border-bottom: 1px solid var(--color-border);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
-	overflow: visible !important;
-	/* Create new stacking context */
+	overflow: visible;
 	isolation: isolate;
 }
 
@@ -29,7 +27,7 @@
 	align-items: center;
 	height: 100%;
 	gap: var(--spacing-md);
-	overflow: visible !important;
+	overflow: visible;
 }
 
 /* ============================================
@@ -64,47 +62,24 @@
 }
 
 /* ============================================
-   GLOBAL DROPDOWN FIXES - Override Frappe defaults
+   GLOBAL DROPDOWN FIXES
    ============================================ */
-/* Ensure all dropdowns have proper z-index and positioning */
-/* Target with higher specificity than Frappe's .awesomplete [role="listbox"] */
-.dropdown-menu,
-.awesomplete ul,
-.awesomplete > ul,
-.awesomplete [role="listbox"],
-.awesomplete > [role="listbox"],
-.search-bar .awesomplete ul,
-.search-bar .awesomplete > ul,
-.search-bar .awesomplete [role="listbox"],
-.search-bar .awesomplete > [role="listbox"],
-.desktop-search-wrapper .awesomplete ul,
-.desktop-search-wrapper .awesomplete > ul,
-.desktop-search-wrapper .awesomplete [role="listbox"],
-.desktop-search-wrapper .awesomplete > [role="listbox"],
-.navbar .awesomplete ul,
-.navbar .awesomplete > ul,
-.navbar .awesomplete [role="listbox"],
-.navbar .awesomplete > [role="listbox"],
-.navbar .search-bar .awesomplete ul,
-.navbar .search-bar .awesomplete > ul,
-.navbar .search-bar .awesomplete [role="listbox"],
-.navbar .search-bar .awesomplete > [role="listbox"] {
-	z-index: 10001 !important;
-	position: absolute !important;
-	/* Ensure dropdown is above everything */
-	transform: translateZ(0) !important;
-	-webkit-transform: translateZ(0) !important;
-}
-
-/* Ensure dropdown containers allow overflow */
 .dropdown,
 .awesomplete,
 .search-bar,
-.desktop-search-wrapper,
-.navbar .awesomplete,
-.navbar .search-bar {
-	overflow: visible !important;
-	position: relative !important;
+.desktop-search-wrapper {
+	overflow: visible;
+	position: relative;
+}
+
+.dropdown-menu,
+.awesomplete ul,
+.awesomplete > ul,
+.awesomplete [role="listbox"] {
+	z-index: 10001;
+	position: absolute;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
 }
 
 /* ============================================
@@ -116,8 +91,8 @@
 	max-width: 450px;
 	margin: 0 var(--spacing-lg);
 	position: relative;
-	overflow: visible !important;
-	z-index: 10000 !important;
+	overflow: visible;
+	z-index: 10000;
 }
 
 .search-bar .search-icon,
@@ -150,11 +125,6 @@
 	position: relative;
 }
 
-/* Ensure awesomplete container allows dropdown to overflow */
-.search-bar .awesomplete {
-	position: relative !important;
-	overflow: visible !important;
-}
 
 .search-bar .awesomplete input,
 .search-bar input.form-control,
@@ -221,21 +191,8 @@
 }
 
 .search-bar .awesomplete ul,
-.search-bar .awesomplete > ul,
-.search-bar .awesomplete [role="listbox"],
-.search-bar .awesomplete > [role="listbox"],
 .desktop-search-wrapper .awesomplete ul,
-.desktop-search-wrapper .awesomplete > ul,
-.desktop-search-wrapper .awesomplete [role="listbox"],
-.desktop-search-wrapper .awesomplete > [role="listbox"],
-.navbar .awesomplete ul,
-.navbar .awesomplete > ul,
-.navbar .awesomplete [role="listbox"],
-.navbar .awesomplete > [role="listbox"],
-.navbar .search-bar .awesomplete ul,
-.navbar .search-bar .awesomplete > ul,
-.navbar .search-bar .awesomplete [role="listbox"],
-.navbar .search-bar .awesomplete > [role="listbox"] {
+.navbar .awesomplete ul {
 	border: 1px solid var(--color-border);
 	border-top: none;
 	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
@@ -245,34 +202,32 @@
 	padding: var(--spacing-xs) 0;
 	max-height: 400px;
 	overflow-y: auto;
-	z-index: 10001 !important;
-	position: absolute !important;
-	top: 100% !important;
-	left: 0 !important;
-	right: 0 !important;
-	/* Force hardware acceleration and new stacking context */
-	transform: translateZ(0) !important;
-	-webkit-transform: translateZ(0) !important;
-	will-change: transform !important;
+	z-index: 10001;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	will-change: transform;
 }
 
-.search-bar .awesomplete ul li {
+.search-bar .awesomplete ul li,
+.desktop-search-wrapper .awesomplete ul li {
 	padding: var(--spacing-md) var(--spacing-lg);
 	cursor: pointer;
-	transition: background-color var(--transition-base);
+	transition: all var(--transition-base);
 	color: var(--color-text-primary);
 	font-size: var(--font-size-sm);
 }
 
 .search-bar .awesomplete ul li:hover,
-.search-bar .awesomplete ul li[aria-selected="true"] {
+.search-bar .awesomplete ul li[aria-selected="true"],
+.desktop-search-wrapper .awesomplete ul li:hover,
+.desktop-search-wrapper .awesomplete ul li[aria-selected="true"] {
 	background-color: var(--color-primary-rgba-15);
 	color: var(--color-primary);
 	transform: translateX(2px);
-}
-
-.search-bar .awesomplete ul li {
-	transition: all var(--transition-base);
 }
 
 /* ============================================
@@ -344,9 +299,9 @@
 	align-items: center;
 	gap: var(--spacing-xs);
 	margin-left: auto;
-	overflow: visible !important;
+	overflow: visible;
 	position: relative;
-	z-index: var(--z-index-sticky);
+	z-index: 10000;
 }
 
 .navbar-nav .nav-item {

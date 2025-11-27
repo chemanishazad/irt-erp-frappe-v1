@@ -14,7 +14,6 @@
 	}
 
 	function initNavbar() {
-		// Initialize after a short delay to ensure Frappe has loaded
 		setTimeout(() => {
 			enhanceSearchBar();
 			enhanceDropdowns();
@@ -33,7 +32,6 @@
 		);
 
 		searchInputs.forEach(input => {
-			// Add focus animation
 			input.addEventListener('focus', function() {
 				this.parentElement?.classList.add('search-focused');
 			});
@@ -42,16 +40,13 @@
 				this.parentElement?.classList.remove('search-focused');
 			});
 
-			// Enhanced keyboard navigation
 			input.addEventListener('keydown', function(e) {
-				// Escape to clear
 				if (e.key === 'Escape') {
 					this.value = '';
 					this.blur();
 				}
 			});
 
-			// Add smooth transition on input
 			input.addEventListener('input', function() {
 				if (this.value.length > 0) {
 					this.classList.add('has-text');
@@ -71,13 +66,11 @@
 		);
 
 		dropdownToggles.forEach(toggle => {
-			// Add smooth open/close animation
 			toggle.addEventListener('click', function(e) {
 				const dropdown = this.closest('.dropdown');
 				if (dropdown) {
 					const menu = dropdown.querySelector('.dropdown-menu');
 					if (menu) {
-						// Toggle animation class
 						if (dropdown.classList.contains('show')) {
 							menu.classList.add('dropdown-closing');
 							setTimeout(() => {
@@ -93,7 +86,6 @@
 				}
 			});
 
-			// Close dropdown when clicking outside
 			document.addEventListener('click', function(e) {
 				if (!toggle.contains(e.target)) {
 					const dropdown = toggle.closest('.dropdown');
@@ -127,7 +119,6 @@
 		const avatar = document.querySelector('.desktop-avatar');
 		if (!avatar) return;
 
-		// Add click feedback
 		avatar.addEventListener('click', function(e) {
 			this.classList.add('avatar-clicked');
 			setTimeout(() => {
@@ -135,44 +126,31 @@
 			}, 200);
 		});
 
-		// Add hover tooltip (if needed)
 		const avatarElement = avatar.querySelector('.avatar');
 		if (avatarElement) {
 			avatarElement.addEventListener('mouseenter', function() {
 				const userName = avatar.querySelector('.user-name');
 				if (userName && userName.scrollWidth > userName.clientWidth) {
-					// Show tooltip if text is truncated
 					avatar.setAttribute('title', userName.textContent.trim());
 				}
 			});
 		}
 	}
 
-	/**
-	 * Enhanced Keyboard Navigation
-	 */
 	function enhanceKeyboardNavigation() {
-		// Tab navigation enhancement
 		const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 		navLinks.forEach(link => {
 			link.addEventListener('keydown', function(e) {
-				// Arrow keys for navigation
 				if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
 					e.preventDefault();
 					const links = Array.from(navLinks);
 					const currentIndex = links.indexOf(this);
-					let nextIndex;
-
-					if (e.key === 'ArrowRight') {
-						nextIndex = (currentIndex + 1) % links.length;
-					} else {
-						nextIndex = (currentIndex - 1 + links.length) % links.length;
-					}
-
+					const nextIndex = e.key === 'ArrowRight' 
+						? (currentIndex + 1) % links.length
+						: (currentIndex - 1 + links.length) % links.length;
 					links[nextIndex]?.focus();
 				}
 
-				// Enter or Space to activate
 				if (e.key === 'Enter' || e.key === ' ') {
 					e.preventDefault();
 					this.click();
@@ -180,7 +158,6 @@
 			});
 		});
 
-		// Search bar keyboard shortcut (Ctrl/Cmd + K)
 		document.addEventListener('keydown', function(e) {
 			if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
 				e.preventDefault();
@@ -195,14 +172,10 @@
 		});
 	}
 
-	/**
-	 * Enhance Breadcrumbs
-	 */
 	function enhanceBreadcrumbs() {
 		const breadcrumbLinks = document.querySelectorAll('#navbar-breadcrumbs a');
 		breadcrumbLinks.forEach(link => {
 			link.addEventListener('click', function(e) {
-				// Add click feedback
 				this.classList.add('breadcrumb-clicked');
 				setTimeout(() => {
 					this.classList.remove('breadcrumb-clicked');
@@ -211,10 +184,8 @@
 		});
 	}
 
-	// Handle route changes (Frappe specific)
 	if (typeof frappe !== 'undefined') {
 		frappe.router?.on('change', function() {
-			// Re-initialize enhancements after route change
 			setTimeout(() => {
 				enhanceSearchBar();
 				enhanceDropdowns();

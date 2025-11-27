@@ -14,7 +14,6 @@
 	}
 
 	function initMainContent() {
-		// Initialize after a short delay to ensure Frappe has loaded
 		setTimeout(() => {
 			fixLayoutSpacing();
 			enhanceScrollbar();
@@ -24,21 +23,12 @@
 			enhanceLinkItems();
 			ensureDataVisibility();
 			ensurePaginationVisible();
+			setupPaginationWatcher();
 		}, 100);
 		
-		// Re-apply spacing fix multiple times to catch dynamic content
-		setTimeout(fixLayoutSpacing, 300);
+		// Re-apply fixes for dynamic content
 		setTimeout(fixLayoutSpacing, 500);
-		setTimeout(fixLayoutSpacing, 1000);
-		
-		// Ensure pagination is visible after list loads
-		setTimeout(ensurePaginationVisible, 300);
 		setTimeout(ensurePaginationVisible, 500);
-		setTimeout(ensurePaginationVisible, 1000);
-		setTimeout(ensurePaginationVisible, 2000);
-		
-		// Setup watcher for pagination visibility
-		setTimeout(setupPaginationWatcher, 500);
 	}
 
 	/**
@@ -67,12 +57,6 @@
 				element.style.setProperty('width', '100%', 'important');
 				element.style.setProperty('box-sizing', 'border-box', 'important');
 				
-				// Remove gap if it exists
-				if (element.style.gap) {
-					element.style.setProperty('gap', '0', 'important');
-				}
-				
-				// Check computed styles
 				const computed = window.getComputedStyle(element);
 				if (parseInt(computed.marginRight) > 0) {
 					element.style.setProperty('margin-right', '0px', 'important');
@@ -86,7 +70,6 @@
 			});
 		});
 
-		// Ensure layout-main-section-wrapper takes full width
 		const layoutWrapper = document.querySelector('.layout-main-section-wrapper');
 		if (layoutWrapper) {
 			layoutWrapper.style.setProperty('flex', '1 1 auto', 'important');
@@ -95,7 +78,6 @@
 			layoutWrapper.style.setProperty('margin-right', '0px', 'important');
 		}
 
-		// Ensure layout-main takes full width
 		const layoutMain = document.querySelector('.layout-main');
 		if (layoutMain) {
 			layoutMain.style.setProperty('width', '100%', 'important');
@@ -103,7 +85,6 @@
 			layoutMain.style.setProperty('margin-right', '0px', 'important');
 		}
 
-		// Hide any sidebars that might cause right spacing
 		const sidebars = document.querySelectorAll('.form-sidebar, .list-sidebar, .layout-side-section, .layout-sidebar');
 		sidebars.forEach(sidebar => {
 			sidebar.style.setProperty('display', 'none', 'important');
@@ -111,16 +92,6 @@
 			sidebar.style.setProperty('margin', '0', 'important');
 			sidebar.style.setProperty('padding', '0', 'important');
 		});
-
-		// Remove right padding from page-container if it's causing issues
-		const pageContainer = document.querySelector('.page-container');
-		if (pageContainer) {
-			const computed = window.getComputedStyle(pageContainer);
-			const paddingRight = parseInt(computed.paddingRight) || 0;
-			if (paddingRight > 24) {
-				pageContainer.style.setProperty('padding-right', 'var(--spacing-md)', 'important');
-			}
-		}
 	}
 
 	/**
@@ -141,7 +112,6 @@
 		const cards = document.querySelectorAll('.frappe-card, .layout-main-section');
 		
 		cards.forEach(card => {
-			// Add intersection observer for fade-in animation
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach(entry => {
 					if (entry.isIntersecting) {
@@ -156,9 +126,6 @@
 			observer.observe(card);
 		});
 	}
-
-
-
 
 	/**
 	 * Enhance Workspace Cards
@@ -334,42 +301,25 @@
 	function ensurePaginationVisible() {
 		const paginationAreas = document.querySelectorAll('.list-paging-area');
 		paginationAreas.forEach(area => {
-			// Force visibility
 			area.style.setProperty('display', 'block', 'important');
 			area.style.setProperty('visibility', 'visible', 'important');
 			area.style.setProperty('opacity', '1', 'important');
 			area.style.setProperty('height', 'auto', 'important');
 			area.style.setProperty('max-height', 'none', 'important');
 			
-			// Ensure parent containers allow visibility
 			let parent = area.parentElement;
 			while (parent && parent !== document.body) {
 				if (parent.classList.contains('frappe-list')) {
 					parent.style.setProperty('display', 'flex', 'important');
 					parent.style.setProperty('flex-direction', 'column', 'important');
 				}
-				if (parent.classList.contains('result-container')) {
+				if (parent.classList.contains('result-container') || parent.classList.contains('result')) {
 					parent.style.setProperty('overflow', 'visible', 'important');
-					const currentHeight = parent.style.height;
-					if (currentHeight) {
-						// Limit height to ensure pagination is visible
-						const navbarHeight = 63;
-						const paginationHeight = 60;
-						const maxHeight = window.innerHeight - navbarHeight - paginationHeight - 100;
-						parent.style.setProperty('max-height', maxHeight + 'px', 'important');
-					}
-				}
-				if (parent.classList.contains('result')) {
-					const navbarHeight = 63;
-					const paginationHeight = 60;
-					const maxHeight = window.innerHeight - navbarHeight - paginationHeight - 150;
-					parent.style.setProperty('max-height', maxHeight + 'px', 'important');
 				}
 				parent = parent.parentElement;
 			}
 		});
 		
-		// Ensure Load More button is visible
 		const loadMoreButtons = document.querySelectorAll('.list-paging-area .btn-more');
 		loadMoreButtons.forEach(btn => {
 			btn.style.setProperty('display', 'inline-block', 'important');
@@ -377,7 +327,6 @@
 			btn.style.setProperty('opacity', '1', 'important');
 		});
 		
-		// Ensure list count is visible
 		const listCounts = document.querySelectorAll('.list-count');
 		listCounts.forEach(count => {
 			count.style.setProperty('display', 'inline-block', 'important');
@@ -386,7 +335,6 @@
 		});
 	}
 	
-	// Watch for DOM changes to ensure pagination stays visible
 	function setupPaginationWatcher() {
 		const observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(mutation) {
@@ -412,7 +360,6 @@
 			});
 		});
 		
-		// Observe changes to frappe-list containers
 		document.querySelectorAll('.frappe-list').forEach(list => {
 			observer.observe(list, {
 				attributes: true,
@@ -423,10 +370,8 @@
 		});
 	}
 
-	// Handle route changes (Frappe specific)
 	if (typeof frappe !== 'undefined') {
 		frappe.router?.on('change', function() {
-			// Re-initialize enhancements after route change
 			setTimeout(() => {
 				fixLayoutSpacing();
 				enhanceCards();
@@ -438,7 +383,6 @@
 			}, 100);
 		});
 		
-		// Monitor for list view updates
 		if (frappe.listview && frappe.listview.ListView) {
 			const originalRefresh = frappe.listview.ListView.prototype.refresh;
 			frappe.listview.ListView.prototype.refresh = function() {

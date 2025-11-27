@@ -10,9 +10,7 @@
 	overflow-x: hidden;
 	background-color: var(--color-bg-white);
 	position: relative;
-	z-index: 1 !important;
-	/* Ensure it doesn't create stacking context above navbar */
-	/* isolation: isolate; */
+	z-index: 1;
 }
 
 /* Default containers – standard padding, no right margin */
@@ -41,7 +39,6 @@ body[data-route*="desk"] .container-xl {
 	max-width: 100% !important;
 	width: 100% !important;
 	box-sizing: border-box !important;
-	/* overflow: visible !important; */
 }
 
 /* Ensure page-container has proper padding but no right margin */
@@ -49,7 +46,6 @@ body[data-route*="desk"] .container-xl {
 	padding-right: var(--spacing-md) !important;
 }
 
-/* Ensure layout-main-section-wrapper has no right spacing */
 .layout-main-section-wrapper {
 	margin-right: 0 !important;
 	padding-right: 0 !important;
