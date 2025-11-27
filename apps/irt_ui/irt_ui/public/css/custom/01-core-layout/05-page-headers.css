@@ -4,7 +4,7 @@
  */
 
 /* ============================================================
-   HEADER WRAPPER
+   PAGE HEADER WRAPPER
    ============================================================ */
 
    .page-header-wrapper,
@@ -39,21 +39,9 @@
 	   position: sticky;
 	   top: var(--navbar-height, 56px);
 	   z-index: var(--z-index-sticky);
-	   background: transparent !important;
-	   border: 0 !important;
-	   box-shadow: none !important;
-   }
-
-   /* Remove white backgrounds from containers */
-   .page-head .container,
-   .page-head .row,
-   .page-head .col,
-   .page-head .col-md-4,
-   .page-head .col-sm-6,
-   .page-head .col-xs-7 {
-	   background: transparent !important;
-	   border: none !important;
-	   box-shadow: none !important;
+	   background: transparent;
+	   border: 0;
+	   box-shadow: none;
    }
    
    .page-head-content {
@@ -135,7 +123,7 @@
 	   transform: translateX(2px);
    }
    
-   /* Underline under title */
+   /* Small underline under title */
    .page-title .title-text::after,
    .page-title h3::after,
    .page-title h3.title-text::after {
@@ -158,7 +146,7 @@
 	   opacity: 1;
    }
    
-   /* Subtitle */
+   /* Optional subtitle under title */
    .page-title .sub-heading {
 	   font-size: 13px;
 	   font-weight: 500;
@@ -191,15 +179,62 @@
    }
    
    /* ============================================================
-      INDICATOR PILLS
+      INDICATOR PILLS (status badges)
       ============================================================ */
-
-   /* Hide empty status pills (prevents white box after heading) */
-   .page-title .indicator-pill:empty,
-   .indicator-pill:empty {
-	   display: none !important;
+   
+   .indicator-pill,
+   .page-title .indicator-pill {
+	   display: inline-flex;
+	   align-items: center;
+	   padding: 5px 12px;
+	   border-radius: var(--radius-md);
+	   font-size: 11px;
+	   font-weight: 600;
+	   text-transform: uppercase;
+	   letter-spacing: 0.05em;
+	   margin-left: var(--spacing-sm);
+	  
+	   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	   border: 1px solid transparent;
    }
-
+   
+   .indicator-pill:hover {
+	   transform: translateY(-1px);
+	   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+   }
+   
+   /* Color variants */
+   .indicator-pill.orange,
+   .indicator-pill.yellow {
+	   background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.1));
+	   color: #b8860b;
+	   border-color: rgba(255, 193, 7, 0.4);
+   }
+   
+   .indicator-pill.green {
+	   background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+	   color: #15803d;
+	   border-color: rgba(34, 197, 94, 0.4);
+   }
+   
+   .indicator-pill.red {
+	   background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+	   color: #dc2626;
+	   border-color: rgba(239, 68, 68, 0.4);
+   }
+   
+   .indicator-pill.blue {
+	   background: linear-gradient(135deg, var(--color-primary-rgba-20), var(--color-primary-rgba-10));
+	   color: var(--color-primary-dark);
+	   border-color: var(--color-primary-rgba-40);
+   }
+   
+   .indicator-pill.purple {
+	   background: linear-gradient(135deg, var(--color-secondary-rgba-20), var(--color-secondary-rgba-10));
+	   color: var(--color-secondary-dark);
+	   border-color: var(--color-secondary-rgba-40);
+   }
+   
    /* ============================================================
       BREADCRUMBS
       ============================================================ */
@@ -247,10 +282,10 @@
    .page-breadcrumbs a {
 	   color: var(--color-text-secondary);
 	   text-decoration: none;
+	   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	   padding: 4px 8px;
 	   border-radius: var(--radius-sm);
 	   position: relative;
-	   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
    }
    
    .page-breadcrumbs a::before {
@@ -282,7 +317,7 @@
    }
    
    /* ============================================================
-      PAGE ACTIONS (RIGHT SIDE)
+      PAGE ACTIONS (right side buttons)
       ============================================================ */
    
    .page-actions,
@@ -332,7 +367,7 @@
 	   left: 100%;
    }
    
-   /* primary button */
+   /* primary */
    .page-actions .btn-primary {
 	   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
 	   color: var(--color-bg-white);
@@ -355,7 +390,7 @@
 	   box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
    }
    
-   /* secondary / default buttons */
+   /* secondary / default */
    .page-actions .btn-secondary,
    .page-actions .btn-default {
 	   background: linear-gradient(135deg, var(--color-bg-white), var(--color-gray-50));
@@ -478,85 +513,94 @@
 	   align-items: center;
 	   gap: var(--spacing-xs);
 	   padding: var(--spacing-xs);
-	 
-	   border: 1px solid var(--color-primary-rgba-20);
+	   border-radius: var(--radius-md);
+	  
    }
    
-   /* ============================================================
-      RESPONSIVE - UI ENHANCEMENTS ONLY
-      ============================================================ */
-   
-   @media (max-width: 992px) {
-	   .page-title .title-text,
-	   .page-title h3,
-	   .page-title h3.title-text {
-		   font-size: 17px;
-	   }
-   
-	   .page-title::before {
-		   height: 16px;
-		   width: 2px;
-		   left: -8px;
-	   }
-   
-	   .page-actions .btn {
-		   font-size: 12px;
-	   }
-   
-	   .page-actions .icon-btn {
-		   width: 32px;
-		   height: 32px;
-		   min-width: 32px;
-	   }
-   }
-   
-   @media (max-width: 768px) {
-	   .page-title .title-text,
-	   .page-title h3,
-	   .page-title h3.title-text {
-		   font-size: 16px;
-	   }
-   
-	   .page-title::before {
-		   height: 14px;
-		   width: 2px;
-		   left: -6px;
-	   }
-   
-	   .page-breadcrumbs {
-		   font-size: 12px;
-	   }
-   
-	   .page-actions .btn {
-		   font-size: 12px;
-	   }
-   }
-   
-   @media (max-width: 480px) {
-	   .page-title .title-text,
-	   .page-title h3,
-	   .page-title h3.title-text {
-		   font-size: 15px;
-	   }
-   
-	   .page-title::before {
-		   height: 12px;
-		   width: 2px;
-		   left: -6px;
-	   }
-   
-	   .page-breadcrumbs {
-		   font-size: 11px;
-	   }
-   
-	   .page-actions .btn {
-		   font-size: 11px;
-	   }
-   
-	   .page-actions .icon-btn {
-		   width: 28px;
-		   height: 28px;
-		   min-width: 28px;
-	   }
-   }
+/* ============================================================
+   RESPONSIVE - UI ENHANCEMENTS ONLY
+   ============================================================ */
+
+@media (max-width: 992px) {
+	/* UI enhancements only - keep default behavior */
+	.page-title .title-text,
+	.page-title h3,
+	.page-title h3.title-text {
+		font-size: 17px;
+	}
+
+	.page-title::before {
+		height: 16px;
+		width: 2px;
+		left: -8px;
+	}
+
+	.page-actions .btn {
+		font-size: 12px;
+	}
+
+	.page-actions .icon-btn {
+		width: 32px;
+		height: 32px;
+		min-width: 32px;
+	}
+}
+
+@media (max-width: 768px) {
+	/* UI enhancements only - keep default behavior */
+	.page-title .title-text,
+	.page-title h3,
+	.page-title h3.title-text {
+		font-size: 16px;
+	}
+
+	.page-title::before {
+		height: 14px;
+		width: 2px;
+		left: -6px;
+	}
+
+	.page-actions .btn {
+		font-size: 12px;
+	}
+
+	.page-actions .icon-btn {
+		width: 32px;
+		height: 32px;
+		min-width: 32px;
+	}
+
+	.page-breadcrumbs {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 480px) {
+	/* UI enhancements only - keep default behavior */
+	.page-title .title-text,
+	.page-title h3,
+	.page-title h3.title-text {
+		font-size: 15px;
+	}
+
+	.page-title::before {
+		height: 12px;
+		width: 2px;
+		left: -6px;
+	}
+
+	.page-actions .btn {
+		font-size: 11px;
+	}
+
+	.page-actions .icon-btn {
+		width: 28px;
+		height: 28px;
+		min-width: 28px;
+	}
+
+	.page-breadcrumbs {
+		font-size: 11px;
+	}
+}
    
