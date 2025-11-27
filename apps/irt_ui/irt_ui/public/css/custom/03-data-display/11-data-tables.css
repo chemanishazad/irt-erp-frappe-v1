@@ -1,0 +1,26 @@
+/**
+ * Data Tables
+ * Status: TODO
+ */
+
+/* Table styling */
+.data-table {
+	/* TODO: Add table styling */
+}
+
+/* Column widths */
+.data-table th,
+.data-table td {
+	/* TODO: Add column width styles */
+}
+
+/* Row selection */
+.data-table tbody tr.selected {
+	/* TODO: Add row selection styles */
+}
+
+/* Actions column */
+.data-table .actions-column {
+	/* TODO: Add actions column styles */
+}
+

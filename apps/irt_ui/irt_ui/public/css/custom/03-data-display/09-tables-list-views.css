@@ -1,0 +1,30 @@
+/**
+ * Tables / List Views
+ * Status: TODO
+ */
+
+/* Table headers */
+.table thead th {
+	/* TODO: Add table header styles */
+}
+
+/* Table rows */
+.table tbody tr {
+	/* TODO: Add table row styles */
+}
+
+/* Sorting indicators */
+.table th.sortable {
+	/* TODO: Add sorting indicator styles */
+}
+
+/* Row hover states */
+.table tbody tr:hover {
+	/* TODO: Add hover state styles */
+}
+
+/* Pagination */
+.pagination {
+	/* TODO: Add pagination styles */
+}
+

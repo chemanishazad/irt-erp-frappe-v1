@@ -1,0 +1,29 @@
+/**
+ * Notifications / Toasts
+ * Status: TODO
+ */
+
+/* Success messages */
+.alert-success,
+.toast-success {
+	/* TODO: Add success message styles */
+}
+
+/* Error messages */
+.alert-error,
+.toast-error {
+	/* TODO: Add error message styles */
+}
+
+/* Warning messages */
+.alert-warning,
+.toast-warning {
+	/* TODO: Add warning message styles */
+}
+
+/* Info messages */
+.alert-info,
+.toast-info {
+	/* TODO: Add info message styles */
+}
+

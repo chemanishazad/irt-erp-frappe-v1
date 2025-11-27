@@ -1,13 +1,74 @@
 /**
  * Main CSS File - IRT UI
  * ONLY IMPORTS - No duplicate code
+ * 
+ * Import order:
+ * 1. Variables (always first)
+ * 2. Completed components
+ * 3. Component folders (as they're completed)
  */
 
-/* Import variables first */
+/* ============================================
+   VARIABLES (Always import first)
+   ============================================ */
 @import url('variables.css');
 
-/* Import components */
+/* ============================================
+   COMPLETED COMPONENTS
+   ============================================ */
 @import url('login.css');
+@import url('sidebar.css');
+
+/* ============================================
+   CORE LAYOUT (01-core-layout/)
+   ============================================ */
+/* @import url('01-core-layout/03-top-navigation.css'); */
+/* @import url('01-core-layout/04-main-content.css'); */
+/* @import url('01-core-layout/05-page-headers.css'); */
+
+/* ============================================
+   FORM COMPONENTS (02-form-components/)
+   ============================================ */
+/* @import url('02-form-components/06-form-inputs.css'); */
+/* @import url('02-form-components/07-buttons.css'); */
+/* @import url('02-form-components/08-form-layout.css'); */
+
+/* ============================================
+   DATA DISPLAY (03-data-display/)
+   ============================================ */
+/* @import url('03-data-display/09-tables-list-views.css'); */
+/* @import url('03-data-display/10-cards-panels.css'); */
+/* @import url('03-data-display/11-data-tables.css'); */
+
+/* ============================================
+   INTERACTIVE (04-interactive/)
+   ============================================ */
+/* @import url('04-interactive/12-modals-dialogs.css'); */
+/* @import url('04-interactive/13-dropdowns-menus.css'); */
+/* @import url('04-interactive/14-tooltips.css'); */
+/* @import url('04-interactive/15-notifications-toasts.css'); */
+
+/* ============================================
+   ADVANCED (05-advanced/)
+   ============================================ */
+/* @import url('05-advanced/16-filters-search.css'); */
+/* @import url('05-advanced/17-tabs.css'); */
+/* @import url('05-advanced/18-accordions-collapsible.css'); */
+/* @import url('05-advanced/19-progress-indicators.css'); */
+/* @import url('05-advanced/20-badges-labels.css'); */
+
+/* ============================================
+   DASHBOARD (06-dashboard/)
+   ============================================ */
+/* @import url('06-dashboard/21-dashboard-layout.css'); */
+/* @import url('06-dashboard/22-charts-graphs.css'); */
+
+/* ============================================
+   GLOBAL (07-global/)
+   ============================================ */
+/* @import url('07-global/23-typography.css'); */
+/* @import url('07-global/24-colors-theme.css'); */
+/* @import url('07-global/25-spacing-layout.css'); */
 
 /* ============================================
    AVATAR/USER ICON OVERRIDES

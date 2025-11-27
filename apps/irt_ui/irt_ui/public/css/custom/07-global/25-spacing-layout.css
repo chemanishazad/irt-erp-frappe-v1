@@ -1,0 +1,25 @@
+/**
+ * Spacing & Layout
+ * Status: TODO - Most spacing already in variables.css
+ */
+
+/* Margins - override if needed */
+.margin-overrides {
+	/* TODO: Add margin overrides */
+}
+
+/* Padding - override if needed */
+.padding-overrides {
+	/* TODO: Add padding overrides */
+}
+
+/* Grid system */
+.grid-system {
+	/* TODO: Add grid system styles */
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+	/* TODO: Add mobile responsive styles */
+}
+

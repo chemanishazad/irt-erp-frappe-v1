@@ -1,0 +1,42 @@
+/**
+ * Form Inputs
+ * Status: TODO
+ */
+
+/* Text inputs */
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+	/* TODO: Add input styles */
+}
+
+/* Textarea */
+textarea {
+	/* TODO: Add textarea styles */
+}
+
+/* Select dropdowns */
+select,
+.form-control select {
+	/* TODO: Add select styles */
+}
+
+/* Date pickers */
+.datepicker,
+input[type="date"] {
+	/* TODO: Add date picker styles */
+}
+
+/* Checkboxes & radio buttons */
+input[type="checkbox"],
+input[type="radio"] {
+	/* TODO: Add checkbox/radio styles */
+}
+
+/* File uploads */
+input[type="file"] {
+	/* TODO: Add file upload styles */
+}
+

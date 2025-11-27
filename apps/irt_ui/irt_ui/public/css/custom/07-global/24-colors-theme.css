@@ -1,0 +1,22 @@
+/**
+ * Colors & Theme
+ * Status: TODO - Most colors already in variables.css
+ */
+
+/* Status colors - override if needed */
+.status-success {
+	/* TODO: Add success color overrides */
+}
+
+.status-error {
+	/* TODO: Add error color overrides */
+}
+
+.status-warning {
+	/* TODO: Add warning color overrides */
+}
+
+.status-info {
+	/* TODO: Add info color overrides */
+}
+

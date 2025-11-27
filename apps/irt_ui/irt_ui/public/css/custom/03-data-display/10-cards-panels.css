@@ -1,0 +1,34 @@
+/**
+ * Cards / Panels
+ * Status: TODO
+ */
+
+/* Card containers */
+.card,
+.panel {
+	/* TODO: Add card container styles */
+}
+
+/* Card headers */
+.card-header,
+.panel-heading {
+	/* TODO: Add card header styles */
+}
+
+/* Card content */
+.card-body,
+.panel-body {
+	/* TODO: Add card content styles */
+}
+
+/* Card actions */
+.card-actions,
+.panel-footer {
+	/* TODO: Add card action styles */
+}
+
+/* Dashboard cards */
+.dashboard-card {
+	/* TODO: Add dashboard card styles */
+}
+

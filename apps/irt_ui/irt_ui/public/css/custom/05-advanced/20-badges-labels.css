@@ -1,0 +1,24 @@
+/**
+ * Badges / Labels
+ * Status: TODO
+ */
+
+/* Status badges */
+.badge,
+.label {
+	/* TODO: Add badge/label styles */
+}
+
+/* Count badges */
+.badge-count {
+	/* TODO: Add count badge styles */
+}
+
+/* Color coding */
+.badge-success,
+.badge-error,
+.badge-warning,
+.badge-info {
+	/* TODO: Add color coded badge styles */
+}
+

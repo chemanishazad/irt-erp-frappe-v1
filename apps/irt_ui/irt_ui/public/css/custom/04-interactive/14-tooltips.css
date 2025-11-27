@@ -1,0 +1,23 @@
+/**
+ * Tooltips
+ * Status: TODO
+ */
+
+/* Tooltip styling */
+.tooltip {
+	/* TODO: Add tooltip styles */
+}
+
+/* Tooltip positioning */
+.tooltip.top,
+.tooltip.bottom,
+.tooltip.left,
+.tooltip.right {
+	/* TODO: Add tooltip positioning styles */
+}
+
+/* Tooltip animations */
+.tooltip.fade {
+	/* TODO: Add tooltip animation styles */
+}
+
