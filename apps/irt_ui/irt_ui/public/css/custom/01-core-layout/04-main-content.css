@@ -1,25 +1,681 @@
-/**
- * Main Content Area
- * Status: TODO
- */
+/* ============================================================
+   BASE LAYOUT – FULL-WIDTH WITH VERY SMALL SIDE PADDING
+   ============================================================ */
 
-/* Page wrapper */
+/* Main scroll area */
+.main-section {
+	width: 100%;
+	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: var(--color-bg-white);
+}
+
+/* Default containers – standard padding, no right margin */
+body[data-route*="desk"] .container,
+body[data-route*="desk"] .container-fluid,
+body[data-route*="desk"] .container-lg,
+body[data-route*="desk"] .container-md,
+body[data-route*="desk"] .container-sm,
+body[data-route*="desk"] .container-xl {
+	max-width: 100% !important;
+	padding-left: var(--spacing-md) !important;
+	padding-right: var(--spacing-md) !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	box-sizing: border-box;
+}
+
+/* Force remove right spacing from all layout elements */
+.layout-main,
+.layout-main-section-wrapper,
+.layout-main-section,
+.page-content-wrapper,
+.page-container,
+.page-body {
+	margin-right: 0 !important;
+	max-width: 100% !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+}
+
+/* Ensure page-container has proper padding but no right margin */
+.page-container {
+	padding-right: var(--spacing-md) !important;
+}
+
+/* Ensure layout-main-section-wrapper has no right spacing */
+.layout-main-section-wrapper {
+	margin-right: 0 !important;
+	padding-right: 0 !important;
+}
+
+.layout-main-section {
+	margin-right: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* Main content wrapper */
 .page-content-wrapper {
-	/* TODO: Add page wrapper styles */
+	width: 100%;
+	min-height: calc(100vh - var(--navbar-height, 56px));
+	background-color: var(--color-bg-white);
+	padding: 0;
 }
 
-/* Content container */
-.content-container {
-	/* TODO: Add content container styles */
+/* ============================================================
+   PAGE CONTAINER – WHITE PANEL
+   ============================================================ */
+
+.page-container {
+	background-color: var(--color-bg-white);
+	width: 100% !important;
+	min-height: 100%;
+	padding: var(--spacing-md) var(--spacing-lg) !important;
+	padding-right: var(--spacing-md) !important;
+	margin: 0 !important;
+	margin-right: 0 !important;
+	border-radius: var(--radius-md);
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+	box-sizing: border-box !important;
 }
 
-/* Background colors */
-.page-background {
-	/* TODO: Add background styles */
+.page-body {
+	width: 100%;
+	padding: var(--spacing-xs) 0 0;
+	background-color: transparent;
 }
 
-/* Spacing and padding */
-.content-spacing {
-	/* TODO: Add spacing styles */
+/* ============================================================
+   MAIN FLEX LAYOUT
+   ============================================================ */
+
+.layout-main {
+	display: flex;
+	flex-direction: row;
+	gap: 0 !important;
+	width: 100% !important;
+	padding: 0 !important;
+	background-color: transparent;
+	margin: 0 !important;
+	margin-right: 0 !important;
 }
 
+/* main section */
+.layout-main-section-wrapper {
+	flex: 1 1 auto;
+	min-width: 0;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+.layout-main-section {
+	width: 100% !important;
+	max-width: 100% !important;
+	background-color: transparent;
+	border: none;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Hide side section on workspaces */
+[data-page-route*="Workspace"] .layout-side-section,
+[data-page-route="selling"] .layout-side-section {
+	display: none !important;
+}
+
+/* ============================================================
+   PAGE TITLE & HEADINGS – Enhanced Styling
+   ============================================================ */
+
+/* Main page title (e.g., "SELLING") */
+.page-title .title-text,
+.page-title h3.title-text,
+.page-head .title-text {
+	font-size: 20px !important;
+	font-weight: 700 !important;
+	color: var(--color-text-primary) !important;
+	margin: 0 !important;
+	padding: var(--spacing-sm) 0 var(--spacing-xs) 0 !important;
+	letter-spacing: -0.01em !important;
+	line-height: 1.3 !important;
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	position: relative;
+	display: inline-block;
+	transition: all 0.3s ease;
+}
+
+.page-title .title-text:hover,
+.page-title h3.title-text:hover {
+	transform: translateX(2px);
+}
+
+.page-title .title-text::after,
+.page-title h3.title-text::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 50px;
+	height: 2px;
+	background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+	border-radius: var(--radius-sm);
+	opacity: 0.7;
+	transition: width 0.3s ease;
+}
+
+.page-title .title-text:hover::after,
+.page-title h3.title-text:hover::after {
+	width: 70px;
+	opacity: 1;
+}
+
+/* Section titles (e.g., "Quick Access", "Reports & Masters") */
+.widget-group-title,
+.section-title,
+[data-page-route*="Workspace"] h4,
+[data-page-route*="Workspace"] h5,
+[data-page-route*="Workspace"] .widget-group-title,
+[data-page-route*="Workspace"] .section-title {
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: var(--color-text-primary) !important;
+	margin: var(--spacing-lg) 0 var(--spacing-md) 0 !important;
+	padding: var(--spacing-xs) 0 var(--spacing-xs) var(--spacing-md) !important;
+	text-transform: none !important;
+	letter-spacing: 0.01em !important;
+	position: relative;
+	display: inline-block;
+	transition: color 0.3s ease;
+}
+
+.widget-group-title:hover,
+.section-title:hover {
+	color: var(--color-primary-dark) !important;
+}
+
+.widget-group-title::before,
+.section-title::before,
+[data-page-route*="Workspace"] h4::before,
+[data-page-route*="Workspace"] h5::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 3px;
+	height: 16px;
+	background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+	border-radius: var(--radius-sm);
+	opacity: 0.8;
+	transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.widget-group-title:hover::before,
+.section-title:hover::before,
+[data-page-route*="Workspace"] h4:hover::before,
+[data-page-route*="Workspace"] h5:hover::before {
+	height: 20px;
+	opacity: 1;
+}
+
+/* Sub-headings */
+.sub-heading {
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	color: var(--color-text-secondary) !important;
+	margin-top: var(--spacing-xs) !important;
+	padding-left: 0 !important;
+	line-height: 1.5 !important;
+	opacity: 0.85;
+	transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.sub-heading:hover {
+	opacity: 1;
+	color: var(--color-text-primary) !important;
+}
+
+/* Additional heading styles */
+.page-title .sub-heading {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* Page head styling */
+.page-head {
+	border-bottom: 1px solid var(--color-border-light) !important;
+	background: var(--color-bg-white) !important;
+	padding-bottom: var(--spacing-xs) !important;
+}
+
+.page-head-content {
+	padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-xs) var(--spacing-lg) !important;
+}
+
+/* Grid layout for workspace cards */
+[data-page-route*="Workspace"] .layout-main-section .row {
+	display: flex !important;
+	flex-wrap: wrap;
+	gap: var(--spacing-md);
+	margin: 0 !important;
+	width: 100% !important;
+}
+
+[data-page-route*="Workspace"] .layout-main-section .row > [class*="col"] {
+	flex: 1 1 260px;
+	min-width: 260px;
+	max-width: 100%;
+	padding: 0 !important;
+	box-sizing: border-box;
+}
+
+/* ============================================================
+   QUICK ACCESS TILES – .shortcut-widget-box
+   ============================================================ */
+
+.shortcut-widget-box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 100%;
+	min-height: 80px;
+	padding: var(--spacing-md) var(--spacing-lg);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--color-border-light);
+	background: linear-gradient(135deg, var(--color-primary-rgba-08) 0%, var(--color-bg-white) 50%);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow: hidden;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+
+/* Active/Clicked state */
+.shortcut-widget-box:active {
+	transform: translateY(0px) scale(0.98);
+	transition: all 0.1s ease;
+}
+
+.shortcut-widget-box.card-clicked {
+	transform: scale(0.97);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Subtle accent line at top */
+.shortcut-widget-box::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+	opacity: 0.6;
+	transition: opacity 0.25s ease;
+}
+
+/* Enhanced hover */
+.shortcut-widget-box:hover {
+	border-color: var(--color-primary);
+	box-shadow: 0 6px 16px rgba(0, 102, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+	background: linear-gradient(135deg, var(--color-primary-rgba-10) 0%, var(--color-bg-white) 50%);
+	transform: translateY(-2px);
+}
+
+.shortcut-widget-box:hover::before {
+	opacity: 1;
+	height: 4px;
+}
+
+/* Focus state for accessibility */
+.shortcut-widget-box:focus {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.shortcut-widget-box:focus:not(:hover) {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-15);
+}
+
+/* Label row - improved */
+.shortcut-widget-box .widget-label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: var(--spacing-sm);
+	gap: var(--spacing-sm);
+	padding-top: 2px;
+}
+
+/* Title - improved */
+.shortcut-widget-box .widget-title {
+	border: none;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--color-text-primary);
+	text-transform: none;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1;
+	transition: color 0.2s ease;
+}
+
+.shortcut-widget-box:hover .widget-title {
+	color: var(--color-primary-dark);
+}
+
+/* Badge - improved */
+.shortcut-widget-box .indicator-pill {
+	padding: 3px 10px;
+	border-radius: var(--radius-sm);
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--color-primary-dark);
+	background: rgba(255, 255, 255, 0.9);
+	border: 1px solid var(--color-primary-rgba-20);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: all 0.2s ease;
+}
+
+.shortcut-widget-box:hover .indicator-pill {
+	background: var(--color-bg-white);
+	border-color: var(--color-primary-rgba-30);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Arrow - improved with animation */
+.shortcut-widget-box::after {
+	content: "→";
+	position: absolute;
+	right: var(--spacing-md);
+	bottom: var(--spacing-md);
+	font-size: 18px;
+	color: var(--color-primary);
+	opacity: 0.5;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-weight: 700;
+	line-height: 1;
+}
+
+.shortcut-widget-box:hover::after {
+	opacity: 1;
+	transform: translateX(4px);
+	color: var(--color-primary-dark);
+}
+
+.shortcut-widget-box:active::after {
+	transform: translateX(6px);
+}
+
+/* Ripple effect for click feedback */
+.ripple-effect {
+	position: absolute;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.6);
+	transform: scale(0);
+	animation: ripple-animation 0.6s ease-out;
+	pointer-events: none;
+}
+
+@keyframes ripple-animation {
+	to {
+		transform: scale(4);
+		opacity: 0;
+	}
+}
+
+/* Animation for dynamically loaded cards */
+.shortcut-widget-box.card-visible {
+	animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ============================================================
+   SECTION CARDS – .links-widget-box (IMPROVED)
+   ============================================================ */
+
+.links-widget-box {
+	position: relative;
+	width: 100%;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--color-border-light);
+	background-color: var(--color-bg-white);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+	overflow: hidden;
+	margin-bottom: var(--spacing-lg);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.links-widget-box:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(0, 102, 255, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-color: var(--color-primary);
+}
+
+.links-widget-box:active {
+	transform: translateY(-1px) scale(0.99);
+	transition: all 0.1s ease;
+}
+
+.links-widget-box.card-clicked {
+	transform: scale(0.98);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Header with accent line */
+.links-widget-box .widget-head {
+	position: relative;
+	padding: var(--spacing-md) var(--spacing-lg);
+	border-bottom: 1px solid var(--color-border-light);
+	background: linear-gradient(135deg, var(--color-primary-rgba-08) 0%, var(--color-bg-white) 60%);
+	transition: background 0.3s ease;
+}
+
+.links-widget-box:hover .widget-head {
+	background: linear-gradient(135deg, var(--color-primary-rgba-10) 0%, var(--color-bg-white) 60%);
+}
+
+.links-widget-box .widget-head::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+	opacity: 0.6;
+	transition: all 0.3s ease;
+}
+
+.links-widget-box:hover .widget-head::before {
+	opacity: 1;
+	height: 4px;
+}
+
+.links-widget-box .widget-head .widget-label {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+}
+
+.links-widget-box .widget-head .widget-title {
+	border: none;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--color-primary-dark);
+	text-transform: none;
+	letter-spacing: 0.01em;
+	transition: color 0.3s ease;
+}
+
+.links-widget-box:hover .widget-head .widget-title {
+	color: var(--color-primary);
+	font-weight: 700;
+}
+
+/* Body */
+.links-widget-box .widget-body {
+	padding: var(--spacing-xs) 0;
+	background-color: var(--color-bg-white);
+	border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ============================================================
+   LINK ITEMS – .link-item (IMPROVED)
+   ============================================================ */
+
+.link-item {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-sm);
+	padding: var(--spacing-md) var(--spacing-lg);
+	border-bottom: 1px solid var(--color-border-light);
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow: hidden;
+}
+
+.link-item:last-child {
+	border-bottom: none;
+}
+
+.link-item:active {
+	transform: scale(0.97);
+	transition: all 0.1s ease;
+}
+
+.link-item.link-item-clicked {
+	background-color: var(--color-primary-rgba-10);
+	transform: scale(0.98);
+}
+
+/* Icon */
+.link-item .icon {
+	width: 18px;
+	height: 18px;
+	color: var(--color-text-tertiary);
+	flex-shrink: 0;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 0.7;
+}
+
+.link-item:hover .icon {
+	opacity: 1;
+}
+
+/* Text */
+.link-item .link-content {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--color-text-primary);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Arrow */
+.link-item::after {
+	content: "→";
+	flex-shrink: 0;
+	font-size: 16px;
+	color: var(--color-primary);
+	opacity: 0.3;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-weight: 700;
+	line-height: 1;
+}
+
+/* Hover effects */
+.link-item:hover {
+	background: linear-gradient(90deg, var(--color-primary-rgba-10) 0%, var(--color-primary-rgba-05) 50%, transparent 100%);
+	padding-left: var(--spacing-xl);
+	border-left: 3px solid var(--color-primary);
+	box-shadow: inset 0 0 20px rgba(0, 102, 255, 0.05);
+}
+
+.link-item:hover .link-content {
+	color: var(--color-primary-dark);
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+.link-item:hover .icon {
+	color: var(--color-primary);
+	transform: scale(1.15) rotate(5deg);
+	opacity: 1;
+}
+
+.link-item:hover::after {
+	opacity: 1;
+	transform: translateX(5px);
+	color: var(--color-primary-dark);
+}
+
+/* Focus state for accessibility */
+.link-item:focus {
+	outline: 2px solid var(--color-primary);
+	outline-offset: -2px;
+	background-color: var(--color-primary-rgba-08);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 992px) {
+	.layout-main {
+		flex-direction: column;
+	}
+
+	[data-page-route*="Workspace"] .layout-side-section {
+		display: none !important;
+	}
+}
+
+@media (max-width: 768px) {
+	body[data-route*="desk"] .container,
+	body[data-route*="desk"] .container-fluid {
+		padding-left: var(--spacing-sm) !important;
+		padding-right: var(--spacing-sm) !important;
+	}
+
+	.page-container {
+		padding: var(--spacing-sm) var(--spacing-md) !important;
+		border-radius: var(--radius-sm);
+	}
+
+	.shortcut-widget-box {
+		min-height: 75px;
+	}
+}

@@ -14,7 +14,8 @@ app_include_css = [
 
 app_include_js = [
 	"/assets/irt_ui/js/custom/sidebar.js",
-	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js"
+	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js",
+	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js"
 ]
 
 # Includes for website pages (login, signup, etc.)

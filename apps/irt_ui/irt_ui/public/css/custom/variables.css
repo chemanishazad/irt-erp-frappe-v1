@@ -127,6 +127,7 @@
 	--spacing-2xl: 24px;
 	--spacing-3xl: 32px;
 	--spacing-4xl: 40px;
+	--spacing-xxl: 48px;
 	--spacing-5xl: 48px;
 	--spacing-6xl: 64px;
 
@@ -175,6 +176,13 @@
 	--border-width: 1px;
 	--border-width-md: 2px;
 	--border-width-lg: 3px;
+
+	/* ============================================
+	   LAYOUT - HEIGHTS
+	   ============================================ */
+	--navbar-height: 63px;
+	--sidebar-width-collapsed: 60px;
+	--sidebar-width-expanded: 240px;
 
 	/* ============================================
 	   SHADOWS
