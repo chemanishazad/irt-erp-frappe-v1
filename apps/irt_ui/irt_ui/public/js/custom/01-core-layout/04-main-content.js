@@ -23,12 +23,22 @@
 			enhanceQuickAccessCards();
 			enhanceLinkItems();
 			ensureDataVisibility();
+			ensurePaginationVisible();
 		}, 100);
 		
 		// Re-apply spacing fix multiple times to catch dynamic content
 		setTimeout(fixLayoutSpacing, 300);
 		setTimeout(fixLayoutSpacing, 500);
 		setTimeout(fixLayoutSpacing, 1000);
+		
+		// Ensure pagination is visible after list loads
+		setTimeout(ensurePaginationVisible, 300);
+		setTimeout(ensurePaginationVisible, 500);
+		setTimeout(ensurePaginationVisible, 1000);
+		setTimeout(ensurePaginationVisible, 2000);
+		
+		// Setup watcher for pagination visibility
+		setTimeout(setupPaginationWatcher, 500);
 	}
 
 	/**
@@ -318,6 +328,101 @@
 		});
 	}
 
+	/**
+	 * Ensure Pagination Area is Always Visible
+	 */
+	function ensurePaginationVisible() {
+		const paginationAreas = document.querySelectorAll('.list-paging-area');
+		paginationAreas.forEach(area => {
+			// Force visibility
+			area.style.setProperty('display', 'block', 'important');
+			area.style.setProperty('visibility', 'visible', 'important');
+			area.style.setProperty('opacity', '1', 'important');
+			area.style.setProperty('height', 'auto', 'important');
+			area.style.setProperty('max-height', 'none', 'important');
+			
+			// Ensure parent containers allow visibility
+			let parent = area.parentElement;
+			while (parent && parent !== document.body) {
+				if (parent.classList.contains('frappe-list')) {
+					parent.style.setProperty('display', 'flex', 'important');
+					parent.style.setProperty('flex-direction', 'column', 'important');
+				}
+				if (parent.classList.contains('result-container')) {
+					parent.style.setProperty('overflow', 'visible', 'important');
+					const currentHeight = parent.style.height;
+					if (currentHeight) {
+						// Limit height to ensure pagination is visible
+						const navbarHeight = 63;
+						const paginationHeight = 60;
+						const maxHeight = window.innerHeight - navbarHeight - paginationHeight - 100;
+						parent.style.setProperty('max-height', maxHeight + 'px', 'important');
+					}
+				}
+				if (parent.classList.contains('result')) {
+					const navbarHeight = 63;
+					const paginationHeight = 60;
+					const maxHeight = window.innerHeight - navbarHeight - paginationHeight - 150;
+					parent.style.setProperty('max-height', maxHeight + 'px', 'important');
+				}
+				parent = parent.parentElement;
+			}
+		});
+		
+		// Ensure Load More button is visible
+		const loadMoreButtons = document.querySelectorAll('.list-paging-area .btn-more');
+		loadMoreButtons.forEach(btn => {
+			btn.style.setProperty('display', 'inline-block', 'important');
+			btn.style.setProperty('visibility', 'visible', 'important');
+			btn.style.setProperty('opacity', '1', 'important');
+		});
+		
+		// Ensure list count is visible
+		const listCounts = document.querySelectorAll('.list-count');
+		listCounts.forEach(count => {
+			count.style.setProperty('display', 'inline-block', 'important');
+			count.style.setProperty('visibility', 'visible', 'important');
+			count.style.setProperty('opacity', '1', 'important');
+		});
+	}
+	
+	// Watch for DOM changes to ensure pagination stays visible
+	function setupPaginationWatcher() {
+		const observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+					const target = mutation.target;
+					if (target.classList.contains('list-paging-area') || 
+						target.classList.contains('result-container') ||
+						target.classList.contains('result')) {
+						setTimeout(ensurePaginationVisible, 50);
+					}
+				}
+				if (mutation.type === 'childList') {
+					const addedNodes = Array.from(mutation.addedNodes);
+					addedNodes.forEach(node => {
+						if (node.nodeType === 1 && (
+							node.classList.contains('list-paging-area') ||
+							node.querySelector('.list-paging-area')
+						)) {
+							setTimeout(ensurePaginationVisible, 100);
+						}
+					});
+				}
+			});
+		});
+		
+		// Observe changes to frappe-list containers
+		document.querySelectorAll('.frappe-list').forEach(list => {
+			observer.observe(list, {
+				attributes: true,
+				attributeFilter: ['style'],
+				childList: true,
+				subtree: true
+			});
+		});
+	}
+
 	// Handle route changes (Frappe specific)
 	if (typeof frappe !== 'undefined') {
 		frappe.router?.on('change', function() {
@@ -329,8 +434,19 @@
 				enhanceQuickAccessCards();
 				enhanceLinkItems();
 				ensureDataVisibility();
+				ensurePaginationVisible();
 			}, 100);
 		});
+		
+		// Monitor for list view updates
+		if (frappe.listview && frappe.listview.ListView) {
+			const originalRefresh = frappe.listview.ListView.prototype.refresh;
+			frappe.listview.ListView.prototype.refresh = function() {
+				const result = originalRefresh.apply(this, arguments);
+				setTimeout(ensurePaginationVisible, 100);
+				return result;
+			};
+		}
 	}
 })();
 

@@ -9,6 +9,10 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-color: var(--color-bg-white);
+	position: relative;
+	z-index: 1 !important;
+	/* Ensure it doesn't create stacking context above navbar */
+	/* isolation: isolate; */
 }
 
 /* Default containers – standard padding, no right margin */
@@ -37,6 +41,7 @@ body[data-route*="desk"] .container-xl {
 	max-width: 100% !important;
 	width: 100% !important;
 	box-sizing: border-box !important;
+	/* overflow: visible !important; */
 }
 
 /* Ensure page-container has proper padding but no right margin */
@@ -71,8 +76,9 @@ body[data-route*="desk"] .container-xl {
 	background-color: var(--color-bg-white);
 	width: 100% !important;
 	min-height: 100%;
-	padding: var(--spacing-md) var(--spacing-lg) !important;
+	padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) !important;
 	padding-right: var(--spacing-md) !important;
+	padding-bottom: var(--spacing-lg) !important;
 	margin: 0 !important;
 	margin-right: 0 !important;
 	border-radius: var(--radius-md);
@@ -82,8 +88,12 @@ body[data-route*="desk"] .container-xl {
 
 .page-body {
 	width: 100%;
-	padding: var(--spacing-xs) 0 0;
+	padding: var(--spacing-xs) 0 0 0;
 	background-color: transparent;
+	min-height: calc(100vh - var(--navbar-height, 63px) - 100px);
+	display: flex;
+	flex-direction: column;
+	position: relative;
 }
 
 /* ============================================================

@@ -14,10 +14,13 @@
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 	position: sticky;
 	top: 0;
-	z-index: var(--z-index-sticky);
+	z-index: 10000 !important;
 	border-bottom: 1px solid var(--color-border);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
+	overflow: visible !important;
+	/* Create new stacking context */
+	isolation: isolate;
 }
 
 .navbar .container {
@@ -26,6 +29,7 @@
 	align-items: center;
 	height: 100%;
 	gap: var(--spacing-md);
+	overflow: visible !important;
 }
 
 /* ============================================
@@ -60,6 +64,50 @@
 }
 
 /* ============================================
+   GLOBAL DROPDOWN FIXES - Override Frappe defaults
+   ============================================ */
+/* Ensure all dropdowns have proper z-index and positioning */
+/* Target with higher specificity than Frappe's .awesomplete [role="listbox"] */
+.dropdown-menu,
+.awesomplete ul,
+.awesomplete > ul,
+.awesomplete [role="listbox"],
+.awesomplete > [role="listbox"],
+.search-bar .awesomplete ul,
+.search-bar .awesomplete > ul,
+.search-bar .awesomplete [role="listbox"],
+.search-bar .awesomplete > [role="listbox"],
+.desktop-search-wrapper .awesomplete ul,
+.desktop-search-wrapper .awesomplete > ul,
+.desktop-search-wrapper .awesomplete [role="listbox"],
+.desktop-search-wrapper .awesomplete > [role="listbox"],
+.navbar .awesomplete ul,
+.navbar .awesomplete > ul,
+.navbar .awesomplete [role="listbox"],
+.navbar .awesomplete > [role="listbox"],
+.navbar .search-bar .awesomplete ul,
+.navbar .search-bar .awesomplete > ul,
+.navbar .search-bar .awesomplete [role="listbox"],
+.navbar .search-bar .awesomplete > [role="listbox"] {
+	z-index: 10001 !important;
+	position: absolute !important;
+	/* Ensure dropdown is above everything */
+	transform: translateZ(0) !important;
+	-webkit-transform: translateZ(0) !important;
+}
+
+/* Ensure dropdown containers allow overflow */
+.dropdown,
+.awesomplete,
+.search-bar,
+.desktop-search-wrapper,
+.navbar .awesomplete,
+.navbar .search-bar {
+	overflow: visible !important;
+	position: relative !important;
+}
+
+/* ============================================
    SEARCH BAR - Fixed Text Merging
    ============================================ */
 .search-bar,
@@ -68,6 +116,8 @@
 	max-width: 450px;
 	margin: 0 var(--spacing-lg);
 	position: relative;
+	overflow: visible !important;
+	z-index: 10000 !important;
 }
 
 .search-bar .search-icon,
@@ -98,6 +148,12 @@
 .desktop-search-wrapper.input-group {
 	width: 100%;
 	position: relative;
+}
+
+/* Ensure awesomplete container allows dropdown to overflow */
+.search-bar .awesomplete {
+	position: relative !important;
+	overflow: visible !important;
 }
 
 .search-bar .awesomplete input,
@@ -164,7 +220,22 @@
 	border-color: var(--color-primary-light);
 }
 
-.search-bar .awesomplete ul {
+.search-bar .awesomplete ul,
+.search-bar .awesomplete > ul,
+.search-bar .awesomplete [role="listbox"],
+.search-bar .awesomplete > [role="listbox"],
+.desktop-search-wrapper .awesomplete ul,
+.desktop-search-wrapper .awesomplete > ul,
+.desktop-search-wrapper .awesomplete [role="listbox"],
+.desktop-search-wrapper .awesomplete > [role="listbox"],
+.navbar .awesomplete ul,
+.navbar .awesomplete > ul,
+.navbar .awesomplete [role="listbox"],
+.navbar .awesomplete > [role="listbox"],
+.navbar .search-bar .awesomplete ul,
+.navbar .search-bar .awesomplete > ul,
+.navbar .search-bar .awesomplete [role="listbox"],
+.navbar .search-bar .awesomplete > [role="listbox"] {
 	border: 1px solid var(--color-border);
 	border-top: none;
 	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
@@ -174,6 +245,15 @@
 	padding: var(--spacing-xs) 0;
 	max-height: 400px;
 	overflow-y: auto;
+	z-index: 10001 !important;
+	position: absolute !important;
+	top: 100% !important;
+	left: 0 !important;
+	right: 0 !important;
+	/* Force hardware acceleration and new stacking context */
+	transform: translateZ(0) !important;
+	-webkit-transform: translateZ(0) !important;
+	will-change: transform !important;
 }
 
 .search-bar .awesomplete ul li {
@@ -264,6 +344,9 @@
 	align-items: center;
 	gap: var(--spacing-xs);
 	margin-left: auto;
+	overflow: visible !important;
+	position: relative;
+	z-index: var(--z-index-sticky);
 }
 
 .navbar-nav .nav-item {

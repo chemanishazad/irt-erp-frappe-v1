@@ -38,7 +38,7 @@
    .page-head {
 	   position: sticky;
 	   top: var(--navbar-height, 56px);
-	   z-index: var(--z-index-sticky);
+	   z-index: 9999 !important;
 	   background: transparent;
 	   border: 0;
 	   box-shadow: none;
@@ -326,12 +326,22 @@
 	   align-items: center;
 	   gap: var(--spacing-sm);
 	   flex-shrink: 0;
+	   position: relative;
    }
    
    .page-actions .standard-actions {
 	   display: flex;
 	   align-items: center;
 	   gap: var(--spacing-sm);
+	   position: relative;
+   }
+   
+   /* Ensure dropdown button groups have proper positioning */
+   .page-actions .menu-btn-group,
+   .page-actions .actions-btn-group,
+   .page-actions .custom-btn-group,
+   .page-actions .btn-group {
+	   position: relative;
    }
    
    /* main buttons */
@@ -444,11 +454,29 @@
 	   box-shadow: 0 8px 24px rgba(0, 102, 255, 0.15),
 		   0 4px 8px rgba(0, 0, 0, 0.1);
 	   padding: var(--spacing-xs);
-	   margin-top: var(--spacing-xs);
+	   margin-top: var(--spacing-sm) !important;
+	   top: 100% !important;
 	   min-width: 200px;
 	   background: var(--color-bg-white);
 	   backdrop-filter: blur(10px);
 	   -webkit-backdrop-filter: blur(10px);
+	   position: absolute !important;
+	   z-index: var(--z-index-popover) !important;
+   }
+   
+   /* For dropdown-menu-right class (Bootstrap) - align to right edge of button */
+   .page-actions .dropdown-menu-right,
+   .page-actions .dropdown-menu.pull-right,
+   .page-actions .menu-btn-group .dropdown-menu,
+   .page-actions .actions-btn-group .dropdown-menu {
+	   right: 0 !important;
+	   left: auto !important;
+   }
+   
+   /* For regular dropdown menus - align to left edge of button */
+   .page-actions .dropdown-menu:not(.dropdown-menu-right):not(.pull-right) {
+	   left: 0 !important;
+	   right: auto !important;
    }
    
    .page-actions .dropdown-menu::before {

@@ -35,7 +35,7 @@
 /* ============================================
    DATA DISPLAY (03-data-display/)
    ============================================ */
-/* @import url('03-data-display/09-tables-list-views.css'); */
+@import url('03-data-display/09-tables-list-views.css');
 /* @import url('03-data-display/10-cards-panels.css'); */
 /* @import url('03-data-display/11-data-tables.css'); */
 
@@ -70,6 +70,11 @@
 /* @import url('07-global/25-spacing-layout.css'); */
 
 /* ============================================
+   CRITICAL DROPDOWN FIX - Load last to override everything
+   ============================================ */
+@import url('dropdown-fix.css');
+
+/* ============================================
    AVATAR/USER ICON OVERRIDES
    ============================================ */
 .avatar-frame,
@@ -78,4 +83,48 @@
 	background-color: var(--avatar-frame-bg) !important;
 	color: var(--avatar-frame-color) !important;
 	border-color: var(--avatar-frame-border) !important;
+}
+
+/* ============================================
+   GLOBAL DROPDOWN FIXES - Ensure dropdowns appear above all content
+   ============================================ */
+/* Force dropdowns to appear above main content - Higher specificity */
+.awesomplete ul,
+.awesomplete > ul,
+.awesomplete [role="listbox"],
+.awesomplete > [role="listbox"],
+.search-bar .awesomplete ul,
+.search-bar .awesomplete > ul,
+.search-bar .awesomplete [role="listbox"],
+.search-bar .awesomplete > [role="listbox"],
+.desktop-search-wrapper .awesomplete ul,
+.desktop-search-wrapper .awesomplete > ul,
+.desktop-search-wrapper .awesomplete [role="listbox"],
+.desktop-search-wrapper .awesomplete > [role="listbox"],
+.navbar .awesomplete ul,
+.navbar .awesomplete > ul,
+.navbar .awesomplete [role="listbox"],
+.navbar .awesomplete > [role="listbox"],
+.navbar .search-bar .awesomplete ul,
+.navbar .search-bar .awesomplete > ul,
+.navbar .search-bar .awesomplete [role="listbox"],
+.navbar .search-bar .awesomplete > [role="listbox"] {
+	z-index: 10001 !important;
+	position: absolute !important;
+	transform: translateZ(0) !important;
+	-webkit-transform: translateZ(0) !important;
+}
+
+/* Ensure body and html don't clip dropdowns */
+body {
+	overflow-x: hidden;
+}
+
+/* Ensure main content doesn't create stacking context above navbar */
+.layout-main,
+.layout-main-section-wrapper,
+.layout-main-section {
+	position: relative;
+	z-index: 1 !important;
+	isolation: isolate;
 }

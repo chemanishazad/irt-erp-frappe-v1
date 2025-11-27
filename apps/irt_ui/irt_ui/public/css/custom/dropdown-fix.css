@@ -1,0 +1,53 @@
+/**
+ * CRITICAL DROPDOWN FIX
+ * This file ensures dropdowns appear above all content
+ * Load this AFTER all other CSS files
+ */
+
+/* Override Frappe's default z-index: 4 with maximum specificity */
+body .awesomplete > ul,
+body .awesomplete > [role="listbox"],
+body .navbar .awesomplete > ul,
+body .navbar .awesomplete > [role="listbox"],
+body .navbar .search-bar .awesomplete > ul,
+body .navbar .search-bar .awesomplete > [role="listbox"],
+body .search-bar .awesomplete > ul,
+body .search-bar .awesomplete > [role="listbox"],
+body .desktop-search-wrapper .awesomplete > ul,
+body .desktop-search-wrapper .awesomplete > [role="listbox"] {
+	z-index: 10001 !important;
+	position: absolute !important;
+	transform: translateZ(0) !important;
+	-webkit-transform: translateZ(0) !important;
+	will-change: transform !important;
+}
+
+/* Ensure navbar creates proper stacking context */
+body .navbar {
+	z-index: 10000 !important;
+	position: sticky !important;
+	isolation: isolate !important;
+	overflow: visible !important;
+}
+
+/* Ensure all parent containers allow overflow */
+body .navbar .container,
+body .navbar .search-bar,
+body .navbar .desktop-search-wrapper,
+body .navbar .awesomplete {
+	overflow: visible !important;
+	position: relative !important;
+}
+
+/* Ensure main content is below navbar */
+body .layout-main,
+body .layout-main-section-wrapper,
+body .layout-main-section,
+body .page-content-wrapper,
+body .page-container,
+body .page-body,
+body .main-section {
+	z-index: 1 !important;
+	position: relative !important;
+}
+

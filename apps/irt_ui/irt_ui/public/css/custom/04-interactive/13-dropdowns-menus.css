@@ -3,9 +3,17 @@
  * Status: TODO
  */
 
-/* Dropdown menus */
+/* Dropdown menus - Global fixes */
 .dropdown-menu {
-	/* TODO: Add dropdown menu styles */
+	z-index: var(--z-index-popover) !important;
+	position: absolute !important;
+}
+
+/* Ensure dropdowns are not clipped by parent containers */
+.dropdown,
+.awesomplete {
+	overflow: visible !important;
+	position: relative !important;
 }
 
 /* Context menus */
