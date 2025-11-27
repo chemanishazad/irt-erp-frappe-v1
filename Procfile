@@ -1,4 +1,7 @@
 
+redis_cache: redis-server config/redis_cache.conf
+redis_queue: redis-server config/redis_queue.conf
+
 
 web: bench serve  --port 8000
 

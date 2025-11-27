@@ -1,0 +1,166 @@
+/**
+ * CSS Variables - IRT UI
+ * Color palettes, sizes, and design tokens
+ */
+
+:root {
+	/* ============================================
+	   COLOR PALETTE - PRIMARY (Dark Teal)
+	   ============================================ */
+	--color-primary: #1e716a;
+	--color-primary-dark: #15504a;
+	--color-primary-light: #2a8a80;
+	--color-primary-lighter: #3fa399;
+	--color-primary-lightest: #5bb8ad;
+
+	/* ============================================
+	   COLOR PALETTE - SECONDARY (Medium Teal/Blue-Green)
+	   ============================================ */
+	--color-secondary: #60b0b0;
+	--color-secondary-dark: #4a8d8d;
+	--color-secondary-light: #7bc4c4;
+	--color-secondary-lighter: #96d8d8;
+	--color-secondary-lightest: #b1e6e6;
+
+	/* ============================================
+	   COLOR PALETTE - NEUTRAL GRAYS
+	   ============================================ */
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+
+	/* ============================================
+	   COLOR PALETTE - TEXT
+	   ============================================ */
+	--color-text-primary: #1a202c;
+	--color-text-secondary: #4a5568;
+	--color-text-tertiary: #718096;
+	--color-text-light: #a0aec0;
+	--color-text-lighter: #cbd5e0;
+
+	/* ============================================
+	   COLOR PALETTE - BACKGROUND
+	   ============================================ */
+	--color-bg-white: #ffffff;
+	--color-bg-gray: #f0f0d0;
+	--color-bg-gray-light: #f5f5e0;
+	--color-bg-gray-lighter: #fafaf0;
+	--color-bg-light-blue: #a0d0e0;
+	--color-bg-light-blue-light: #b5dae8;
+	--color-bg-light-blue-lighter: #cae4f0;
+
+	/* ============================================
+	   COLOR PALETTE - BORDERS
+	   ============================================ */
+	--color-border: #e2e8f0;
+	--color-border-dark: #cbd5e0;
+	--color-border-light: #edf2f7;
+
+	/* ============================================
+	   COLOR PALETTE - STATUS
+	   ============================================ */
+	--color-success: #10b981;
+	--color-success-light: #d1fae5;
+	--color-error: #e53e3e;
+	--color-error-light: #fff5f5;
+	--color-warning: #f59e0b;
+	--color-warning-light: #fef3c7;
+	--color-info: #3b82f6;
+	--color-info-light: #dbeafe;
+
+	/* ============================================
+	   SPACING - PADDING & MARGIN
+	   ============================================ */
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 12px;
+	--spacing-lg: 16px;
+	--spacing-xl: 20px;
+	--spacing-2xl: 24px;
+	--spacing-3xl: 32px;
+	--spacing-4xl: 40px;
+	--spacing-5xl: 48px;
+	--spacing-6xl: 64px;
+
+	/* ============================================
+	   TYPOGRAPHY - FONT SIZES
+	   ============================================ */
+	--font-size-xs: 12px;
+	--font-size-sm: 13px;
+	--font-size-base: 14px;
+	--font-size-md: 15px;
+	--font-size-lg: 16px;
+	--font-size-xl: 18px;
+	--font-size-2xl: 20px;
+	--font-size-3xl: 24px;
+	--font-size-4xl: 28px;
+	--font-size-5xl: 32px;
+
+	/* ============================================
+	   TYPOGRAPHY - FONT WEIGHTS
+	   ============================================ */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* ============================================
+	   TYPOGRAPHY - LINE HEIGHTS
+	   ============================================ */
+	--line-height-tight: 1.2;
+	--line-height-normal: 1.5;
+	--line-height-relaxed: 1.6;
+
+	/* ============================================
+	   BORDERS - RADIUS
+	   ============================================ */
+	--radius-sm: 6px;
+	--radius-md: 8px;
+	--radius-lg: 10px;
+	--radius-xl: 12px;
+	--radius-2xl: 16px;
+	--radius-full: 9999px;
+
+	/* ============================================
+	   BORDERS - WIDTH
+	   ============================================ */
+	--border-width: 1px;
+	--border-width-md: 2px;
+	--border-width-lg: 3px;
+
+	/* ============================================
+	   SHADOWS
+	   ============================================ */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+	--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+	--shadow-2xl: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+	/* ============================================
+	   TRANSITIONS
+	   ============================================ */
+	--transition-fast: 0.15s ease;
+	--transition-base: 0.2s ease;
+	--transition-slow: 0.3s ease;
+
+	/* ============================================
+	   Z-INDEX LAYERS
+	   ============================================ */
+	--z-index-base: 1;
+	--z-index-dropdown: 1000;
+	--z-index-sticky: 1020;
+	--z-index-fixed: 1030;
+	--z-index-modal-backdrop: 1040;
+	--z-index-modal: 1050;
+	--z-index-popover: 1060;
+	--z-index-tooltip: 1070;
+}
+

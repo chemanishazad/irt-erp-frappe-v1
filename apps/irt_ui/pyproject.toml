@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "irt_ui"
+version = "0.0.1"
+description = "UI Customizations for IRT"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+
+[tool.hatch.build.targets.wheel]
+packages = ["irt_ui"]
+

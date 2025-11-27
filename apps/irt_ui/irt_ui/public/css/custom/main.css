@@ -1,0 +1,10 @@
+/**
+ * Main CSS File - IRT UI
+ * ONLY IMPORTS - No duplicate code
+ */
+
+/* Import variables first */
+@import url('variables.css');
+
+/* Import components */
+@import url('login.css');
