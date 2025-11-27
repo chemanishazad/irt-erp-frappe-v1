@@ -6,12 +6,15 @@ app_email = "info@irt.com"
 app_license = "mit"
 
 # Includes in <head> - For desk/app pages
+# Order: variables first, then main.css (which imports all components)
 app_include_css = [
-	"/assets/irt_ui/css/custom/sidebar.css"
+	"/assets/irt_ui/css/custom/variables.css",
+	"/assets/irt_ui/css/custom/main.css"
 ]
 
 app_include_js = [
-	"/assets/irt_ui/js/custom/sidebar.js"
+	"/assets/irt_ui/js/custom/sidebar.js",
+	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js"
 ]
 
 # Includes for website pages (login, signup, etc.)

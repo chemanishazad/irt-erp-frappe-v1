@@ -12,6 +12,8 @@
 	--color-primary-light: #1A7AFF;
 	--color-primary-lighter: #3388FF;
 	--color-primary-lightest: #4D99FF;
+	--color-primary-rgba-08: rgba(0, 102, 255, 0.08);
+	--color-primary-rgba-10: rgba(0, 102, 255, 0.1);
 	--color-primary-rgba-15: rgba(0, 102, 255, 0.15);
 	--color-primary-rgba-30: rgba(0, 102, 255, 0.3);
 	--color-primary-rgba-40: rgba(0, 102, 255, 0.4);
@@ -25,6 +27,12 @@
 	--color-secondary-light: #B366E8;
 	--color-secondary-lighter: #C880F0;
 	--color-secondary-lightest: #D699F5;
+	--color-secondary-rgba-08: rgba(157, 78, 221, 0.08);
+	--color-secondary-rgba-10: rgba(157, 78, 221, 0.1);
+	--color-secondary-rgba-15: rgba(157, 78, 221, 0.15);
+	--color-secondary-rgba-20: rgba(157, 78, 221, 0.2);
+	--color-secondary-rgba-25: rgba(157, 78, 221, 0.25);
+	--color-secondary-rgba-30: rgba(157, 78, 221, 0.3);
 
 	/* ============================================
 	   COLOR PALETTE - NEUTRAL GRAYS

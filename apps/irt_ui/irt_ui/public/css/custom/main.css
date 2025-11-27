@@ -9,9 +9,8 @@
  */
 
 /* ============================================
-   VARIABLES (Always import first)
+   NOTE: variables.css is loaded separately in hooks.py
    ============================================ */
-@import url('variables.css');
 
 /* ============================================
    COMPLETED COMPONENTS
@@ -22,7 +21,7 @@
 /* ============================================
    CORE LAYOUT (01-core-layout/)
    ============================================ */
-/* @import url('01-core-layout/03-top-navigation.css'); */
+@import url('01-core-layout/03-top-navigation.css');
 /* @import url('01-core-layout/04-main-content.css'); */
 /* @import url('01-core-layout/05-page-headers.css'); */
 
