@@ -8,3 +8,14 @@
 
 /* Import components */
 @import url('login.css');
+
+/* ============================================
+   AVATAR/USER ICON OVERRIDES
+   ============================================ */
+.avatar-frame,
+.standard-image,
+.avatar .standard-image {
+	background-color: var(--avatar-frame-bg) !important;
+	color: var(--avatar-frame-color) !important;
+	border-color: var(--avatar-frame-border) !important;
+}

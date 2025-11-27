@@ -5,22 +5,26 @@
 
 :root {
 	/* ============================================
-	   COLOR PALETTE - PRIMARY (Dark Teal)
+	   COLOR PALETTE - PRIMARY (Bright Blue)
 	   ============================================ */
-	--color-primary: #1e716a;
-	--color-primary-dark: #15504a;
-	--color-primary-light: #2a8a80;
-	--color-primary-lighter: #3fa399;
-	--color-primary-lightest: #5bb8ad;
+	--color-primary: #0066FF;
+	--color-primary-dark: #0052CC;
+	--color-primary-light: #1A7AFF;
+	--color-primary-lighter: #3388FF;
+	--color-primary-lightest: #4D99FF;
+	--color-primary-rgba-15: rgba(0, 102, 255, 0.15);
+	--color-primary-rgba-30: rgba(0, 102, 255, 0.3);
+	--color-primary-rgba-40: rgba(0, 102, 255, 0.4);
+	--color-primary-rgba-50: rgba(0, 102, 255, 0.5);
 
 	/* ============================================
-	   COLOR PALETTE - SECONDARY (Medium Teal/Blue-Green)
+	   COLOR PALETTE - SECONDARY (Bright Purple/Magenta)
 	   ============================================ */
-	--color-secondary: #60b0b0;
-	--color-secondary-dark: #4a8d8d;
-	--color-secondary-light: #7bc4c4;
-	--color-secondary-lighter: #96d8d8;
-	--color-secondary-lightest: #b1e6e6;
+	--color-secondary: #9D4EDD;
+	--color-secondary-dark: #7B2DB8;
+	--color-secondary-light: #B366E8;
+	--color-secondary-lighter: #C880F0;
+	--color-secondary-lightest: #D699F5;
 
 	/* ============================================
 	   COLOR PALETTE - NEUTRAL GRAYS
@@ -46,15 +50,44 @@
 	--color-text-lighter: #cbd5e0;
 
 	/* ============================================
+	   COLOR PALETTE - ACCENT (Bright Orange/Coral)
+	   ============================================ */
+	--color-accent: #FF6B35;
+	--color-accent-dark: #E55A2B;
+	--color-accent-light: #FF7F4D;
+	--color-accent-lighter: #FF9366;
+	--color-accent-lightest: #FFA780;
+
+	/* ============================================
 	   COLOR PALETTE - BACKGROUND
 	   ============================================ */
 	--color-bg-white: #ffffff;
 	--color-bg-gray: #f0f0d0;
 	--color-bg-gray-light: #f5f5e0;
 	--color-bg-gray-lighter: #fafaf0;
-	--color-bg-light-blue: #a0d0e0;
-	--color-bg-light-blue-light: #b5dae8;
-	--color-bg-light-blue-lighter: #cae4f0;
+	--color-bg-light-blue: #00D4FF;
+	--color-bg-light-blue-light: #1ADDFF;
+	--color-bg-light-blue-lighter: #33E6FF;
+
+	/* ============================================
+	   COLOR PALETTE - SIDEBAR
+	   ============================================ */
+	--sidebar-bg-gradient: linear-gradient(180deg, #F0F4FF 0%, #F5F0FF 100%);
+	--sidebar-bg-solid: #F0F4FF;
+	--sidebar-border-color: rgba(157, 78, 221, 0.2);
+	--sidebar-hover-bg: rgba(157, 78, 221, 0.08);
+	--sidebar-active-bg-gradient: linear-gradient(90deg, rgba(157, 78, 221, 0.2) 0%, rgba(157, 78, 221, 0.1) 100%);
+	--sidebar-active-bg-solid: rgba(157, 78, 221, 0.15);
+	--sidebar-active-color: #9D4EDD;
+	--sidebar-active-shadow: rgba(157, 78, 221, 0.2);
+	--sidebar-icon-active-bg: rgba(157, 78, 221, 0.15);
+
+	/* ============================================
+	   COLOR PALETTE - AVATAR/USER ICON
+	   ============================================ */
+	--avatar-frame-bg: #ffffff;
+	--avatar-frame-color: #374151;
+	--avatar-frame-border: #e5e7eb;
 
 	/* ============================================
 	   COLOR PALETTE - BORDERS

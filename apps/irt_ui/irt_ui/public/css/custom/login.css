@@ -39,7 +39,7 @@
 	body:has(.for-email-login),
 	body:has(.for-signup),
 	body:has(.for-forgot) {
-		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-bg-light-blue) 100%);
+		background: transparent;
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
@@ -67,7 +67,7 @@
 
 /* Apply background via JavaScript class - will be added by JS if needed */
 body.login-page {
-	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-bg-light-blue) 100%);
+	background: transparent;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
@@ -226,7 +226,7 @@ body.login-page .page-content-wrapper {
 	outline: none;
 	border-color: var(--color-primary);
 	background-color: var(--color-bg-white);
-	box-shadow: 0 0 0 3px rgba(30, 113, 106, 0.15);
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-15);
 	transform: translateY(-1px);
 }
 
@@ -349,7 +349,7 @@ body.login-page .page-content-wrapper {
 	color: var(--color-bg-white);
 	cursor: pointer;
 	transition: all var(--transition-base);
-	box-shadow: 0 4px 20px rgba(30, 113, 106, 0.4);
+	box-shadow: 0 4px 20px var(--color-primary-rgba-40);
 	position: relative;
 	overflow: hidden;
 }
@@ -367,7 +367,7 @@ body.login-page .page-content-wrapper {
 
 .btn-login:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 6px 24px rgba(30, 113, 106, 0.5);
+	box-shadow: 0 6px 24px var(--color-primary-rgba-50);
 }
 
 .btn-login:hover::before {
@@ -376,12 +376,12 @@ body.login-page .page-content-wrapper {
 
 .btn-login:active {
 	transform: translateY(0);
-	box-shadow: 0 2px 12px rgba(30, 113, 106, 0.4);
+	box-shadow: 0 2px 12px var(--color-primary-rgba-40);
 }
 
 .btn-login:focus {
 	outline: none;
-	box-shadow: 0 0 0 3px rgba(30, 113, 106, 0.3), 0 4px 20px rgba(30, 113, 106, 0.4);
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-30), 0 4px 20px var(--color-primary-rgba-40);
 }
 
 /* ============================================
