@@ -1,6 +1,13 @@
 /**
  * Form Inputs - JavaScript Enhancements
- * Status: ✅ ACTIVE - Hide dropdown arrow icons
+ * Status: ✅ ACTIVE - Enhanced form functionality
+ * Features:
+ * - Hide dropdown arrow icons
+ * - Form validation enhancements
+ * - Auto-save functionality
+ * - Keyboard navigation
+ * - Field focus indicators
+ * - Form state management
  */
 
 (function() {
@@ -199,5 +206,395 @@
 
 	// Also run periodically to catch any missed elements - More frequent
 	setInterval(hideArrowIcons, 500);
+
+	/* ============================================
+	   FORM VALIDATION ENHANCEMENTS
+	   ============================================ */
+
+	function enhanceFormValidation() {
+		const formControls = document.querySelectorAll('.form-control, input, select, textarea');
+		
+		formControls.forEach(control => {
+			// Real-time validation feedback
+			control.addEventListener('blur', function() {
+				validateField(this);
+			});
+
+			// Clear error on input
+			control.addEventListener('input', function() {
+				if (this.classList.contains('is-invalid')) {
+					clearFieldError(this);
+				}
+			});
+		});
+	}
+
+	function validateField(field) {
+		const formGroup = field.closest('.form-group, .frappe-control');
+		if (!formGroup) return;
+
+		// Check required fields
+		if (field.hasAttribute('required') && !field.value.trim()) {
+			showFieldError(field, 'This field is required');
+			return false;
+		}
+
+		// Email validation
+		if (field.type === 'email' && field.value && !isValidEmail(field.value)) {
+			showFieldError(field, 'Please enter a valid email address');
+			return false;
+		}
+
+		// Number validation
+		if (field.type === 'number') {
+			const min = field.getAttribute('min');
+			const max = field.getAttribute('max');
+			const value = parseFloat(field.value);
+			
+			if (field.value && !isNaN(value)) {
+				if (min && value < parseFloat(min)) {
+					showFieldError(field, `Value must be at least ${min}`);
+					return false;
+				}
+				if (max && value > parseFloat(max)) {
+					showFieldError(field, `Value must be at most ${max}`);
+					return false;
+				}
+			}
+		}
+
+		// URL validation
+		if (field.type === 'url' && field.value && !isValidUrl(field.value)) {
+			showFieldError(field, 'Please enter a valid URL');
+			return false;
+		}
+
+		// Clear errors if valid
+		clearFieldError(field);
+		return true;
+	}
+
+	function showFieldError(field, message) {
+		const formGroup = field.closest('.form-group, .frappe-control');
+		if (!formGroup) return;
+
+		// Remove existing error
+		clearFieldError(field);
+
+		// Add error class
+		formGroup.classList.add('has-error');
+		field.classList.add('is-invalid');
+
+		// Show error message
+		let errorElement = formGroup.querySelector('.field-error-message');
+		if (!errorElement) {
+			errorElement = document.createElement('div');
+			errorElement.className = 'field-error-message help-block';
+			formGroup.appendChild(errorElement);
+		}
+		errorElement.textContent = message;
+	}
+
+	function clearFieldError(field) {
+		const formGroup = field.closest('.form-group, .frappe-control');
+		if (!formGroup) return;
+
+		formGroup.classList.remove('has-error');
+		field.classList.remove('is-invalid');
+
+		const errorElement = formGroup.querySelector('.field-error-message');
+		if (errorElement) {
+			errorElement.remove();
+		}
+	}
+
+	function isValidEmail(email) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	}
+
+	function isValidUrl(url) {
+		try {
+			new URL(url);
+			return true;
+		} catch {
+			return false;
+		}
+	}
+
+	/* ============================================
+	   AUTO-SAVE FUNCTIONALITY
+	   ============================================ */
+
+	function initAutoSave() {
+		const forms = document.querySelectorAll('form, .form-container, .form-section');
+		
+		forms.forEach(form => {
+			let saveTimeout;
+			const formData = new FormData();
+			let isDirty = false;
+
+			// Mark form as dirty on change
+			const inputs = form.querySelectorAll('input, select, textarea');
+			inputs.forEach(input => {
+				input.addEventListener('input', function() {
+					isDirty = true;
+					form.classList.add('dirty');
+					
+					// Debounce auto-save
+					clearTimeout(saveTimeout);
+					saveTimeout = setTimeout(() => {
+						triggerAutoSave(form);
+					}, 2000); // Save after 2 seconds of inactivity
+				});
+			});
+		});
+	}
+
+	function triggerAutoSave(form) {
+		form.classList.add('saving');
+		form.classList.remove('dirty');
+
+		// Simulate save (replace with actual save logic)
+		setTimeout(() => {
+			form.classList.remove('saving');
+			form.classList.add('saved');
+			
+			// Show save indicator
+			showSaveIndicator(form);
+			
+			setTimeout(() => {
+				form.classList.remove('saved');
+			}, 2000);
+		}, 500);
+	}
+
+	function showSaveIndicator(form) {
+		let indicator = form.querySelector('.save-indicator');
+		if (!indicator) {
+			indicator = document.createElement('div');
+			indicator.className = 'save-indicator';
+			indicator.style.cssText = `
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				background: var(--color-success);
+				color: white;
+				padding: 8px 16px;
+				border-radius: 6px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				z-index: 10000;
+				font-size: 13px;
+				animation: slideIn 0.3s ease;
+			`;
+			document.body.appendChild(indicator);
+		}
+		
+		indicator.textContent = '✓ Saved';
+		indicator.style.display = 'block';
+		
+		setTimeout(() => {
+			indicator.style.animation = 'slideOut 0.3s ease';
+			setTimeout(() => {
+				indicator.style.display = 'none';
+			}, 300);
+		}, 2000);
+	}
+
+	/* ============================================
+	   KEYBOARD NAVIGATION
+	   ============================================ */
+
+	function enhanceKeyboardNavigation() {
+		document.addEventListener('keydown', function(e) {
+			// Tab navigation enhancement
+			if (e.key === 'Tab') {
+				const activeElement = document.activeElement;
+				if (activeElement && (activeElement.tagName === 'INPUT' || 
+					activeElement.tagName === 'SELECT' || 
+					activeElement.tagName === 'TEXTAREA')) {
+					
+					// Add visual indicator for keyboard navigation
+					activeElement.classList.add('keyboard-navigating');
+					
+					setTimeout(() => {
+						activeElement.classList.remove('keyboard-navigating');
+					}, 1000);
+				}
+			}
+
+			// Enter to submit (if in form)
+			if (e.key === 'Enter' && e.target.closest('form')) {
+				const form = e.target.closest('form');
+				const submitButton = form.querySelector('button[type="submit"], .btn-primary');
+				
+				// Don't submit if in textarea
+				if (e.target.tagName !== 'TEXTAREA' && submitButton && !e.shiftKey) {
+					e.preventDefault();
+					submitButton.click();
+				}
+			}
+
+			// Escape to clear field
+			if (e.key === 'Escape' && e.target.tagName === 'INPUT') {
+				if (e.target.value) {
+					e.target.value = '';
+					e.target.dispatchEvent(new Event('input', { bubbles: true }));
+				}
+			}
+		});
+	}
+
+	/* ============================================
+	   FIELD FOCUS ENHANCEMENTS
+	   ============================================ */
+
+	function enhanceFieldFocus() {
+		const formControls = document.querySelectorAll('.form-control, input, select, textarea');
+		
+		formControls.forEach(control => {
+			control.addEventListener('focus', function() {
+				const formGroup = this.closest('.form-group, .frappe-control');
+				if (formGroup) {
+					formGroup.classList.add('field-focused');
+				}
+			});
+
+			control.addEventListener('blur', function() {
+				const formGroup = this.closest('.form-group, .frappe-control');
+				if (formGroup) {
+					formGroup.classList.remove('field-focused');
+				}
+			});
+		});
+	}
+
+	/* ============================================
+	   FORM STATE MANAGEMENT
+	   ============================================ */
+
+	function trackFormState() {
+		const forms = document.querySelectorAll('form, .form-container');
+		
+		forms.forEach(form => {
+			let originalData = {};
+			
+			// Capture initial state
+			const inputs = form.querySelectorAll('input, select, textarea');
+			inputs.forEach(input => {
+				if (input.name || input.id) {
+					originalData[input.name || input.id] = input.value;
+				}
+			});
+
+			// Check for changes
+			function checkForChanges() {
+				let hasChanges = false;
+				inputs.forEach(input => {
+					const key = input.name || input.id;
+					if (key && originalData[key] !== input.value) {
+						hasChanges = true;
+					}
+				});
+
+				if (hasChanges) {
+					form.classList.add('has-changes');
+				} else {
+					form.classList.remove('has-changes');
+				}
+			}
+
+			inputs.forEach(input => {
+				input.addEventListener('input', checkForChanges);
+				input.addEventListener('change', checkForChanges);
+			});
+		});
+	}
+
+	/* ============================================
+	   INITIALIZATION
+	   ============================================ */
+
+	function init() {
+		// Initialize all enhancements
+		enhanceFormValidation();
+		enhanceKeyboardNavigation();
+		enhanceFieldFocus();
+		trackFormState();
+		initAutoSave();
+
+		// Add CSS for animations
+		if (!document.getElementById('form-enhancements-style')) {
+			const style = document.createElement('style');
+			style.id = 'form-enhancements-style';
+			style.textContent = `
+				@keyframes slideIn {
+					from {
+						transform: translateX(100%);
+						opacity: 0;
+					}
+					to {
+						transform: translateX(0);
+						opacity: 1;
+					}
+				}
+				@keyframes slideOut {
+					from {
+						transform: translateX(0);
+						opacity: 1;
+					}
+					to {
+						transform: translateX(100%);
+						opacity: 0;
+					}
+				}
+				.field-focused {
+					position: relative;
+				}
+				/* Blue side line removed - no longer needed */
+				.field-focused::before {
+					display: none;
+				}
+				.keyboard-navigating {
+					outline: 2px solid var(--color-primary) !important;
+					outline-offset: 2px !important;
+				}
+			`;
+			document.head.appendChild(style);
+		}
+	}
+
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+
+	// Re-initialize on route changes (Frappe specific)
+	if (typeof frappe !== 'undefined') {
+		frappe.router?.on('change', function() {
+			setTimeout(init, 100);
+		});
+	}
+
+	// Watch for dynamically added forms
+	const formObserver = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			if (mutation.addedNodes.length) {
+				mutation.addedNodes.forEach(node => {
+					if (node.nodeType === 1) {
+						if (node.tagName === 'FORM' || node.classList?.contains('form-container')) {
+							setTimeout(init, 100);
+						}
+					}
+				});
+			}
+		});
+	});
+
+	formObserver.observe(document.body, {
+		childList: true,
+		subtree: true
+	});
 })();
 

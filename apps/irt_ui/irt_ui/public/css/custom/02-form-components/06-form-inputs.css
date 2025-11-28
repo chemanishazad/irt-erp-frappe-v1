@@ -17,19 +17,31 @@ input[type="url"],
 input[type="search"] {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1px solid var(--color-primary-rgba-30);
-  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-primary-rgba-30);
+  border-radius: var(--radius-md);
   box-sizing: border-box;
   text-align: start;
   vertical-align: middle;
-  height: 38px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 42px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.form-control:hover:not(:disabled):not(:focus),
+input[type="text"]:hover:not(:disabled):not(:focus),
+input[type="email"]:hover:not(:disabled):not(:focus),
+input[type="password"]:hover:not(:disabled):not(:focus),
+input[type="number"]:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-primary-light);
+  background-color: var(--color-gray-50);
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
+  transform: translateY(-1px);
 }
 
 .form-control:focus,
@@ -43,8 +55,9 @@ input[type="search"]:focus {
   outline: none;
   border-color: var(--color-primary);
   border-width: 2px;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
   background-color: var(--color-bg-white);
+  transform: translateY(0);
 }
 
 .form-control:hover:not(:disabled):not(:focus),
@@ -90,19 +103,20 @@ textarea.form-control,
 textarea {
   width: 100%;
   max-width: 100%;
-  min-height: 80px;
-  padding: var(--spacing-sm) var(--spacing-md);
+  min-height: 100px;
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   line-height: 1.6;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1px solid var(--color-primary-rgba-30);
-  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-primary-rgba-30);
+  border-radius: var(--radius-md);
   box-sizing: border-box;
   resize: vertical;
   font-family: inherit;
   text-align: start;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 textarea.form-control:focus,
@@ -110,7 +124,7 @@ textarea:focus {
   outline: none;
   border-color: var(--color-primary);
   border-width: 2px;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
   background-color: var(--color-bg-white);
 }
 
@@ -118,6 +132,7 @@ textarea.form-control:hover:not(:disabled):not(:focus),
 textarea:hover:not(:disabled):not(:focus) {
   border-color: var(--color-primary-light);
   background-color: var(--color-gray-50);
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
 }
 
 textarea:disabled {
@@ -140,26 +155,29 @@ select.form-control,
 select {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  padding-right: 40px;
   font-size: var(--font-size-sm);
   line-height: 1.5;
   font-weight: var(--font-weight-normal);
-  color: var(--color-text-secondary-light);
+  color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1px solid var(--color-primary-rgba-30);
-  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-primary-rgba-30);
+  border-radius: var(--radius-md);
   box-sizing: border-box;
   text-align: start;
   vertical-align: middle;
   cursor: pointer;
-  height: 38px;
+  height: 42px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230066FF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right var(--spacing-md) center;
-  background-size: 0;
+  background-position: right var(--spacing-lg) center;
+  background-size: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 /* Hide IE arrow */
@@ -172,14 +190,17 @@ select:focus {
   outline: none;
   border-color: var(--color-primary);
   border-width: 2px;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
   background-color: var(--color-bg-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230052CC' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
 }
 
 select.form-control:hover:not(:disabled):not(:focus),
 select:hover:not(:disabled):not(:focus) {
   border-color: var(--color-primary-light);
-  background-color: var(--color-bg-white);
+  background-color: var(--color-gray-50);
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
+  transform: translateY(-1px);
 }
 
 select:disabled {
@@ -198,19 +219,29 @@ input[type="datetime-local"],
 input[type="time"] {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   line-height: 1.5;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1px solid var(--color-primary-rgba-30);
-  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-primary-rgba-30);
+  border-radius: var(--radius-md);
   box-sizing: border-box;
   cursor: pointer;
   text-align: start;
   vertical-align: middle;
-  height: 38px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 42px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+input[type="date"]:hover:not(:disabled):not(:focus),
+input[type="datetime-local"]:hover:not(:disabled):not(:focus),
+input[type="time"]:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-primary-light);
+  background-color: var(--color-gray-50);
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
+  transform: translateY(-1px);
 }
 
 input[type="date"]:focus,
@@ -219,15 +250,91 @@ input[type="time"]:focus {
   outline: none;
   border-color: var(--color-primary);
   border-width: 2px;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
   background-color: var(--color-bg-white);
+  transform: translateY(0);
 }
 
-input[type="date"]:hover:not(:disabled):not(:focus),
-input[type="datetime-local"]:hover:not(:disabled):not(:focus),
-input[type="time"]:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-bg-white);
+/* Additional form enhancements */
+.form-group.field-focused,
+.frappe-control.field-focused {
+  position: relative;
+}
+
+/* Blue side line removed - no longer needed */
+.form-group.field-focused::before,
+.frappe-control.field-focused::before {
+  display: none;
+}
+
+/* Input with icons */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .form-control {
+  padding-left: 40px;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-with-icon:focus-within .input-icon {
+  color: var(--color-primary);
+}
+
+/* Floating labels effect */
+.form-group.floating-label {
+  position: relative;
+}
+
+.form-group.floating-label label {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-white);
+  padding: 0 4px;
+}
+
+.form-group.floating-label .form-control:focus + label,
+.form-group.floating-label .form-control:not(:placeholder-shown) + label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Character counter */
+.input-with-counter {
+  position: relative;
+}
+
+.input-counter {
+  position: absolute;
+  bottom: -18px;
+  right: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.input-counter.warning {
+  color: var(--color-warning);
+}
+
+.input-counter.error {
+  color: var(--color-error);
 }
 
 input[type="date"]:disabled,
@@ -260,18 +367,20 @@ input[type="time"]:hover::-webkit-calendar-picker-indicator {
 
 input[type="checkbox"],
 input[type="radio"] {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   margin: 0;
   cursor: pointer;
   accent-color: var(--color-primary);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 input[type="checkbox"]:hover:not(:disabled),
 input[type="radio"]:hover:not(:disabled) {
   accent-color: var(--color-primary-dark);
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
 }
 
 input[type="checkbox"]:focus,
@@ -301,7 +410,7 @@ input[type="radio"] {
 input[type="file"] {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
@@ -310,12 +419,20 @@ input[type="file"] {
   box-sizing: border-box;
   cursor: pointer;
   text-align: start;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 input[type="file"]:hover:not(:disabled) {
   border-color: var(--color-primary);
   background-color: var(--color-primary-rgba-08);
+  border-style: solid;
+  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+input[type="file"]:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 input[type="file"]:focus {
@@ -337,16 +454,25 @@ input[type="file"]:disabled {
 -------------------------------------------------------------*/
 
 .form-group {
-  margin-bottom: 0;
+  margin-bottom: var(--spacing-lg);
+  padding: 0;
 }
 
 .form-group label,
 .control-label {
   display: block;
-  margin-bottom: var(--spacing-xs);
-  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: 2px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.form-group:focus-within label,
+.form-group:focus-within .control-label {
+  color: var(--color-primary);
 }
 
 .form-group label.required::after,
@@ -360,10 +486,24 @@ input[type="file"]:disabled {
 .help-block,
 .help-text {
   display: block;
-  margin-top: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+  padding-top: 2px;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
+  padding-left: 2px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Error / success */
@@ -372,12 +512,31 @@ input[type="file"]:disabled {
 .form-group.has-error select,
 .form-group.has-error textarea {
   border-color: var(--color-error);
+  border-width: 2px;
   background-color: rgba(239, 68, 68, 0.05);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .form-group.has-error .help-block,
 .form-group.has-error .help-text {
   color: var(--color-error);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-group.has-error .help-block::before,
+.form-group.has-error .help-text::before {
+  content: "⚠";
+  font-size: 14px;
 }
 
 .form-group.has-success .form-control,
@@ -385,11 +544,23 @@ input[type="file"]:disabled {
 .form-group.has-success select,
 .form-group.has-success textarea {
   border-color: var(--color-success);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .form-group.has-success .help-block,
 .form-group.has-success .help-text {
   color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-group.has-success .help-block::before,
+.form-group.has-success .help-text::before {
+  content: "✓";
+  font-size: 14px;
 }
 
 /* Read-only */
@@ -413,14 +584,20 @@ textarea[readonly]:focus {
    FRAPPE-SPECIFIC: LINK / SELECT ARROW & GREY BUTTON
 -------------------------------------------------------------*/
 
-/* Remove spacing from Frappe control wrappers */
-.frappe-control,
-.frappe-control .control-input-wrapper,
-.frappe-control .form-group {
+/* Frappe control wrappers - improved spacing */
+.frappe-control {
+  margin-bottom: var(--spacing-lg) !important;
+  padding: 0 !important;
+}
+
+.frappe-control .control-input-wrapper {
   margin-bottom: 0 !important;
-  margin-top: 0 !important;
-  padding-bottom: 0 !important;
-  padding-top: 0 !important;
+  padding: 0 !important;
+}
+
+.frappe-control .form-group {
+  margin-bottom: var(--spacing-lg) !important;
+  padding: 0 !important;
 }
 
 /* Keep link & select inputs styled like other controls */
@@ -429,12 +606,12 @@ textarea[readonly]:focus {
   width: 100% !important;
   max-width: 100% !important;
   background-color: var(--color-bg-white) !important;
-  border-radius: var(--radius-sm) !important;
+  border-radius: var(--radius-md) !important;
   color: var(--color-text-secondary) !important;
   text-align: start !important;
-  padding: var(--spacing-sm) var(--spacing-md) !important;
-  font-size: var(--font-size-sm) !important;
-  height: 38px !important;
+  padding: var(--spacing-md) var(--spacing-lg) !important;
+  font-size: var(--font-size-xs) !important;
+  height: 42px !important;
   line-height: 1.5 !important;
 }
 
@@ -470,55 +647,71 @@ textarea[readonly]:focus {
 }
 
 /* ------------------------------------------------------------
-   CALENDAR / DATEPICKER THEME (Air Datepicker)
+   CALENDAR / DATEPICKER THEME (Air Datepicker) - ENHANCED
 -------------------------------------------------------------*/
 
 body .datepicker,
 .datepicker.datepicker--active,
 .datepicker.active {
   background: var(--color-bg-white) !important;
-  border: 1px solid var(--color-primary-rgba-30) !important;
-  border-radius: var(--radius-md) !important;
-  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.15) !important;
+  border: 1.5px solid var(--color-primary-rgba-20) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 8px 24px rgba(0, 102, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
   font-family: inherit !important;
-  padding: var(--spacing-sm) !important;
-  width: 280px !important;
+  padding: var(--spacing-lg) !important;
+  width: 300px !important;
   z-index: 99999 !important;
+  overflow: hidden !important;
 }
 
 body .datepicker--nav,
 .datepicker .datepicker--nav {
-  border-bottom: 1px solid var(--color-primary-rgba-20) !important;
-  padding-bottom: var(--spacing-xs) !important;
-  margin-bottom: var(--spacing-xs) !important;
+  border-bottom: 2px solid var(--color-primary-rgba-10) !important;
+  padding-bottom: var(--spacing-md) !important;
+  margin-bottom: var(--spacing-md) !important;
   background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
 body .datepicker--nav-title,
 .datepicker .datepicker--nav-title {
   color: var(--color-text-primary) !important;
-  font-size: var(--font-size-base) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  font-size: var(--font-size-lg) !important;
+  font-weight: var(--font-weight-bold) !important;
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  border-radius: var(--radius-md) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
 }
 
 body .datepicker--nav-title:hover,
 .datepicker .datepicker--nav-title:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-rgba-10) 0%, var(--color-primary-rgba-08) 100%) !important;
   color: var(--color-primary) !important;
-  border-radius: var(--radius-sm) !important;
+  transform: translateY(-1px) !important;
 }
 
 body .datepicker--nav-action,
 .datepicker .datepicker--nav-action {
   color: var(--color-text-secondary) !important;
-  border-radius: var(--radius-sm) !important;
-  transition: all 0.2s ease !important;
+  border-radius: var(--radius-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--color-gray-50) !important;
 }
 
 body .datepicker--nav-action:hover,
 .datepicker .datepicker--nav-action:hover {
-  background: var(--color-primary-rgba-10) !important;
-  color: var(--color-primary) !important;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
+  color: var(--color-bg-white) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3) !important;
 }
 
 body .datepicker--nav-action path,
@@ -531,85 +724,132 @@ body .datepicker--nav-action svg,
 
 body .datepicker--content,
 .datepicker .datepicker--content {
-  padding: var(--spacing-xs) 0 !important;
+  padding: var(--spacing-md) 0 !important;
 }
 
 body .datepicker--days-names,
 .datepicker .datepicker--days-names {
-  margin-bottom: var(--spacing-xs) !important;
+  margin-bottom: var(--spacing-md) !important;
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: var(--spacing-xs) !important;
 }
 
 body .datepicker--day-name,
 .datepicker .datepicker--day-name {
   color: var(--color-text-secondary) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--font-weight-bold) !important;
   font-size: var(--font-size-xs) !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: var(--spacing-sm) 0 !important;
+  text-align: center !important;
 }
 
 body .datepicker--cell,
 .datepicker .datepicker--cell {
-  border-radius: var(--radius-sm) !important;
+  border-radius: var(--radius-md) !important;
   font-size: var(--font-size-sm) !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: var(--font-weight-medium) !important;
 }
 
 body .datepicker--cell-day,
 .datepicker .datepicker--cell-day {
   color: var(--color-text-primary) !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 2px !important;
 }
 
 body .datepicker--cell-day:hover,
 .datepicker .datepicker--cell-day:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
   color: var(--color-primary) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
+  font-weight: var(--font-weight-semibold) !important;
 }
 
 body .datepicker--cell-day.-selected-,
 body .datepicker--cell-day.-selected-.-focus-,
 .datepicker .datepicker--cell-day.-selected-,
 .datepicker .datepicker--cell-day.-selected-.-focus- {
-  background: var(--color-primary) !important;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
   color: var(--color-bg-white) !important;
-  font-weight: var(--font-weight-semibold) !important;
-  box-shadow: 0 2px 4px var(--color-primary-rgba-30) !important;
+  font-weight: var(--font-weight-bold) !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4), 0 2px 4px rgba(0, 102, 255, 0.3) !important;
+  transform: scale(1.05) !important;
+  border: 2px solid var(--color-primary-light) !important;
 }
 
 body .datepicker--cell-day.-selected-:hover,
 body .datepicker--cell-day.-selected-.-focus-:hover,
 .datepicker .datepicker--cell-day.-selected-:hover,
 .datepicker .datepicker--cell-day.-selected-.-focus-:hover {
-  background: var(--color-primary-dark) !important;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 6px 16px rgba(0, 102, 255, 0.5) !important;
 }
 
 body .datepicker--cell-day.-current-,
 .datepicker .datepicker--cell-day.-current- {
   color: var(--color-primary) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--font-weight-bold) !important;
   border: 2px solid var(--color-primary) !important;
+  background: var(--color-primary-rgba-08) !important;
+  position: relative !important;
+}
+
+body .datepicker--cell-day.-current-::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 2px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 4px !important;
+  height: 4px !important;
+  background: var(--color-primary) !important;
+  border-radius: 50% !important;
 }
 
 body .datepicker--cell-day.-current-:hover,
 .datepicker .datepicker--cell-day.-current-:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
+  border-color: var(--color-primary-light) !important;
+  transform: scale(1.1) !important;
 }
 
 body .datepicker--cell-day.-other-month-,
 .datepicker .datepicker--cell-day.-other-month- {
   color: var(--color-text-tertiary) !important;
-  opacity: 0.4 !important;
+  opacity: 0.35 !important;
+  background: var(--color-gray-50) !important;
+}
+
+body .datepicker--cell-day.-other-month-:hover,
+.datepicker .datepicker--cell-day.-other-month-:hover {
+  opacity: 0.6 !important;
+  background: var(--color-gray-100) !important;
 }
 
 body .datepicker--cell-day.-disabled-,
 .datepicker .datepicker--cell-day.-disabled- {
   color: var(--color-text-tertiary) !important;
-  opacity: 0.3 !important;
+  opacity: 0.25 !important;
   cursor: not-allowed !important;
+  background: var(--color-gray-50) !important;
+  text-decoration: line-through !important;
 }
 
 body .datepicker--cell-day.-disabled-:hover,
 .datepicker .datepicker--cell-day.-disabled-:hover {
-  background: transparent !important;
+  background: var(--color-gray-50) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 body .datepicker--cell-month,
@@ -617,23 +857,31 @@ body .datepicker--cell-year,
 .datepicker .datepicker--cell-month,
 .datepicker .datepicker--cell-year {
   color: var(--color-text-primary) !important;
+  padding: var(--spacing-md) !important;
+  border-radius: var(--radius-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: var(--font-weight-medium) !important;
 }
 
 body .datepicker--cell-month:hover,
 body .datepicker--cell-year:hover,
 .datepicker .datepicker--cell-month:hover,
 .datepicker .datepicker--cell-year:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
   color: var(--color-primary) !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
 }
 
 body .datepicker--cell-month.-selected-,
 body .datepicker--cell-year.-selected-,
 .datepicker .datepicker--cell-month.-selected-,
 .datepicker .datepicker--cell-year.-selected- {
-  background: var(--color-primary) !important;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
   color: var(--color-bg-white) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--font-weight-bold) !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4) !important;
+  transform: scale(1.05) !important;
 }
 
 body .datepicker--cell-month.-current-,
@@ -641,40 +889,56 @@ body .datepicker--cell-year.-current-,
 .datepicker .datepicker--cell-month.-current-,
 .datepicker .datepicker--cell-year.-current- {
   color: var(--color-primary) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--font-weight-bold) !important;
   border: 2px solid var(--color-primary) !important;
+  background: var(--color-primary-rgba-08) !important;
 }
 
 body .datepicker--buttons,
 .datepicker .datepicker--buttons {
-  border-top: 1px solid var(--color-primary-rgba-20) !important;
-  padding-top: var(--spacing-xs) !important;
-  margin-top: var(--spacing-xs) !important;
+  border-top: 2px solid var(--color-primary-rgba-10) !important;
+  padding-top: var(--spacing-md) !important;
+  margin-top: var(--spacing-md) !important;
+  display: flex !important;
+  gap: var(--spacing-sm) !important;
+  justify-content: center !important;
 }
 
 body .datepicker--button,
 .datepicker .datepicker--button {
   color: var(--color-text-secondary) !important;
   font-size: var(--font-size-sm) !important;
-  border-radius: var(--radius-sm) !important;
-  transition: all 0.2s ease !important;
+  font-weight: var(--font-weight-medium) !important;
+  border-radius: var(--radius-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: var(--spacing-sm) var(--spacing-lg) !important;
+  background: var(--color-gray-50) !important;
+  border: 1.5px solid var(--color-primary-rgba-20) !important;
 }
 
 body .datepicker--button:hover,
 .datepicker .datepicker--button:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
   color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
 }
 
 body .datepicker--button.-today-,
 .datepicker .datepicker--button.-today- {
-  color: var(--color-primary) !important;
-  font-weight: var(--font-weight-semibold) !important;
+  color: var(--color-bg-white) !important;
+  font-weight: var(--font-weight-bold) !important;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3) !important;
 }
 
 body .datepicker--button.-today-:hover,
 .datepicker .datepicker--button.-today-:hover {
-  background: var(--color-primary-rgba-10) !important;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4) !important;
 }
 
 /* ------------------------------------------------------------
@@ -695,8 +959,8 @@ body[data-route*="desk"] .form-section .section-body,
 body[data-route*="desk"] .form-column,
 .layout-main .form-column {
   box-sizing: border-box;
-  padding-left: var(--spacing-xs) !important;
-  padding-right: var(--spacing-xs) !important;
+  padding-left: var(--spacing-md) !important;
+  padding-right: var(--spacing-md) !important;
   width: 33.333% !important;
   max-width: 33.333% !important;
 }
