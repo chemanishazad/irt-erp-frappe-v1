@@ -1,70 +1,182 @@
 /**
  * Form Layout - Enhanced Styling
  * Sections, tabs, field groups, and form structure
+ * Matches design system with form inputs and buttons
  */
 
 /* ============================================
-   FORM SECTIONS
+   FORM SECTIONS (Frappe)
    ============================================ */
 
-.form-section {
-  margin-bottom: var(--spacing-2xl);
-  padding: var(--spacing-xl) var(--spacing-2xl);
-  background: var(--color-bg-white);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s ease;
+.form-section,
+.form-dashboard-section {
+  margin-bottom: var(--spacing-lg);
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--color-primary-rgba-10);
 }
 
-.form-section:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.form-section.card-section,
+.form-dashboard-section.card-section {
+  padding: var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--color-primary-rgba-10);
 }
 
-.form-section .section-head {
+.form-section.card-section.hide-border,
+.form-dashboard-section.hide-border {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.form-section.card-section.hide-border:not(:has(.section-head)) {
+  padding-top: 0;
+}
+
+/* Section Head (Frappe) - Enhanced Title Styling */
+.form-section .section-head,
+.form-dashboard-section .section-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--color-primary-rgba-10);
-}
-
-.form-section .section-head .section-title {
-  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
+  width: 100%;
+  cursor: default;
+  border-bottom: 2px solid var(--color-primary-rgba-10);
+  transition: all 0.2s ease;
+  position: relative;
+  letter-spacing: 0.01em;
 }
 
-.form-section .section-head .section-title::before {
+.form-section .section-head::before,
+.form-dashboard-section .section-head::before {
   content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 4px;
-  height: 20px;
-  background: var(--color-primary);
-  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.form-section .section-body {
-  padding: var(--spacing-md) 0 0 0;
+.form-section .section-head:hover::before,
+.form-dashboard-section .section-head:hover::before {
+  opacity: 1;
 }
 
-.form-section.collapsed .section-body {
+.form-section .section-head.collapsible,
+.form-dashboard-section .section-head.collapsible {
+  cursor: pointer;
+}
+
+.form-section .section-head.collapsible:hover,
+.form-dashboard-section .section-head.collapsible:hover {
+  background: var(--color-primary-rgba-08);
+  border-radius: var(--radius-sm);
+}
+
+.form-section .section-head.collapsed,
+.form-dashboard-section .section-head.collapsed {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.form-section .section-head .collapse-indicator,
+.form-dashboard-section .section-head .collapse-indicator {
+  color: var(--color-text-secondary);
+  margin-left: var(--spacing-sm);
+  transition: transform 0.2s ease;
+}
+
+.form-section .section-head.collapsed .collapse-indicator,
+.form-dashboard-section .section-head.collapsed .collapse-indicator {
+  transform: rotate(-90deg);
+}
+
+/* Section Body (Frappe) */
+.form-section .section-body,
+.form-dashboard-section .section-body {
+  padding-top: var(--spacing-xs);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  max-width: 100%;
+}
+
+.form-section .section-body:first-child,
+.form-dashboard-section .section-body:first-child {
+  margin-top: var(--spacing-sm);
+}
+
+.form-dashboard-section .section-body {
+  display: block;
+  padding: var(--spacing-md);
+  padding-top: 0;
+}
+
+.form-section.collapsed .section-body,
+.form-dashboard-section.collapsed .section-body {
   display: none;
 }
 
-.form-section.collapsed .section-head {
-  border-bottom: none;
-  margin-bottom: 0;
+/* Section Description */
+.form-section .form-section-description,
+.form-dashboard-section .form-section-description {
+  max-width: 100%;
+  margin: 0 auto var(--spacing-md) auto;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
 }
 
 /* ============================================
-   FORM TABS
+   FORM COLUMNS (Frappe)
    ============================================ */
 
-.form-tabs {
+.form-column {
+  box-sizing: border-box;
+  padding: 0 var(--spacing-md);
+}
+
+.form-column:first-child {
+  padding-left: 0;
+}
+
+.form-column:last-child {
+  padding-right: 0;
+}
+
+.form-column .form-column-description {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  padding-left: 0;
+}
+
+.form-column .column-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  display: block;
+  cursor: pointer;
+}
+
+/* ============================================
+   FORM TABS (Frappe)
+   ============================================ */
+
+.form-tabs,
+.nav-tabs {
   display: flex;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-lg);
@@ -74,11 +186,14 @@
   -ms-overflow-style: none;
 }
 
-.form-tabs::-webkit-scrollbar {
+.form-tabs::-webkit-scrollbar,
+.nav-tabs::-webkit-scrollbar {
   display: none;
 }
 
-.form-tabs .tab-item {
+.form-tabs .tab-item,
+.nav-tabs .nav-item,
+.nav-tabs .nav-link {
   padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -91,15 +206,20 @@
   white-space: nowrap;
   position: relative;
   margin-bottom: -2px;
+  text-decoration: none;
 }
 
-.form-tabs .tab-item:hover {
+.form-tabs .tab-item:hover,
+.nav-tabs .nav-item:hover .nav-link,
+.nav-tabs .nav-link:hover {
   color: var(--color-primary);
   background: var(--color-primary-rgba-08);
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
-.form-tabs .tab-item.active {
+.form-tabs .tab-item.active,
+.nav-tabs .nav-item.active .nav-link,
+.nav-tabs .nav-link.active {
   color: var(--color-primary);
   font-weight: var(--font-weight-semibold);
   border-bottom-color: var(--color-primary);
@@ -107,7 +227,9 @@
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
-.form-tabs .tab-item.active::after {
+.form-tabs .tab-item.active::after,
+.nav-tabs .nav-item.active .nav-link::after,
+.nav-tabs .nav-link.active::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -118,14 +240,31 @@
 }
 
 /* ============================================
-   FIELD GROUPS
+   FORM LAYOUT & PAGES (Frappe)
+   ============================================ */
+
+.form-layout,
+.form-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.std-form-layout > .form-layout > .form-page {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* ============================================
+   FIELD GROUPS / CUSTOM GROUPS
    ============================================ */
 
 .field-group {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-  padding: var(--spacing-xl) var(--spacing-lg);
+  padding: var(--spacing-lg);
   background: var(--color-gray-50);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-primary-rgba-10);
@@ -289,22 +428,52 @@
 }
 
 /* ============================================
+   EMPTY SECTIONS
+   ============================================ */
+
+.empty-section {
+  display: none !important;
+  border: 0 !important;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 
+@media (max-width: 991px) {
+  .form-column {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
 @media (max-width: 768px) {
-  .form-section {
-    padding: var(--spacing-md);
+  .form-section,
+  .form-dashboard-section {
     margin-bottom: var(--spacing-lg);
   }
 
-  .form-tabs {
+  .form-section .section-head,
+  .form-dashboard-section .section-head {
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+  }
+
+  .form-tabs,
+  .nav-tabs {
     gap: var(--spacing-xs);
   }
 
-  .form-tabs .tab-item {
+  .form-tabs .tab-item,
+  .nav-tabs .nav-item,
+  .nav-tabs .nav-link {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-xs);
+  }
+
+  .form-column {
+    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .field-group {

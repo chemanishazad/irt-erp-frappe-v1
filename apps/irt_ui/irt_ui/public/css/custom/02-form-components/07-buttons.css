@@ -13,7 +13,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
@@ -29,6 +29,8 @@ button {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
+  height: 42px;
+  min-height: 42px;
 }
 
 .btn::before {
@@ -67,15 +69,16 @@ button {
 
 .btn-primary,
 .btn.btn-primary {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
   color: var(--color-bg-white);
   border-color: var(--color-primary);
   box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
+  font-weight: var(--font-weight-semibold);
 }
 
 .btn-primary:hover:not(:disabled),
 .btn.btn-primary:hover:not(:disabled) {
-  background: var(--color-primary-dark);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
   border-color: var(--color-primary-dark);
   box-shadow: 0 4px 8px rgba(0, 102, 255, 0.3);
   transform: translateY(-1px);
@@ -89,7 +92,7 @@ button {
 
 .btn-primary:focus,
 .btn.btn-primary:focus {
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.3);
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.3);
 }
 
 /* ============================================
@@ -97,15 +100,19 @@ button {
    ============================================ */
 
 .btn-secondary,
-.btn.btn-secondary {
+.btn.btn-secondary,
+.btn-default,
+.btn.btn-default {
   background: var(--color-bg-white);
-  color: var(--color-primary);
+  color: var(--color-text-primary);
   border-color: var(--color-primary-rgba-30);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-secondary:hover:not(:disabled),
-.btn.btn-secondary:hover:not(:disabled) {
+.btn.btn-secondary:hover:not(:disabled),
+.btn-default:hover:not(:disabled),
+.btn.btn-default:hover:not(:disabled) {
   background: var(--color-primary-rgba-08);
   border-color: var(--color-primary);
   color: var(--color-primary-dark);
@@ -114,14 +121,18 @@ button {
 }
 
 .btn-secondary:active:not(:disabled),
-.btn.btn-secondary:active:not(:disabled) {
+.btn.btn-secondary:active:not(:disabled),
+.btn-default:active:not(:disabled),
+.btn.btn-default:active:not(:disabled) {
   transform: translateY(0);
   background: var(--color-primary-rgba-10);
 }
 
 .btn-secondary:focus,
-.btn.btn-secondary:focus {
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.15);
+.btn.btn-secondary:focus,
+.btn-default:focus,
+.btn.btn-default:focus {
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.15);
 }
 
 /* ============================================
@@ -186,10 +197,15 @@ button {
    ICON BUTTONS
    ============================================ */
 
+/* Frappe icon buttons */
+.icon-btn,
+.btn.icon-btn,
 .btn-icon,
 .btn.btn-icon {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
   padding: 0;
   border-radius: var(--radius-md);
   display: inline-flex;
@@ -201,6 +217,8 @@ button {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.icon-btn:hover:not(:disabled),
+.btn.icon-btn:hover:not(:disabled),
 .btn-icon:hover:not(:disabled),
 .btn.btn-icon:hover:not(:disabled) {
   background: var(--color-primary-rgba-08);
@@ -210,26 +228,65 @@ button {
   box-shadow: 0 2px 4px rgba(0, 102, 255, 0.15);
 }
 
+.icon-btn:active:not(:disabled),
+.btn.icon-btn:active:not(:disabled),
 .btn-icon:active:not(:disabled),
 .btn.btn-icon:active:not(:disabled) {
   transform: translateY(0) scale(1);
 }
 
+.icon-btn svg,
+.btn.icon-btn svg,
 .btn-icon svg,
 .btn.btn-icon svg {
   width: 18px;
   height: 18px;
 }
 
+/* Small icon buttons */
+.icon-btn.btn-xs,
+.btn.icon-btn.btn-xs {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.icon-btn.btn-sm,
+.btn.icon-btn.btn-sm {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
 /* ============================================
    BUTTON SIZES
    ============================================ */
 
+/* Frappe button sizes */
+.btn-xs,
+.btn.btn-xs {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  height: 28px;
+  min-height: 28px;
+}
+
 .btn-sm,
 .btn.btn-sm {
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-xs);
-  height: 32px;
+  height: 36px;
+  min-height: 36px;
+}
+
+.btn-md,
+.btn.btn-md {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  height: 42px;
+  min-height: 42px;
 }
 
 .btn-lg,
@@ -237,6 +294,7 @@ button {
   padding: var(--spacing-md) var(--spacing-xl);
   font-size: var(--font-size-base);
   height: 48px;
+  min-height: 48px;
   font-weight: var(--font-weight-semibold);
 }
 
@@ -245,6 +303,7 @@ button {
   padding: var(--spacing-lg) var(--spacing-2xl);
   font-size: var(--font-size-lg);
   height: 56px;
+  min-height: 56px;
   font-weight: var(--font-weight-semibold);
 }
 

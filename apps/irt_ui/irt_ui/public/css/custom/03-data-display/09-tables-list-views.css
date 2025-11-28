@@ -1,18 +1,383 @@
+/**
+ * Tables & List Views - Simple Modern Styling
+ * Data tables, list views, form grids, and standard tables
+ */
 
 /* ============================================================
-   LIST VIEW PAGINATION - Always Visible at Bottom
+   STANDARD TABLES
    ============================================================ */
 
-/* Ensure frappe-list uses flexbox for proper layout */
-
-
-
-
+   .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--color-bg-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+   }
+   
+   .table thead {
+      background: var(--color-gray-50);
+   }
+   
+   .table thead th {
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+      white-space: nowrap;
+   }
+   
+   .table tbody tr {
+      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+      transition: background-color 0.15s ease;
+   }
+   
+   .table tbody tr:hover {
+      background: var(--color-primary-rgba-06, rgba(0, 102, 255, 0.06));
+   }
+   
+   .table tbody tr:last-child {
+      border-bottom: none;
+   }
+   
+   .table tbody td {
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      vertical-align: middle;
+   }
+   
+   .table-bordered {
+      border: 1px solid var(--color-border-light, #e5e7eb);
+   }
+   
+   .table-bordered thead th,
+   .table-bordered tbody td {
+      border: 1px solid var(--color-border-light, #e5e7eb);
+   }
+   
+   .table-striped tbody tr:nth-child(even) {
+      background: var(--color-gray-50);
+   }
+   
+   .table-striped tbody tr:nth-child(even):hover {
+      background: var(--color-primary-rgba-06, rgba(0, 102, 255, 0.06));
+   }
+   
+   /* ============================================================
+      FRAPPE LIST VIEWS
+      ============================================================ */
+   
+   .frappe-list {
+      width: 100%;
+      background: var(--color-bg-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+   }
+   
+   /* Header area above rows (filters, title, etc.) */
+   .frappe-list .list-header {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--color-gray-50);
+      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-sm);
+   }
+   
+   .frappe-list .list-header .list-title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin: 0;
+   }
+   
+   /* Container holding rows – padding-bottom so pagination
+      bar never covers the last row, plus sane max-height */
+   .frappe-list .result-container {
+      margin: 0;
+      padding: 0 0 44px;
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: calc(100vh - var(--navbar-height, 63px) - 190px);
+      height: auto !important;
+   }
+   
+   /* ROWS ------------------------------------------------------ */
+   
+   .frappe-list .list-row {
+      padding: 0 var(--spacing-md);
+      min-height: 40px;
+      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      background-color: var(--color-bg-white);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+   }
+   
+   /* single-color hover for entire row */
+   .frappe-list .list-row:hover {
+      background-color: var(--color-primary-rgba-06, rgba(0, 102, 255, 0.06));
+   }
+   
+   /* selected row */
+   .frappe-list .list-row.selected {
+      background-color: var(--color-primary-rgba-12, rgba(0, 102, 255, 0.12));
+      border-left: 3px solid var(--color-primary);
+   }
+   
+   /* content inside rows */
+   .frappe-list .list-row .list-subject {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-primary);
+   }
+   
+   .frappe-list .list-row .list-meta {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+   }
+   
+   /* HEADER ROW INSIDE LIST (ID / STATUS / etc.) --------------- */
+   
+   .list-row-head {
+      padding: 0 var(--spacing-md);
+      min-height: 42px;
+      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+      background: var(--color-gray-100, #f3f4f6);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+   }
+   
+   .list-row-head .list-row-col,
+   .list-row-head .level-item {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+   }
+   
+   /* Keep right-side actions transparent; inherit row hover */
+   .list-row .level-right,
+   .list-row-head .level-right {
+      background-color: transparent !important;
+      border-left: none !important;
+   }
+   
+   /* ============================================================
+      PAGINATION / LOAD MORE
+      ============================================================ */
+   
+   .frappe-list .list-paging-area {
+      background: var(--color-bg-white);
+      border-top: 1px solid var(--color-border-light, #e5e7eb);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-sm);
+      padding: 6px 14px;
+      margin: 0;
+   
+      /* always visible at bottom of list */
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      box-sizing: border-box;
+   }
+   
+   /* Frappe usually uses .level inside */
+   .frappe-list .list-paging-area .level {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: var(--spacing-sm);
+      margin: 0;
+   }
+   
+   /* Left: page size buttons   Right: "Load More" or info */
+   .frappe-list .list-paging-area .level-left,
+   .frappe-list .list-paging-area .level-right {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+   }
+   
+   /* Compact page-size buttons */
+   .frappe-list .list-paging-area .btn-paging {
+      min-width: 36px;
+      height: 28px;
+      padding: 2px var(--spacing-xs);
+      font-size: var(--font-size-xs);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-light, #e5e7eb);
+      background: var(--color-bg-white);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+   }
+   
+   .frappe-list .list-paging-area .btn-paging:hover:not(:disabled) {
+      background: var(--color-primary-rgba-06, rgba(0, 102, 255, 0.06));
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+   }
+   
+   .frappe-list .list-paging-area .btn-paging.btn-info {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-bg-white);
+   }
+   
+   /* Load More – same line, right side */
+   .frappe-list .list-paging-area .btn-more {
+      height: 28px;
+      padding: 2px var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-light, #e5e7eb);
+      background: var(--color-bg-white);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+   }
+   
+   .frappe-list .list-paging-area .btn-more:hover:not(:disabled) {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-bg-white);
+   }
+   
+   /* ============================================================
+      CHECKBOXES IN LIST VIEWS (slightly nicer UI)
+      ============================================================ */
+   
+   input[type="checkbox"].list-row-checkbox,
+   input[type="checkbox"].list-header-checkbox,
+   input[type="checkbox"].list-check-all,
+   .frappe-list input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--color-border-light, #e5e7eb);
+      border-radius: 4px;
+      background-color: var(--color-bg-white);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      position: relative;
+      margin: 0;
+      transition:
+         background-color 0.15s ease,
+         border-color 0.15s ease,
+         box-shadow 0.15s ease,
+         transform 0.1s ease;
+      flex-shrink: 0;
+   }
+   
+   input[type="checkbox"].list-row-checkbox:hover,
+   input[type="checkbox"].list-header-checkbox:hover,
+   input[type="checkbox"].list-check-all:hover,
+   .frappe-list input[type="checkbox"]:hover {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-rgba-06, rgba(0, 102, 255, 0.06));
+   }
+   
+   input[type="checkbox"].list-row-checkbox:checked,
+   input[type="checkbox"].list-header-checkbox:checked,
+   input[type="checkbox"].list-check-all:checked,
+   .frappe-list input[type="checkbox"]:checked {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: scale(1.02);
+   }
+   
+   input[type="checkbox"].list-row-checkbox:checked::after,
+   input[type="checkbox"].list-header-checkbox:checked::after,
+   input[type="checkbox"].list-check-all:checked::after,
+   .frappe-list input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 2px;
+      width: 5px;
+      height: 9px;
+      border: solid var(--color-bg-white);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+   }
+   
+   input[type="checkbox"].list-row-checkbox:focus,
+   input[type="checkbox"].list-header-checkbox:focus,
+   input[type="checkbox"].list-check-all:focus,
+   .frappe-list input[type="checkbox"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2));
+   }
+   
+   /* ============================================================
+      HIDE LIKE / COMMENT ICONS + EXTRA DOT
+      ============================================================ */
+   
+   /* like / comment */
+   .list-liked-by-me,
+   .list-row-like,
+   .like-action,
+   .like-icon,
+   .list-row-activity .like-action,
+   .list-row-activity .list-row-like,
+   .comment-count,
+   .list-comment-count {
+      display: none !important;
+      visibility: hidden !important;
+   }
+   
+   /* that little dot between age & activity time */
+   .list-row-activity .mx-2 {
+      display: none !important;
+   }
+   
+   /* ============================================================
+      RESPONSIVE
+      ============================================================ */
+   
+   @media (max-width: 768px) {
+      .table {
+         font-size: var(--font-size-xs);
+      }
+   
+      .table thead th,
+      .table tbody td {
+         padding: var(--spacing-sm) var(--spacing-md);
+      }
+   
+      .frappe-list .list-row,
+      .list-row-head {
+         padding: 0 var(--spacing-sm);
+      }
+   
+      .frappe-list .list-paging-area {
+         padding: var(--spacing-xs) var(--spacing-sm);
+         flex-wrap: wrap;
+      }
+   }
+   
 
 /* Override JavaScript-set heights that hide pagination */
 .frappe-list .result-container[style*="height"],
 .frappe-list .result-container {
-	max-height: calc(100vh - var(--navbar-height, 63px) - 180px) ;
+	max-height: calc(100vh - var(--navbar-height, 63px) - 190px) ;
 	height: auto !important;
 }
 

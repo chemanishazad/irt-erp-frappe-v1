@@ -29,8 +29,8 @@
    FORM COMPONENTS (02-form-components/)
    ============================================ */
 @import url('02-form-components/06-form-inputs.css');
-/* @import url('02-form-components/07-buttons.css'); */
-/* @import url('02-form-components/08-form-layout.css'); */
+@import url('02-form-components/07-buttons.css');
+@import url('02-form-components/08-form-layout.css');
 
 /* ============================================
    DATA DISPLAY (03-data-display/)
