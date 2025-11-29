@@ -1,25 +1,296 @@
 /**
- * Filters / Search
- * Status: TODO
+ * Unified Search & Filters
+ * Single search field that replaces multiple filter inputs
+ * Clean, minimal design matching form inputs
  */
 
-/* Filter bar */
-.filter-bar {
-	/* TODO: Add filter bar styles */
+/* ============================================================
+   CREATE SEARCH FIELD VIA CSS (Fallback if JS doesn't work)
+   ============================================================ */
+
+/* Hide ALL filter fields in standard filter section - Very Aggressive */
+.standard-filter-section .filter-box,
+.standard-filter-section .filter-field,
+.standard-filter-section .list_filter,
+.standard-filter-section .row:not(.unified-search-wrapper),
+.standard-filter-section .form-group:not(.unified-search-wrapper),
+.page-form .filter-box:not(.unified-search-wrapper),
+.page-form .list_filter:not(.unified-search-wrapper) {
+	display: none !important;
 }
 
-/* Search inputs */
-.search-input {
-	/* TODO: Add search input styles */
+/* Hide individual filter inputs - Target Frappe's dynamically created fields */
+.standard-filter-section input[type="text"]:not(.unified-search-input),
+.standard-filter-section input[type="search"]:not(.unified-search-input),
+.standard-filter-section input[type="number"]:not(.unified-search-input),
+.standard-filter-section select:not(.unified-search-input),
+.standard-filter-section .frappe-control:not(.unified-search-wrapper),
+.page-form input[type="text"]:not(.unified-search-input),
+.page-form input[type="search"]:not(.unified-search-input),
+.page-form select:not(.unified-search-input),
+.page-form .standard-filter-section input,
+.page-form .standard-filter-section select {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	height: 0 !important;
+	width: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
-/* Filter tags */
+/* Hide filter popover content (the modal with multiple filters) */
+.filter-popover .filter-box,
+.filter-popover .filter-field {
+	display: none !important;
+}
+
+/* Show unified search wrapper - Force visibility with maximum specificity */
+body .unified-search-wrapper,
+body .page-form .unified-search-wrapper,
+body .standard-filter-section .unified-search-wrapper,
+body .filter-section .unified-search-wrapper,
+body .layout-main .unified-search-wrapper,
+.unified-search-wrapper {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	position: relative !important;
+	z-index: 10 !important;
+	background: transparent !important;
+}
+
+body .unified-search-wrapper input.unified-search-input,
+body .unified-search-wrapper .unified-search-input,
+body input.unified-search-input,
+.unified-search-wrapper input,
+.unified-search-wrapper input[type="text"],
+.unified-search-input {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	height: 34px !important;
+	min-height: 34px !important;
+	background: var(--color-bg-white) !important;
+	border: 1px solid var(--color-border-light) !important;
+	border-radius: var(--radius-sm) !important;
+	padding: var(--spacing-sm) 32px var(--spacing-sm) 36px !important;
+	font-size: var(--font-size-sm) !important;
+	color: var(--color-text-primary) !important;
+	box-sizing: border-box !important;
+}
+
+.unified-search-wrapper .form-group {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: 100% !important;
+	position: relative !important;
+}
+
+/* Unified search container */
+.unified-search-wrapper {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	margin-bottom: var(--spacing-sm);
+	padding: 0;
+	width: 100%;
+	position: relative;
+}
+
+/* Align search with filter buttons */
+.page-form .filter-section {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-sm);
+	width: 100%;
+}
+
+.page-form .filter-section .unified-search-wrapper {
+	flex: 1 1 320px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.page-form .filter-section .btn-group,
+.page-form .filter-section .filter-toggle,
+.page-form .filter-section .filter-button {
+	flex: 0 0 auto;
+}
+
+.unified-search-wrapper .form-group {
+	margin-bottom: 0;
+	flex: 1;
+	position: relative;
+}
+
+/* Main unified search input */
+.unified-search-input,
+.unified-search-wrapper input.unified-search-input {
+	width: 100%;
+	height: 34px;
+	padding: var(--spacing-sm) var(--spacing-md);
+	padding-left: 36px;
+	padding-right: 32px;
+	font-size: var(--font-size-sm);
+	line-height: 1.4;
+	color: var(--color-text-primary);
+	background-color: var(--color-bg-white);
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--radius-sm);
+	box-sizing: border-box;
+	transition: all 0.2s ease;
+	box-shadow: none;
+}
+
+.unified-search-input:focus,
+.unified-search-wrapper input.unified-search-input:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 2px var(--color-primary-rgba-20);
+	outline: none;
+}
+
+.unified-search-input:hover:not(:focus),
+.unified-search-wrapper input.unified-search-input:hover:not(:focus) {
+	border-color: var(--color-border);
+	background-color: var(--color-gray-50);
+}
+
+/* Search icon */
+.unified-search-icon {
+	position: absolute;
+	left: var(--spacing-sm);
+	top: 50%;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	color: var(--color-text-tertiary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.unified-search-input:focus ~ .unified-search-icon {
+	color: var(--color-primary);
+}
+
+/* Clear search button */
+.unified-search-wrapper .unified-search-clear {
+	position: absolute;
+	right: var(--spacing-sm);
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 20px;
+	border: none;
+	background: transparent;
+	color: var(--color-text-secondary);
+	cursor: pointer;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--radius-sm);
+	transition: all 0.2s ease;
+	z-index: 3;
+}
+
+.unified-search-clear:hover {
+	background: var(--color-primary-rgba-08);
+	color: var(--color-primary);
+}
+
+.unified-search-clear svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* Search placeholder */
+.unified-search-input::placeholder,
+.unified-search-input input::placeholder {
+	color: var(--color-text-tertiary);
+	font-size: var(--font-size-sm);
+}
+
+/* ============================================================
+   FILTER AREA - SIMPLIFIED
+   ============================================================ */
+
+.filter-area {
+	padding: var(--spacing-sm) 0;
+	margin-bottom: var(--spacing-md);
+}
+
+.filter-area .filter-box {
+	padding: 0;
+	margin: 0;
+}
+
+/* Active filter tags (when filters are applied) */
 .filter-tag {
-	/* TODO: Add filter tag styles */
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+	padding: 4px var(--spacing-sm);
+	font-size: var(--font-size-xs);
+	color: var(--color-text-primary);
+	background: var(--color-primary-rgba-08);
+	border: 1px solid var(--color-primary-rgba-20);
+	border-radius: var(--radius-sm);
+	margin-right: var(--spacing-xs);
+	margin-bottom: var(--spacing-xs);
 }
 
-/* Clear filters */
+.filter-tag .remove-filter {
+	cursor: pointer;
+	color: var(--color-text-secondary);
+	margin-left: var(--spacing-xs);
+	transition: color 0.2s ease;
+}
+
+.filter-tag .remove-filter:hover {
+	color: var(--color-error);
+}
+
+/* Clear all filters button */
 .clear-filters {
-	/* TODO: Add clear filter styles */
+	padding: var(--spacing-xs) var(--spacing-sm);
+	font-size: var(--font-size-xs);
+	color: var(--color-text-secondary);
+	background: transparent;
+	border: 1px solid var(--color-primary-rgba-20);
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: all 0.2s ease;
 }
 
+.clear-filters:hover {
+	color: var(--color-primary);
+	border-color: var(--color-primary);
+	background: var(--color-primary-rgba-08);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+	.unified-search-wrapper {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.unified-search-input,
+	.unified-search-input input {
+		width: 100%;
+	}
+}
