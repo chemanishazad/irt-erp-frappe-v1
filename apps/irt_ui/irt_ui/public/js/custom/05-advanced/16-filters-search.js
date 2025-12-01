@@ -1,7 +1,7 @@
 /**
- * Unified Search & Filters
- * Places one clean search input beside the filter buttons
- * and uses server-side OR filters so every visible column is searched.
+ * Unified Search & Filters (Cleaned)
+ * - Places one search input beside filter buttons
+ * - Uses server-side OR filters so every visible column is searched
  */
 
 console.log('🔍 Unified search script loaded');
@@ -25,12 +25,13 @@ console.log('🔍 Unified search script loaded');
 		console.log('[UnifiedSearch]', ...args);
 	}
 
+	/* -----------------------------------------------------------
+	 * 1. PATCH BASE LIST FOR OR FILTERS
+	 * ----------------------------------------------------------- */
 	function patchBaseList() {
-		if (baseListPatched) {
-			return true;
-		}
+		if (baseListPatched) return true;
 
-		if (!(frappe && frappe.views && frappe.views.BaseList)) {
+		if (!(window.frappe && frappe.views && frappe.views.BaseList)) {
 			return false;
 		}
 
@@ -56,6 +57,9 @@ console.log('🔍 Unified search script loaded');
 		return true;
 	}
 
+	/* -----------------------------------------------------------
+	 * 2. CURRENT LIST VIEW / ROUTE HELPERS
+	 * ----------------------------------------------------------- */
 	function getActiveListView() {
 		if (window.cur_list && window.cur_list.doctype) {
 			return window.cur_list;
@@ -66,15 +70,33 @@ console.log('🔍 Unified search script loaded');
 		const doctypeFromRoute = route && route[1];
 
 		if (doctypeFromRoute) {
-			const match = Object.values(views).find((view) => view && view.doctype === doctypeFromRoute);
-			if (match) {
-				return match;
-			}
+			const match = Object.values(views).find(
+				(view) => view && view.doctype === doctypeFromRoute
+			);
+			if (match) return match;
 		}
 
 		return Object.values(views).find((view) => view && view.doctype) || null;
 	}
 
+	function isDeskPage() {
+		const route = typeof frappe?.get_route === 'function' ? frappe.get_route() : [];
+		if (!route || route.length === 0 || route[0] === '' || route[0] === 'desk') {
+			return true;
+		}
+		if (document.querySelector('.standard-icons, .desk-page')) {
+			return true;
+		}
+		const listView = getActiveListView();
+		if (!listView || !listView.doctype) {
+			return true;
+		}
+		return false;
+	}
+
+	/* -----------------------------------------------------------
+	 * 3. SEARCH FIELD / FILTER LOGIC
+	 * ----------------------------------------------------------- */
 	function isTextField(fieldtype) {
 		if (!fieldtype) return true;
 		const friendly = [
@@ -173,7 +195,7 @@ console.log('🔍 Unified search script loaded');
 
 		const active = listView.__unified_search_query || '';
 		state.input.value = active;
-		state.clearBtn.style.display = active ? 'flex' : 'none';
+		// Clear button is always hidden - do nothing
 	}
 
 	function handleInput(value) {
@@ -184,33 +206,13 @@ console.log('🔍 Unified search script loaded');
 	function handleClearClick() {
 		if (!state.input) return;
 		state.input.value = '';
-		state.clearBtn.style.display = 'none';
+		// Clear button is always hidden - do nothing
 		handleInput('');
 	}
 
-	function bindInputEvents() {
-		if (!state.input || state.input.dataset.unifiedBound === 'true') return;
-
-		state.input.dataset.unifiedBound = 'true';
-
-		state.input.addEventListener('input', function () {
-			const hasValue = !!this.value.trim();
-			state.clearBtn.style.display = hasValue ? 'flex' : 'none';
-			handleInput(this.value);
-		});
-
-		state.input.addEventListener('keydown', function (event) {
-			if (event.key === 'Enter') {
-				event.preventDefault();
-				handleInput(this.value);
-			}
-		});
-
-		if (state.clearBtn) {
-			state.clearBtn.addEventListener('click', handleClearClick);
-		}
-	}
-
+	/* -----------------------------------------------------------
+	 * 4. BUILD SEARCH UI
+	 * ----------------------------------------------------------- */
 	function buildSearchWrapper() {
 		const wrapper = document.createElement('div');
 		wrapper.className = 'unified-search-wrapper';
@@ -228,14 +230,23 @@ console.log('🔍 Unified search script loaded');
 
 		const icon = document.createElement('span');
 		icon.className = 'unified-search-icon';
+		// Changed to a different search icon style (outline with circle and line)
 		icon.innerHTML =
-			'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4142 10L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L10 11.4142C8.8181 12.2929 7.3181 12.7071 5.70711 12.7071C2.53553 12.7071 0 10.1716 0 7.00001C0 3.82843 2.53553 1.29289 5.70711 1.29289C8.87868 1.29289 11.4142 3.82843 11.4142 7.00001C11.4142 8.611 10.9999 10.111 10 11.2929Z" fill="currentColor"/></svg>';
+			'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
 
 		const clearBtn = document.createElement('button');
 		clearBtn.type = 'button';
 		clearBtn.className = 'unified-search-clear';
+		// Force hide with multiple methods to ensure it never shows
+		clearBtn.style.setProperty('display', 'none', 'important');
+		clearBtn.style.setProperty('visibility', 'hidden', 'important');
+		clearBtn.style.setProperty('opacity', '0', 'important');
+		clearBtn.style.setProperty('pointer-events', 'none', 'important');
+		clearBtn.setAttribute('hidden', 'true');
 		clearBtn.innerHTML =
 			'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+		clearBtn.setAttribute('aria-label', 'Clear search');
+		clearBtn.setAttribute('aria-hidden', 'true');
 
 		formGroup.appendChild(icon);
 		formGroup.appendChild(input);
@@ -247,143 +258,240 @@ console.log('🔍 Unified search script loaded');
 		state.clearBtn = clearBtn;
 	}
 
-	function isDeskPage() {
-		// Check if we're on the desk/home page
-		const route = typeof frappe?.get_route === 'function' ? frappe.get_route() : [];
-		if (!route || route.length === 0 || route[0] === '' || route[0] === 'desk') {
-			return true;
+	function bindInputEvents() {
+		if (!state.input || state.input.dataset.unifiedBound === 'true') return;
+
+		state.input.dataset.unifiedBound = 'true';
+
+		state.input.addEventListener('input', function () {
+			// Clear button is always hidden - don't show it
+			handleInput(this.value);
+		});
+
+		state.input.addEventListener('keydown', function (event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				handleInput(this.value);
+			}
+		});
+
+		if (state.clearBtn) {
+			state.clearBtn.addEventListener('click', handleClearClick);
 		}
-		
-		// Check for desk page elements
-		if (document.querySelector('.standard-icons') || document.querySelector('.desk-page')) {
-			return true;
-		}
-		
-		// Check if there's no list view
-		const listView = getActiveListView();
-		if (!listView || !listView.doctype) {
-			return true;
-		}
-		
-		return false;
 	}
 
+	/* -----------------------------------------------------------
+	 * 5. PLACE SEARCH WRAPPER IN FILTER SECTION
+	 * ----------------------------------------------------------- */
 	function findTargetContainer() {
-		// Don't create search on desk page
-		if (isDeskPage()) {
-			return null;
-		}
-		
-		const candidates = [
-			document.querySelector('.page-form .filter-section'),
-			document.querySelector('.page-form'),
-			document.querySelector('.page-header + .page-form'),
-			document.querySelector('.layout-main .page-form'),
-		];
+		if (isDeskPage()) return null;
 
-		for (const target of candidates) {
-			if (!target) continue;
-			if (target.closest('.sidebar, .list-sidebar, .desk-sidebar')) continue;
+		// Prefer filter-section inside page-form, not in sidebars
+		let target =
+			document.querySelector('.page-form .filter-section') ||
+			document.querySelector('.filter-section');
+
+		if (target && !target.closest('.sidebar, .list-sidebar, .desk-sidebar')) {
 			return target;
 		}
 
-		const list = document.querySelector('.frappe-list');
-		if (list && list.parentElement && !list.parentElement.closest('.sidebar, .list-sidebar, .desk-sidebar')) {
-			return list.parentElement;
+		const pageForm = document.querySelector('.page-form');
+		if (pageForm && !pageForm.closest('.sidebar, .list-sidebar, .desk-sidebar')) {
+			// Find or create filter-section inside page-form
+			target = pageForm.querySelector('.filter-section');
+			if (!target) {
+				target = document.createElement('div');
+				target.className = 'filter-section flex';
+				pageForm.insertBefore(target, pageForm.firstChild);
+			}
+			return target;
 		}
 
-		return null; // Don't fall back to body/layout-main
-	}
-
-	function findAnchorChild(target) {
-		if (!target) return null;
-		const children = Array.from(target.children || []);
-		const selectorList = ['.filter-selector', '.btn-group', '.filter-button', '.filter-toggle'];
-		return children.find((child) => selectorList.some((sel) => child.matches(sel)));
+		return null;
 	}
 
 	function placeWrapper() {
 		const target = findTargetContainer();
 		if (!target || !state.wrapper) {
+			log('No target container or wrapper found', { target: !!target, wrapper: !!state.wrapper });
 			return false;
 		}
 
-		const anchor = findAnchorChild(target);
-		if (anchor && anchor.parentElement === target) {
-			target.insertBefore(state.wrapper, anchor);
-		} else if (target.firstChild) {
+		// Already placed
+		if (target.contains(state.wrapper) && state.wrapper.parentElement === target) {
+			return true;
+		}
+
+		// Remove from old location
+		if (state.wrapper.parentElement) {
+			state.wrapper.parentElement.removeChild(state.wrapper);
+		}
+
+		// Insert as first child (left side)
+		if (target.firstChild) {
 			target.insertBefore(state.wrapper, target.firstChild);
 		} else {
 			target.appendChild(state.wrapper);
 		}
 
+		// Minimal inline layout to cooperate with CSS
+		const wStyle = state.wrapper.style;
+		wStyle.display = 'flex';
+		wStyle.flex = '1 1 auto';
+		wStyle.minWidth = '200px';
+		wStyle.height = '34px';
+		wStyle.alignItems = 'center';
+
+		// Ensure input stretches
+		if (state.input) {
+			state.input.style.width = '100%';
+		}
+
+		// Push filter controls to the right (first filter-like control gets auto margin)
+		const rightControls = target.querySelector(
+			'.filter-selector, .filter-button, .sort-selector, button[data-label="Filter"], button[data-original-title*="Filter"], button[title*="Filter"], button[data-original-title*="Sort"], button[title*="Sort"], button[data-original-title*="Last Updated"], button[title*="Last Updated"]'
+		);
+		if (rightControls && !rightControls.style.marginLeft) {
+			rightControls.style.marginLeft = 'auto';
+		}
+
+		log('Search wrapper placed', {
+			target: target.className,
+			parent: state.wrapper.parentElement?.className,
+		});
+
 		return true;
 	}
 
 	function ensureSearchField(attempt = 0) {
+		// Reuse existing wrapper if present
 		const existing = document.querySelector('.unified-search-wrapper');
-		if (existing) {
+		if (existing && !state.wrapper) {
 			state.wrapper = existing;
 			state.input = existing.querySelector('.unified-search-input');
 			state.clearBtn = existing.querySelector('.unified-search-clear');
-			placeWrapper();
-			bindInputEvents();
-			syncInputWithListView();
-			return true;
 		}
 
-		buildSearchWrapper();
+		if (!state.wrapper) {
+			buildSearchWrapper();
+		}
+
 		const placed = placeWrapper();
 
 		if (placed) {
 			bindInputEvents();
 			syncInputWithListView();
-			log('Search field inserted');
+			if (attempt === 0) {
+				log('Search field inserted/updated successfully');
+			}
 			return true;
 		}
 
-		if (attempt < 10) {
+		if (attempt < 10 && !isDeskPage()) {
+			log(`Retry placing search field (${attempt + 1}/10)`);
 			setTimeout(() => ensureSearchField(attempt + 1), 300);
+		} else if (attempt >= 10) {
+			log('Failed to place search field after 10 attempts');
 		}
 
 		return false;
 	}
 
+	/* -----------------------------------------------------------
+	 * 6. OBSERVERS & HOOKS
+	 * ----------------------------------------------------------- */
 	function initObservers() {
+		// Watch DOM for filter-section creation
 		if (typeof MutationObserver !== 'undefined') {
 			const observer = new MutationObserver(() => {
-				if (!document.querySelector('.unified-search-wrapper')) {
+				if (!document.querySelector('.unified-search-wrapper') &&
+					document.querySelector('.filter-section') &&
+					!isDeskPage()
+				) {
+					log('MutationObserver: filter-section detected, ensuring search field');
 					ensureSearchField();
 				}
 			});
-			observer.observe(document.body, { childList: true, subtree: true });
+
+			const root = document.querySelector('.page-form') || document.body;
+			observer.observe(root, {
+				childList: true,
+				subtree: true,
+			});
 		}
 
+		// Router changes
 		if (window.frappe && frappe.router && typeof frappe.router.on === 'function') {
-			frappe.router.on('change', () =>
+			frappe.router.on('change', () => {
 				setTimeout(() => {
+					log('Route changed, ensuring search field');
 					ensureSearchField();
 					syncInputWithListView();
-				}, 150)
-			);
+				}, 300);
+			});
 		}
 
-		document.addEventListener('DOMContentLoaded', () =>
-			setTimeout(() => {
-				ensureSearchField();
-				syncInputWithListView();
-			}, 100)
-		);
+		// List view setup hook
+		if (window.frappe && frappe.views && frappe.views.ListView) {
+			const proto = frappe.views.ListView.prototype;
+			const originalSetup = proto.setup_view;
+			if (originalSetup && !proto.__unifiedSearchSetupHooked) {
+				proto.setup_view = function () {
+					const result = originalSetup.apply(this, arguments);
+					setTimeout(() => {
+						log('List view setup complete, ensuring search field');
+						ensureSearchField();
+						syncInputWithListView();
+					}, 400);
+					return result;
+				};
+				proto.__unifiedSearchSetupHooked = true;
+			}
+		}
 
-		window.addEventListener('load', () =>
+		// Initial DOM hooks
+		document.addEventListener('DOMContentLoaded', () => {
 			setTimeout(() => {
+				log('DOM loaded, ensuring search field');
 				ensureSearchField();
 				syncInputWithListView();
-			}, 150)
-		);
+			}, 200);
+		});
+
+		window.addEventListener('load', () => {
+			setTimeout(() => {
+				log('Window loaded, ensuring search field');
+				ensureSearchField();
+				syncInputWithListView();
+			}, 300);
+		});
+
+		// Periodic sanity check as a fallback
+		setInterval(() => {
+			if (!isDeskPage() &&
+				document.querySelector('.filter-section') &&
+				!document.querySelector('.unified-search-wrapper')
+			) {
+				log('Periodic check: filter-section exists but search field missing');
+				ensureSearchField();
+			}
+
+			// Force hide clear button if it somehow becomes visible
+			const clearButtons = document.querySelectorAll('.unified-search-clear');
+			clearButtons.forEach(btn => {
+				const computed = window.getComputedStyle(btn);
+				if (computed.display !== 'none' || computed.visibility !== 'hidden' || computed.opacity !== '0' || !btn.hasAttribute('hidden')) {
+					btn.style.setProperty('display', 'none', 'important');
+					btn.style.setProperty('visibility', 'hidden', 'important');
+					btn.style.setProperty('opacity', '0', 'important');
+					btn.style.setProperty('pointer-events', 'none', 'important');
+					btn.setAttribute('hidden', 'true');
+				}
+			});
+		}, 3000);
 	}
 
+	// Kick things off
 	ensureSearchField();
 	initObservers();
 })();
- 

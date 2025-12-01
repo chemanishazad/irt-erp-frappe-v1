@@ -1,249 +1,214 @@
 /**
- * Unified Search & Filters - LAYOUT FIX
- * Fixes search bar alignment/sizing and dropdown functionality
+ * Unified Search & Filters
+ * - Single-row layout for search + buttons
+ * - Hides duplicate default inputs
+ * - Fixes dropdowns and pagination
  */
 
 /* ============================================================
    1. HIDE DUPLICATE SEARCH / DEFAULT FILTERS
    ============================================================ */
 
-/* Hide form-groups that contain standard inputs but NOT the unified search */
-.page-form .form-group:has(.input-with-feedback):not(:has(.unified-search-input)),
-.standard-filter-section .form-group:has(.input-with-feedback):not(:has(.unified-search-input)) {
+/* Hide plain input form-groups (keep unified search + buttons) */
+.standard-filter-section .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)),
+.page-form .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)) {
 	display: none !important;
 }
 
-/* Hide the columns containing these form groups */
-.page-form .col-md-2:has(.input-with-feedback):not(:has(.unified-search-input)) {
+/* Hide rows that would create extra lines */
+.page-form > .row:not(:has(.unified-search-wrapper, .filter-section, .btn-group, .filter-button, .sort-selector)) {
 	display: none !important;
 }
 
 /* ============================================================
-   2. SEARCH BAR LAYOUT (Single Line, Full Width)
+   2. LAYOUT - SINGLE ROW
    ============================================================ */
 
-/* Ensure the filter section is a flex row */
-.page-form .filter-section {
+/* Page form - single row layout */
+.page-form {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: 10px !important;
+	flex-wrap: nowrap !important;
+	width: 100% !important;
+}
+
+/* Standard filter section */
+.standard-filter-section {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: 10px !important;
+	flex-wrap: nowrap !important;
+	flex: 0 0 auto !important;
+}
+
+/* Filter section - single row */
+.page-form .filter-section,
+.filter-section {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
 	gap: 10px !important;
 	width: 100% !important;
+	flex: 1 1 auto !important;
 	flex-wrap: nowrap !important;
-	/* Prevent wrapping */
+	justify-content: flex-start !important;
+	min-height: 34px !important;
+	overflow: visible !important;
+	z-index: 10 !important;
 }
 
-/* Search wrapper takes available space */
+/* ============================================================
+   3. UNIFIED SEARCH FIELD
+   ============================================================ */
+
+/* Search wrapper */
 .unified-search-wrapper {
 	display: flex !important;
-	flex: 1 1 auto !important;
-	/* Grow to fill space */
 	position: relative !important;
-	margin: 0 !important;
+	flex: 1 1 auto !important;
 	height: 34px !important;
+	margin: 0 !important;
+	min-width: 200px !important;
 	z-index: 5 !important;
 }
 
-/* Input styling */
+/* Ensure visibility */
+.filter-section .unified-search-wrapper,
+.list-filter-area .unified-search-wrapper,
+.page-form .unified-search-wrapper,
+.standard-filter-section .unified-search-wrapper {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+/* Inner form group */
+.unified-search-wrapper .unified-search-group,
+.unified-search-wrapper .form-group {
+	display: flex !important;
+	width: 100% !important;
+	position: relative !important;
+	margin: 0 !important;
+}
+
+/* Input field */
 .unified-search-input {
+	display: block !important;
 	width: 100% !important;
 	height: 100% !important;
 	padding-left: 36px !important;
-	/* Space for icon */
 	padding-right: 10px !important;
 	border-radius: 4px !important;
 	border: 1px solid var(--color-border-light) !important;
 	background: var(--color-bg-white) !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
-/* Icon positioning */
+/* Search icon */
 .unified-search-icon {
 	position: absolute !important;
 	left: 10px !important;
 	top: 50% !important;
-	transform: translateY(-50%) !important;
-	z-index: 6 !important;
+	transform: translateY(calc(-50% - 3px)) !important;
 	pointer-events: none !important;
 	width: 16px !important;
 	height: 16px !important;
+	color: var(--color-text-tertiary) !important;
+	z-index: 6 !important;
 }
 
-/* Buttons should not shrink */
+/* Clear button - always hidden */
+.unified-search-clear {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+/* ============================================================
+   4. BUTTONS POSITIONING
+   ============================================================ */
+
+/* Search at start */
+.filter-section .unified-search-wrapper {
+	order: 0 !important;
+	margin-right: 10px !important;
+}
+
+/* Buttons to the right */
 .filter-section .btn-group,
 .filter-section .btn,
-.sort-selector {
+.filter-section button,
+.filter-section .sort-selector,
+.filter-section .filter-button {
+	order: 1 !important;
 	flex: 0 0 auto !important;
-	/* Don't shrink */
-}
-
-/* ============================================================
-   3. FIX DROPDOWNS (Functionality)
-   ============================================================ */
-
-/* Ensure buttons are clickable */
-.filter-section .btn-group,
-.sort-selector {
-	position: relative !important;
-	z-index: 10 !important;
-}
-
-/* Ensure overflow allows dropdowns to show */
-.list-filter-area,
-.filter-section {
-	overflow: visible !important;
-}
-
-/* ============================================================
-   4. FIX PAGINATION (Bottom Bar)
-   ============================================================ */
-
-.list-paging-area {
-	display: flex !important;
-	flex-direction: row !important;
-	flex-wrap: nowrap !important;
-	justify-content: space-between !important;
-	align-items: center !important;
-	width: 100% !important;
-	padding: 10px 15px !important;
-	background-color: var(--color-bg-white) !important;
-	border-top: 1px solid var(--color-border-light) !important;
-	position: sticky !important;
-	bottom: 0 !important;
-	z-index: 100 !important;
-	height: 50px !important;
-}
-
-.list-paging-area .level-left {
-	display: flex !important;
-	flex: 1 !important;
-	justify-content: flex-start !important;
-}
-
-.list-paging-area .level-right {
-	display: flex !important;
-	flex: 1 !important;
-	justify-content: flex-end !important;
-	align-items: center !important;
-	gap: 10px !important;
-	margin-right: 120px !important;
-}
-
-/* Load More button */
-.list-more-btn,
-button[data-label="Load More"] {
 	display: inline-flex !important;
-	position: absolute !important;
-	right: 15px !important;
-	top: 50% !important;
-	transform: translateY(-50%) !important;
-	margin: 0 !important;
-	z-index: 101 !important;
-}
-
-/* ============================================================
-   5. DESK PAGE HIDE
-   ============================================================ */
-.desk-page .unified-search-wrapper {
-	display: none !important;
-}
-
-/* ============================================================
-   6. RESPONSIVE
-   ============================================================ */
-@media (max-width: 768px) {
-	.page-form .filter-section {
-		flex-wrap: wrap !important;
-	}
-
-	.unified-search-wrapper {
-		width: 100% !important;
-		order: 1 !important;
-		margin-bottom: 10px !important;
-	}
-
-	.list-paging-area {
-		flex-direction: column !important;
-		height: auto !important;
-		gap: 10px !important;
-	}
-
-	button[data-label="Load More"] {
-		position: static !important;
-		transform: none !important;
-		width: 100% !important;
-	}
-}
-
-/**
- * Unified Search & Filters - FINAL POLISH
- * Smart dropdown alignment and pagination layout
- */
-
-/* ============================================================
-   1. HIDE DUPLICATE SEARCH / DEFAULT FILTERS
-   ============================================================ */
-
-/* ❗ FIXED: removed `.list-row-filters,` so Desk list filters are NOT hidden */
-.standard-filter-section .form-group:not(:has(.unified-search-wrapper)),
-.page-form .form-group:not(:has(.unified-search-wrapper)) {
-	display: none !important;
-}
-
-.page-form .row:has(.input-with-feedback):not(:has(.unified-search-wrapper)) {
-	display: none !important;
-}
-
-/* Unified Search Visibility */
-.unified-search-wrapper {
-	display: flex !important;
+	align-items: center !important;
 	visibility: visible !important;
 	opacity: 1 !important;
-	width: 100% !important;
-	position: relative !important;
-	z-index: 1 !important;
+	white-space: nowrap !important;
+	max-width: none !important;
 }
 
-.unified-search-input {
-	width: 100% !important;
+/* Push filter/sort controls to right end */
+.filter-section .filter-selector,
+.filter-section .filter-button,
+.filter-section .sort-selector,
+.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group),
+.filter-section button[data-label="Filter"],
+.filter-section button[data-original-title*="Filter"],
+.filter-section button[title*="Filter"],
+.filter-section button[data-original-title*="Sort"],
+.filter-section button[title*="Sort"],
+.filter-section button[data-original-title*="Last Updated"],
+.filter-section button[title*="Last Updated"] {
+	margin-left: auto !important;
+	margin-right: 0 !important;
+}
+
+/* Spacing between buttons */
+.filter-section .filter-selector + .sort-selector,
+.filter-section .filter-selector + .btn-group,
+.filter-section .btn-group + .sort-selector,
+.filter-section .btn-group + .btn-group,
+.filter-section .sort-selector + .btn-group,
+.filter-section .sort-selector + .sort-selector,
+.filter-section .filter-button + .sort-selector,
+.filter-section .filter-button + .btn-group {
+	margin-left: 6px !important;
 }
 
 /* ============================================================
-   2. FIX DROPDOWNS (Smart Alignment)
+   5. DROPDOWNS
    ============================================================ */
 
-/* Make buttons clickable and reference points */
 .filter-section .btn-group,
 .filter-section .btn,
 .sort-selector,
 .sort-selector button,
-.filter-button {
+.filter-button,
+.page-form .btn-group,
+.page-form .sort-selector {
 	position: relative !important;
 	z-index: 1002 !important;
 	pointer-events: auto !important;
 	overflow: visible !important;
+	display: inline-flex !important;
 }
 
-.filter-section,
-.list-filter-area {
-	overflow: visible !important;
-	z-index: 10 !important;
-}
-
-/*
-   FORCE LEFT ALIGNMENT FOR ALL DROPDOWNS
-   This ensures the menu starts at the left edge of the button
-   and extends to the right, fixing the "coming left side" issue.
-*/
-
-
-/* Dropdown Item Styling */
+/* Dropdown items */
 .dropdown-menu .dropdown-item {
 	padding: 8px 12px !important;
 	cursor: pointer !important;
 }
 
 /* ============================================================
-   3. FIX PAGINATION (Bottom Bar)
+   6. PAGINATION
    ============================================================ */
 
 .list-paging-area {
@@ -277,7 +242,6 @@ button[data-label="Load More"] {
 	gap: 10px !important;
 }
 
-/* Load More Button */
 .list-more-btn,
 button[data-label="Load More"] {
 	display: inline-flex !important;
@@ -293,16 +257,39 @@ button[data-label="Load More"] {
 }
 
 /* ============================================================
-   4. DESK PAGE HIDE
+   7. DESK PAGE HIDE
    ============================================================ */
+
 .desk-page .unified-search-wrapper {
 	display: none !important;
 }
 
 /* ============================================================
-   5. RESPONSIVE
+   8. RESPONSIVE
    ============================================================ */
+
 @media (max-width: 768px) {
+	.page-form,
+	.page-form .filter-section,
+	.filter-section {
+		flex-wrap: wrap !important;
+		white-space: normal !important;
+	}
+
+	.unified-search-wrapper {
+		order: 0 !important;
+		width: 100% !important;
+		margin-bottom: 10px !important;
+	}
+
+	.filter-section .btn-group,
+	.filter-section .btn,
+	.filter-section button,
+	.filter-section .sort-selector,
+	.filter-section .filter-button {
+		order: 1 !important;
+	}
+
 	.list-paging-area {
 		flex-direction: column !important;
 		height: auto !important;
@@ -314,7 +301,8 @@ button[data-label="Load More"] {
 		justify-content: center !important;
 	}
 
-	.list-more-btn {
+	.list-more-btn,
+	button[data-label="Load More"] {
 		width: 100% !important;
 	}
 }
