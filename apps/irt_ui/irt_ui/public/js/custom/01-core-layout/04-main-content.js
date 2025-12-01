@@ -355,11 +355,20 @@
 	function ensurePaginationVisible() {
 		const paginationAreas = document.querySelectorAll('.list-paging-area');
 		paginationAreas.forEach(area => {
-			area.style.setProperty('display', 'block', 'important');
+			// Force display to flex (not block) to maintain single-line layout
+			area.style.setProperty('display', 'flex', 'important');
 			area.style.setProperty('visibility', 'visible', 'important');
 			area.style.setProperty('opacity', '1', 'important');
 			area.style.setProperty('height', 'auto', 'important');
 			area.style.setProperty('max-height', 'none', 'important');
+			
+			// Remove any hide class
+			area.classList.remove('hide');
+			
+			// Override jQuery hide/show if present
+			if (window.$ && $(area).length) {
+				$(area).show();
+			}
 			
 			let parent = area.parentElement;
 			while (parent && parent !== document.body) {
@@ -374,11 +383,14 @@
 			}
 		});
 		
-		const loadMoreButtons = document.querySelectorAll('.list-paging-area .btn-more');
+		const loadMoreButtons = document.querySelectorAll('.list-paging-area .btn-more, .list-paging-area button[data-label="Load More"]');
 		loadMoreButtons.forEach(btn => {
-			btn.style.setProperty('display', 'inline-block', 'important');
+			btn.style.setProperty('display', 'inline-flex', 'important');
 			btn.style.setProperty('visibility', 'visible', 'important');
 			btn.style.setProperty('opacity', '1', 'important');
+			if (window.$ && $(btn).length) {
+				$(btn).show();
+			}
 		});
 		
 		const listCounts = document.querySelectorAll('.list-count');
@@ -424,6 +436,27 @@
 		});
 	}
 
+	// Override jQuery hide/toggle for pagination areas
+	if (window.$) {
+		const originalHide = $.fn.hide;
+		$.fn.hide = function() {
+			if (this.hasClass('list-paging-area')) {
+				// Don't hide pagination, just return
+				return this;
+			}
+			return originalHide.apply(this, arguments);
+		};
+		
+		const originalToggle = $.fn.toggle;
+		$.fn.toggle = function(show) {
+			if (this.hasClass('list-paging-area')) {
+				// Always show pagination
+				return this.show();
+			}
+			return originalToggle.apply(this, arguments);
+		};
+	}
+
 	if (typeof frappe !== 'undefined') {
 		frappe.router?.on('change', function() {
 			setTimeout(() => {
@@ -449,7 +482,11 @@
 				setTimeout(() => {
 					ensurePaginationVisible();
 					ensureDataVisibility();
-				}, 100);
+				}, 50);
+				setTimeout(() => {
+					ensurePaginationVisible();
+					ensureDataVisibility();
+				}, 200);
 				return result;
 			};
 
@@ -462,10 +499,42 @@
 						ensureDataVisibility();
 						ensurePaginationVisible();
 					}, 50);
+					setTimeout(() => {
+						ensureDataVisibility();
+						ensurePaginationVisible();
+					}, 200);
+					return result;
+				};
+			}
+			
+			// Override toggle_result_area to always show pagination
+			if (frappe.listview.ListView.prototype.toggle_result_area) {
+				const originalToggleResultArea = frappe.listview.ListView.prototype.toggle_result_area;
+				frappe.listview.ListView.prototype.toggle_result_area = function() {
+					const result = originalToggleResultArea.apply(this, arguments);
+					// Force pagination to be visible
+					if (this.$paging_area) {
+						this.$paging_area.show();
+						setTimeout(() => ensurePaginationVisible(), 50);
+					}
 					return result;
 				};
 			}
 		}
+	}
+	
+	// Run on page load and continuously check
+	document.addEventListener('DOMContentLoaded', function() {
+		ensurePaginationVisible();
+		setInterval(ensurePaginationVisible, 1000);
+	});
+	
+	// Also run immediately if DOM is already loaded
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', ensurePaginationVisible);
+	} else {
+		ensurePaginationVisible();
+		setInterval(ensurePaginationVisible, 1000);
 	}
 })();
 

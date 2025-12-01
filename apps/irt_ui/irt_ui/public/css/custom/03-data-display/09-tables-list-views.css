@@ -176,55 +176,89 @@
       PAGINATION / LOAD MORE
       ============================================================ */
    
-   .frappe-list .list-paging-area {
-      background: var(--color-bg-white);
-      border-top: 1px solid var(--color-border-light, #e5e7eb);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--spacing-sm);
-      padding: 6px 14px;
-      margin: 0;
+   /* Force pagination to always be visible and on single line */
+   .frappe-list .list-paging-area,
+   .list-paging-area {
+      background: var(--color-bg-white) !important;
+      border-top: 1px solid var(--color-border-light, #e5e7eb) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: var(--spacing-sm) !important;
+      padding: 6px 14px !important;
+      margin: 0 !important;
+      flex-wrap: nowrap !important;
+      overflow: hidden !important;
+      white-space: nowrap !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      height: auto !important;
+      min-height: 40px !important;
    
       /* always visible at bottom of list */
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 5;
-      box-sizing: border-box;
+      position: sticky !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 100 !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
    }
    
    /* Frappe usually uses .level inside */
-   .frappe-list .list-paging-area .level {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: var(--spacing-sm);
-      margin: 0;
+   .frappe-list .list-paging-area .level,
+   .list-paging-area .level {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      gap: var(--spacing-sm) !important;
+      margin: 0 !important;
+      flex-wrap: nowrap !important;
+      overflow: hidden !important;
    }
    
    /* Left: page size buttons   Right: "Load More" or info */
    .frappe-list .list-paging-area .level-left,
-   .frappe-list .list-paging-area .level-right {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
+   .frappe-list .list-paging-area .level-right,
+   .list-paging-area .level-left,
+   .list-paging-area .level-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: var(--spacing-xs) !important;
+      flex-wrap: nowrap !important;
+      flex-shrink: 0 !important;
+   }
+   
+   /* Button group - prevent wrapping */
+   .frappe-list .list-paging-area .btn-group,
+   .frappe-list .list-paging-area .btn-group-paging,
+   .list-paging-area .btn-group,
+   .list-paging-area .btn-group-paging {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
+      gap: 0 !important;
    }
    
    /* Compact page-size buttons */
-   .frappe-list .list-paging-area .btn-paging {
-      min-width: 36px;
-      height: 28px;
-      padding: 2px var(--spacing-xs);
-      font-size: var(--font-size-xs);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--color-border-light, #e5e7eb);
-      background: var(--color-bg-white);
-      color: var(--color-text-primary);
-      cursor: pointer;
-      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+   .frappe-list .list-paging-area .btn-paging,
+   .list-paging-area .btn-paging {
+      min-width: 36px !important;
+      height: 28px !important;
+      padding: 2px var(--spacing-xs) !important;
+      font-size: var(--font-size-xs) !important;
+      border-radius: var(--radius-sm) !important;
+      border: 1px solid var(--color-border-light, #e5e7eb) !important;
+      background: var(--color-bg-white) !important;
+      color: var(--color-text-primary) !important;
+      cursor: pointer !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
    }
    
    .frappe-list .list-paging-area .btn-paging:hover:not(:disabled) {
@@ -240,17 +274,24 @@
    }
    
    /* Load More – same line, right side */
-   .frappe-list .list-paging-area .btn-more {
-      height: 28px;
-      padding: 2px var(--spacing-sm);
-      font-size: var(--font-size-xs);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--color-border-light, #e5e7eb);
-      background: var(--color-bg-white);
-      color: var(--color-text-primary);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+   .frappe-list .list-paging-area .btn-more,
+   .list-paging-area .btn-more,
+   .list-paging-area button[data-label="Load More"],
+   .list-more-btn {
+      height: 28px !important;
+      padding: 2px var(--spacing-sm) !important;
+      font-size: var(--font-size-xs) !important;
+      border-radius: var(--radius-sm) !important;
+      border: 1px solid var(--color-border-light, #e5e7eb) !important;
+      background: var(--color-bg-white) !important;
+      color: var(--color-text-primary) !important;
+      cursor: pointer !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      flex-shrink: 0 !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
    }
    
    .frappe-list .list-paging-area .btn-more:hover:not(:disabled) {
@@ -367,9 +408,19 @@
          padding: 0 var(--spacing-sm);
       }
    
-      .frappe-list .list-paging-area {
-         padding: var(--spacing-xs) var(--spacing-sm);
-         flex-wrap: wrap;
+      .frappe-list .list-paging-area,
+      .list-paging-area {
+         padding: var(--spacing-xs) var(--spacing-sm) !important;
+         flex-wrap: nowrap !important;
+         flex-direction: row !important;
+         height: auto !important;
+      }
+      
+      .frappe-list .list-paging-area .level-left,
+      .frappe-list .list-paging-area .level-right,
+      .list-paging-area .level-left,
+      .list-paging-area .level-right {
+         justify-content: space-between !important;
       }
    }
    
@@ -379,5 +430,31 @@
 .frappe-list .result-container {
 	max-height: calc(100vh - var(--navbar-height, 63px) - 190px) ;
 	height: auto !important;
+}
+
+/* Force pagination to always be visible - override any hide/show logic */
+.frappe-list .list-paging-area[style*="display: none"],
+.list-paging-area[style*="display: none"],
+.frappe-list .list-paging-area.hide,
+.list-paging-area.hide,
+.frappe-list .list-paging-area[style*="display:none"],
+.list-paging-area[style*="display:none"] {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	height: auto !important;
+	min-height: 40px !important;
+}
+
+/* Ensure pagination buttons are always visible */
+.frappe-list .list-paging-area .btn-paging,
+.frappe-list .list-paging-area .btn-more,
+.frappe-list .list-paging-area button,
+.list-paging-area .btn-paging,
+.list-paging-area .btn-more,
+.list-paging-area button {
+	display: inline-flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 

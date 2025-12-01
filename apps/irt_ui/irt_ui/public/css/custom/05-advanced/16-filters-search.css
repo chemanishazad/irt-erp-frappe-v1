@@ -210,51 +210,8 @@
 /* ============================================================
    6. PAGINATION
    ============================================================ */
-
-.list-paging-area {
-	display: flex !important;
-	flex-direction: row !important;
-	flex-wrap: nowrap !important;
-	justify-content: space-between !important;
-	align-items: center !important;
-	width: 100% !important;
-	padding: 10px 15px !important;
-	background-color: var(--color-bg-white) !important;
-	border-top: 1px solid var(--color-border-light) !important;
-	position: sticky !important;
-	bottom: 0 !important;
-	z-index: 100 !important;
-	height: 60px !important;
-}
-
-.list-paging-area .level-left {
-	display: flex !important;
-	flex: 1 !important;
-	justify-content: flex-start !important;
-	align-items: center !important;
-}
-
-.list-paging-area .level-right {
-	display: flex !important;
-	flex: 1 !important;
-	justify-content: flex-end !important;
-	align-items: center !important;
-	gap: 10px !important;
-}
-
-.list-more-btn,
-button[data-label="Load More"] {
-	display: inline-flex !important;
-	position: static !important;
-	transform: none !important;
-	margin-left: 10px !important;
-	z-index: 101 !important;
-}
-
-.list-paging-area .text-muted {
-	color: var(--text-color) !important;
-	display: inline-block !important;
-}
+   
+/* Pagination styles moved to 09-tables-list-views.css to avoid conflicts */
 
 /* ============================================================
    7. DESK PAGE HIDE
@@ -290,19 +247,5 @@ button[data-label="Load More"] {
 		order: 1 !important;
 	}
 
-	.list-paging-area {
-		flex-direction: column !important;
-		height: auto !important;
-		gap: 10px !important;
-	}
-
-	.list-paging-area .level-left,
-	.list-paging-area .level-right {
-		justify-content: center !important;
-	}
-
-	.list-more-btn,
-	button[data-label="Load More"] {
-		width: 100% !important;
-	}
+	/* Pagination responsive styles handled in 09-tables-list-views.css */
 }
