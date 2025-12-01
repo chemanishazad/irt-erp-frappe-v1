@@ -80,9 +80,9 @@
 .avatar-frame,
 .standard-image,
 .avatar .standard-image {
-	background-color: var(--avatar-frame-bg) !important;
-	color: var(--avatar-frame-color) !important;
-	border-color: var(--avatar-frame-border) !important;
+   background-color: var(--avatar-frame-bg) !important;
+   color: var(--avatar-frame-color) !important;
+   border-color: var(--avatar-frame-border) !important;
 }
 
 /* ============================================
@@ -90,41 +90,41 @@
    ============================================ */
 /* Force dropdowns to appear above main content - Higher specificity */
 .awesomplete ul,
-.awesomplete > ul,
+.awesomplete>ul,
 .awesomplete [role="listbox"],
-.awesomplete > [role="listbox"],
+.awesomplete>[role="listbox"],
 .search-bar .awesomplete ul,
-.search-bar .awesomplete > ul,
+.search-bar .awesomplete>ul,
 .search-bar .awesomplete [role="listbox"],
-.search-bar .awesomplete > [role="listbox"],
+.search-bar .awesomplete>[role="listbox"],
 .desktop-search-wrapper .awesomplete ul,
-.desktop-search-wrapper .awesomplete > ul,
+.desktop-search-wrapper .awesomplete>ul,
 .desktop-search-wrapper .awesomplete [role="listbox"],
-.desktop-search-wrapper .awesomplete > [role="listbox"],
+.desktop-search-wrapper .awesomplete>[role="listbox"],
 .navbar .awesomplete ul,
-.navbar .awesomplete > ul,
+.navbar .awesomplete>ul,
 .navbar .awesomplete [role="listbox"],
-.navbar .awesomplete > [role="listbox"],
+.navbar .awesomplete>[role="listbox"],
 .navbar .search-bar .awesomplete ul,
-.navbar .search-bar .awesomplete > ul,
+.navbar .search-bar .awesomplete>ul,
 .navbar .search-bar .awesomplete [role="listbox"],
-.navbar .search-bar .awesomplete > [role="listbox"] {
-	z-index: 10001 !important;
-	position: absolute !important;
-	transform: translateZ(0) !important;
-	-webkit-transform: translateZ(0) !important;
+.navbar .search-bar .awesomplete>[role="listbox"] {
+   z-index: 10001 !important;
+   position: absolute !important;
+   transform: translateZ(0) !important;
+   -webkit-transform: translateZ(0) !important;
 }
 
 /* Ensure body and html don't clip dropdowns */
 body {
-	overflow-x: hidden;
+   overflow-x: hidden;
 }
 
 /* Ensure main content doesn't create stacking context above navbar */
 .layout-main,
 .layout-main-section-wrapper,
 .layout-main-section {
-	position: relative;
-	z-index: 1 !important;
-	isolation: isolate;
+   position: relative;
+   z-index: 1 !important;
+   isolation: isolate;
 }

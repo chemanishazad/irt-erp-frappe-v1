@@ -247,7 +247,33 @@ console.log('🔍 Unified search script loaded');
 		state.clearBtn = clearBtn;
 	}
 
+	function isDeskPage() {
+		// Check if we're on the desk/home page
+		const route = typeof frappe?.get_route === 'function' ? frappe.get_route() : [];
+		if (!route || route.length === 0 || route[0] === '' || route[0] === 'desk') {
+			return true;
+		}
+		
+		// Check for desk page elements
+		if (document.querySelector('.standard-icons') || document.querySelector('.desk-page')) {
+			return true;
+		}
+		
+		// Check if there's no list view
+		const listView = getActiveListView();
+		if (!listView || !listView.doctype) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	function findTargetContainer() {
+		// Don't create search on desk page
+		if (isDeskPage()) {
+			return null;
+		}
+		
 		const candidates = [
 			document.querySelector('.page-form .filter-section'),
 			document.querySelector('.page-form'),
@@ -266,7 +292,7 @@ console.log('🔍 Unified search script loaded');
 			return list.parentElement;
 		}
 
-		return document.querySelector('.layout-main') || document.body;
+		return null; // Don't fall back to body/layout-main
 	}
 
 	function findAnchorChild(target) {

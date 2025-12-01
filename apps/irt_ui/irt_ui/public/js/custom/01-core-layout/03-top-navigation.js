@@ -62,38 +62,75 @@
 	 */
 	function enhanceDropdowns() {
 		const dropdownToggles = document.querySelectorAll(
-			'.navbar-nav .dropdown-toggle, .navbar-nav [data-toggle="dropdown"]'
+			'.navbar-nav .dropdown-toggle, .navbar-nav [data-toggle="dropdown"], .navbar-nav .dropdown'
 		);
 
 		dropdownToggles.forEach(toggle => {
-			toggle.addEventListener('click', function(e) {
-				const dropdown = this.closest('.dropdown');
-				if (dropdown) {
-					const menu = dropdown.querySelector('.dropdown-menu');
-					if (menu) {
-						if (dropdown.classList.contains('show')) {
-							menu.classList.add('dropdown-closing');
-							setTimeout(() => {
-								menu.classList.remove('dropdown-closing');
-							}, 200);
-						} else {
-							menu.classList.add('dropdown-opening');
-							setTimeout(() => {
-								menu.classList.remove('dropdown-opening');
-							}, 200);
-						}
+			// Ensure dropdown menu is properly positioned and visible when shown
+			const dropdown = toggle.classList.contains('dropdown') ? toggle : toggle.closest('.dropdown');
+			if (dropdown) {
+				const menu = dropdown.querySelector('.dropdown-menu');
+				if (menu) {
+					// Force display when parent has show class
+					const observer = new MutationObserver(function(mutations) {
+						mutations.forEach(function(mutation) {
+							if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+								if (dropdown.classList.contains('show') || dropdown.classList.contains('open')) {
+									menu.style.setProperty('display', 'block', 'important');
+									menu.style.setProperty('visibility', 'visible', 'important');
+									menu.style.setProperty('opacity', '1', 'important');
+								} else {
+									menu.style.setProperty('display', 'none', 'important');
+								}
+							}
+						});
+					});
+					observer.observe(dropdown, { attributes: true, attributeFilter: ['class'] });
+
+					// Initial check
+					if (dropdown.classList.contains('show') || dropdown.classList.contains('open')) {
+						menu.style.setProperty('display', 'block', 'important');
+						menu.style.setProperty('visibility', 'visible', 'important');
+						menu.style.setProperty('opacity', '1', 'important');
 					}
 				}
-			});
+			}
 
-			document.addEventListener('click', function(e) {
-				if (!toggle.contains(e.target)) {
-					const dropdown = toggle.closest('.dropdown');
-					if (dropdown && dropdown.classList.contains('show')) {
+			// Handle click events
+			if (!toggle.classList.contains('dropdown')) {
+				toggle.addEventListener('click', function(e) {
+					const dropdown = this.closest('.dropdown');
+					if (dropdown) {
 						const menu = dropdown.querySelector('.dropdown-menu');
 						if (menu) {
-							menu.classList.add('dropdown-closing');
+							if (dropdown.classList.contains('show')) {
+								menu.classList.add('dropdown-closing');
+								setTimeout(() => {
+									menu.classList.remove('dropdown-closing');
+								}, 200);
+							} else {
+								menu.classList.add('dropdown-opening');
+								setTimeout(() => {
+									menu.classList.remove('dropdown-opening');
+								}, 200);
+							}
 						}
+					}
+				});
+			}
+		});
+
+		// Close dropdowns when clicking outside
+		document.addEventListener('click', function(e) {
+			const clickedDropdown = e.target.closest('.navbar-nav .dropdown');
+			document.querySelectorAll('.navbar-nav .dropdown.show, .navbar-nav .dropdown.open').forEach(dropdown => {
+				if (dropdown !== clickedDropdown && !dropdown.contains(e.target)) {
+					const menu = dropdown.querySelector('.dropdown-menu');
+					if (menu) {
+						menu.classList.add('dropdown-closing');
+						setTimeout(() => {
+							menu.classList.remove('dropdown-closing');
+						}, 200);
 					}
 				}
 			});

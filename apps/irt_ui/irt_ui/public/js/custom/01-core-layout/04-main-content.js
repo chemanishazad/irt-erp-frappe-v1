@@ -293,6 +293,60 @@
 				element.style.opacity = '1';
 			}
 		});
+
+		// Ensure list view result containers are visible
+		const resultContainers = document.querySelectorAll('.frappe-list .result-container, .frappe-list .result, .frappe-list .no-result');
+		resultContainers.forEach(element => {
+			const computedStyle = window.getComputedStyle(element);
+			// Only force visibility if it's actually hidden and should be shown
+			if (computedStyle.display === 'none' && element.classList.contains('no-result')) {
+				// Show no-result message if there's no data
+				element.style.setProperty('display', 'block', 'important');
+				element.style.setProperty('visibility', 'visible', 'important');
+			} else if (computedStyle.display === 'none' && !element.classList.contains('no-result')) {
+				// Check if there's data - if so, show the result container
+				const listView = element.closest('.frappe-list');
+				if (listView) {
+					const hasRows = listView.querySelectorAll('.list-row-container').length > 0;
+					if (hasRows) {
+						element.style.setProperty('display', 'block', 'important');
+						element.style.setProperty('visibility', 'visible', 'important');
+					}
+				}
+			}
+		});
+
+		// Ensure no-result message is visible when there's no data
+		const frappeLists = document.querySelectorAll('.frappe-list');
+		frappeLists.forEach(list => {
+			const resultContainer = list.querySelector('.result-container');
+			const result = list.querySelector('.result');
+			const noResult = list.querySelector('.no-result');
+			const hasRows = list.querySelectorAll('.list-row-container').length > 0;
+
+			if (resultContainer && !hasRows) {
+				// If no rows, ensure no-result is visible
+				if (noResult) {
+					noResult.style.setProperty('display', 'block', 'important');
+					noResult.style.setProperty('visibility', 'visible', 'important');
+				}
+				// Hide result container if no data
+				if (result) {
+					result.style.setProperty('display', 'none', 'important');
+				}
+			} else if (resultContainer && hasRows) {
+				// If has rows, show result container and hide no-result
+				resultContainer.style.setProperty('display', 'block', 'important');
+				resultContainer.style.setProperty('visibility', 'visible', 'important');
+				if (result) {
+					result.style.setProperty('display', 'block', 'important');
+					result.style.setProperty('visibility', 'visible', 'important');
+				}
+				if (noResult) {
+					noResult.style.setProperty('display', 'none', 'important');
+				}
+			}
+		});
 	}
 
 	/**
@@ -381,15 +435,36 @@
 				ensureDataVisibility();
 				ensurePaginationVisible();
 			}, 100);
+			// Also run after a longer delay to catch dynamically loaded content
+			setTimeout(() => {
+				ensureDataVisibility();
+				ensurePaginationVisible();
+			}, 500);
 		});
 		
 		if (frappe.listview && frappe.listview.ListView) {
 			const originalRefresh = frappe.listview.ListView.prototype.refresh;
 			frappe.listview.ListView.prototype.refresh = function() {
 				const result = originalRefresh.apply(this, arguments);
-				setTimeout(ensurePaginationVisible, 100);
+				setTimeout(() => {
+					ensurePaginationVisible();
+					ensureDataVisibility();
+				}, 100);
 				return result;
 			};
+
+			// Also hook into render_list to ensure visibility after rendering
+			if (frappe.listview.ListView.prototype.render_list) {
+				const originalRenderList = frappe.listview.ListView.prototype.render_list;
+				frappe.listview.ListView.prototype.render_list = function() {
+					const result = originalRenderList.apply(this, arguments);
+					setTimeout(() => {
+						ensureDataVisibility();
+						ensurePaginationVisible();
+					}, 50);
+					return result;
+				};
+			}
 		}
 	}
 })();

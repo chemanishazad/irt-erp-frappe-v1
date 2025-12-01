@@ -350,10 +350,29 @@
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: var(--spacing-xs);
+	padding: 0 !important;
 	margin-top: var(--spacing-sm);
 	min-width: 220px;
 	animation: dropdownFadeIn 0.2s ease-out;
+	z-index: 10001 !important;
+	position: absolute !important;
+}
+
+/* Show dropdown when parent has .show class - DEFAULT BEHAVIOR */
+.navbar-nav .dropdown.show .dropdown-menu,
+.navbar-nav .dropdown.open .dropdown-menu,
+.navbar-nav .show > .dropdown-menu,
+.navbar-nav .open > .dropdown-menu,
+.navbar-nav .dropdown[aria-expanded="true"] .dropdown-menu {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+/* Hide dropdown by default when not shown */
+.navbar-nav .dropdown:not(.show):not(.open) .dropdown-menu,
+.navbar-nav .dropdown-menu:not(.show):not(.open) {
+	display: none !important;
 }
 
 @keyframes dropdownFadeIn {
@@ -387,21 +406,57 @@
 }
 
 .navbar-nav .dropdown-item {
-	padding: var(--spacing-md) var(--spacing-lg);
+	padding: 0 !important;
+	margin: 0 !important;
 	color: var(--color-text-primary);
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
-	border-radius: var(--radius-md);
+	border-radius: 0;
 	transition: all var(--transition-base);
-	display: flex;
-	align-items: center;
-	gap: var(--spacing-sm);
+	display: block !important;
+	text-align: left !important;
+	width: 100%;
+	line-height: 1.5;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.navbar-nav .dropdown-item > a,
+.navbar-nav .dropdown-item > span,
+.navbar-nav .dropdown-item > div,
+.navbar-nav .dropdown-item a,
+.navbar-nav .dropdown-item span {
+	padding: 0 !important;
+	margin: 0 !important;
+	display: block !important;
+	width: 100%;
+	text-align: left !important;
+	color: inherit !important;
+	text-decoration: none !important;
+	line-height: 1.5 !important;
+	white-space: normal !important;
+	word-wrap: break-word !important;
+}
+
+/* Ensure text content is properly aligned */
+.navbar-nav .dropdown-item * {
+	text-align: left !important;
+	vertical-align: middle !important;
+	padding: 0 !important;
+	margin: 0 !important;
 }
 
 .navbar-nav .dropdown-item:hover {
 	background-color: var(--color-primary-rgba-15);
 	color: var(--color-primary);
-	transform: translateX(4px);
+	transform: none;
+}
+
+.navbar-nav .dropdown-item:hover > a,
+.navbar-nav .dropdown-item:hover > span,
+.navbar-nav .dropdown-item:hover > div {
+	color: var(--color-primary);
 }
 
 .navbar-nav .dropdown-item:active {
@@ -409,10 +464,18 @@
 	color: var(--color-primary);
 }
 
+.navbar-nav .dropdown-item:active > a,
+.navbar-nav .dropdown-item:active > span,
+.navbar-nav .dropdown-item:active > div {
+	color: var(--color-primary);
+}
+
 .navbar-nav .dropdown-divider {
 	border-top: 1px solid var(--color-border);
-	margin: var(--spacing-sm) 0;
+	margin: 0 !important;
+	padding: 0 !important;
 	opacity: 0.5;
+	height: 1px;
 }
 
 /* ============================================
