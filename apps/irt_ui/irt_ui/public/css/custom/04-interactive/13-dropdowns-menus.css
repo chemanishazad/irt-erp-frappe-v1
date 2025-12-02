@@ -1,35 +1,125 @@
 /**
- * Dropdowns / Menus
- * Status: TODO
+ * Dropdowns & Menus
+ * Styling for Awesomplete, Select, and other dropdown menus
  */
 
-/* Dropdown menus - Global fixes */
-.dropdown-menu {
-	z-index: var(--z-index-popover) !important;
-	position: absolute !important;
+/* ============================================
+   AWESOMPLETE (Autocomplete Dropdown)
+   ============================================ */
+
+/* Wrapper Reset - Remove any default borders/backgrounds */
+html body div.awesomplete {
+	border: none !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	display: block !important;
+	width: 100% !important;
+	position: relative !important;
+	overflow: visible !important;
 }
 
-/* Ensure dropdowns are not clipped by parent containers */
-.dropdown,
-.awesomplete {
+/* Dropdown List Container */
+html body div.awesomplete>ul,
+html body .awesomplete>ul,
+html body .awesomplete>[role="listbox"] {
+	background-color: var(--color-bg-white) !important;
+	border: 1px solid var(--color-border) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: var(--shadow-xl) !important;
+	/* Stronger shadow for floating effect */
+	margin-top: 4px !important;
+	padding: 4px 0 !important;
+	z-index: 10005 !important;
+	/* Higher than everything else */
+	min-width: 100% !important;
+	position: absolute !important;
+	transform: translateZ(0) !important;
+	-webkit-transform: translateZ(0) !important;
+	isolation: isolate !important;
+}
+
+/* Dropdown Items */
+html body div.awesomplete>ul>li,
+html body div.awesomplete>ul>li>p,
+html body div.awesomplete>ul>li>span,
+html body .awesomplete>[role="listbox"]>li,
+html body .awesomplete>[role="listbox"]>div[role="option"] {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	font-size: var(--font-size-base) !important;
+	line-height: var(--line-height-normal) !important;
+	cursor: pointer !important;
+	border-bottom: 1px solid var(--color-border-light) !important;
+	display: block !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	transition: background-color 0.1s ease;
+}
+
+/* Last item no border */
+html body div.awesomplete>ul>li:last-child,
+html body .awesomplete>[role="listbox"]>li:last-child {
+	border-bottom: none !important;
+}
+
+/* Hover & Selected States */
+html body div.awesomplete>ul>li:hover,
+html body div.awesomplete>ul>li[aria-selected="true"],
+html body .awesomplete>[role="listbox"]>li:hover,
+html body .awesomplete>[role="listbox"]>div[role="option"]:hover,
+html body .awesomplete>[role="listbox"]>div[role="option"][aria-selected="true"] {
+	background-color: var(--color-primary-rgba-08) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Hidden State */
+html body div.awesomplete>ul[hidden],
+html body .awesomplete>[role="listbox"][hidden],
+html body .awesomplete>ul:empty {
+	display: none !important;
+}
+
+/* Mark matching text */
+html body .awesomplete mark {
+	background: var(--color-warning-light) !important;
+	color: inherit !important;
+	padding: 0 !important;
+}
+
+/* ============================================
+   Z-INDEX & STACKING FIXES
+   ============================================ */
+
+/* Ensure navbar creates proper stacking context */
+body .navbar {
+	z-index: 10000 !important;
+	position: sticky !important;
+	isolation: isolate !important;
+	overflow: visible !important;
+}
+
+/* Ensure all parent containers allow overflow for dropdowns */
+body .navbar .container,
+body .navbar .search-bar,
+body .navbar .desktop-search-wrapper,
+body .navbar .awesomplete {
 	overflow: visible !important;
 	position: relative !important;
 }
 
-/* Context menus */
-.context-menu {
-	/* TODO: Add context menu styles */
+/* Ensure main content is below navbar */
+body .layout-main,
+body .layout-main-section-wrapper,
+body .layout-main-section,
+body .page-content-wrapper,
+body .page-container,
+body .page-body,
+body .main-section {
+	z-index: 1 !important;
+	position: relative !important;
 }
-
-/* Menu items */
-.menu-item,
-.dropdown-item {
-	/* TODO: Add menu item styles */
-}
-
-/* Menu separators */
-.menu-separator,
-.dropdown-divider {
-	/* TODO: Add menu separator styles */
-}
-

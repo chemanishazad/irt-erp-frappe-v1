@@ -1,5 +1,5 @@
 /**
- * FORM INPUTS – CLEAN ENHANCED STYLING
+ * FORM INPUTS – CLEAN WHITE STYLING
  * Scope: Text inputs, textareas, selects, dates, checkboxes, radios, file, Frappe link/select
  */
 
@@ -23,25 +23,10 @@ input[type="search"] {
   line-height: 1.4;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1.5px solid var(--color-primary-rgba-30);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
-  text-align: start;
-  vertical-align: middle;
-  height: 36px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-.form-control:hover:not(:disabled):not(:focus),
-input[type="text"]:hover:not(:disabled):not(:focus),
-input[type="email"]:hover:not(:disabled):not(:focus),
-input[type="password"]:hover:not(:disabled):not(:focus),
-input[type="number"]:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-gray-50);
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
-  transform: translateY(-1px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-control:focus,
@@ -54,10 +39,8 @@ input[type="url"]:focus,
 input[type="search"]:focus {
   outline: none;
   border-color: var(--color-primary);
-  border-width: 2px;
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
   background-color: var(--color-bg-white);
-  transform: translateY(0);
 }
 
 .form-control:hover:not(:disabled):not(:focus),
@@ -65,16 +48,17 @@ input[type="text"]:hover:not(:disabled):not(:focus),
 input[type="email"]:hover:not(:disabled):not(:focus),
 input[type="password"]:hover:not(:disabled):not(:focus),
 input[type="number"]:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-gray-50);
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-white);
 }
 
 .form-control:disabled,
 input:disabled {
-  background-color: var(--color-gray-50);
+  background-color: var(--color-bg-white);
   color: var(--color-text-tertiary);
   cursor: not-allowed;
   opacity: 0.6;
+  border-color: var(--color-primary-rgba-30);
 }
 
 .form-control::placeholder,
@@ -109,37 +93,35 @@ textarea {
   line-height: 1.5;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1.5px solid var(--color-primary-rgba-30);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   resize: vertical;
   font-family: inherit;
   text-align: start;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 textarea.form-control:focus,
 textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  border-width: 2px;
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
   background-color: var(--color-bg-white);
 }
 
 textarea.form-control:hover:not(:disabled):not(:focus),
 textarea:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-gray-50);
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-white);
 }
 
 textarea:disabled {
-  background-color: var(--color-gray-50);
+  background-color: var(--color-bg-white);
   color: var(--color-text-tertiary);
   cursor: not-allowed;
   opacity: 0.6;
+  border-color: var(--color-primary-rgba-30);
 }
 
 textarea::placeholder {
@@ -162,13 +144,13 @@ select {
   font-weight: var(--font-weight-normal);
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1.5px solid var(--color-primary-rgba-30);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   text-align: start;
   vertical-align: middle;
   cursor: pointer;
-  height: 36px;
+  height: 42px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -176,11 +158,9 @@ select {
   background-repeat: no-repeat;
   background-position: right var(--spacing-md) center;
   background-size: 12px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hide IE arrow */
 select::-ms-expand {
   display: none;
 }
@@ -189,25 +169,22 @@ select.form-control:focus,
 select:focus {
   outline: none;
   border-color: var(--color-primary);
-  border-width: 2px;
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
   background-color: var(--color-bg-white);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230052CC' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
 }
 
 select.form-control:hover:not(:disabled):not(:focus),
 select:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-gray-50);
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
-  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-white);
 }
 
 select:disabled {
-  background-color: var(--color-gray-50);
+  background-color: var(--color-bg-white);
   color: var(--color-text-tertiary);
   cursor: not-allowed;
   opacity: 0.6;
+  border-color: var(--color-primary-rgba-30);
 }
 
 /* ------------------------------------------------------------
@@ -224,24 +201,21 @@ input[type="time"] {
   line-height: 1.4;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 1.5px solid var(--color-primary-rgba-30);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   cursor: pointer;
   text-align: start;
   vertical-align: middle;
   height: 36px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input[type="date"]:hover:not(:disabled):not(:focus),
 input[type="datetime-local"]:hover:not(:disabled):not(:focus),
 input[type="time"]:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary-light);
-  background-color: var(--color-gray-50);
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.08);
-  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-white);
 }
 
 input[type="date"]:focus,
@@ -249,110 +223,15 @@ input[type="datetime-local"]:focus,
 input[type="time"]:focus {
   outline: none;
   border-color: var(--color-primary);
-  border-width: 2px;
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
   background-color: var(--color-bg-white);
-  transform: translateY(0);
 }
 
-/* Additional form enhancements */
-.form-group.field-focused,
-.frappe-control.field-focused {
-  position: relative;
-}
-
-/* Blue side line removed - no longer needed */
-.form-group.field-focused::before,
-.frappe-control.field-focused::before {
-  display: none;
-}
-
-/* Input with icons */
-.input-with-icon {
-  position: relative;
-}
-
-.input-with-icon .form-control {
-  padding-left: 40px;
-}
-
-.input-with-icon .input-icon {
-  position: absolute;
-  left: var(--spacing-md);
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-text-tertiary);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.input-with-icon:focus-within .input-icon {
-  color: var(--color-primary);
-}
-
-/* Floating labels effect */
-.form-group.floating-label {
-  position: relative;
-}
-
-.form-group.floating-label label {
-  position: absolute;
-  left: var(--spacing-md);
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  transition: all 0.2s ease;
-  color: var(--color-text-tertiary);
-  background: var(--color-bg-white);
-  padding: 0 4px;
-}
-
-.form-group.floating-label .form-control:focus + label,
-.form-group.floating-label .form-control:not(:placeholder-shown) + label {
-  top: 0;
-  transform: translateY(-50%);
-  font-size: var(--font-size-xs);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
-}
-
-/* Character counter */
-.input-with-counter {
-  position: relative;
-}
-
-.input-counter {
-  position: absolute;
-  bottom: -18px;
-  right: var(--spacing-sm);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-}
-
-.input-counter.warning {
-  color: var(--color-warning);
-}
-
-.input-counter.error {
-  color: var(--color-error);
-}
-
-input[type="date"]:disabled,
-input[type="datetime-local"]:disabled,
-input[type="time"]:disabled {
-  background-color: var(--color-gray-50);
-  color: var(--color-text-tertiary);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Calendar icon */
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
 }
 
 input[type="date"]:hover::-webkit-calendar-picker-indicator,
@@ -372,15 +251,6 @@ input[type="radio"] {
   margin: 0;
   cursor: pointer;
   accent-color: var(--color-primary);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-input[type="checkbox"]:hover:not(:disabled),
-input[type="radio"]:hover:not(:disabled) {
-  accent-color: var(--color-primary-dark);
-  transform: scale(1.1);
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
 }
 
 input[type="checkbox"]:focus,
@@ -414,39 +284,31 @@ input[type="file"] {
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
-  border: 2px dashed var(--color-primary-rgba-30);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   cursor: pointer;
   text-align: start;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input[type="file"]:hover:not(:disabled) {
   border-color: var(--color-primary);
-  background-color: var(--color-primary-rgba-08);
-  border-style: solid;
-  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-input[type="file"]:active:not(:disabled) {
-  transform: translateY(0);
+  background-color: var(--color-bg-white);
 }
 
 input[type="file"]:focus {
   outline: none;
   border-color: var(--color-primary);
-  border-width: 2px;
   box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
 }
 
 input[type="file"]:disabled {
-  background-color: var(--color-gray-50);
+  background-color: var(--color-bg-white);
   color: var(--color-text-tertiary);
   cursor: not-allowed;
   opacity: 0.6;
+  border-color: var(--color-primary-rgba-30);
 }
 
 /* ------------------------------------------------------------
@@ -467,7 +329,6 @@ input[type="file"]:disabled {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   letter-spacing: 0.01em;
-  transition: color 0.2s ease;
 }
 
 .form-group:focus-within label,
@@ -492,18 +353,6 @@ input[type="file"]:disabled {
   color: var(--color-text-secondary);
   line-height: 1.5;
   padding-left: 2px;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Error / success */
@@ -512,31 +361,14 @@ input[type="file"]:disabled {
 .form-group.has-error select,
 .form-group.has-error textarea {
   border-color: var(--color-error);
-  border-width: 2px;
-  background-color: rgba(239, 68, 68, 0.05);
+  background-color: var(--color-bg-white);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-  animation: shake 0.3s ease;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
 }
 
 .form-group.has-error .help-block,
 .form-group.has-error .help-text {
   color: var(--color-error);
   font-weight: var(--font-weight-medium);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.form-group.has-error .help-block::before,
-.form-group.has-error .help-text::before {
-  content: "⚠";
-  font-size: 14px;
 }
 
 .form-group.has-success .form-control,
@@ -544,7 +376,7 @@ input[type="file"]:disabled {
 .form-group.has-success select,
 .form-group.has-success textarea {
   border-color: var(--color-success);
-  border-width: 2px;
+  background-color: var(--color-bg-white);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
@@ -552,39 +384,29 @@ input[type="file"]:disabled {
 .form-group.has-success .help-text {
   color: var(--color-success);
   font-weight: var(--font-weight-medium);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.form-group.has-success .help-block::before,
-.form-group.has-success .help-text::before {
-  content: "✓";
-  font-size: 14px;
 }
 
 /* Read-only */
 .form-control[readonly],
 input[readonly],
 textarea[readonly] {
-  background-color: var(--color-gray-50);
+  background-color: var(--color-bg-white);
   color: var(--color-text-primary);
-  border-color: var(--color-primary-rgba-20);
+  border-color: var(--color-primary-rgba-30);
   cursor: default;
 }
 
 .form-control[readonly]:focus,
 input[readonly]:focus,
 textarea[readonly]:focus {
-  border-color: var(--color-primary-rgba-20);
+  border-color: var(--color-primary-rgba-30);
   box-shadow: none;
 }
 
 /* ------------------------------------------------------------
-   FRAPPE-SPECIFIC: LINK / SELECT ARROW & GREY BUTTON
+   FRAPPE-SPECIFIC: LINK / SELECT
 -------------------------------------------------------------*/
 
-/* Frappe control wrappers - improved spacing */
 .frappe-control {
   margin-bottom: var(--spacing-lg) !important;
   padding: 0 !important;
@@ -593,6 +415,7 @@ textarea[readonly]:focus {
 .frappe-control .control-input-wrapper {
   margin-bottom: 0 !important;
   padding: 0 !important;
+  position: relative !important;
 }
 
 .frappe-control .form-group {
@@ -600,392 +423,119 @@ textarea[readonly]:focus {
   padding: 0 !important;
 }
 
-/* Keep link & select inputs styled like other controls */
+.frappe-control[data-fieldtype="Link"] .control-input-wrapper,
+.frappe-control[data-fieldtype="Link"] .awesomplete,
+.frappe-control[data-fieldtype="Link"] .input-with-feedback {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .frappe-control[data-fieldtype="Link"] input,
 .frappe-control[data-fieldtype="Select"] select {
   width: 100% !important;
   max-width: 100% !important;
   background-color: var(--color-bg-white) !important;
   border-radius: var(--radius-md) !important;
-  color: var(--color-text-secondary) !important;
+  color: var(--color-text-primary) !important;
   text-align: start !important;
   padding: var(--spacing-sm) var(--spacing-md) !important;
   font-size: var(--font-size-sm) !important;
-  height: 36px !important;
+  height: 42px !important;
   line-height: 1.4 !important;
+  border: 1px solid var(--color-primary) !important;
+  padding-right: 36px !important;
 }
 
-/* Remove the grey arrow / helper button block on the right */
+.frappe-control[data-fieldtype="Link"] input:focus,
+.frappe-control[data-fieldtype="Select"] select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+  background-color: var(--color-bg-white) !important;
+}
+
 .frappe-control[data-fieldtype="Select"] .input-group-append,
 .frappe-control[data-fieldtype="Select"] .input-group-prepend,
 .frappe-control[data-fieldtype="Select"] .link-btn,
 .frappe-control[data-fieldtype="Select"] .btn,
-.frappe-control[data-fieldtype="Select"] .btn-default,
-.frappe-control[data-fieldtype="Select"] .btn-secondary,
 .frappe-control[data-fieldtype="Link"] .input-group-append,
 .frappe-control[data-fieldtype="Link"] .input-group-prepend,
 .frappe-control[data-fieldtype="Link"] .link-btn,
-.frappe-control[data-fieldtype="Link"] .btn,
-.frappe-control[data-fieldtype="Link"] .btn-default,
-.frappe-control[data-fieldtype="Link"] .btn-secondary {
-  display: none !important;
-  border: none !important;
+.frappe-control[data-fieldtype="Link"] .btn {
   background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 var(--spacing-sm) !important;
+  margin: 0 !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2 !important;
+  color: var(--color-text-tertiary) !important;
+}
+
+.frappe-control[data-fieldtype="Link"] .btn-open {
+  display: none !important;
+}
+
+.frappe-control[data-fieldtype="Select"] .control-input-wrapper> :not(select):not(.form-control):last-child,
+.frappe-control[data-fieldtype="Link"] .control-input-wrapper> :not(input):not(.form-control):last-child {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------
+   CRITICAL OVERRIDES - INPUT FIELDS
+-------------------------------------------------------------*/
+
+html body .form-group input.input-with-feedback[role="combobox"],
+html body .frappe-control input.input-with-feedback[role="combobox"],
+html body input.input-with-feedback[role="combobox"],
+html body div.awesomplete>input.input-with-feedback {
+  background-color: var(--color-bg-white) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  height: 42px !important;
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  font-size: var(--font-size-sm) !important;
+  color: var(--color-text-primary) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  line-height: 1.5 !important;
+}
+
+html body .form-group input.input-with-feedback[role="combobox"]:focus,
+html body .frappe-control input.input-with-feedback[role="combobox"]:focus,
+html body input.input-with-feedback[role="combobox"]:focus,
+html body div.awesomplete>input.input-with-feedback:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+  outline: none !important;
+  background-color: var(--color-bg-white) !important;
+}
+
+html body .form-group:has(input.input-with-feedback[role="combobox"]),
+html body .frappe-control:has(input.input-with-feedback[role="combobox"]),
+html body .control-input-wrapper:has(input.input-with-feedback[role="combobox"]),
+html body .awesomplete:has(input.input-with-feedback[role="combobox"]) {
+  background: transparent !important;
+  border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Safety: hide any extra last child inside control wrapper that acts as that arrow block */
-.frappe-control[data-fieldtype="Select"]
-  .control-input-wrapper
-  > :not(select):not(.form-control):last-child,
-.frappe-control[data-fieldtype="Link"]
-  .control-input-wrapper
-  > :not(input):not(.form-control):last-child {
-  display: none !important;
+  margin-bottom: var(--spacing-lg) !important;
 }
 
 /* ------------------------------------------------------------
-   CALENDAR / DATEPICKER THEME (Air Datepicker) - ENHANCED
+   RESPONSIVE FONT SIZES
 -------------------------------------------------------------*/
 
-body .datepicker,
-.datepicker.datepicker--active,
-.datepicker.active {
-  background: var(--color-bg-white) !important;
-  border: 1.5px solid var(--color-primary-rgba-20) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: 0 8px 24px rgba(0, 102, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-  font-family: inherit !important;
-  padding: var(--spacing-lg) !important;
-  width: 300px !important;
-  z-index: 99999 !important;
-  overflow: hidden !important;
-}
-
-body .datepicker--nav,
-.datepicker .datepicker--nav {
-  border-bottom: 2px solid var(--color-primary-rgba-10) !important;
-  padding-bottom: var(--spacing-md) !important;
-  margin-bottom: var(--spacing-md) !important;
-  background: transparent !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-}
-
-body .datepicker--nav-title,
-.datepicker .datepicker--nav-title {
-  color: var(--color-text-primary) !important;
-  font-size: var(--font-size-lg) !important;
-  font-weight: var(--font-weight-bold) !important;
-  padding: var(--spacing-sm) var(--spacing-md) !important;
-  border-radius: var(--radius-md) !important;
-  transition: all 0.2s ease !important;
-  cursor: pointer !important;
-}
-
-body .datepicker--nav-title:hover,
-.datepicker .datepicker--nav-title:hover {
-  background: linear-gradient(135deg, var(--color-primary-rgba-10) 0%, var(--color-primary-rgba-08) 100%) !important;
-  color: var(--color-primary) !important;
-  transform: translateY(-1px) !important;
-}
-
-body .datepicker--nav-action,
-.datepicker .datepicker--nav-action {
-  color: var(--color-text-secondary) !important;
-  border-radius: var(--radius-md) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  width: 32px !important;
-  height: 32px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: var(--color-gray-50) !important;
-}
-
-body .datepicker--nav-action:hover,
-.datepicker .datepicker--nav-action:hover {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
-  color: var(--color-bg-white) !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3) !important;
-}
-
-body .datepicker--nav-action path,
-body .datepicker--nav-action svg,
-.datepicker .datepicker--nav-action path,
-.datepicker .datepicker--nav-action svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
-}
-
-body .datepicker--content,
-.datepicker .datepicker--content {
-  padding: var(--spacing-md) 0 !important;
-}
-
-body .datepicker--days-names,
-.datepicker .datepicker--days-names {
-  margin-bottom: var(--spacing-md) !important;
-  display: grid !important;
-  grid-template-columns: repeat(7, 1fr) !important;
-  gap: var(--spacing-xs) !important;
-}
-
-body .datepicker--day-name,
-.datepicker .datepicker--day-name {
-  color: var(--color-text-secondary) !important;
-  font-weight: var(--font-weight-bold) !important;
-  font-size: var(--font-size-xs) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
-  padding: var(--spacing-sm) 0 !important;
-  text-align: center !important;
-}
-
-body .datepicker--cell,
-.datepicker .datepicker--cell {
-  border-radius: var(--radius-md) !important;
-  font-size: var(--font-size-sm) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-weight: var(--font-weight-medium) !important;
-}
-
-body .datepicker--cell-day,
-.datepicker .datepicker--cell-day {
-  color: var(--color-text-primary) !important;
-  width: 36px !important;
-  height: 36px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin: 2px !important;
-}
-
-body .datepicker--cell-day:hover,
-.datepicker .datepicker--cell-day:hover {
-  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
-  color: var(--color-primary) !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
-  font-weight: var(--font-weight-semibold) !important;
-}
-
-body .datepicker--cell-day.-selected-,
-body .datepicker--cell-day.-selected-.-focus-,
-.datepicker .datepicker--cell-day.-selected-,
-.datepicker .datepicker--cell-day.-selected-.-focus- {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
-  color: var(--color-bg-white) !important;
-  font-weight: var(--font-weight-bold) !important;
-  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4), 0 2px 4px rgba(0, 102, 255, 0.3) !important;
-  transform: scale(1.05) !important;
-  border: 2px solid var(--color-primary-light) !important;
-}
-
-body .datepicker--cell-day.-selected-:hover,
-body .datepicker--cell-day.-selected-.-focus-:hover,
-.datepicker .datepicker--cell-day.-selected-:hover,
-.datepicker .datepicker--cell-day.-selected-.-focus-:hover {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(0, 102, 255, 0.5) !important;
-}
-
-body .datepicker--cell-day.-current-,
-.datepicker .datepicker--cell-day.-current- {
-  color: var(--color-primary) !important;
-  font-weight: var(--font-weight-bold) !important;
-  border: 2px solid var(--color-primary) !important;
-  background: var(--color-primary-rgba-08) !important;
-  position: relative !important;
-}
-
-body .datepicker--cell-day.-current-::after {
-  content: "" !important;
-  position: absolute !important;
-  bottom: 2px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 4px !important;
-  height: 4px !important;
-  background: var(--color-primary) !important;
-  border-radius: 50% !important;
-}
-
-body .datepicker--cell-day.-current-:hover,
-.datepicker .datepicker--cell-day.-current-:hover {
-  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
-  border-color: var(--color-primary-light) !important;
-  transform: scale(1.1) !important;
-}
-
-body .datepicker--cell-day.-other-month-,
-.datepicker .datepicker--cell-day.-other-month- {
-  color: var(--color-text-tertiary) !important;
-  opacity: 0.35 !important;
-  background: var(--color-gray-50) !important;
-}
-
-body .datepicker--cell-day.-other-month-:hover,
-.datepicker .datepicker--cell-day.-other-month-:hover {
-  opacity: 0.6 !important;
-  background: var(--color-gray-100) !important;
-}
-
-body .datepicker--cell-day.-disabled-,
-.datepicker .datepicker--cell-day.-disabled- {
-  color: var(--color-text-tertiary) !important;
-  opacity: 0.25 !important;
-  cursor: not-allowed !important;
-  background: var(--color-gray-50) !important;
-  text-decoration: line-through !important;
-}
-
-body .datepicker--cell-day.-disabled-:hover,
-.datepicker .datepicker--cell-day.-disabled-:hover {
-  background: var(--color-gray-50) !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-body .datepicker--cell-month,
-body .datepicker--cell-year,
-.datepicker .datepicker--cell-month,
-.datepicker .datepicker--cell-year {
-  color: var(--color-text-primary) !important;
-  padding: var(--spacing-md) !important;
-  border-radius: var(--radius-md) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-weight: var(--font-weight-medium) !important;
-}
-
-body .datepicker--cell-month:hover,
-body .datepicker--cell-year:hover,
-.datepicker .datepicker--cell-month:hover,
-.datepicker .datepicker--cell-year:hover {
-  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
-  color: var(--color-primary) !important;
-  transform: scale(1.05) !important;
-  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
-}
-
-body .datepicker--cell-month.-selected-,
-body .datepicker--cell-year.-selected-,
-.datepicker .datepicker--cell-month.-selected-,
-.datepicker .datepicker--cell-year.-selected- {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
-  color: var(--color-bg-white) !important;
-  font-weight: var(--font-weight-bold) !important;
-  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4) !important;
-  transform: scale(1.05) !important;
-}
-
-body .datepicker--cell-month.-current-,
-body .datepicker--cell-year.-current-,
-.datepicker .datepicker--cell-month.-current-,
-.datepicker .datepicker--cell-year.-current- {
-  color: var(--color-primary) !important;
-  font-weight: var(--font-weight-bold) !important;
-  border: 2px solid var(--color-primary) !important;
-  background: var(--color-primary-rgba-08) !important;
-}
-
-body .datepicker--buttons,
-.datepicker .datepicker--buttons {
-  border-top: 2px solid var(--color-primary-rgba-10) !important;
-  padding-top: var(--spacing-md) !important;
-  margin-top: var(--spacing-md) !important;
-  display: flex !important;
-  gap: var(--spacing-sm) !important;
-  justify-content: center !important;
-}
-
-body .datepicker--button,
-.datepicker .datepicker--button {
-  color: var(--color-text-secondary) !important;
-  font-size: var(--font-size-sm) !important;
-  font-weight: var(--font-weight-medium) !important;
-  border-radius: var(--radius-md) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  padding: var(--spacing-sm) var(--spacing-lg) !important;
-  background: var(--color-gray-50) !important;
-  border: 1.5px solid var(--color-primary-rgba-20) !important;
-}
-
-body .datepicker--button:hover,
-.datepicker .datepicker--button:hover {
-  background: linear-gradient(135deg, var(--color-primary-rgba-15) 0%, var(--color-primary-rgba-10) 100%) !important;
-  color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
-}
-
-body .datepicker--button.-today-,
-.datepicker .datepicker--button.-today- {
-  color: var(--color-bg-white) !important;
-  font-weight: var(--font-weight-bold) !important;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%) !important;
-  border-color: var(--color-primary) !important;
-  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3) !important;
-}
-
-body .datepicker--button.-today-:hover,
-.datepicker .datepicker--button.-today-:hover {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4) !important;
-}
-
-/* ------------------------------------------------------------
-   FORM LAYOUT / GRID – 3 COLUMNS DESKTOP
--------------------------------------------------------------*/
-
-/* Remove side padding/gap around form body */
-body[data-route*="desk"] .form-section .section-body,
-.layout-main .form-section .section-body {
-  max-width: 100% !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-/* Columns = 3 per row on large screens */
-body[data-route*="desk"] .form-column,
-.layout-main .form-column {
-  box-sizing: border-box;
-  padding-left: var(--spacing-md) !important;
-  padding-right: var(--spacing-md) !important;
-  width: 33.333% !important;
-  max-width: 33.333% !important;
-}
-
-/* ------------------------------------------------------------
-   RESPONSIVE – 2 / 1 COLUMNS
--------------------------------------------------------------*/
-
-/* 2 columns (tablets / small desktops) */
-@media (max-width: 991px) {
-  body[data-route*="desk"] .form-column,
-  .layout-main .form-column {
-    width: 50% !important;
-    max-width: 50% !important;
-  }
-}
-
-/* 1 column (mobile) + bigger font to stop zoom */
 @media (max-width: 768px) {
-  body[data-route*="desk"] .form-column,
-  .layout-main .form-column {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
   .form-control,
   input[type="text"],
   input[type="email"],
@@ -999,6 +549,6 @@ body[data-route*="desk"] .form-column,
   input[type="datetime-local"],
   input[type="time"],
   textarea {
-    font-size: 16px; /* stop mobile zoom on focus */
+    font-size: 16px;
   }
 }

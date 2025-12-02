@@ -8,8 +8,8 @@ app_license = "mit"
 # Includes in <head> - For desk/app pages
 # Order: variables first, then main.css (which imports all components)
 app_include_css = [
-	"/assets/irt_ui/css/custom/variables.css",
-	"/assets/irt_ui/css/custom/main.css"
+	"/assets/irt_ui/css/custom/variables.css?v=1.1.5",
+	"/assets/irt_ui/css/custom/main.css?v=1.1.5"
 ]
 
 app_include_js = [

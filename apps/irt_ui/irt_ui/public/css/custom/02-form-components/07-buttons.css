@@ -1,6 +1,6 @@
 /**
- * Buttons - Enhanced Modern Styling
- * Primary, secondary, icon buttons, and button groups
+ * Buttons - Comprehensive Frappe Button Styling
+ * Applies to all buttons across forms, pages, dialogs, and lists
  */
 
 /* ============================================
@@ -8,12 +8,12 @@
    ============================================ */
 
 .btn,
-button {
+button:not(.close):not(.navbar-toggler) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
@@ -22,17 +22,17 @@ button {
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  user-select: none;
-  border: 1.5px solid transparent;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
-  height: 42px;
-  min-height: 42px;
+  height: 36px;
+  min-height: 36px;
 }
 
+/* Ripple effect */
 .btn::before {
   content: "";
   position: absolute;
@@ -44,6 +44,7 @@ button {
   background: rgba(255, 255, 255, 0.3);
   transform: translate(-50%, -50%);
   transition: width 0.3s ease, height 0.3s ease;
+  pointer-events: none;
 }
 
 .btn:active::before {
@@ -51,14 +52,15 @@ button {
   height: 300px;
 }
 
-.btn:focus {
+.btn:focus,
+.btn:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
 }
 
 .btn:disabled,
 .btn.disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -96,7 +98,7 @@ button {
 }
 
 /* ============================================
-   SECONDARY BUTTONS
+   SECONDARY / DEFAULT BUTTONS
    ============================================ */
 
 .btn-secondary,
@@ -105,7 +107,7 @@ button {
 .btn.btn-default {
   background: var(--color-bg-white);
   color: var(--color-text-primary);
-  border-color: var(--color-primary-rgba-30);
+  border-color: var(--color-border);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -143,7 +145,7 @@ button {
 .btn.btn-outline {
   background: transparent;
   color: var(--color-text-primary);
-  border-color: var(--color-primary-rgba-30);
+  border-color: var(--color-border);
 }
 
 .btn-outline:hover:not(:disabled),
@@ -194,18 +196,57 @@ button {
 }
 
 /* ============================================
+   WARNING BUTTONS
+   ============================================ */
+
+.btn-warning,
+.btn.btn-warning {
+  background: var(--color-warning);
+  color: var(--color-text-primary);
+  border-color: var(--color-warning);
+  box-shadow: 0 2px 4px rgba(251, 191, 36, 0.2);
+}
+
+.btn-warning:hover:not(:disabled),
+.btn.btn-warning:hover:not(:disabled) {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  box-shadow: 0 4px 8px rgba(251, 191, 36, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   INFO BUTTONS
+   ============================================ */
+
+.btn-info,
+.btn.btn-info {
+  background: #3b82f6;
+  color: var(--color-bg-white);
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btn-info:hover:not(:disabled),
+.btn.btn-info:hover:not(:disabled) {
+  background: #2563eb;
+  border-color: #2563eb;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ============================================
    ICON BUTTONS
    ============================================ */
 
-/* Frappe icon buttons */
 .icon-btn,
 .btn.icon-btn,
 .btn-icon,
 .btn.btn-icon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  min-height: 42px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   padding: 0;
   border-radius: var(--radius-md);
   display: inline-flex;
@@ -213,7 +254,7 @@ button {
   justify-content: center;
   background: var(--color-bg-white);
   color: var(--color-text-secondary);
-  border-color: var(--color-primary-rgba-20);
+  border-color: var(--color-border);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -239,32 +280,14 @@ button {
 .btn.icon-btn svg,
 .btn-icon svg,
 .btn.btn-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-/* Small icon buttons */
-.icon-btn.btn-xs,
-.btn.icon-btn.btn-xs {
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  min-height: 28px;
-}
-
-.icon-btn.btn-sm,
-.btn.icon-btn.btn-sm {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 16px;
+  height: 16px;
 }
 
 /* ============================================
    BUTTON SIZES
    ============================================ */
 
-/* Frappe button sizes */
 .btn-xs,
 .btn.btn-xs {
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -277,34 +300,59 @@ button {
 .btn.btn-sm {
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-xs);
-  height: 36px;
-  min-height: 36px;
+  height: 32px;
+  min-height: 32px;
 }
 
 .btn-md,
 .btn.btn-md {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);
-  height: 42px;
-  min-height: 42px;
+  height: 36px;
+  min-height: 36px;
 }
 
 .btn-lg,
 .btn.btn-lg {
   padding: var(--spacing-md) var(--spacing-xl);
   font-size: var(--font-size-base);
-  height: 48px;
-  min-height: 48px;
+  height: 42px;
+  min-height: 42px;
   font-weight: var(--font-weight-semibold);
 }
 
 .btn-xl,
 .btn.btn-xl {
-  padding: var(--spacing-lg) var(--spacing-2xl);
+  padding: var(--spacing-md) var(--spacing-2xl);
   font-size: var(--font-size-lg);
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
   font-weight: var(--font-weight-semibold);
+}
+
+/* Icon button sizes */
+.icon-btn.btn-xs,
+.btn.icon-btn.btn-xs {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.icon-btn.btn-sm,
+.btn.icon-btn.btn-sm {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.icon-btn.btn-lg,
+.btn.icon-btn.btn-lg {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
 }
 
 /* ============================================
@@ -334,7 +382,7 @@ button {
 .btn-group .btn:last-child {
   border-top-right-radius: var(--radius-md);
   border-bottom-right-radius: var(--radius-md);
-  border-right-width: 1.5px;
+  border-right-width: 1px;
 }
 
 .btn-group .btn:hover {
@@ -346,9 +394,9 @@ button {
    LOADING STATES
    ============================================ */
 
-.btn.loading,
-.btn.loading::after {
+.btn.loading {
   position: relative;
+  pointer-events: none;
 }
 
 .btn.loading::after {
@@ -363,13 +411,19 @@ button {
   animation: spin 0.8s linear infinite;
 }
 
-.btn.loading .btn-text {
+.btn.loading .btn-text,
+.btn.loading span {
   opacity: 0;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .btn-primary.loading::after {
@@ -388,13 +442,23 @@ button {
 }
 
 .btn .icon-left,
-.btn svg:first-child {
+.btn svg:first-child:not(:last-child) {
   margin-right: var(--spacing-xs);
 }
 
 .btn .icon-right,
-.btn svg:last-child {
+.btn svg:last-child:not(:first-child) {
   margin-left: var(--spacing-xs);
+}
+
+/* ============================================
+   BLOCK BUTTONS
+   ============================================ */
+
+.btn-block,
+.btn.btn-block {
+  display: flex;
+  width: 100%;
 }
 
 /* ============================================
@@ -410,7 +474,7 @@ button {
   position: fixed;
   bottom: var(--spacing-xl);
   right: var(--spacing-xl);
-  z-index: var(--z-index-fixed);
+  z-index: 1000;
 }
 
 .btn-fab:hover {
@@ -423,28 +487,6 @@ button {
    ============================================ */
 
 @media (max-width: 768px) {
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .btn-group {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .btn-group .btn {
-    border-radius: var(--radius-md);
-    border-right-width: 1.5px;
-    border-bottom-width: 0;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .btn-group .btn:last-child {
-    border-bottom-width: 1.5px;
-    margin-bottom: 0;
-  }
-
   .btn-fab {
     width: 48px;
     height: 48px;

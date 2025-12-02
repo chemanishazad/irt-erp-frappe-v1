@@ -10,13 +10,13 @@
    ============================================================ */
 
 /* Hide plain input form-groups (keep unified search + buttons) */
-.standard-filter-section .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)),
-.page-form .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)) {
+[data-page-route^="List"] .standard-filter-section .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)),
+[data-page-route^="List"] .page-form .form-group:has(.input-with-feedback):not(:has(.unified-search-input, .unified-search-wrapper, .btn-group, .filter-button, .sort-selector, button)) {
 	display: none !important;
 }
 
 /* Hide rows that would create extra lines */
-.page-form > .row:not(:has(.unified-search-wrapper, .filter-section, .btn-group, .filter-button, .sort-selector)) {
+[data-page-route^="List"] .page-form>.row:not(:has(.unified-search-wrapper, .filter-section, .btn-group, .filter-button, .sort-selector)) {
 	display: none !important;
 }
 
@@ -25,7 +25,7 @@
    ============================================================ */
 
 /* Page form - single row layout */
-.page-form {
+[data-page-route^="List"] .page-form {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
@@ -35,7 +35,7 @@
 }
 
 /* Standard filter section */
-.standard-filter-section {
+[data-page-route^="List"] .standard-filter-section {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
@@ -45,8 +45,8 @@
 }
 
 /* Filter section - single row */
-.page-form .filter-section,
-.filter-section {
+[data-page-route^="List"] .page-form .filter-section,
+[data-page-route^="List"] .filter-section {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
@@ -172,14 +172,14 @@
 }
 
 /* Spacing between buttons */
-.filter-section .filter-selector + .sort-selector,
-.filter-section .filter-selector + .btn-group,
-.filter-section .btn-group + .sort-selector,
-.filter-section .btn-group + .btn-group,
-.filter-section .sort-selector + .btn-group,
-.filter-section .sort-selector + .sort-selector,
-.filter-section .filter-button + .sort-selector,
-.filter-section .filter-button + .btn-group {
+.filter-section .filter-selector+.sort-selector,
+.filter-section .filter-selector+.btn-group,
+.filter-section .btn-group+.sort-selector,
+.filter-section .btn-group+.btn-group,
+.filter-section .sort-selector+.btn-group,
+.filter-section .sort-selector+.sort-selector,
+.filter-section .filter-button+.sort-selector,
+.filter-section .filter-button+.btn-group {
 	margin-left: 6px !important;
 }
 
@@ -210,7 +210,7 @@
 /* ============================================================
    6. PAGINATION
    ============================================================ */
-   
+
 /* Pagination styles moved to 09-tables-list-views.css to avoid conflicts */
 
 /* ============================================================
@@ -226,6 +226,7 @@
    ============================================================ */
 
 @media (max-width: 768px) {
+
 	.page-form,
 	.page-form .filter-section,
 	.filter-section {

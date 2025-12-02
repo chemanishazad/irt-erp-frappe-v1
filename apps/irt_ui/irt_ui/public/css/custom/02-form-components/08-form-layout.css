@@ -12,7 +12,7 @@
 .form-dashboard-section {
   margin-bottom: var(--spacing-lg);
   padding: 0;
-  background: transparent;
+  background: var(--color-bg-white) !important;
   border-radius: 0;
   box-shadow: none;
   transition: all 0.2s ease;
@@ -111,6 +111,8 @@
   flex-wrap: wrap;
   margin: 0;
   max-width: 100%;
+  border: none !important;
+  background: var(--color-bg-white) !important;
 }
 
 .form-section .section-body:first-child,
@@ -251,7 +253,7 @@
   padding: 0;
 }
 
-.std-form-layout > .form-layout > .form-page {
+.std-form-layout>.form-layout>.form-page {
   box-shadow: none;
   background-color: transparent;
 }
@@ -403,18 +405,23 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, 
-    var(--color-primary) 0%, 
-    var(--color-primary-light) 50%, 
-    var(--color-primary) 100%);
+  background: linear-gradient(90deg,
+      var(--color-primary) 0%,
+      var(--color-primary-light) 50%,
+      var(--color-primary) 100%);
   background-size: 200% 100%;
   animation: loading 1.5s linear infinite;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 @keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .form-section.saved {
@@ -423,8 +430,15 @@
 }
 
 @keyframes savedPulse {
-  0%, 100% { border-left-color: var(--color-success); }
-  50% { border-left-color: var(--color-success-light); }
+
+  0%,
+  100% {
+    border-left-color: var(--color-success);
+  }
+
+  50% {
+    border-left-color: var(--color-success-light);
+  }
 }
 
 /* ============================================
@@ -447,6 +461,7 @@
 }
 
 @media (max-width: 768px) {
+
   .form-section,
   .form-dashboard-section {
     margin-bottom: var(--spacing-lg);
