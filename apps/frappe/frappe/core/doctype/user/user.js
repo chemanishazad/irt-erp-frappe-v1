@@ -64,6 +64,11 @@ frappe.ui.form.on("User", {
 			frm.roles_editor.reset();
 		}
 
+		// Add custom class to role_profiles field section
+		if (frm.fields_dict.role_profiles && frm.fields_dict.role_profiles.wrapper) {
+			frm.fields_dict.role_profiles.wrapper.closest('.frappe-control').addClass('role-profiles-section');
+		}
+
 		if (
 			frm.can_edit_roles &&
 			!frm.is_new() &&
@@ -95,6 +100,11 @@ frappe.ui.form.on("User", {
 	},
 	refresh: function (frm) {
 		let doc = frm.doc;
+
+		// Ensure custom class is added to role_profiles field section
+		if (frm.fields_dict.role_profiles && frm.fields_dict.role_profiles.wrapper) {
+			frm.fields_dict.role_profiles.wrapper.closest('.frappe-control').addClass('role-profiles-section');
+		}
 
 		frappe.xcall("frappe.apps.get_apps").then((r) => {
 			let apps = r?.map((r) => r.name) || [];

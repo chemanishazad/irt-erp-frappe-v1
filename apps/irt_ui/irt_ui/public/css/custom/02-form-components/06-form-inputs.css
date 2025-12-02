@@ -532,6 +532,268 @@ html body .awesomplete:has(input.input-with-feedback[role="combobox"]) {
 }
 
 /* ------------------------------------------------------------
+   ROLE PROFILES SECTION - CUSTOM STYLING
+-------------------------------------------------------------*/
+
+/* Target the role_profiles field wrapper */
+.frappe-control.role-profiles-section,
+.frappe-control[data-fieldname="role_profiles"] {
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+/* Remove borders from parent form sections */
+.frappe-control.role-profiles-section .form-section,
+.frappe-control[data-fieldname="role_profiles"] .form-section,
+.frappe-control.role-profiles-section .form-dashboard-section,
+.frappe-control[data-fieldname="role_profiles"] .form-dashboard-section {
+  border: none !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Remove section head borders */
+.frappe-control.role-profiles-section .section-head,
+.frappe-control[data-fieldname="role_profiles"] .section-head {
+  border: none !important;
+  border-bottom: none !important;
+  padding-bottom: var(--spacing-sm) !important;
+}
+
+/* Remove section body borders */
+.frappe-control.role-profiles-section .section-body,
+.frappe-control[data-fieldname="role_profiles"] .section-body {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Remove borders from form groups within role profiles */
+.frappe-control.role-profiles-section .form-group,
+.frappe-control[data-fieldname="role_profiles"] .form-group {
+  border: none !important;
+}
+
+/* Remove any secondary borders from wrapper elements */
+.frappe-control.role-profiles-section .control-input-wrapper,
+.frappe-control[data-fieldname="role_profiles"] .control-input-wrapper {
+  border: none !important;
+}
+
+/* Ensure table-multiselect is visible for role_profiles - DOUBLE HEIGHT */
+/* Target by data-fieldname first (always present), then by class */
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect,
+.frappe-control[data-fieldname="role_profiles"] .input-area .table-multiselect,
+.frappe-control[data-fieldname="role_profiles"] .control-input-wrapper .table-multiselect,
+.frappe-control.role-profiles-section .table-multiselect,
+.frappe-control.role-profiles-section .input-area .table-multiselect {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  min-height: 120px !important;
+  height: auto !important;
+  padding: var(--spacing-md) var(--spacing-lg) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect:focus-within,
+.frappe-control.role-profiles-section .table-multiselect:focus-within {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+}
+
+/* Ensure input-area is visible for role_profiles */
+.frappe-control[data-fieldname="role_profiles"] .input-area,
+.frappe-control.role-profiles-section .input-area {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Hide duplicate boxes/containers for role_profiles - Keep only first one */
+.frappe-control.role-profiles-section .table-multiselect:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect:nth-child(n+2),
+.frappe-control.role-profiles-section .input-area > .table-multiselect:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .input-area > .table-multiselect:nth-child(n+2),
+.frappe-control.role-profiles-section .control-input-wrapper > .table-multiselect:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .control-input-wrapper > .table-multiselect:nth-child(n+2),
+.frappe-control.role-profiles-section .form-group > .table-multiselect:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .form-group > .table-multiselect:nth-child(n+2),
+.frappe-control.role-profiles-section .input-area .table-multiselect:not(:first-child),
+.frappe-control[data-fieldname="role_profiles"] .input-area .table-multiselect:not(:first-child) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide duplicate input areas - but keep the first one */
+.frappe-control.role-profiles-section .input-area:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .input-area:nth-child(n+2),
+.frappe-control.role-profiles-section .control-input-wrapper > .input-area:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .control-input-wrapper > .input-area:nth-child(n+2),
+.frappe-control.role-profiles-section .form-group > .input-area:nth-child(n+2),
+.frappe-control[data-fieldname="role_profiles"] .form-group > .input-area:nth-child(n+2) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Ensure input-area is visible and contains the table-multiselect */
+.frappe-control.role-profiles-section .input-area:first-child,
+.frappe-control[data-fieldname="role_profiles"] .input-area:first-child {
+  display: block !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Ensure control-input-wrapper has transparent background */
+.frappe-control.role-profiles-section .control-input-wrapper,
+.frappe-control[data-fieldname="role_profiles"] .control-input-wrapper {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Hide any standalone input fields that appear outside the main table-multiselect */
+.frappe-control.role-profiles-section input[type="text"]:not(.table-multiselect input):not(.table-multiselect .awesomplete input),
+.frappe-control[data-fieldname="role_profiles"] input[type="text"]:not(.table-multiselect input):not(.table-multiselect .awesomplete input),
+.frappe-control.role-profiles-section .form-control:not(.table-multiselect):not(.table-multiselect .form-control),
+.frappe-control[data-fieldname="role_profiles"] .form-control:not(.table-multiselect):not(.table-multiselect .form-control) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* ------------------------------------------------------------
+   STANDARDIZE TEXT FIELD SIZES
+-------------------------------------------------------------*/
+
+/* Base input fields - consistent height and width */
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+.frappe-control[data-fieldtype="Link"] input,
+.frappe-control[data-fieldtype="Select"] select,
+select.form-control,
+select {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure consistent sizing for all input fields including combobox */
+html body .form-group input.input-with-feedback[role="combobox"],
+html body .frappe-control input.input-with-feedback[role="combobox"],
+html body input.input-with-feedback[role="combobox"],
+html body div.awesomplete>input.input-with-feedback {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Table MultiSelect input fields - exclude role_profiles from forced height */
+.frappe-control[data-fieldtype="Table MultiSelect"]:not(.role-profiles-section):not([data-fieldname="role_profiles"]) input,
+.frappe-control[data-fieldtype="Table MultiSelect"]:not(.role-profiles-section):not([data-fieldname="role_profiles"]) .form-control {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Role profiles input inside table-multiselect - allow flexible height */
+.frappe-control.role-profiles-section .table-multiselect input,
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect input {
+  height: auto !important;
+  min-height: 38px !important;
+  max-height: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  padding: 8px 12px !important;
+}
+
+/* Ensure table-multiselect container has transparent background */
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect,
+.frappe-control.role-profiles-section .table-multiselect {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Selected value pills/tags - make transparent background, no hover effects */
+.frappe-control[data-fieldname="role_profiles"] .tb-selected-value,
+.frappe-control.role-profiles-section .tb-selected-value,
+.frappe-control[data-fieldname="role_profiles"] .data-pill,
+.frappe-control.role-profiles-section .data-pill {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: 1px solid var(--color-primary-rgba-30) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Remove all hover effects */
+.frappe-control[data-fieldname="role_profiles"] .tb-selected-value:hover,
+.frappe-control.role-profiles-section .tb-selected-value:hover,
+.frappe-control[data-fieldname="role_profiles"] .data-pill:hover,
+.frappe-control.role-profiles-section .data-pill:hover,
+.frappe-control[data-fieldname="role_profiles"] .tb-selected-value:active,
+.frappe-control.role-profiles-section .tb-selected-value:active,
+.frappe-control[data-fieldname="role_profiles"] .data-pill:active,
+.frappe-control.role-profiles-section .data-pill:active {
+  background-color: transparent !important;
+  background: transparent !important;
+  border-color: var(--color-primary-rgba-30) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* Remove hover effects from table-multiselect container */
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect:hover,
+.frappe-control.role-profiles-section .table-multiselect:hover {
+  border-color: var(--color-primary) !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Ensure awesomplete wrapper also has transparent background */
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect .awesomplete,
+.frappe-control.role-profiles-section .table-multiselect .awesomplete {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.frappe-control[data-fieldname="role_profiles"] .table-multiselect .awesomplete > input,
+.frappe-control.role-profiles-section .table-multiselect .awesomplete > input {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* ------------------------------------------------------------
    RESPONSIVE FONT SIZES
 -------------------------------------------------------------*/
 
