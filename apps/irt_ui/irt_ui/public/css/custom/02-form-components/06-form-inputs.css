@@ -17,16 +17,18 @@ input[type="url"],
 input[type="search"] {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 10px var(--spacing-md);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-normal);
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--color-text-primary);
   background-color: var(--color-bg-white);
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  height: 42px;
+  vertical-align: middle;
 }
 
 .form-control:focus,
@@ -246,27 +248,94 @@ input[type="time"]:hover::-webkit-calendar-picker-indicator {
 
 input[type="checkbox"],
 input[type="radio"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
   margin: 0;
   cursor: pointer;
-  accent-color: var(--color-primary);
+  accent-color: var(--color-primary) !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid var(--color-primary-rgba-50);
+  border-radius: 4px;
+  background-color: var(--color-bg-white);
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Checkbox hover state */
+input[type="checkbox"]:hover:not(:disabled):not(:checked) {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-white);
+  box-shadow: 0 0 0 2px var(--color-primary-rgba-10);
+}
+
+/* Custom checkbox with theme color background and white tick */
+input[type="checkbox"]:checked {
+  accent-color: var(--color-primary) !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
+}
+
+/* Checkbox checked hover state */
+input[type="checkbox"]:checked:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Webkit browsers - override default checkbox */
+input[type="checkbox"]::-webkit-checkbox-indicator {
+  display: none !important;
+  width: 0;
+  height: 0;
+}
+
+/* Global override for checkbox theme color */
+html body input[type="checkbox"]:checked,
+html body input[type="checkbox"][checked] {
+  accent-color: var(--color-primary) !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
 }
 
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-primary-rgba-15);
+}
+
+input[type="checkbox"]:focus:checked {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2), 0 0 0 4px var(--color-primary-rgba-15);
 }
 
 input[type="checkbox"]:disabled,
 input[type="radio"]:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+  border-color: var(--color-gray-300);
+}
+
+input[type="checkbox"]:disabled:checked {
+  background-color: var(--color-gray-400);
+  border-color: var(--color-gray-400);
 }
 
 input[type="checkbox"] {
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
 }
 
 input[type="radio"] {
@@ -331,6 +400,27 @@ input[type="file"]:disabled {
   letter-spacing: 0.01em;
 }
 
+/* Checkbox label padding - add padding below checkbox */
+.frappe-control[data-fieldtype="Check"] label,
+.frappe-control[data-fieldtype="Check"] .control-label,
+.frappe-control.checkbox label,
+.frappe-control.checkbox .control-label,
+.form-group:has(input[type="checkbox"]) label,
+.form-group:has(input[type="checkbox"]) .control-label {
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.frappe-control[data-fieldtype="Check"] label > input[type="checkbox"],
+.frappe-control.checkbox label > input[type="checkbox"],
+.form-group:has(input[type="checkbox"]) label > input[type="checkbox"] {
+  margin-bottom: 0;
+}
+
 .form-group:focus-within label,
 .form-group:focus-within .control-label {
   color: var(--color-primary);
@@ -386,6 +476,99 @@ input[type="file"]:disabled {
   font-weight: var(--font-weight-medium);
 }
 
+/* Like-disabled-input - fields that look disabled with grey background and left-aligned text */
+.like-disabled-input,
+.like-disabled-input input,
+.like-disabled-input .form-control,
+input.like-disabled-input,
+.form-control.like-disabled-input {
+  background-color: var(--color-gray-100) !important;
+  background: var(--color-gray-100) !important;
+  background-image: none !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-primary-rgba-30) !important;
+  border: 1px solid var(--color-primary-rgba-30) !important;
+  cursor: default !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  opacity: 1 !important;
+  text-align: left !important;
+  padding: 10px var(--spacing-md) !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+.like-disabled-input:focus,
+.like-disabled-input input:focus,
+.like-disabled-input .form-control:focus,
+input.like-disabled-input:focus,
+.form-control.like-disabled-input:focus {
+  border-color: var(--color-primary-rgba-30) !important;
+  border: 1px solid var(--color-primary-rgba-30) !important;
+  box-shadow: none !important;
+  background-color: var(--color-gray-100) !important;
+  background: var(--color-gray-100) !important;
+  background-image: none !important;
+  outline: none !important;
+  opacity: 1 !important;
+  text-align: left !important;
+}
+
+.like-disabled-input:hover,
+.like-disabled-input input:hover,
+.like-disabled-input .form-control:hover,
+input.like-disabled-input:hover,
+.form-control.like-disabled-input:hover {
+  background-color: var(--color-gray-100) !important;
+  background: var(--color-gray-100) !important;
+  border-color: var(--color-primary-rgba-30) !important;
+  opacity: 1 !important;
+  text-align: left !important;
+}
+
+/* Frappe control with like-disabled-input */
+.frappe-control .like-disabled-input,
+.frappe-control .like-disabled-input input,
+.frappe-control .like-disabled-input .form-control,
+.frappe-control .like-disabled-input .input-with-feedback,
+.frappe-control .like-disabled-input .awesomplete > input {
+  background-color: var(--color-gray-100) !important;
+  background: var(--color-gray-100) !important;
+  background-image: none !important;
+  border-color: var(--color-primary-rgba-30) !important;
+  border: 1px solid var(--color-primary-rgba-30) !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  opacity: 1 !important;
+  text-align: left !important;
+  padding: 10px var(--spacing-md) !important;
+  padding-left: var(--spacing-md) !important;
+  padding-right: var(--spacing-md) !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+/* Ensure email and firstname fields match default format */
+.frappe-control[data-fieldname="email"] input,
+.frappe-control[data-fieldname="email"] .form-control,
+.frappe-control[data-fieldname="first_name"] input,
+.frappe-control[data-fieldname="first_name"] .form-control,
+.frappe-control[data-fieldname="email"] .input-with-feedback,
+.frappe-control[data-fieldname="first_name"] .input-with-feedback {
+  text-align: left !important;
+  padding: 10px var(--spacing-md) !important;
+  padding-left: var(--spacing-md) !important;
+  padding-right: var(--spacing-md) !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+  height: 42px !important;
+}
+
 /* Read-only */
 .form-control[readonly],
 input[readonly],
@@ -435,18 +618,18 @@ textarea[readonly]:focus {
 
 .frappe-control[data-fieldtype="Link"] input,
 .frappe-control[data-fieldtype="Select"] select {
-  width: 100% !important;
-  max-width: 100% !important;
-  background-color: var(--color-bg-white) !important;
-  border-radius: var(--radius-md) !important;
-  color: var(--color-text-primary) !important;
-  text-align: start !important;
-  padding: var(--spacing-sm) var(--spacing-md) !important;
-  font-size: var(--font-size-sm) !important;
-  height: 42px !important;
-  line-height: 1.4 !important;
-  border: 1px solid var(--color-primary) !important;
-  padding-right: 36px !important;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  text-align: start;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  height: 42px;
+  line-height: 1.4;
+  border: 1px solid var(--color-primary);
+  padding-right: 36px;
 }
 
 .frappe-control[data-fieldtype="Link"] input:focus,
@@ -676,7 +859,7 @@ html body .awesomplete:has(input.input-with-feedback[role="combobox"]) {
    STANDARDIZE TEXT FIELD SIZES
 -------------------------------------------------------------*/
 
-/* Base input fields - consistent height and width */
+/* Base input fields - consistent height, default width */
 .form-control,
 input[type="text"],
 input[type="email"],
@@ -689,12 +872,12 @@ input[type="search"],
 .frappe-control[data-fieldtype="Select"] select,
 select.form-control,
 select {
-  height: 42px !important;
-  min-height: 42px !important;
-  max-height: 42px !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Ensure consistent sizing for all input fields including combobox */
@@ -702,11 +885,11 @@ html body .form-group input.input-with-feedback[role="combobox"],
 html body .frappe-control input.input-with-feedback[role="combobox"],
 html body input.input-with-feedback[role="combobox"],
 html body div.awesomplete>input.input-with-feedback {
-  height: 42px !important;
-  min-height: 42px !important;
-  max-height: 42px !important;
-  width: 100% !important;
-  max-width: 100% !important;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Table MultiSelect input fields - exclude role_profiles from forced height */
@@ -794,9 +977,28 @@ html body div.awesomplete>input.input-with-feedback {
 }
 
 /* ------------------------------------------------------------
-   RESPONSIVE FONT SIZES
+   RESPONSIVE - Form Inputs
 -------------------------------------------------------------*/
 
+/* Tablet (≤ 991px) */
+@media (max-width: 991px) {
+  .form-control,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  select,
+  .frappe-control[data-fieldtype="Link"] input,
+  .frappe-control[data-fieldtype="Select"] select {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Mobile (≤ 768px) */
 @media (max-width: 768px) {
   .form-control,
   input[type="text"],
@@ -810,7 +1012,33 @@ html body div.awesomplete>input.input-with-feedback {
   input[type="date"],
   input[type="datetime-local"],
   input[type="time"],
-  textarea {
+  textarea,
+  .frappe-control[data-fieldtype="Link"] input,
+  .frappe-control[data-fieldtype="Select"] select {
+    font-size: 16px;
+    width: 100%;
+    max-width: 100%;
+    height: 42px;
+  }
+
+  /* Like-disabled-input responsive */
+  .like-disabled-input,
+  .like-disabled-input input,
+  .like-disabled-input .form-control {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small mobile (≤ 576px) */
+@media (max-width: 576px) {
+  .form-control,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select {
+    padding: var(--spacing-sm);
     font-size: 16px;
   }
 }
