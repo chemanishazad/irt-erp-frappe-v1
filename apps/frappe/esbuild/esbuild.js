@@ -254,6 +254,10 @@ function get_all_files_to_build(apps) {
 
 	for (let app of apps) {
 		let public_path = get_public_path(app);
+		// Skip apps that don't have a public path (e.g., apps without bundle files)
+		if (!public_path) {
+			continue;
+		}
 		include_patterns.push(
 			path.resolve(public_path, "**", "*.bundle.{js,ts,css,sass,scss,less,styl,jsx}")
 		);
@@ -277,6 +281,10 @@ function get_files_to_build(files) {
 	for (let file of files) {
 		let [app, bundle] = file.split("/");
 		let public_path = get_public_path(app);
+		// Skip apps that don't have a public path
+		if (!public_path) {
+			continue;
+		}
 		include_patterns.push(path.resolve(public_path, "**", bundle));
 		ignore_patterns.push(
 			path.resolve(public_path, "node_modules"),
