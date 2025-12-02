@@ -44,6 +44,27 @@
 	box-shadow: none;
 }
 
+/* Hide es-icon icon-md buttons */
+.es-icon.icon-md,
+.es-icon.icon-md svg,
+svg.es-icon.icon-md,
+button .es-icon.icon-md,
+.btn .es-icon.icon-md,
+button:has(.es-icon.icon-md),
+.btn:has(.es-icon.icon-md),
+.sidebar-toggle-btn .es-icon.icon-md,
+.sidebar-toggle-placeholder.es-icon.icon-md {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
+	pointer-events: none !important;
+}
+
 .page-head-content {
 	padding: var(--spacing-sm) var(--spacing-lg);
 	display: flex;

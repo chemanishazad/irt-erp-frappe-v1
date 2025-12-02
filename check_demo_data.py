@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+import frappe
+
+frappe.connect(site="irt")
+frappe.set_user("Administrator")
+
+demo_company = frappe.db.get_single_value("Global Defaults", "demo_company")
+print(f"\n{'='*60}")
+print("DEMO DATA SUMMARY")
+print(f"{'='*60}")
+print(f"Demo Company: {demo_company or 'None'}")
+print(f"\nData Counts:")
+print(f"  - Employees: {len(frappe.get_all('Employee'))}")
+print(f"  - Customers: {len(frappe.get_all('Customer'))}")
+print(f"  - Suppliers: {len(frappe.get_all('Supplier'))}")
+print(f"  - Items: {len(frappe.get_all('Item'))}")
+print(f"  - Leads: {len(frappe.get_all('Lead'))}")
+print(f"  - Opportunities: {len(frappe.get_all('Opportunity'))}")
+print(f"  - Quotations: {len(frappe.get_all('Quotation'))}")
+print(f"  - Sales Orders: {len(frappe.get_all('Sales Order'))}")
+print(f"  - Sales Invoices: {len(frappe.get_all('Sales Invoice'))}")
+print(f"  - Purchase Orders: {len(frappe.get_all('Purchase Order'))}")
+print(f"  - Purchase Invoices: {len(frappe.get_all('Purchase Invoice'))}")
+print(f"  - Journal Entries: {len(frappe.get_all('Journal Entry'))}")
+print(f"  - Payment Entries: {len(frappe.get_all('Payment Entry'))}")
+print(f"  - Leave Applications: {len(frappe.get_all('Leave Application'))}")
+print(f"  - Expense Claims: {len(frappe.get_all('Expense Claim'))}")
+print(f"  - Departments: {len(frappe.get_all('Department'))}")
+print(f"  - Designations: {len(frappe.get_all('Designation'))}")
+print(f"{'='*60}\n")
+
