@@ -85,6 +85,23 @@
    min-height: 100%;
 }
 
+/* Ensure list-row-container doesn't interfere with sticky positioning */
+.frappe-list .list-row-container {
+   position: relative;
+   z-index: auto;
+}
+
+.frappe-list .list-row-container:first-child {
+   position: relative;
+   z-index: auto;
+}
+
+/* Ensure header container allows sticky to work */
+.frappe-list .list-row-container:has(.list-row-head) {
+   position: relative;
+   z-index: auto;
+}
+
 /* Ensure list-row-head parent allows sticky - must be direct child of scrolling container */
 .frappe-list .result-container > .list-row-head,
 .frappe-list .result > .list-row-head,
@@ -178,6 +195,8 @@
    background-color: var(--color-bg-white);
    cursor: pointer;
    transition: background-color 0.15s ease;
+   position: relative;
+   z-index: 1;
 }
 
 .frappe-list .list-row .list-row-col {
@@ -204,7 +223,7 @@
    padding: 0 16px !important;
    min-height: 44px !important;
    border-bottom: 2px solid var(--color-border-light, #e5e7eb) !important;
-   background: #f8f9fa !important;
+   background: #e6f0ff !important;
    display: flex !important;
    align-items: center !important;
    position: -webkit-sticky !important;
@@ -216,6 +235,9 @@
    left: 0 !important;
    right: 0 !important;
    flex-shrink: 0 !important;
+   backdrop-filter: blur(10px) !important;
+   -webkit-backdrop-filter: blur(10px) !important;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Force sticky to work - target all possible containers */
@@ -228,7 +250,10 @@
    position: sticky !important;
    top: 0 !important;
    z-index: 200 !important;
-   background: var(--color-primary-rgba-10, rgba(0, 102, 255, 0.1)) !important;
+   background: #e6f0ff !important;
+   backdrop-filter: blur(10px) !important;
+   -webkit-backdrop-filter: blur(10px) !important;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .list-row-head .list-row-col {
@@ -450,6 +475,28 @@ input[type="checkbox"].list-check-all:checked,
    left: auto !important;
    right: auto !important;
    z-index: 1 !important;
+}
+
+/* Ensure level-right inside header doesn't override parent background */
+.frappe-list .list-row-head .level-right,
+.frappe-list .list-row-head .level-right *,
+.frappe-list .list-row-head .level-left,
+.frappe-list .list-row-head .level-left *,
+.frappe-list .list-row-head .list-row-col,
+.frappe-list .list-row-head .list-row-col * {
+   background: transparent !important;
+   background-color: transparent !important;
+}
+
+/* Ensure the header itself maintains solid background - highest priority */
+.frappe-list .list-row-head,
+.frappe-list .result-container .list-row-head,
+.frappe-list .result .list-row-head,
+.frappe-list .list-row-head.level,
+.frappe-list .list-row-head.text-muted {
+   background: #e6f0ff !important;
+   background-color: #e6f0ff !important;
+   background-image: none !important;
 }
 
 /* Remove sticky from any columns positioned on the right */
