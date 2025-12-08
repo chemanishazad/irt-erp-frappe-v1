@@ -217,22 +217,12 @@ body.login-page .page-content-wrapper {
 }
 
 .login-content .form-control:focus {
+	outline: none;
 	background-color: rgba(255, 255, 255, 0.3) !important;
 	border-color: rgba(255, 255, 255, 0.5) !important;
 	color: rgba(255, 255, 255, 1) !important;
-}
-
-.login-content .form-control:focus {
-	outline: none;
-	border-color: var(--color-primary);
-	background-color: var(--color-bg-white);
-	box-shadow: 0 0 0 3px var(--color-primary-rgba-15);
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 	transform: translateY(-1px);
-}
-
-.login-content .form-control::placeholder {
-	color: var(--color-text-light);
-	opacity: 1;
 }
 
 .login-content .field-icon {
