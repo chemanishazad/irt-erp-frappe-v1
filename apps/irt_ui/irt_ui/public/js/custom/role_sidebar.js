@@ -27,14 +27,18 @@
 			frappe.ui.Sidebar.prototype.prepare = function() {
 				// Check if workspace_title is set to a role (for preview)
 				let role_to_check = null;
+				let role_sidebar_data = null;
+				
 				if (this.workspace_title && frappe.boot.workspace_sidebar_item) {
+					// Try multiple key formats
 					const role_key = frappe.scrub(this.workspace_title);
 					const role_lower = this.workspace_title.toLowerCase();
-					const role_sidebar = frappe.boot.workspace_sidebar_item[role_key] || 
-										frappe.boot.workspace_sidebar_item[role_lower] ||
+					
+					role_sidebar_data = frappe.boot.workspace_sidebar_item[role_lower] ||
+										frappe.boot.workspace_sidebar_item[role_key] ||
 										frappe.boot.workspace_sidebar_item[this.workspace_title];
 					
-					if (role_sidebar) {
+					if (role_sidebar_data) {
 						role_to_check = this.workspace_title;
 					}
 				}
@@ -49,32 +53,34 @@
 					const automatic_roles = ["Guest", "All", "Desk User", "Administrator"];
 					for (let role of user_roles) {
 						if (automatic_roles.indexOf(role) === -1) {
-							role_to_check = role;
-							break;
+							const role_key = frappe.scrub(role);
+							const role_lower = role.toLowerCase();
+							
+							role_sidebar_data = frappe.boot.workspace_sidebar_item[role_lower] ||
+												frappe.boot.workspace_sidebar_item[role_key] ||
+												frappe.boot.workspace_sidebar_item[role];
+							
+							if (role_sidebar_data) {
+								role_to_check = role;
+								break;
+							}
 						}
 					}
 				}
 
-				if (!role_to_check) {
-					return original_prepare.call(this);
-				}
-
-				const role_key = frappe.scrub(role_to_check);
-				const role_lower = role_to_check.toLowerCase();
-
-				// Check if role-based sidebar exists (try multiple keys)
-				let role_sidebar_data = null;
-				if (frappe.boot.workspace_sidebar_item) {
-					role_sidebar_data = frappe.boot.workspace_sidebar_item[role_key] || 
-										frappe.boot.workspace_sidebar_item[role_lower] ||
-										frappe.boot.workspace_sidebar_item[role_to_check];
-				}
-
-				if (role_sidebar_data) {
+				if (role_sidebar_data && role_to_check) {
 					try {
+						console.log('Loading role-based sidebar for:', role_to_check);
+						console.log('Sidebar data structure:', role_sidebar_data);
+						
 						this.sidebar_data = role_sidebar_data;
 						this.workspace_sidebar_items = this.sidebar_data.items || [];
 						this.workspace_title = role_to_check; // Ensure workspace_title is set
+						
+						// Also set in boot data with lowercase key (Frappe's default format)
+						if (!frappe.boot.workspace_sidebar_item[role_to_check.toLowerCase()]) {
+							frappe.boot.workspace_sidebar_item[role_to_check.toLowerCase()] = role_sidebar_data;
+						}
 						
 						if (this.edit_mode) {
 							this.workspace_sidebar_items = this.new_sidebar_items;
@@ -83,20 +89,12 @@
 						this.choose_app_name();
 						this.find_nested_items();
 						
-						// Force render after prepare
-						if (this.render) {
-							setTimeout(() => {
-								try {
-									this.render();
-								} catch (e) {
-									console.warn('Error rendering sidebar:', e);
-								}
-							}, 50);
-						}
+						console.log('Prepared sidebar items:', this.workspace_sidebar_items.length);
 						
-						return;
+						return; // Return early to use role-based sidebar
 					} catch (e) {
 						console.warn('Error loading role-based sidebar:', e);
+						console.error('Error details:', e.stack);
 					}
 				}
 
@@ -107,15 +105,18 @@
 			// Override setup method to use role-based workspace
 			const original_setup = frappe.ui.Sidebar.prototype.setup;
 			frappe.ui.Sidebar.prototype.setup = function(workspace_title) {
+				console.log('Sidebar.setup called with workspace_title:', workspace_title);
+				
 				// Check if workspace_title is a role name (for preview)
 				if (workspace_title && frappe.boot.workspace_sidebar_item) {
 					const role_key = frappe.scrub(workspace_title);
 					const role_lower = workspace_title.toLowerCase();
-					const role_sidebar = frappe.boot.workspace_sidebar_item[role_key] || 
-										frappe.boot.workspace_sidebar_item[role_lower] ||
+					const role_sidebar = frappe.boot.workspace_sidebar_item[role_lower] ||
+										frappe.boot.workspace_sidebar_item[role_key] ||
 										frappe.boot.workspace_sidebar_item[workspace_title];
 					
 					if (role_sidebar) {
+						console.log('Found role-based sidebar for:', workspace_title);
 						// This is a role-based sidebar, use it
 						this.workspace_title = workspace_title;
 						return original_setup.call(this, workspace_title);
@@ -137,11 +138,12 @@
 				if (user_role && frappe.boot.workspace_sidebar_item) {
 					const role_key = frappe.scrub(user_role);
 					const role_lower = user_role.toLowerCase();
-					const role_sidebar = frappe.boot.workspace_sidebar_item[role_key] || 
-										frappe.boot.workspace_sidebar_item[role_lower] ||
+					const role_sidebar = frappe.boot.workspace_sidebar_item[role_lower] ||
+										frappe.boot.workspace_sidebar_item[role_key] ||
 										frappe.boot.workspace_sidebar_item[user_role];
 					
 					if (role_sidebar) {
+						console.log('Using user role sidebar:', user_role);
 						// Use role name as workspace title
 						workspace_title = user_role;
 					}

@@ -163,9 +163,9 @@
    /* Section Body (Frappe) - Minimal */
    .form-section .section-body,
    .form-dashboard-section .section-body {
-     padding: var(--spacing-xs) var(--spacing-md) !important;
-     padding-top: var(--spacing-xs) !important;
-     padding-bottom: var(--spacing-xs) !important;
+     padding: var(--spacing-sm) var(--spacing-md) !important;
+     padding-top: var(--spacing-sm) !important;
+     padding-bottom: var(--spacing-sm) !important;
      width: 100%;
      display: flex;
      flex-wrap: wrap;
@@ -173,7 +173,8 @@
      max-width: 100%;
      border: none !important;
      background: transparent !important;
-     gap: 0;
+     gap: var(--spacing-xs);
+     align-items: flex-start;
    }
    
    .form-section .section-body:first-child,
@@ -218,10 +219,12 @@
    
    .form-column {
      box-sizing: border-box;
-     padding: 0 var(--spacing-xs);
+     padding: 0 var(--spacing-sm);
      position: relative;
      width: 100%;
      min-height: 1px;
+     display: flex;
+     flex-direction: column;
    }
    
    .form-column:first-child {
@@ -230,6 +233,11 @@
    
    .form-column:last-child {
      padding-right: 0;
+   }
+   
+   /* Better column spacing */
+   .form-section .section-body > .form-column + .form-column {
+     margin-left: 0;
    }
    
    /* Bootstrap grid support - responsive columns */
@@ -263,6 +271,15 @@
    .form-dashboard-section .section-body .frappe-control {
      margin-bottom: var(--spacing-md) !important;
      margin-top: 0 !important;
+     width: 100%;
+     flex: 0 0 100%;
+   }
+   
+   /* Better alignment for form controls in columns */
+   .form-section .section-body .form-column .form-group,
+   .form-section .section-body .form-column .frappe-control {
+     width: 100%;
+     margin-bottom: var(--spacing-md) !important;
    }
 
    /* Ensure form columns maintain spacing */
@@ -290,6 +307,30 @@
    .form-column .form-group {
      width: 100%;
      margin-bottom: var(--spacing-md) !important; /* Consistent spacing */
+   }
+   
+   /* Better alignment for form controls */
+   .form-column .frappe-control,
+   .form-column .form-group {
+     display: flex;
+     flex-direction: column;
+   }
+   
+   /* Fix table layouts in forms */
+   .form-section .section-body .frappe-control[data-fieldtype="Table"],
+   .form-section .section-body .form-group:has(.grid-form-heading) {
+     width: 100%;
+     flex: 0 0 100%;
+     margin-bottom: var(--spacing-lg) !important;
+   }
+   
+   /* Better spacing for workspace tabs content */
+   .form-tab-content .form-section {
+     margin-top: var(--spacing-sm);
+   }
+   
+   .form-tab-content .form-section:first-child {
+     margin-top: 0;
    }
    
    .form-column .frappe-control input,
