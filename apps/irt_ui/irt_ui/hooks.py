@@ -14,6 +14,7 @@ app_include_css = [
 ]
 
 app_include_js = [
+	"/assets/irt_ui/js/custom/theme-settings.js",
 	"/assets/irt_ui/js/custom/sidebar.js",
 	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js",
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
@@ -30,19 +31,12 @@ web_include_css = [
 ]
 
 web_include_js = [
+	"/assets/irt_ui/js/custom/theme-settings.js",
 	"/assets/irt_ui/js/custom/login.js"
 ]
 
-# Boot session hook for role-based sidebar - TEMPORARILY DISABLED
-# boot_session = "irt_ui.startup.boot.boot_session"
-
-# Page routes - TEMPORARILY DISABLED
-# page_js = {
-# 	"role-sidebar-builder": "irt_ui/page/role_sidebar_builder/role_sidebar_builder.js"
-# }
-
-# DocType JavaScript - TEMPORARILY DISABLED
-# doctype_js = {
-# 	"IRT Role Sidebar": "irt_ui/doctype/irt_role_sidebar/irt_role_sidebar.js"
-# }
+# Boot session hook to add theme settings to bootinfo
+boot_session = [
+	"irt_ui.boot.boot_session"
+]
 

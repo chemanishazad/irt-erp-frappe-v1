@@ -1,0 +1,532 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "System",
+ "engine": "InnoDB",
+ "field_order": [
+  "brand_colors_tab",
+  "primary_colors_section",
+  "color_primary",
+  "color_primary_dark",
+  "color_primary_light",
+  "column_break_primary",
+  "color_primary_lighter",
+  "color_primary_lightest",
+  "secondary_colors_section",
+  "color_secondary",
+  "color_secondary_dark",
+  "color_secondary_light",
+  "column_break_secondary",
+  "color_secondary_lighter",
+  "color_secondary_lightest",
+  "accent_colors_section",
+  "color_accent",
+  "color_accent_dark",
+  "color_accent_light",
+  "column_break_accent",
+  "color_accent_lighter",
+  "color_accent_lightest",
+  "ui_colors_tab",
+  "text_colors_section",
+  "color_text_primary",
+  "color_text_secondary",
+  "color_text_tertiary",
+  "column_break_text",
+  "color_text_light",
+  "color_text_lighter",
+  "background_colors_section",
+  "color_bg_white",
+  "color_bg_gray",
+  "color_bg_gray_light",
+  "column_break_bg",
+  "color_bg_gray_lighter",
+  "color_bg_light_blue",
+  "border_colors_section",
+  "color_border",
+  "color_border_dark",
+  "column_break_border",
+  "color_border_light",
+  "components_tab",
+  "sidebar_colors_section",
+  "sidebar_bg_solid",
+  "sidebar_border_color",
+  "sidebar_hover_bg",
+  "column_break_sidebar",
+  "sidebar_active_bg_solid",
+  "sidebar_active_color",
+  "status_colors_section",
+  "color_success",
+  "color_error",
+  "color_warning",
+  "column_break_status",
+  "color_info",
+  "avatar_colors_section",
+  "avatar_frame_bg",
+  "avatar_frame_color",
+  "column_break_avatar",
+  "avatar_frame_border",
+  "presets_tab",
+  "presets_section",
+  "preset_name",
+  "preset_description",
+  "column_break_preset",
+  "preset_preview",
+  "advanced_tab",
+  "advanced_section",
+  "auto_generate_variants",
+  "export_import_section",
+  "theme_export",
+  "column_break_export",
+  "theme_import"
+ ],
+ "fields": [
+  {
+   "fieldname": "brand_colors_tab",
+   "fieldtype": "Tab Break",
+   "label": "🎨 Brand Colors"
+  },
+  {
+   "fieldname": "primary_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Primary Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#0066FF",
+   "fieldname": "color_primary",
+   "fieldtype": "Color",
+   "label": "Primary Color",
+   "description": "Main brand color used for primary actions and highlights"
+  },
+  {
+   "default": "#0052CC",
+   "fieldname": "color_primary_dark",
+   "fieldtype": "Color",
+   "label": "Primary Dark"
+  },
+  {
+   "default": "#1A7AFF",
+   "fieldname": "color_primary_light",
+   "fieldtype": "Color",
+   "label": "Primary Light"
+  },
+  {
+   "fieldname": "column_break_primary",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#3388FF",
+   "fieldname": "color_primary_lighter",
+   "fieldtype": "Color",
+   "label": "Primary Lighter"
+  },
+  {
+   "default": "#4D99FF",
+   "fieldname": "color_primary_lightest",
+   "fieldtype": "Color",
+   "label": "Primary Lightest"
+  },
+  {
+   "fieldname": "secondary_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Secondary Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#9D4EDD",
+   "fieldname": "color_secondary",
+   "fieldtype": "Color",
+   "label": "Secondary Color",
+   "description": "Complementary brand color for secondary actions"
+  },
+  {
+   "default": "#7B2DB8",
+   "fieldname": "color_secondary_dark",
+   "fieldtype": "Color",
+   "label": "Secondary Dark"
+  },
+  {
+   "default": "#B366E8",
+   "fieldname": "color_secondary_light",
+   "fieldtype": "Color",
+   "label": "Secondary Light"
+  },
+  {
+   "fieldname": "column_break_secondary",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#C880F0",
+   "fieldname": "color_secondary_lighter",
+   "fieldtype": "Color",
+   "label": "Secondary Lighter"
+  },
+  {
+   "default": "#D699F5",
+   "fieldname": "color_secondary_lightest",
+   "fieldtype": "Color",
+   "label": "Secondary Lightest"
+  },
+  {
+   "fieldname": "accent_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Accent Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#FF6B35",
+   "fieldname": "color_accent",
+   "fieldtype": "Color",
+   "label": "Accent Color",
+   "description": "Highlight color for emphasis and call-to-actions"
+  },
+  {
+   "default": "#E55A2B",
+   "fieldname": "color_accent_dark",
+   "fieldtype": "Color",
+   "label": "Accent Dark"
+  },
+  {
+   "default": "#FF7F4D",
+   "fieldname": "color_accent_light",
+   "fieldtype": "Color",
+   "label": "Accent Light"
+  },
+  {
+   "fieldname": "column_break_accent",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#FF9366",
+   "fieldname": "color_accent_lighter",
+   "fieldtype": "Color",
+   "label": "Accent Lighter"
+  },
+  {
+   "default": "#FFA780",
+   "fieldname": "color_accent_lightest",
+   "fieldtype": "Color",
+   "label": "Accent Lightest"
+  },
+  {
+   "fieldname": "ui_colors_tab",
+   "fieldtype": "Tab Break",
+   "label": "🎨 UI Colors"
+  },
+  {
+   "fieldname": "text_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Text Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#1a202c",
+   "fieldname": "color_text_primary",
+   "fieldtype": "Color",
+   "label": "Text Primary",
+   "description": "Main text color for headings and important content"
+  },
+  {
+   "default": "#6f737c",
+   "fieldname": "color_text_secondary",
+   "fieldtype": "Color",
+   "label": "Text Secondary"
+  },
+  {
+   "default": "#718096",
+   "fieldname": "color_text_tertiary",
+   "fieldtype": "Color",
+   "label": "Text Tertiary"
+  },
+  {
+   "fieldname": "column_break_text",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#a0aec0",
+   "fieldname": "color_text_light",
+   "fieldtype": "Color",
+   "label": "Text Light"
+  },
+  {
+   "default": "#cbd5e0",
+   "fieldname": "color_text_lighter",
+   "fieldtype": "Color",
+   "label": "Text Lighter"
+  },
+  {
+   "fieldname": "background_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Background Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#ffffff",
+   "fieldname": "color_bg_white",
+   "fieldtype": "Color",
+   "label": "Background White"
+  },
+  {
+   "default": "#f0f0d0",
+   "fieldname": "color_bg_gray",
+   "fieldtype": "Color",
+   "label": "Background Gray"
+  },
+  {
+   "default": "#f5f5e0",
+   "fieldname": "color_bg_gray_light",
+   "fieldtype": "Color",
+   "label": "Background Gray Light"
+  },
+  {
+   "fieldname": "column_break_bg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#fafaf0",
+   "fieldname": "color_bg_gray_lighter",
+   "fieldtype": "Color",
+   "label": "Background Gray Lighter"
+  },
+  {
+   "default": "#00D4FF",
+   "fieldname": "color_bg_light_blue",
+   "fieldtype": "Color",
+   "label": "Background Light Blue"
+  },
+  {
+   "fieldname": "border_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Border Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#e2e8f0",
+   "fieldname": "color_border",
+   "fieldtype": "Color",
+   "label": "Border Color"
+  },
+  {
+   "default": "#cbd5e0",
+   "fieldname": "color_border_dark",
+   "fieldtype": "Color",
+   "label": "Border Dark"
+  },
+  {
+   "fieldname": "column_break_border",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#edf2f7",
+   "fieldname": "color_border_light",
+   "fieldtype": "Color",
+   "label": "Border Light"
+  },
+  {
+   "fieldname": "components_tab",
+   "fieldtype": "Tab Break",
+   "label": "🧩 Components"
+  },
+  {
+   "fieldname": "sidebar_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Sidebar Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#F0F4FF",
+   "fieldname": "sidebar_bg_solid",
+   "fieldtype": "Color",
+   "label": "Sidebar Background"
+  },
+  {
+   "default": "rgba(157, 78, 221, 0.2)",
+   "fieldname": "sidebar_border_color",
+   "fieldtype": "Data",
+   "label": "Sidebar Border Color",
+   "description": "Use rgba() format, e.g., rgba(157, 78, 221, 0.2)"
+  },
+  {
+   "default": "rgba(157, 78, 221, 0.08)",
+   "fieldname": "sidebar_hover_bg",
+   "fieldtype": "Data",
+   "label": "Sidebar Hover Background"
+  },
+  {
+   "fieldname": "column_break_sidebar",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "rgba(157, 78, 221, 0.15)",
+   "fieldname": "sidebar_active_bg_solid",
+   "fieldtype": "Data",
+   "label": "Sidebar Active Background"
+  },
+  {
+   "default": "#9D4EDD",
+   "fieldname": "sidebar_active_color",
+   "fieldtype": "Color",
+   "label": "Sidebar Active Color"
+  },
+  {
+   "fieldname": "status_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Status Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#10b981",
+   "fieldname": "color_success",
+   "fieldtype": "Color",
+   "label": "Success Color"
+  },
+  {
+   "default": "#e53e3e",
+   "fieldname": "color_error",
+   "fieldtype": "Color",
+   "label": "Error Color"
+  },
+  {
+   "default": "#f59e0b",
+   "fieldname": "color_warning",
+   "fieldtype": "Color",
+   "label": "Warning Color"
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#3b82f6",
+   "fieldname": "color_info",
+   "fieldtype": "Color",
+   "label": "Info Color"
+  },
+  {
+   "fieldname": "avatar_colors_section",
+   "fieldtype": "Section Break",
+   "label": "Avatar Colors",
+   "collapsible": 1
+  },
+  {
+   "default": "#ffffff",
+   "fieldname": "avatar_frame_bg",
+   "fieldtype": "Color",
+   "label": "Avatar Background"
+  },
+  {
+   "default": "#374151",
+   "fieldname": "avatar_frame_color",
+   "fieldtype": "Color",
+   "label": "Avatar Color"
+  },
+  {
+   "fieldname": "column_break_avatar",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "#e5e7eb",
+   "fieldname": "avatar_frame_border",
+   "fieldtype": "Color",
+   "label": "Avatar Border"
+  },
+  {
+   "fieldname": "presets_tab",
+   "fieldtype": "Tab Break",
+   "label": "🎭 Presets"
+  },
+  {
+   "fieldname": "presets_section",
+   "fieldtype": "Section Break",
+   "label": "Color Presets"
+  },
+  {
+   "fieldname": "preset_name",
+   "fieldtype": "Data",
+   "label": "Preset Name",
+   "description": "Name for saving current theme as preset"
+  },
+  {
+   "fieldname": "preset_description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_preset",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "preset_preview",
+   "fieldtype": "HTML",
+   "label": "Preset Preview"
+  },
+  {
+   "fieldname": "advanced_tab",
+   "fieldtype": "Tab Break",
+   "label": "⚙️ Advanced"
+  },
+  {
+   "fieldname": "advanced_section",
+   "fieldtype": "Section Break",
+   "label": "Advanced Options"
+  },
+  {
+   "default": 1,
+   "fieldname": "auto_generate_variants",
+   "fieldtype": "Check",
+   "label": "Auto-generate Color Variants",
+   "description": "Automatically generate dark/light variants when base color changes"
+  },
+  {
+   "fieldname": "export_import_section",
+   "fieldtype": "Section Break",
+   "label": "Export / Import Theme"
+  },
+  {
+   "fieldname": "theme_export",
+   "fieldtype": "Code",
+   "label": "Export Theme",
+   "options": "JSON",
+   "read_only": 1,
+   "description": "Copy this JSON to export your theme"
+  },
+  {
+   "fieldname": "column_break_export",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "theme_import",
+   "fieldtype": "Code",
+   "label": "Import Theme",
+   "options": "JSON",
+   "description": "Paste JSON here to import theme"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IRT UI",
+ "name": "IRT Theme Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
