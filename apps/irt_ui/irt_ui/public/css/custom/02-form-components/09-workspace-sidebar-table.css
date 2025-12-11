@@ -1,0 +1,546 @@
+/**
+ * Workspace Sidebar Form - Grid/Table Styling Fixes
+ * Fixes UI issues in the Workspace Sidebar form's child table (items field)
+ */
+
+/* ============================================
+   FORM GRID - General Fixes
+   ============================================ */
+
+/* Target the Workspace Sidebar form specifically */
+.form[data-doctype="Workspace Sidebar"] .form-grid,
+.form.form-doctype-Workspace-Sidebar .form-grid,
+.frappe-control[data-fieldname="items"] .form-grid,
+.form-section[data-fieldname="items"] .form-grid {
+	overflow-x: auto;
+	overflow-y: visible;
+}
+
+/* ============================================
+   GRID HEADER - Column Width Fixes
+   ============================================ */
+
+/* Ensure proper column widths in grid header */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col,
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col {
+	min-width: 120px;
+	padding: 10px 14px;
+	white-space: nowrap;
+	overflow: visible;
+}
+
+/* Row number column (idx) - first column */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col:first-child,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col:first-child,
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col:first-child,
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col:first-child,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col:first-child,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col:first-child {
+	min-width: 60px;
+	width: 60px;
+	text-align: center;
+	padding: 10px 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Ensure checkbox in first column (row selector) is centered */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col:first-child,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col:first-child,
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col:first-child {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Specific column width fixes for headers */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"] {
+	min-width: 220px;
+	width: 220px;
+	white-space: nowrap;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_type"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_type"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_type"] {
+	min-width: 200px;
+	width: 200px;
+	white-space: nowrap;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="icon"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="icon"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="icon"] {
+	min-width: 150px;
+	width: 150px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="type"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="type"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="type"] {
+	min-width: 140px;
+	width: 140px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_to"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_to"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="link_to"] {
+	min-width: 200px;
+	width: 200px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"] {
+	min-width: 100px;
+	width: 100px;
+	text-align: center;
+}
+
+/* ============================================
+   GRID ROWS - Data Row Fixes
+   ============================================ */
+
+/* Fix data rows to match header widths */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col {
+	min-width: 120px;
+	padding: 10px 14px;
+	overflow: visible;
+	white-space: normal;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+/* Ensure checkbox column has proper alignment */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col:has(input[type="checkbox"]),
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col:has(input[type="checkbox"]),
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col:has(input[type="checkbox"]) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Specific column width fixes for data rows */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="label"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] {
+	min-width: 220px;
+	width: 220px;
+	white-space: normal;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"] {
+	min-width: 200px;
+	width: 200px;
+	white-space: normal;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="icon"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="icon"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="icon"] {
+	min-width: 150px;
+	width: 150px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="type"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="type"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="type"] {
+	min-width: 140px;
+	width: 140px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_to"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="link_to"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_to"] {
+	min-width: 200px;
+	width: 200px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="child"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="child"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="child"] {
+	min-width: 100px;
+	width: 100px;
+	text-align: center;
+}
+
+/* ============================================
+   TEXT TRUNCATION FIXES
+   ============================================ */
+
+/* Prevent text truncation in cells */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col {
+	overflow: visible !important;
+	text-overflow: clip !important;
+	white-space: normal !important;
+}
+
+/* Fix ellipsis class that Frappe uses for truncation */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col.ellipsis,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col.ellipsis,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col.ellipsis {
+	overflow: visible !important;
+	text-overflow: clip !important;
+	white-space: normal !important;
+}
+
+/* ============================================
+   CHECKBOX FIXES - CUSTOM STYLED CHECKBOXES
+   ============================================ */
+
+/* Apply custom checkbox styling to ALL checkboxes in the table */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"],
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row input[type="checkbox"],
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body input[type="checkbox"] {
+	width: 22px !important;
+	height: 22px !important;
+	min-width: 22px !important;
+	min-height: 22px !important;
+	margin: 0;
+	cursor: pointer;
+	accent-color: var(--color-primary) !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	appearance: none !important;
+	border: 2px solid var(--color-primary-rgba-50) !important;
+	border-radius: 4px !important;
+	background-color: var(--color-bg-white) !important;
+	position: relative;
+	flex-shrink: 0;
+	transition: all 0.2s ease;
+	box-sizing: border-box !important;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* Hide default checkbox indicator */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]::-webkit-checkbox-indicator,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]::-webkit-checkbox-indicator,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]::-webkit-checkbox-indicator {
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+/* Checkbox hover state */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:hover:not(:disabled):not(:checked),
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:hover:not(:disabled):not(:checked),
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:hover:not(:disabled):not(:checked) {
+	border-color: var(--color-primary) !important;
+	background-color: var(--color-bg-white) !important;
+	box-shadow: 0 0 0 2px var(--color-primary-rgba-10) !important;
+}
+
+/* Custom checkbox checked state with white tick */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:checked,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:checked,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:checked {
+	accent-color: var(--color-primary) !important;
+	background-color: var(--color-primary) !important;
+	border-color: var(--color-primary) !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: 16px 16px !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2) !important;
+}
+
+/* Checkbox checked hover state */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:checked:hover:not(:disabled),
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:checked:hover:not(:disabled),
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:checked:hover:not(:disabled) {
+	background-color: var(--color-primary) !important;
+	border-color: var(--color-primary) !important;
+	box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3) !important;
+	transform: scale(1.05);
+}
+
+/* Checkbox focus state */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:focus,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:focus,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:focus {
+	outline: 2px solid var(--color-primary) !important;
+	outline-offset: 2px !important;
+	box-shadow: 0 0 0 4px var(--color-primary-rgba-15) !important;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:focus:checked,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:focus:checked,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:focus:checked {
+	outline: 2px solid var(--color-primary) !important;
+	outline-offset: 2px !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2), 0 0 0 4px var(--color-primary-rgba-15) !important;
+}
+
+/* Disabled checkbox state */
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:disabled,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:disabled,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:disabled {
+	cursor: not-allowed !important;
+	opacity: 0.5 !important;
+	border-color: var(--color-gray-300) !important;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid input[type="checkbox"]:disabled:checked,
+.form.form-doctype-Workspace-Sidebar .form-grid input[type="checkbox"]:disabled:checked,
+.frappe-control[data-fieldname="items"] .form-grid input[type="checkbox"]:disabled:checked {
+	background-color: var(--color-gray-400) !important;
+	border-color: var(--color-gray-400) !important;
+}
+
+/* Ensure checkboxes in Child Item column are properly aligned */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="child"] input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="child"] input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="child"] input[type="checkbox"] {
+	margin: 0 auto;
+	display: block;
+	position: relative;
+	left: auto;
+	right: auto;
+}
+
+/* Fix checkbox column header alignment */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="child"] {
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Row selection checkbox (first column) alignment */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col:first-child input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col:first-child input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col:first-child input[type="checkbox"],
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col:first-child input[type="checkbox"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col:first-child input[type="checkbox"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col:first-child input[type="checkbox"] {
+	margin: 0 auto;
+	display: block;
+}
+
+/* ============================================
+   GRID STATIC COL FIXES
+   ============================================ */
+
+/* Fix grid-static-col which Frappe uses for displaying values */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col {
+	padding: 10px 14px !important;
+	min-height: 40px;
+	display: flex;
+	align-items: center;
+	overflow: visible !important;
+	white-space: normal !important;
+}
+
+/* Ensure static area in grid-static-col displays properly */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col .static-area,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col .static-area,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col .static-area {
+	width: 100%;
+	overflow: visible !important;
+	white-space: normal !important;
+	text-overflow: clip !important;
+	word-wrap: break-word;
+	word-break: break-word;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+/* Fix specific field types in grid-static-col */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] {
+	min-width: 220px;
+	width: 220px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"] {
+	min-width: 200px;
+	width: 200px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"] {
+	min-width: 150px;
+	width: 150px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_to"],
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_to"],
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_to"] {
+	min-width: 200px;
+	width: 200px;
+}
+
+/* ============================================
+   ICON AND TEXT COMBINATION FIXES
+   ============================================ */
+
+/* Fix icon + text combinations in Label column */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area,
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area i,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area i,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area i,
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area i,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area i,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area i {
+	margin-right: 4px;
+	font-size: 16px;
+	flex-shrink: 0;
+}
+
+/* Ensure icon doesn't break text flow */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area > *:not(i),
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area > *:not(i),
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] .static-area > *:not(i),
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area > *:not(i),
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area > *:not(i),
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="label"] .static-area > *:not(i) {
+	flex: 1;
+	min-width: 0;
+}
+
+/* ============================================
+   LINK TYPE COLUMN FIXES
+   ============================================ */
+
+/* Fix Link Type column to show full text */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"] .static-area,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"] .static-area,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="link_type"] .static-area,
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"] .static-area,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"] .static-area,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="link_type"] .static-area {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 4px;
+}
+
+/* ============================================
+   GRID ROW STRUCTURE FIXES
+   ============================================ */
+
+/* Fix grid row structure */
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row {
+	min-height: 50px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row {
+	min-height: 50px;
+	padding: 0;
+}
+
+/* Ensure proper display of grid cells */
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row .row,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row .row,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row .row {
+	display: flex;
+	align-items: stretch;
+	min-height: 50px;
+}
+
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row .row .col,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row .row .col,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row .row .col,
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row .row .grid-static-col,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row .row .grid-static-col,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row .row .grid-static-col {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10px 14px;
+	overflow: visible !important;
+}
+
+/* Fix for Frappe's field rendering */
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row .row .col .frappe-control,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row .row .col .frappe-control,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row .row .col .frappe-control,
+.form[data-doctype="Workspace Sidebar"] .form-grid .rows .grid-row .data-row .row .grid-static-col .frappe-control,
+.form.form-doctype-Workspace-Sidebar .form-grid .rows .grid-row .data-row .row .grid-static-col .frappe-control,
+.frappe-control[data-fieldname="items"] .form-grid .rows .grid-row .data-row .row .grid-static-col .frappe-control {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+/* ============================================
+   HIDE EMPTY/UNWANTED ELEMENTS
+   ============================================ */
+
+/* Hide empty icon fields that show as boxes */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"] .static-area:empty,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"] .static-area:empty,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col[data-fieldname="icon"] .static-area:empty,
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="icon"] .static-area:empty,
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="icon"] .static-area:empty,
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="icon"] .static-area:empty {
+	display: none;
+}
+
+/* Ensure proper visibility for non-empty content */
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .grid-static-col .static-area:not(:empty),
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .grid-static-col .static-area:not(:empty),
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .grid-static-col .static-area:not(:empty),
+.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col .static-area:not(:empty),
+.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col .static-area:not(:empty),
+.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col .static-area:not(:empty) {
+	display: flex;
+	align-items: center;
+}
+
+/* ============================================
+   RESPONSIVE FIXES
+   ============================================ */
+
+@media (max-width: 991px) {
+	.form[data-doctype="Workspace Sidebar"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"],
+	.form.form-doctype-Workspace-Sidebar .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"],
+	.frappe-control[data-fieldname="items"] .form-grid .grid-heading-row .grid-row .row .col[data-fieldname="label"],
+	.form[data-doctype="Workspace Sidebar"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"],
+	.form.form-doctype-Workspace-Sidebar .form-grid .grid-body .data-row .row .col[data-fieldname="label"],
+	.frappe-control[data-fieldname="items"] .form-grid .grid-body .data-row .row .col[data-fieldname="label"] {
+		min-width: 180px;
+		width: 180px;
+	}
+}
