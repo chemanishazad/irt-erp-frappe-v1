@@ -8,1007 +8,939 @@
    FORM SECTIONS (Frappe)
    ============================================ */
 
-   .form-section,
-   .form-dashboard-section {
-     margin-bottom: var(--spacing-md);
-     padding: 0;
-     background: transparent !important;
-     border-radius: 0;
-     box-shadow: none;
-     transition: none;
-     border: none;
-     overflow: visible;
-   }
-   
-   .form-section.card-section,
-   .form-dashboard-section.card-section {
-     padding: 0;
-     border-bottom: none;
-   }
-   
-   .form-section.card-section.hide-border,
-   .form-dashboard-section.hide-border {
-     border-bottom: none;
-     padding-bottom: 0;
-   }
-   
-   .form-section.card-section.hide-border:not(:has(.section-head)) {
-     padding-top: 0;
-   }
-   
-   /* Section Head (Frappe) - Minimal Title Styling */
-   .form-section .section-head,
-   .form-dashboard-section .section-head {
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     margin-bottom: var(--spacing-xs);
-     margin-top: var(--spacing-md);
-     padding: var(--spacing-xs) var(--spacing-md);
-     font-size: calc(var(--font-size-base) * 1.1);
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-text-primary);
-     width: 100%;
-     cursor: default;
-     border: none;
-     transition: none;
-     position: relative;
-     letter-spacing: 0;
-     background: transparent;
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis;
-   }
-   
-   .form-section:first-child .section-head,
-   .form-dashboard-section:first-child .section-head {
-     margin-top: 0;
-   }
-   
-   /* Remove top border/line from first section */
-   .form-section:first-child,
-   .form-dashboard-section:first-child {
-     border-top: none !important;
-     margin-top: 0 !important;
-     padding-top: 0 !important;
-   }
-   
-   .form-section:first-child .section-head,
-   .form-dashboard-section:first-child .section-head {
-     margin-top: 0 !important;
-     padding-top: 0 !important;
-     border-top: none !important;
-   }
-   
-   .form-section:first-child .section-body,
-   .form-dashboard-section:first-child .section-body {
-     padding-top: 0 !important;
-     margin-top: 0 !important;
-   }
-   
-   /* Remove any border from sections without headers */
-   .form-section:not(:has(.section-head)),
-   .form-dashboard-section:not(:has(.section-head)) {
-     border-top: none !important;
-     margin-top: 0 !important;
-     padding-top: 0 !important;
-   }
-   
-   /* Remove border from first form control or checkbox section */
-   .form-section:first-child .frappe-control:first-child,
-   .form-section:first-child .form-group:first-child,
-   .form-section:first-child .control-input-wrapper:first-child {
-     border-top: none !important;
-     margin-top: 0 !important;
-     padding-top: 0 !important;
-   }
-   
-   .form-section .section-head > *:first-child,
-   .form-dashboard-section .section-head > *:first-child {
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     flex: 1;
-     min-width: 0;
-   }
-   
-   /* Animated dots indicator on the right - ONLY for saving state */
-   .form-section .section-head::after,
-   .form-dashboard-section .section-head::after {
-     display: none;
-   }
-   
-   .form-section .section-head::before,
-   .form-dashboard-section .section-head::before {
-     display: none;
-   }
-   
-   .form-section .section-head:hover::before,
-   .form-dashboard-section .section-head:hover::before {
-     display: none;
-   }
-   
-   .form-section .section-head.collapsible,
-   .form-dashboard-section .section-head.collapsible {
-     cursor: pointer;
-   }
-   
-   .form-section .section-head.collapsible:hover,
-   .form-dashboard-section .section-head.collapsible:hover {
-     background: var(--color-primary-rgba-05);
-     border-top-color: var(--color-primary-rgba-30);
-   }
-   
-   .form-section .section-head.collapsed,
-   .form-dashboard-section .section-head.collapsed {
-     margin-bottom: 0;
-     border-bottom: none;
-   }
-   
-   .form-section .section-head .collapse-indicator,
-   .form-dashboard-section .section-head .collapse-indicator {
-     color: var(--color-text-secondary);
-     margin-left: var(--spacing-sm);
-     margin-right: 150px;
-     transition: transform 0.2s ease;
-     flex-shrink: 0;
-     z-index: 11;
-   }
-   
-   .form-section .section-head.collapsed .collapse-indicator,
-   .form-dashboard-section .section-head.collapsed .collapse-indicator {
-     transform: rotate(-90deg);
-   }
-   
-   /* Section Body (Frappe) - Minimal */
-   .form-section .section-body,
-   .form-dashboard-section .section-body {
-     padding: var(--spacing-sm) var(--spacing-md) !important;
-     padding-top: var(--spacing-sm) !important;
-     padding-bottom: var(--spacing-sm) !important;
-     width: 100%;
-     display: flex;
-     flex-wrap: wrap;
-     margin: 0;
-     max-width: 100%;
-     border: none !important;
-     background: transparent !important;
-     gap: var(--spacing-xs);
-     align-items: flex-start;
-   }
-   
-   .form-section .section-body:first-child,
-   .form-dashboard-section .section-body:first-child {
-     margin-top: 0;
-   }
-   
-   .form-dashboard-section .section-body {
-     display: block;
-     padding: var(--spacing-xs) var(--spacing-md) !important;
-   }
-   
-   /* Settings section - minimal padding */
-   @media (min-width: 992px) {
-     .form-section[data-label*="Settings"] .section-body,
-     .form-section[data-label*="settings"] .section-body,
-     .form-section .section-body:has(.frappe-control[data-fieldname*="mute"]),
-     .form-section .section-body:has(.frappe-control[data-fieldname*="theme"]) {
-       padding-left: var(--spacing-md) !important;
-       padding-right: var(--spacing-md) !important;
-     }
-   }
-   
-   .form-section.collapsed .section-body,
-   .form-dashboard-section.collapsed .section-body {
-     display: none;
-   }
-   
-   /* Section Description */
-   .form-section .form-section-description,
-   .form-dashboard-section .form-section-description {
-     max-width: 100%;
-     margin: 0 auto var(--spacing-md) auto;
-     font-size: var(--font-size-base);
-     color: var(--color-text-secondary);
-     line-height: 1.6;
-   }
-   
-   /* ============================================
-      FORM COLUMNS (Frappe) - Responsive Layout
-      ============================================ */
-   
-   .form-column {
-     box-sizing: border-box;
-     padding: 0 var(--spacing-sm);
-     position: relative;
-     width: 100%;
-     min-height: 1px;
-     display: flex;
-     flex-direction: column;
-   }
-   
-   .form-column:first-child {
-     padding-left: 0;
-   }
-   
-   .form-column:last-child {
-     padding-right: 0;
-   }
-   
-   /* Better column spacing */
-   .form-section .section-body > .form-column + .form-column {
-     margin-left: 0;
-   }
-   
-   /* Bootstrap grid support - responsive columns */
-   .form-section .section-body {
-     display: flex;
-     flex-wrap: wrap;
-     margin-left: 0;
-     margin-right: 0;
-   }
-   
-   /* Bootstrap col-sm-4 for 3 columns (12/3 = 4) */
-   .form-column.col-sm-4 {
-     flex: 0 0 33.33333333%;
-     max-width: 33.33333333%;
-   }
-   
-   /* Bootstrap col-sm-6 for 2 columns */
-   .form-column.col-sm-6 {
-     flex: 0 0 50%;
-     max-width: 50%;
-   }
+.form-section,
+.form-dashboard-section {
+  margin-bottom: var(--spacing-md);
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  border: none;
+  overflow: visible;
+}
 
-   /* ============================================
-      CONSISTENT SPACING BETWEEN FORM FIELDS
-      ============================================ */
+.form-section.card-section,
+.form-dashboard-section.card-section {
+  padding: 0;
+  border-bottom: none;
+}
 
-   /* Ensure all form groups have consistent spacing */
-   .form-section .section-body .form-group,
-   .form-section .section-body .frappe-control,
-   .form-dashboard-section .section-body .form-group,
-   .form-dashboard-section .section-body .frappe-control {
-     margin-bottom: var(--spacing-md) !important;
-     margin-top: 0 !important;
-     width: 100%;
-     flex: 0 0 100%;
-   }
-   
-   /* Better alignment for form controls in columns */
-   .form-section .section-body .form-column .form-group,
-   .form-section .section-body .form-column .frappe-control {
-     width: 100%;
-     margin-bottom: var(--spacing-md) !important;
-   }
+.form-section.card-section.hide-border,
+.form-dashboard-section.hide-border {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
-   /* Ensure form columns maintain spacing */
-   .form-column .form-group,
-   .form-column .frappe-control {
-     margin-bottom: var(--spacing-md) !important;
-   }
+.form-section.card-section.hide-border:not(:has(.section-head)) {
+  padding-top: 0;
+}
 
-   /* Last form group in a section should have normal margin */
-   .form-section .section-body .form-group:last-child,
-   .form-section .section-body .frappe-control:last-child,
-   .form-dashboard-section .section-body .form-group:last-child,
-   .form-dashboard-section .section-body .frappe-control:last-child {
-     margin-bottom: var(--spacing-md) !important;
-   }
-   
-   /* Bootstrap col-sm-12 for 1 column */
-   .form-column.col-sm-12 {
-     flex: 0 0 100%;
-     max-width: 100%;
-   }
-   
-   /* Ensure form controls display properly within columns */
-   .form-column .frappe-control,
-   .form-column .form-group {
-     width: 100%;
-     margin-bottom: var(--spacing-md) !important; /* Consistent spacing */
-   }
-   
-   /* Better alignment for form controls */
-   .form-column .frappe-control,
-   .form-column .form-group {
-     display: flex;
-     flex-direction: column;
-   }
-   
-   /* Fix table layouts in forms */
-   .form-section .section-body .frappe-control[data-fieldtype="Table"],
-   .form-section .section-body .form-group:has(.grid-form-heading) {
-     width: 100%;
-     flex: 0 0 100%;
-     margin-bottom: var(--spacing-lg) !important;
-   }
-   
-   /* Better spacing for workspace tabs content */
-   .form-tab-content .form-section {
-     margin-top: var(--spacing-sm);
-   }
-   
-   .form-tab-content .form-section:first-child {
-     margin-top: 0;
-   }
-   
-   .form-column .frappe-control input,
-   .form-column .frappe-control .form-control,
-   .form-column .form-group input,
-   .form-column .form-group .form-control {
-     width: 100%;
-     max-width: 100%;
-   }
-   
-   .form-column .form-column-description {
-     margin-bottom: var(--spacing-md);
-     font-size: var(--font-size-xs);
-     color: var(--color-text-secondary);
-     padding-left: 0;
-   }
-   
-   .form-column .column-label {
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-text-primary);
-     margin-bottom: var(--spacing-sm);
-     display: block;
-     cursor: pointer;
-   }
-   
-   /* ============================================
-      FORM TABS (Frappe) - Enhanced UI
-      ============================================ */
-   
-   /* Form Tabs List Container - Sticky */
-   .form-tabs-list {
-     position: sticky;
-     background-color: var(--color-bg-white);
-     z-index: 100;
-     transition: top 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
-     border-bottom: none;
-     border-radius: 0;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-     margin-bottom: var(--spacing-lg);
-     padding: var(--spacing-md) var(--spacing-lg);
-     display: flex;
-     justify-content: flex-start;
-     align-items: center;
-   }
-   
-   
-   .form-tabs-list.form-tabs-sticky-up {
-     top: 0;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-     background-color: rgba(255, 255, 255, 0.98);
-     backdrop-filter: blur(10px);
-     -webkit-backdrop-filter: blur(10px);
-   }
-   
-   .form-tabs-list.form-tabs-sticky-down {
-     top: calc(var(--navbar-height, 60px) + var(--page-head-height, 50px) - 1px);
-     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-   }
-   
-   /* Form Tabs - Segmented Control */
-   .form-tabs,
-   .nav-tabs {
-     display: inline-flex;
-     gap: 0;
-     margin-bottom: 0;
-     border-bottom: none;
-     overflow-x: auto;
-     scrollbar-width: none;
-     -ms-overflow-style: none;
-     padding: 4px;
-     align-items: center;
-     min-height: 36px;
-     background: rgba(142, 142, 147, 0.15);
-     border-radius: 10px;
-     width: fit-content;
-     max-width: 100%;
-     box-shadow: none;
-     flex-wrap: nowrap;
-     position: relative;
-     transition: background-color 0.3s ease, padding 0.3s ease;
-   }
-   
-   .form-tabs::-webkit-scrollbar,
-   .nav-tabs::-webkit-scrollbar {
-     display: none;
-   }
-   
-   /* When any tab is active, change container background to theme color */
-   
-   .form-tabs:has(.nav-item .nav-link.active),
-   .nav-tabs:has(.nav-item .nav-link.active) {
-     background: var(--color-primary-rgba-15) !important;
-     padding: 4px;
-     border: 1px solid var(--color-primary-rgba-20);
-   }
-   
-   /* Specific nav-link styles */
-   .form-tabs-list .form-tabs .nav-item .nav-link {
-     padding: 8px 16px;
-     font-size: 13px;
-     font-weight: var(--font-weight-medium);
-     color: rgba(0, 0, 0, 0.6);
-     background: transparent !important;
-     border: none;
-     cursor: pointer;
-     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-     white-space: nowrap;
-     position: relative;
-     margin: 0;
-     text-decoration: none;
-     border-radius: 7px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     gap: 6px;
-     height: 30px;
-     min-width: fit-content;
-     letter-spacing: -0.01em;
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-     box-shadow: none !important;
-   }
-   
-   .form-tabs-list .form-tabs .nav-item .nav-link.active {
-     color: var(--color-primary) !important;
-     font-weight: var(--font-weight-semibold) !important;
-     background: var(--color-bg-white) !important;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-     border: none !important;
-     z-index: 2;
-     position: relative;
-   }
-   
-   /* Tab Content */
-   .form-tab-content {
-     scroll-margin-top: calc(var(--navbar-height, 60px) + var(--page-head-height, 50px) + 60px);
-     margin-top: var(--spacing-sm);
-     padding-top: var(--spacing-xs);
-   }
-   
-   /* ============================================
-      FORM LAYOUT & PAGES (Frappe)
-      ============================================ */
-   
-   .form-layout,
-   .form-page {
-     width: 100%;
-     max-width: 100%;
-     margin: 0;
-     padding: 0;
-   }
-   
-   .std-form-layout>.form-layout>.form-page {
-     box-shadow: none;
-     background-color: transparent;
-   }
-   
-   /* ============================================
-      FIELD GROUPS / CUSTOM GROUPS
-      ============================================ */
-   
-   .field-group {
-     display: flex;
-     flex-direction: column;
-     gap: var(--spacing-lg);
-     padding: var(--spacing-xl);
-     background: var(--color-gray-50);
-     border-radius: var(--radius-md);
-     border: 1px solid var(--color-primary-rgba-10);
-     margin-bottom: var(--spacing-lg);
-     transition: all 0.2s ease;
-     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-   }
-   
-   .field-group:hover {
-     border-color: var(--color-primary-rgba-30);
-     box-shadow: 0 2px 6px rgba(0, 102, 255, 0.08);
-     transform: translateY(-1px);
-   }
-   
-   .field-group .field-group-title {
-     font-size: var(--font-size-base);
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-text-primary);
-     margin-bottom: var(--spacing-xs);
-     display: flex;
-     align-items: center;
-     gap: var(--spacing-sm);
-   }
-   
-   .field-group .field-group-title::before {
-     content: "▸";
-     color: var(--color-primary);
-     font-size: var(--font-size-sm);
-   }
-   
-   /* ============================================
-      REQUIRED FIELD INDICATORS
-      ============================================ */
-   
-   .required-field {
-     position: relative;
-   }
-   
-   .required-field::after {
-     content: "*";
-     color: var(--color-error);
-     font-weight: var(--font-weight-bold);
-     margin-left: 2px;
-     font-size: var(--font-size-base);
-   }
-   
-   .form-group label.required,
-   .control-label.required {
-     position: relative;
-   }
-   
-   .form-group label.required::after,
-   .control-label.required::after {
-     content: " *";
-     color: var(--color-error);
-     font-weight: var(--font-weight-bold);
-     font-size: var(--font-size-base);
-   }
-   
-   /* ============================================
-      HELP TEXT & TOOLTIPS
-      ============================================ */
-   
-   .help-text {
-     display: inline-flex;
-     align-items: center;
-     gap: var(--spacing-xs);
-     margin-top: var(--spacing-xs);
-     font-size: var(--font-size-xs);
-     color: var(--color-text-secondary);
-     line-height: 1.5;
-   }
-   
-   .help-text.with-icon {
-     padding-left: 20px;
-     position: relative;
-   }
-   
-   .help-text.with-icon::before {
-     content: "ℹ";
-     position: absolute;
-     left: 0;
-     top: 50%;
-     transform: translateY(-50%);
-     width: 16px;
-     height: 16px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     background: var(--color-primary-rgba-10);
-     color: var(--color-primary);
-     border-radius: 50%;
-     font-size: 10px;
-     font-weight: var(--font-weight-bold);
-   }
-   
-   /* ============================================
-      FORM ACTIONS / BUTTONS AREA
-      ============================================ */
-   
-   .form-actions {
-     display: flex;
-     gap: var(--spacing-md);
-     padding: var(--spacing-xl);
-     background: var(--color-bg-white);
-     border-top: 2px solid var(--color-primary-rgba-10);
-     border-radius: 0;
-     margin-top: var(--spacing-2xl);
-     justify-content: flex-end;
-     flex-wrap: wrap;
-     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
-   }
-   
-   .form-actions.sticky {
-     position: sticky;
-     bottom: 0;
-     z-index: var(--z-index-sticky);
-     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-   }
-   
-   /* ============================================
-      FORM STATES
-      ============================================ */
-   
-   .form-section.dirty {
-     border-top: none !important;
-     border-left: none;
-   }
-   
-   .form-section.dirty .section-head {
-     border: none !important;
-   }
-   
-   /* Animated orange dot indicator on the right - for dirty/unsaved state */
-   .form-section.dirty .section-head::after {
-     content: "NOT SAVED";
-     display: inline-flex;
-     align-items: center;
-     gap: 8px;
-     position: absolute;
-     right: var(--spacing-lg);
-     top: 50%;
-     transform: translateY(-50%);
-     font-size: 11px;
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-warning);
-     background: rgba(251, 146, 60, 0.1);
-     padding: 4px 10px;
-     border-radius: 12px;
-     white-space: nowrap;
-     pointer-events: none;
-     z-index: 10;
-     letter-spacing: 0.3px;
-     animation: pulseWarning 2s ease-in-out infinite;
-   }
-   
-   .form-section.dirty .section-head::before {
-     content: "";
-     display: block;
-     position: absolute;
-     right: calc(var(--spacing-lg) + 85px);
-     top: 50%;
-     transform: translateY(-50%);
-     background: linear-gradient(90deg, 
-       transparent 0%, 
-       var(--color-warning) 25%, 
-       var(--color-warning) 50%, 
-       transparent 75%, 
-       transparent 100%);
-     background-size: 200% 100%;
-     animation: dotRunningOrange 1.2s linear infinite;
-     width: 40px;
-     height: 2px;
-     border-radius: 2px;
-     opacity: 1;
-     pointer-events: none;
-     z-index: 9;
-   }
-   
-   @keyframes dotRunningOrange {
-     0% {
-       background-position: 200% 0;
-     }
-     100% {
-       background-position: -200% 0;
-     }
-   }
-   
-   @keyframes pulseWarning {
-     0%, 100% {
-       opacity: 1;
-       transform: translateY(-50%) scale(1);
-     }
-     50% {
-       opacity: 0.8;
-       transform: translateY(-50%) scale(1.02);
-     }
-   }
-   
-   .form-section.saving {
-     position: relative;
-     opacity: 1;
-     pointer-events: auto;
-   }
-   
-   .form-section.saving .section-body {
-     opacity: 0.95;
-   }
-   
-   .form-section.saving::after {
-     display: none;
-   }
-   
-   .form-section.saving .section-head {
-     border: none !important;
-     opacity: 1;
-     background: transparent;
-   }
-   
-   /* Animated blue dot indicator with "Saving" text on the right - for saving state */
-   .form-section.saving .section-head::after {
-     content: "Saving...";
-     display: inline-flex;
-     align-items: center;
-     gap: 8px;
-     position: absolute;
-     right: var(--spacing-lg);
-     top: 50%;
-     transform: translateY(-50%);
-     font-size: 11px;
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-primary);
-     background: rgba(0, 102, 255, 0.1);
-     padding: 4px 10px;
-     border-radius: 12px;
-     white-space: nowrap;
-     pointer-events: none;
-     z-index: 10;
-     letter-spacing: 0.3px;
-     animation: pulsePrimary 1.5s ease-in-out infinite;
-   }
-   
-   .form-section.saving .section-head::before {
-     content: "";
-     display: block;
-     position: absolute;
-     right: calc(var(--spacing-lg) + 75px);
-     top: 50%;
-     transform: translateY(-50%);
-     background: linear-gradient(90deg, 
-       transparent 0%, 
-       var(--color-primary) 25%, 
-       var(--color-primary) 50%, 
-       transparent 75%, 
-       transparent 100%);
-     background-size: 200% 100%;
-     animation: dotRunningBlue 1.2s linear infinite;
-     width: 40px;
-     height: 2px;
-     border-radius: 2px;
-     opacity: 1;
-     pointer-events: none;
-     z-index: 9;
-   }
-   
-   @keyframes dotRunningBlue {
-     0% {
-       background-position: 200% 0;
-     }
-     100% {
-       background-position: -200% 0;
-     }
-   }
-   
-   @keyframes pulsePrimary {
-     0%, 100% {
-       opacity: 1;
-       transform: translateY(-50%) scale(1);
-     }
-     50% {
-       opacity: 0.9;
-       transform: translateY(-50%) scale(1.01);
-     }
-   }
-   
-   .form-section.saved {
-     border-top: none !important;
-     border-left: none;
-   }
-   
-   .form-section.saved .section-head {
-     border: none !important;
-   }
-   
-   /* Animated green dot indicator on the right - for saved state */
-   .form-section.saved .section-head::after {
-     content: "Saved";
-     display: inline-flex;
-     align-items: center;
-     gap: 8px;
-     position: absolute;
-     right: var(--spacing-lg);
-     top: 50%;
-     transform: translateY(-50%);
-     font-size: 11px;
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-success);
-     background: rgba(16, 185, 129, 0.1);
-     padding: 4px 10px;
-     border-radius: 12px;
-     white-space: nowrap;
-     pointer-events: none;
-     z-index: 10;
-     letter-spacing: 0.3px;
-     animation: pulseSuccess 2s ease-in-out infinite;
-   }
-   
-   .form-section.saved .section-head::before {
-     content: "";
-     display: block;
-     position: absolute;
-     right: calc(var(--spacing-lg) + 60px);
-     top: 50%;
-     transform: translateY(-50%);
-     background: linear-gradient(90deg, 
-       transparent 0%, 
-       var(--color-success) 25%, 
-       var(--color-success) 50%, 
-       transparent 75%, 
-       transparent 100%);
-     background-size: 200% 100%;
-     animation: dotRunningGreen 1.2s linear infinite;
-     width: 40px;
-     height: 2px;
-     border-radius: 2px;
-     opacity: 1;
-     pointer-events: none;
-     z-index: 9;
-   }
-   
-   @keyframes dotRunningGreen {
-     0% {
-       background-position: 200% 0;
-     }
-     100% {
-       background-position: -200% 0;
-     }
-   }
-   
-   @keyframes pulseSuccess {
-     0%, 100% {
-       opacity: 1;
-       transform: translateY(-50%) scale(1);
-     }
-     50% {
-       opacity: 0.9;
-       transform: translateY(-50%) scale(1.01);
-     }
-   }
-   
-   /* ============================================
-      EMPTY SECTIONS
-      ============================================ */
-   
-   .empty-section {
-     display: none !important;
-     border: 0 !important;
-   }
-   
-   /* ============================================
-      RESPONSIVE - Form Layout
-      ============================================ */
-   
-   /* Tablet and below (≤ 991px) - 2 columns */
-   @media (max-width: 991px) {
-     .form-column.col-sm-4 {
-       flex: 0 0 50%;
-       max-width: 50%;
-     }
-   
-     .form-column {
-       padding: 0 var(--spacing-xs);
-     }
-   
-     .form-section .section-body {
-       padding-left: var(--spacing-sm) !important;
-       padding-right: var(--spacing-sm) !important;
-     }
-   }
-   
-   /* Mobile (≤ 768px) - 1 column */
-   @media (max-width: 768px) {
-     .form-section,
-     .form-dashboard-section {
-       margin-bottom: var(--spacing-sm);
-     }
-   
-     .form-section .section-head,
-     .form-dashboard-section .section-head {
-       padding: 0 var(--spacing-xs);
-       font-size: var(--font-size-sm);
-       margin-top: var(--spacing-sm);
-     }
-   
-     /* .form-tabs-list {
-       position: sticky;
-       top: 0;
-       z-index: 100;
-     } */
-   
-     .form-tabs-list.form-tabs-sticky-up,
-     .form-tabs-list.form-tabs-sticky-down {
-       top: 0;
-     }
-   
-     .form-tabs,
-     .nav-tabs {
-       gap: 0;
-       padding: 0 var(--spacing-xs);
-     }
-   
-     .form-tabs-list .form-tabs .nav-item .nav-link {
-       padding: var(--spacing-sm) var(--spacing-md);
-       font-size: var(--font-size-xs);
-       height: 44px;
-     }
-   
-     .form-tab-content {
-       scroll-margin-top: 60px;
-     }
-   
-     /* Force single column on mobile */
-     .form-column.col-sm-4,
-     .form-column.col-sm-6,
-     .form-column.col-sm-12 {
-       flex: 0 0 100% !important;
-       max-width: 100% !important;
-       width: 100% !important;
-       padding-left: 0 !important;
-       padding-right: 0 !important;
-     }
-   
-     .form-section .section-body {
-       padding-left: var(--spacing-xs) !important;
-       padding-right: var(--spacing-xs) !important;
-       padding-top: 0 !important;
-     }
-   
-     .field-group {
-       padding: var(--spacing-sm);
-     }
-   
-     .form-actions {
-       flex-direction: column;
-       padding: var(--spacing-sm);
-     }
-   
-     .form-actions .btn {
-       width: 100%;
-     }
-   }
-   
-   /* Small mobile (≤ 576px) */
-   @media (max-width: 576px) {
-     .form-section .section-body {
-       padding-left: var(--spacing-xs) !important;
-       padding-right: var(--spacing-xs) !important;
-     }
-   
-     .form-column .frappe-control,
-     .form-column .form-group {
-       margin-bottom: var(--spacing-xs);
-     }
-   }
-   
-   /* ============================================
-      HIDE COMMENT SECTION
-      ============================================ */
-   
-   /* Hide comment box and comment section */
-   .comment-box,
-   .comment-view,
-   .comment-form-wrapper,
-   .add-comment-section,
-   .add-comment-hr,
-   .comment-list,
-   .comment-input-container,
-   .comment-input-header,
-   .discussion-form,
-   .discussions-comment,
-   .comment-footer {
-     display: none !important;
-     visibility: hidden !important;
-     height: 0 !important;
-     width: 0 !important;
-     padding: 0 !important;
-     margin: 0 !important;
-     border: none !important;
-     opacity: 0 !important;
-   }
-   
-   /* Hide comment-related elements in forms */
-   .form-section:has(.comment-box),
-   .form-section:has(.comment-view),
-   .form-section:has(.comment-form-wrapper) {
-     display: none !important;
-   }
-   
-   /* Hide comments tab if exists */
-   .form-tabs-list .form-tabs .nav-item[data-label*="Comment"] .nav-link,
-   .form-tabs-list .form-tabs .nav-item[data-label*="comment"] .nav-link,
-   .nav-tabs .nav-item[data-label*="Comment"] .nav-link,
-   .nav-tabs .nav-item[data-label*="comment"] .nav-link {
-     display: none !important;
-   }
+/* Section Head (Frappe) - Minimal Title Styling */
+.form-section .section-head,
+.form-dashboard-section .section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: calc(var(--font-size-base) * 1.1);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  width: 100%;
+  cursor: default;
+  border: none;
+  transition: none;
+  position: relative;
+  letter-spacing: 0;
+  background: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-section:first-child .section-head,
+.form-dashboard-section:first-child .section-head {
+  margin-top: 0;
+}
+
+/* Remove top border/line from first section */
+.form-section:first-child,
+.form-dashboard-section:first-child {
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.form-section:first-child .section-head,
+.form-dashboard-section:first-child .section-head {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.form-section:first-child .section-body,
+.form-dashboard-section:first-child .section-body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Remove any border from sections without headers */
+.form-section:not(:has(.section-head)),
+.form-dashboard-section:not(:has(.section-head)) {
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Remove border from first form control or checkbox section */
+.form-section:first-child .frappe-control:first-child,
+.form-section:first-child .form-group:first-child,
+.form-section:first-child .control-input-wrapper:first-child {
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.form-section .section-head > *:first-child,
+.form-dashboard-section .section-head > *:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Animated dots indicator on the right - ONLY for saving state */
+.form-section .section-head::after,
+.form-dashboard-section .section-head::after {
+  display: none;
+}
+
+.form-section .section-head::before,
+.form-dashboard-section .section-head::before {
+  display: none;
+}
+
+.form-section .section-head:hover::before,
+.form-dashboard-section .section-head:hover::before {
+  display: none;
+}
+
+.form-section .section-head.collapsible,
+.form-dashboard-section .section-head.collapsible {
+  cursor: pointer;
+}
+
+.form-section .section-head.collapsible:hover,
+.form-dashboard-section .section-head.collapsible:hover {
+  background: var(--color-primary-rgba-05);
+  border-top-color: var(--color-primary-rgba-30);
+}
+
+.form-section .section-head.collapsed,
+.form-dashboard-section .section-head.collapsed {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.form-section .section-head .collapse-indicator,
+.form-dashboard-section .section-head .collapse-indicator {
+  color: var(--color-text-secondary);
+  margin-left: var(--spacing-sm);
+  margin-right: 150px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  z-index: 11;
+}
+
+.form-section .section-head.collapsed .collapse-indicator,
+.form-dashboard-section .section-head.collapsed .collapse-indicator {
+  transform: rotate(-90deg);
+}
+
+/* Section Body (Frappe) - Minimal */
+.form-section .section-body,
+.form-dashboard-section .section-body {
+  padding: var(--spacing-xs) var(--spacing-md) !important;
+  padding-top: var(--spacing-xs) !important;
+  padding-bottom: var(--spacing-xs) !important;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  max-width: 100%;
+  border: none !important;
+  background: transparent !important;
+  gap: 0;
+}
+
+.form-section .section-body:first-child,
+.form-dashboard-section .section-body:first-child {
+  margin-top: 0;
+}
+
+.form-dashboard-section .section-body {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-md) !important;
+}
+
+/* Settings section - minimal padding */
+@media (min-width: 992px) {
+  .form-section[data-label*="Settings"] .section-body,
+  .form-section[data-label*="settings"] .section-body,
+  .form-section .section-body:has(.frappe-control[data-fieldname*="mute"]),
+  .form-section .section-body:has(.frappe-control[data-fieldname*="theme"]) {
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
+  }
+}
+
+.form-section.collapsed .section-body,
+.form-dashboard-section.collapsed .section-body {
+  display: none;
+}
+
+/* Section Description */
+.form-section .form-section-description,
+.form-dashboard-section .form-section-description {
+  max-width: 100%;
+  margin: 0 auto var(--spacing-md) auto;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   FORM COLUMNS (Frappe) - Responsive Layout
+   ============================================ */
+
+.form-column {
+  box-sizing: border-box;
+  padding: 0 var(--spacing-xs);
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+}
+
+.form-column:first-child {
+  padding-left: 0;
+}
+
+.form-column:last-child {
+  padding-right: 0;
+}
+
+/* Bootstrap grid support - responsive columns */
+.form-section .section-body {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Bootstrap col-sm-4 for 3 columns (12/3 = 4) */
+.form-column.col-sm-4 {
+  flex: 0 0 33.33333333%;
+  max-width: 33.33333333%;
+}
+
+/* Bootstrap col-sm-6 for 2 columns */
+.form-column.col-sm-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+/* Bootstrap col-sm-12 for 1 column */
+.form-column.col-sm-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Ensure form controls display properly within columns */
+.form-column .frappe-control,
+.form-column .form-group {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-column .frappe-control input,
+.form-column .frappe-control .form-control,
+.form-column .form-group input,
+.form-column .form-group .form-control {
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-column .form-column-description {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  padding-left: 0;
+}
+
+.form-column .column-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  display: block;
+  cursor: pointer;
+}
+
+/* ============================================
+   FORM TABS (Frappe) - Enhanced UI
+   ============================================ */
+
+/* Form Tabs List Container - Sticky */
+.form-tabs-list {
+  position: sticky;
+  background-color: var(--color-bg-white);
+  z-index: 100;
+  transition: top 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+  border-bottom: none;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+.form-tabs-list.form-tabs-sticky-up {
+  top: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.form-tabs-list.form-tabs-sticky-down {
+  top: calc(var(--navbar-height, 60px) + var(--page-head-height, 50px) - 1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Form Tabs - Segmented Control */
+.form-tabs,
+.nav-tabs {
+  display: inline-flex;
+  gap: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px;
+  align-items: center;
+  min-height: 36px;
+  background: rgba(142, 142, 147, 0.15);
+  border-radius: 10px;
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: none;
+  flex-wrap: nowrap;
+  position: relative;
+  transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.form-tabs::-webkit-scrollbar,
+.nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* When any tab is active, change container background to theme color */
+
+.form-tabs:has(.nav-item .nav-link.active),
+.nav-tabs:has(.nav-item .nav-link.active) {
+  background: var(--color-primary-rgba-15) !important;
+  padding: 4px;
+  border: 1px solid var(--color-primary-rgba-20);
+}
+
+/* Specific nav-link styles */
+.form-tabs-list .form-tabs .nav-item .nav-link {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: rgba(0, 0, 0, 0.6);
+  background: transparent !important;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  position: relative;
+  margin: 0;
+  text-decoration: none;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 30px;
+  min-width: fit-content;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-shadow: none !important;
+}
+
+.form-tabs-list .form-tabs .nav-item .nav-link.active {
+  color: var(--color-primary) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  background: var(--color-bg-white) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  z-index: 2;
+  position: relative;
+}
+
+/* Tab Content */
+.form-tab-content {
+  scroll-margin-top: calc(var(--navbar-height, 60px) + var(--page-head-height, 50px) + 60px);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-xs);
+}
+
+/* ============================================
+   FORM LAYOUT & PAGES (Frappe)
+   ============================================ */
+
+.form-layout,
+.form-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.std-form-layout>.form-layout>.form-page {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* ============================================
+   FIELD GROUPS / CUSTOM GROUPS
+   ============================================ */
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-primary-rgba-10);
+  margin-bottom: var(--spacing-lg);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.field-group:hover {
+  border-color: var(--color-primary-rgba-30);
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.field-group .field-group-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.field-group .field-group-title::before {
+  content: "▸";
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   REQUIRED FIELD INDICATORS
+   ============================================ */
+
+.required-field {
+  position: relative;
+}
+
+.required-field::after {
+  content: "*";
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+  margin-left: 2px;
+  font-size: var(--font-size-base);
+}
+
+.form-group label.required,
+.control-label.required {
+  position: relative;
+}
+
+.form-group label.required::after,
+.control-label.required::after {
+  content: " *";
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+}
+
+/* ============================================
+   HELP TEXT & TOOLTIPS
+   ============================================ */
+
+.help-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.help-text.with-icon {
+  padding-left: 20px;
+  position: relative;
+}
+
+.help-text.with-icon::before {
+  content: "ℹ";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-rgba-10);
+  color: var(--color-primary);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   FORM ACTIONS / BUTTONS AREA
+   ============================================ */
+
+.form-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  background: var(--color-bg-white);
+  border-top: 2px solid var(--color-primary-rgba-10);
+  border-radius: 0;
+  margin-top: var(--spacing-2xl);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.form-actions.sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-index-sticky);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   FORM STATES
+   ============================================ */
+
+.form-section.dirty {
+  border-top: none !important;
+  border-left: none;
+}
+
+.form-section.dirty .section-head {
+  border: none !important;
+}
+
+/* Animated orange dot indicator on the right - for dirty/unsaved state */
+.form-section.dirty .section-head::after {
+  content: "NOT SAVED";
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: var(--spacing-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-warning);
+  background: rgba(251, 146, 60, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  letter-spacing: 0.3px;
+  animation: pulseWarning 2s ease-in-out infinite;
+}
+
+.form-section.dirty .section-head::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: calc(var(--spacing-lg) + 85px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-warning) 25%, 
+    var(--color-warning) 50%, 
+    transparent 75%, 
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: dotRunningOrange 1.2s linear infinite;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 9;
+}
+
+@keyframes dotRunningOrange {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulseWarning {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.02);
+  }
+}
+
+.form-section.saving {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.form-section.saving .section-body {
+  opacity: 0.95;
+}
+
+.form-section.saving::after {
+  display: none;
+}
+
+.form-section.saving .section-head {
+  border: none !important;
+  opacity: 1;
+  background: transparent;
+}
+
+/* Animated blue dot indicator with "Saving" text on the right - for saving state */
+.form-section.saving .section-head::after {
+  content: "Saving...";
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: var(--spacing-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background: rgba(0, 102, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  letter-spacing: 0.3px;
+  animation: pulsePrimary 1.5s ease-in-out infinite;
+}
+
+.form-section.saving .section-head::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: calc(var(--spacing-lg) + 75px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-primary) 25%, 
+    var(--color-primary) 50%, 
+    transparent 75%, 
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: dotRunningBlue 1.2s linear infinite;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 9;
+}
+
+@keyframes dotRunningBlue {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulsePrimary {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-50%) scale(1.01);
+  }
+}
+
+.form-section.saved {
+  border-top: none !important;
+  border-left: none;
+}
+
+.form-section.saved .section-head {
+  border: none !important;
+}
+
+/* Animated green dot indicator on the right - for saved state */
+.form-section.saved .section-head::after {
+  content: "Saved";
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: var(--spacing-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  letter-spacing: 0.3px;
+  animation: pulseSuccess 2s ease-in-out infinite;
+}
+
+.form-section.saved .section-head::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: calc(var(--spacing-lg) + 60px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-success) 25%, 
+    var(--color-success) 50%, 
+    transparent 75%, 
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: dotRunningGreen 1.2s linear infinite;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 9;
+}
+
+@keyframes dotRunningGreen {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulseSuccess {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-50%) scale(1.01);
+  }
+}
+
+/* ============================================
+   EMPTY SECTIONS
+   ============================================ */
+
+.empty-section {
+  display: none !important;
+  border: 0 !important;
+}
+
+/* ============================================
+   RESPONSIVE - Form Layout
+   ============================================ */
+
+/* Tablet and below (≤ 991px) - 2 columns */
+@media (max-width: 991px) {
+  .form-column.col-sm-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .form-column {
+    padding: 0 var(--spacing-xs);
+  }
+
+  .form-section .section-body {
+    padding-left: var(--spacing-sm) !important;
+    padding-right: var(--spacing-sm) !important;
+  }
+}
+
+/* Mobile (≤ 768px) - 1 column */
+@media (max-width: 768px) {
+  .form-section,
+  .form-dashboard-section {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .form-section .section-head,
+  .form-dashboard-section .section-head {
+    padding: 0 var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-sm);
+  }
+
+  /* .form-tabs-list {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  } */
+
+  .form-tabs-list.form-tabs-sticky-up,
+  .form-tabs-list.form-tabs-sticky-down {
+    top: 0;
+  }
+
+  .form-tabs,
+  .nav-tabs {
+    gap: 0;
+    padding: 0 var(--spacing-xs);
+  }
+
+  .form-tabs-list .form-tabs .nav-item .nav-link {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-xs);
+    height: 44px;
+  }
+
+  .form-tab-content {
+    scroll-margin-top: 60px;
+  }
+
+  /* Force single column on mobile */
+  .form-column.col-sm-4,
+  .form-column.col-sm-6,
+  .form-column.col-sm-12 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .form-section .section-body {
+    padding-left: var(--spacing-xs) !important;
+    padding-right: var(--spacing-xs) !important;
+    padding-top: 0 !important;
+  }
+
+  .field-group {
+    padding: var(--spacing-sm);
+  }
+
+  .form-actions {
+    flex-direction: column;
+    padding: var(--spacing-sm);
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Small mobile (≤ 576px) */
+@media (max-width: 576px) {
+  .form-section .section-body {
+    padding-left: var(--spacing-xs) !important;
+    padding-right: var(--spacing-xs) !important;
+  }
+
+  .form-column .frappe-control,
+  .form-column .form-group {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+/* ============================================
+   HIDE COMMENT SECTION
+   ============================================ */
+
+/* Hide comment box and comment section */
+.comment-box,
+.comment-view,
+.comment-form-wrapper,
+.add-comment-section,
+.add-comment-hr,
+.comment-list,
+.comment-input-container,
+.comment-input-header,
+.discussion-form,
+.discussions-comment,
+.comment-footer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+}
+
+/* Hide comment-related elements in forms */
+.form-section:has(.comment-box),
+.form-section:has(.comment-view),
+.form-section:has(.comment-form-wrapper) {
+  display: none !important;
+}
+
+/* Hide comments tab if exists */
+.form-tabs-list .form-tabs .nav-item[data-label*="Comment"] .nav-link,
+.form-tabs-list .form-tabs .nav-item[data-label*="comment"] .nav-link,
+.nav-tabs .nav-item[data-label*="Comment"] .nav-link,
+.nav-tabs .nav-item[data-label*="comment"] .nav-link {
+  display: none !important;
+}

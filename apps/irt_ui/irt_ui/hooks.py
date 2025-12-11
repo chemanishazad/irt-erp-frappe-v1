@@ -13,6 +13,7 @@ app_include_css = [
 ]
 
 app_include_js = [
+	"/assets/irt_ui/js/custom/theme-settings.js",
 	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js",
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js",
@@ -27,7 +28,12 @@ web_include_css = [
 ]
 
 web_include_js = [
+	"/assets/irt_ui/js/custom/theme-settings.js",
 	"/assets/irt_ui/js/custom/login.js"
 ]
 
+# Boot session hook to add theme settings to bootinfo
+boot_session = [
+	"irt_ui.boot.boot_session"
+]
 
