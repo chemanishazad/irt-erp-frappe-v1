@@ -394,7 +394,7 @@ input[type="file"]:disabled {
   display: block;
   margin-bottom: var(--spacing-xs);
   padding-bottom: 2px;
-  font-size: var(--font-size-sm);
+  font-size: calc(var(--font-size-sm) * 1.15) !important; /* Make font bigger */
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   letter-spacing: 0.01em;
@@ -1015,6 +1015,30 @@ html body div.awesomplete>input.input-with-feedback {
   textarea,
   .frappe-control[data-fieldtype="Link"] input,
   .frappe-control[data-fieldtype="Select"] select {
+    font-size: 16px;
+    width: 100%;
+    max-width: 100%;
+    height: 42px;
+  }
+
+  /* Like-disabled-input responsive */
+  .like-disabled-input,
+  .like-disabled-input input,
+  .like-disabled-input .form-control {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small mobile (≤ 576px) */
+@media (max-width: 576px) {
+  .form-control,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select {
+    padding: var(--spacing-sm);
     font-size: 16px;
     width: 100%;
     max-width: 100%;

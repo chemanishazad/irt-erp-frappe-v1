@@ -9,7 +9,8 @@ app_license = "mit"
 # Order: variables first, then main.css (which imports all components)
 app_include_css = [
 	"/assets/irt_ui/css/custom/variables.css?v=1.1.5",
-	"/assets/irt_ui/css/custom/main.css?v=1.1.5"
+	"/assets/irt_ui/css/custom/main.css?v=1.1.5",
+	# "/assets/irt_ui/css/custom/role_sidebar.css?v=1.0.0"  # TEMPORARILY DISABLED
 ]
 
 app_include_js = [
@@ -18,8 +19,8 @@ app_include_js = [
 	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js",
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js",
-	"/assets/irt_ui/js/custom/02-form-components/user-form-fix.js",
-	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js"
+	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js",
+	# "/assets/irt_ui/js/custom/role_sidebar.js"  # TEMPORARILY DISABLED
 ]
 
 # Includes for website pages (login, signup, etc.)

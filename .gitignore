@@ -21,7 +21,10 @@ sites/*/indexes/
 sites/*/touched_tables.json
 
 # Assets (can be rebuilt - don't track)
-sites/assets/
+sites/assets/*
+# But track asset manifest files
+!sites/assets/assets.json
+!sites/assets/assets-rtl.json
 
 # Config runtime files
 config/pids/
