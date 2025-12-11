@@ -10,7 +10,6 @@ app_license = "mit"
 app_include_css = [
 	"/assets/irt_ui/css/custom/variables.css?v=1.1.5",
 	"/assets/irt_ui/css/custom/main.css?v=1.1.5",
-	# "/assets/irt_ui/css/custom/role_sidebar.css?v=1.0.0"  # TEMPORARILY DISABLED
 ]
 
 app_include_js = [
@@ -19,7 +18,6 @@ app_include_js = [
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js",
 	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js",
-	# "/assets/irt_ui/js/custom/role_sidebar.js"  # TEMPORARILY DISABLED
 ]
 
 # Includes for website pages (login, signup, etc.)
@@ -32,17 +30,4 @@ web_include_css = [
 web_include_js = [
 	"/assets/irt_ui/js/custom/login.js"
 ]
-
-# Boot session hook for role-based sidebar - TEMPORARILY DISABLED
-# boot_session = "irt_ui.startup.boot.boot_session"
-
-# Page routes - TEMPORARILY DISABLED
-# page_js = {
-# 	"role-sidebar-builder": "irt_ui/page/role_sidebar_builder/role_sidebar_builder.js"
-# }
-
-# DocType JavaScript - TEMPORARILY DISABLED
-# doctype_js = {
-# 	"IRT Role Sidebar": "irt_ui/doctype/irt_role_sidebar/irt_role_sidebar.js"
-# }
 
