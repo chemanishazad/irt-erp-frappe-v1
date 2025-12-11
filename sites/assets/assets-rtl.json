@@ -1,14 +1,14 @@
 {
-    "rtl_desk.bundle.css": "/assets/frappe/dist/css-rtl/desk.bundle.V5H4EV3F.css",
-    "rtl_email.bundle.css": "/assets/frappe/dist/css-rtl/email.bundle.R3TWR3G6.css",
-    "rtl_login.bundle.css": "/assets/frappe/dist/css-rtl/login.bundle.ZF3AZSXB.css",
-    "rtl_print.bundle.css": "/assets/frappe/dist/css-rtl/print.bundle.I5A6P6MJ.css",
-    "rtl_print_format.bundle.css": "/assets/frappe/dist/css-rtl/print_format.bundle.AM52ESI4.css",
-    "rtl_report.bundle.css": "/assets/frappe/dist/css-rtl/report.bundle.ME2NASAL.css",
-    "rtl_web_form.bundle.css": "/assets/frappe/dist/css-rtl/web_form.bundle.TGKZQEP3.css",
-    "rtl_website.bundle.css": "/assets/frappe/dist/css-rtl/website.bundle.3R7BR7MI.css",
-    "rtl_erpnext-web.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext-web.bundle.QR2YSUCB.css",
-    "rtl_erpnext.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext.bundle.GEOSN5FF.css",
-    "rtl_erpnext_email.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext_email.bundle.3R3RD5OA.css",
-    "rtl_hrms.bundle.css": "/assets/hrms/dist/css-rtl/hrms.bundle.O3C6TV7Y.css"
+    "rtl_desk.bundle.css": "/assets/frappe/dist/css-rtl/desk.bundle.C24NUQ3T.css",
+    "rtl_email.bundle.css": "/assets/frappe/dist/css-rtl/email.bundle.OO6XDF4F.css",
+    "rtl_login.bundle.css": "/assets/frappe/dist/css-rtl/login.bundle.HLZTOUI6.css",
+    "rtl_print.bundle.css": "/assets/frappe/dist/css-rtl/print.bundle.EFCCMUXU.css",
+    "rtl_print_format.bundle.css": "/assets/frappe/dist/css-rtl/print_format.bundle.BUAPL22V.css",
+    "rtl_report.bundle.css": "/assets/frappe/dist/css-rtl/report.bundle.QT7STFD3.css",
+    "rtl_web_form.bundle.css": "/assets/frappe/dist/css-rtl/web_form.bundle.3ABMTVQ2.css",
+    "rtl_website.bundle.css": "/assets/frappe/dist/css-rtl/website.bundle.I5SVFYOG.css",
+    "rtl_erpnext-web.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext-web.bundle.LWBCFEJ7.css",
+    "rtl_erpnext.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext.bundle.5LFBKKIG.css",
+    "rtl_erpnext_email.bundle.css": "/assets/erpnext/dist/css-rtl/erpnext_email.bundle.7NK56JYV.css",
+    "rtl_hrms.bundle.css": "/assets/hrms/dist/css-rtl/hrms.bundle.OW4SUGS4.css"
 }
