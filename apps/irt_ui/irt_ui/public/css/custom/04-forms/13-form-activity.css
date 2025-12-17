@@ -1,0 +1,98 @@
+/**
+ * Form Activity Section Styling
+ * - Hide New Email and New Event buttons
+ * - Clean activity section appearance
+ */
+
+/* ============================================================
+   HIDE UNWANTED BUTTONS
+   ============================================================ */
+
+/* Hide New Email button - multiple approaches */
+.form-footer button[data-label="New Email"],
+.form-footer .btn:contains("Email"),
+.form-footer .btn[title*="Email"],
+button.btn-new-email,
+.timeline-actions button[data-label="New Email"] {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+	height: 0 !important;
+	width: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Hide New Event button - multiple approaches */
+.form-footer button[data-label="New Event"],
+.form-footer .btn:contains("Event"),
+.form-footer .btn[title*="Event"],
+button.btn-new-event,
+.timeline-actions button[data-label="New Event"] {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+	height: 0 !important;
+	width: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Hide the entire button group if needed */
+.form-footer .timeline-actions,
+.form-documents .timeline-actions,
+.form-sidebar .timeline-actions {
+	display: none !important;
+}
+
+/* ============================================================
+   ACTIVITY SECTION STYLING
+   ============================================================ */
+
+/* Activity section container */
+.form-footer,
+.form-documents {
+	margin-top: 24px !important;
+	padding-top: 24px !important;
+	border-top: 1px solid #e5e7eb !important;
+}
+
+/* Activity heading */
+.form-footer .section-head,
+.form-documents .section-head {
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: #1f2937 !important;
+	margin-bottom: 16px !important;
+}
+
+/* Activity items */
+.form-footer .comment-content,
+.timeline-item {
+	padding: 12px !important;
+	margin-bottom: 8px !important;
+	background: #f9fafb !important;
+	border-radius: 6px !important;
+	font-size: 13px !important;
+}
+
+/* Clean activity list */
+.form-footer ul,
+.timeline-content ul {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.form-footer ul li,
+.timeline-content ul li {
+	padding: 8px 0 !important;
+	border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.form-footer ul li:last-child,
+.timeline-content ul li:last-child {
+	border-bottom: none !important;
+}

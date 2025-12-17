@@ -1,35 +1,261 @@
 /**
  * Dashboard Layout
- * Uses font variables from variables.css
+ * Responsive grid + widget shell styles
  */
 
-/* Dashboard grid */
-.dashboard-grid,
-.widget-group {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	gap: var(--spacing-lg);
-	padding: var(--spacing-lg);
+:root {
+	--dashboard-grid-min-col: 260px;
+	--dashboard-grid-gap: var(--spacing-md);
 }
 
-/* Widget containers */
-.dashboard-widget,
-.widget,
-.shortcut-widget-box {
-	font-size: var(--font-size-base) !important;
+/* ---------------------------------------------
+   GRID
+   --------------------------------------------- */
+
+.dashboard-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(var(--dashboard-grid-min-col), 1fr));
+	gap: var(--dashboard-grid-gap);
+	align-items: start;
+	width: 100%;
+}
+
+.dashboard-grid.tight {
+	--dashboard-grid-gap: var(--spacing-sm);
+}
+
+.dashboard-grid.loose {
+	--dashboard-grid-gap: var(--spacing-lg);
+}
+
+.dashboard-grid.wide {
+	--dashboard-grid-min-col: 340px;
+}
+
+/* ---------------------------------------------
+   WIDGET SHELL
+   --------------------------------------------- */
+
+.dashboard-widget {
 	background: var(--color-bg-white);
 	border: 1px solid var(--color-border-light);
 	border-radius: var(--radius-md);
-	padding: var(--spacing-lg);
-	box-shadow: var(--shadow-sm);
+	box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	transition:
+		box-shadow var(--transition-base),
+		transform var(--transition-base),
+		border-color var(--transition-base);
+	padding: var(--spacing-md);
 }
 
-/* Widget headers */
-.widget-header,
+.dashboard-widget:hover {
+	box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+	border-color: rgba(0, 102, 255, 0.18);
+	transform: translateY(-1px);
+}
+
+.dashboard-widget.compact {
+	border-radius: var(--radius-md);
+}
+
+.dashboard-widget .widget-body {
+	padding: var(--spacing-md);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+}
+
+.dashboard-widget .widget-body.tight {
+	gap: var(--spacing-sm);
+	padding: var(--spacing-md);
+}
+
+.dashboard-widget .widget-body.flush {
+	padding: 0;
+}
+
+.dashboard-widget .widget-footer {
+	padding: var(--spacing-md) var(--spacing-lg);
+	border-top: 1px solid var(--color-border-light);
+	background: linear-gradient(180deg, rgba(248, 250, 252, 0.65), rgba(248, 250, 252, 0.4));
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--spacing-sm);
+}
+
+/* ---------------------------------------------
+   HEADER
+   --------------------------------------------- */
+
+.widget-header {
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-bottom: 1px solid var(--color-border-light);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-sm);
+	background: #ffffff;
+}
+
 .widget-title {
-	font-size: var(--font-size-sm) !important;
+	font-size: var(--font-size-md);
 	font-weight: var(--font-weight-semibold);
 	color: var(--color-text-primary);
-	margin-bottom: var(--spacing-md);
+	letter-spacing: -0.01em;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
 }
 
+.widget-subtitle {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-secondary);
+}
+
+.widget-actions {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+}
+
+.widget-actions .action-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 32px;
+	min-width: 32px;
+	padding: 0 var(--spacing-sm);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--color-border-light);
+	background: #ffffff;
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+	transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.widget-actions .action-btn:hover {
+	background: rgba(0, 102, 255, 0.08);
+	color: var(--color-primary);
+	border-color: rgba(0, 102, 255, 0.18);
+	box-shadow: 0 2px 6px rgba(0, 102, 255, 0.12);
+}
+
+.widget-actions .action-btn:active {
+	transform: translateY(1px);
+}
+
+.widget-drag-handle {
+	cursor: move;
+	color: var(--color-text-light);
+	opacity: 0.7;
+	transition: opacity var(--transition-fast);
+}
+
+.widget-drag-handle:hover {
+	opacity: 1;
+	color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------
+   INLINE UTILITIES FOR WIDGET CONTENT
+   --------------------------------------------- */
+
+.widget-metrics {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: var(--spacing-md);
+}
+
+.metric {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.metric-label {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-secondary);
+}
+
+.metric-value {
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-semibold);
+	color: var(--color-text-primary);
+	letter-spacing: -0.01em;
+}
+
+.metric-trend {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);
+}
+
+.metric-trend.positive {
+	color: var(--color-success);
+}
+
+.metric-trend.negative {
+	color: var(--color-error);
+}
+
+.widget-toolbar {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	padding: 0 var(--spacing-lg) var(--spacing-sm);
+	color: var(--color-text-secondary);
+}
+
+.widget-toolbar .toolbar-item {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+	padding: 6px 10px;
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.widget-toolbar .toolbar-item:hover {
+	background: rgba(0, 102, 255, 0.08);
+	color: var(--color-primary);
+}
+
+/* ---------------------------------------------
+   RESPONSIVE
+   --------------------------------------------- */
+
+@media (max-width: 992px) {
+	:root {
+		--dashboard-grid-gap: var(--spacing-md);
+	}
+}
+
+@media (max-width: 768px) {
+	:root {
+		--dashboard-grid-gap: var(--spacing-md);
+		--dashboard-grid-min-col: 100%;
+	}
+
+	.widget-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.widget-actions {
+		width: 100%;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	.dashboard-widget .widget-body {
+		padding: var(--spacing-md);
+	}
+}

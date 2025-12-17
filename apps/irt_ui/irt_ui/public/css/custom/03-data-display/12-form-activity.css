@@ -1,0 +1,45 @@
+/**
+ * Form Activity Section Customization
+ * - Hides Activity from form bottom
+ * - Hides New Email and New Event buttons
+ * - Activity will be shown in separate tab instead
+ */
+
+/* Hide Activity section from form bottom */
+.form-footer {
+	display: none !important;
+}
+
+/* Hide New Email and New Event buttons */
+button[data-label="New Email"],
+button:has(.fa-envelope),
+.btn-new-email,
+button[data-label="New Event"],
+button:has(.fa-calendar),
+.btn-new-event {
+	display: none !important;
+}
+
+/* Activity tab content styling */
+#activity-tab-content {
+	background: #fff;
+	min-height: 300px;
+}
+
+#activity-tab-content .activity-item {
+	transition: background-color 0.2s ease;
+}
+
+#activity-tab-content .activity-item:hover {
+	background-color: #f9fafb;
+}
+
+/* Ensure custom activity tab looks consistent */
+.activity-custom-tab .nav-link {
+	padding: 8px 16px !important;
+	font-size: 13px !important;
+}
+
+.form-page {
+	padding-bottom: 20px !important;
+}

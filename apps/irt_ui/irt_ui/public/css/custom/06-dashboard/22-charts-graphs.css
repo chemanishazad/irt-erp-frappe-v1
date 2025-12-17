@@ -9,7 +9,60 @@
 	font-size: var(--font-size-sm) !important;
 	background: var(--color-bg-white);
 	border-radius: var(--radius-md);
-	padding: var(--spacing-lg);
+	padding: var(--spacing-md);
+	min-height: 300px;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--color-border-light);
+	gap: var(--spacing-sm);
+}
+
+.chart-container .chart-area,
+.frappe-chart .chart-area,
+.chart-container svg,
+.chart-container canvas,
+.frappe-chart svg,
+.frappe-chart canvas {
+	flex: 1 1 auto;
+	width: 100% !important;
+	height: auto !important;
+	display: block;
+}
+
+.chart-container canvas,
+.chart-container svg,
+.frappe-chart canvas,
+.frappe-chart svg {
+	width: 100% !important;
+	height: auto !important;
+	display: block;
+}
+
+.chart-legend,
+.legend-dataset-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+	flex-wrap: wrap;
+	color: var(--color-text-secondary);
+	margin-top: var(--spacing-sm);
+}
+
+/* Axis / grid styling for readability */
+.frappe-chart .axis path,
+.frappe-chart .axis line,
+.chart-container .axis path,
+.chart-container .axis line {
+	stroke: #e5e7eb;
+}
+
+.frappe-chart .y-axis-label,
+.frappe-chart .x-axis-label,
+.chart-container .y-axis-label,
+.chart-container .x-axis-label {
+	fill: #94a3b8 !important;
 }
 
 /* Chart legends */
@@ -22,11 +75,20 @@
 /* Chart tooltips */
 .chart-tooltip,
 .graph-svg-tip {
-	font-size: var(--font-size-xs) !important;
-	background: var(--color-gray-800) !important;
-	color: var(--color-bg-white) !important;
+	font-size: var(--font-size-sm) !important;
+	background: #ffffff !important;
+	color: #0f172a !important;
 	padding: var(--spacing-sm) var(--spacing-md) !important;
 	border-radius: var(--radius-sm) !important;
+	border: 1px solid #e2e8f0 !important;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
+}
+
+.graph-svg-tip strong,
+.graph-svg-tip small,
+.chart-tooltip strong,
+.chart-tooltip small {
+	color: #0f172a !important;
 }
 
 /* Axis labels */

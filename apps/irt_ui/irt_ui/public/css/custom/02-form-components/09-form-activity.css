@@ -1,0 +1,153 @@
+/**
+ * Form Activity Section
+ * - Hide New Email and New Event buttons
+ * - Style activity section properly
+ */
+
+/* ============================================================
+   HIDE NEW EMAIL AND NEW EVENT BUTTONS
+   ============================================================ */
+
+/* Hide New Email button */
+button[data-label="New Email"],
+button[title="New Email"],
+.btn-new-email,
+.form-footer button:has(.fa-envelope),
+.form-footer .btn:contains("New Email") {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+/* Hide New Event button */
+button[data-label="New Event"],
+button[title="New Event"],
+.btn-new-event,
+.form-footer button:has(.fa-calendar),
+.form-footer .btn:contains("New Event") {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+/* ============================================================
+   ACTIVITY SECTION STYLING
+   ============================================================ */
+
+/* Activity section container */
+.form-footer,
+.form-section[data-fieldname="activity"],
+.activity-section {
+	padding: 16px 0 !important;
+	margin-top: 24px !important;
+	border-top: 1px solid #e5e7eb !important;
+	background: transparent !important;
+}
+
+/* Activity heading */
+.form-footer .form-section-heading,
+.activity-section .section-head,
+.form-section[data-fieldname="activity"] .section-head {
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: #1f2937 !important;
+	margin-bottom: 12px !important;
+	padding: 0 !important;
+}
+
+/* Activity content */
+.form-footer .form-section-body,
+.activity-section .section-body,
+.form-section[data-fieldname="activity"] .section-body {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Timeline items */
+.timeline-item {
+	padding: 12px 0 !important;
+	border-left: 2px solid #e5e7eb !important;
+	padding-left: 20px !important;
+	margin-left: 8px !important;
+	position: relative !important;
+}
+
+.timeline-item::before {
+	content: '' !important;
+	position: absolute !important;
+	left: -6px !important;
+	top: 16px !important;
+	width: 10px !important;
+	height: 10px !important;
+	background: #3b82f6 !important;
+	border-radius: 50% !important;
+	border: 2px solid #fff !important;
+}
+
+.timeline-item:hover::before {
+	background: #2563eb !important;
+}
+
+/* Timeline content */
+.timeline-item .timeline-content {
+	font-size: 13px !important;
+	color: #4b5563 !important;
+	line-height: 1.5 !important;
+}
+
+.timeline-item .timeline-content strong {
+	color: #1f2937 !important;
+	font-weight: 500 !important;
+}
+
+/* Timeline date */
+.timeline-item .timeline-date,
+.timeline-item .text-muted {
+	font-size: 12px !important;
+	color: #9ca3af !important;
+	margin-top: 4px !important;
+}
+
+/* Activity comments */
+.comment-box {
+	margin-top: 16px !important;
+	padding: 12px !important;
+	background: #f9fafb !important;
+	border-radius: 6px !important;
+	border: 1px solid #e5e7eb !important;
+}
+
+.comment-box textarea {
+	border: 1px solid #d1d5db !important;
+	border-radius: 4px !important;
+	padding: 8px 12px !important;
+	font-size: 13px !important;
+	min-height: 80px !important;
+}
+
+.comment-box textarea:focus {
+	border-color: #3b82f6 !important;
+	outline: none !important;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* ============================================================
+   FORM FOOTER CLEANUP
+   ============================================================ */
+
+/* Remove extra spacing and unwanted elements */
+.form-footer .col-xs-12 {
+	padding: 0 !important;
+}
+
+.form-footer .form-section {
+	margin-bottom: 0 !important;
+}
+
+/* Hide empty footer elements */
+.form-footer:empty,
+.form-footer .btn-group:empty {
+	display: none !important;
+}
