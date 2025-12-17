@@ -1,226 +1,349 @@
 /**
- * List View UI — Final Clean Version
- * Logic unchanged | UI fixed
+ * List View — Proper Width & Column Cleanup
+ * UI only | Logic unchanged
+ * Uses --font-scale from variables.css for sizing
  */
 
 /* ============================================================
-   BASE CONTAINER
+   BASE LIST CONTAINER
    ============================================================ */
 
-   .frappe-list {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      background: var(--color-bg-white);
-      margin: 0;
-      padding: 0;
-   }
-   
-   /* ============================================================
-      RESULT — SINGLE SCROLL AREA
-      ============================================================ */
-   
-   .frappe-list .result {
-      flex: 1;
-      overflow-x: auto;
-      overflow-y: auto;
-      max-height: calc(100vh - 220px);
-      position: relative;
-      margin: 0;
-      padding: 0;
-   }
-   
-   /* ============================================================
-      PAGE HEADER (TOP COLOR KEPT)
-      ============================================================ */
-   
-   .page-head,
-   .page-header {
-      position: sticky;
-      top: var(--navbar-height, 56px);
-      z-index: 100;
-      background: #f8f9fa;
-      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
-   }
-   
-   .page-title .title-text {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      padding: 12px 0;
-   }
-   
-   /* ============================================================
-      LIST HEADER (STICKY + COLORED)
-      ============================================================ */
-   
-   .list-row-head {
-      position: sticky;
-      top: 0;
-      z-index: 80;
-      display: flex;
-      align-items: center;
-      height: 44px;
-      padding: 0 16px;
-      background: #e6f0ff;
-      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
-   }
-   
-   /* ============================================================
-      LIST ROWS
-      ============================================================ */
-   
-   .frappe-list .list-row {
-      display: flex;
-      align-items: center;
-      height: 44px;
-      padding: 0 16px;
-      border-bottom: 1px solid var(--color-border-light, #e5e7eb);
-      background: var(--color-bg-white);
-      cursor: pointer;
-   }
-   
-   /* Hover */
-   .frappe-list .list-row:hover {
-      background: var(--color-gray-50);
-   }
-   
-   /* Selected */
-   .frappe-list .list-row.selected {
-      background: rgba(0, 102, 255, 0.06);
-   }
-   
-   /* ============================================================
-      FULL WIDTH FIX (NO RIGHT BREAK)
-      ============================================================ */
-   
-   .frappe-list .list-row,
-   .list-row-head {
-      width: max-content;
-      min-width: 100%;
-   }
-   
-   /* ============================================================
-      LIST COLUMNS
-      ============================================================ */
-   
-   .frappe-list .list-row-col,
-   .list-row-head .list-row-col {
-      padding: 0 12px;
-      min-width: 140px;
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   }
-   
-   /* Status column */
-   .frappe-list .list-row-col.status,
-   .list-row-head .list-row-col.status {
-      justify-content: center;
-      text-align: center;
-      min-width: 140px;
-   }
-   
-   /* Changed by */
-   .frappe-list .list-row-col.changed_by,
-   .list-row-head .list-row-col.changed_by {
-      min-width: 200px;
-      white-space: normal;
-   }
-   
-   /* ============================================================
-      REMOVE RIGHT-END COLUMNS (LIKE / COMMENT / TIME)
-      ============================================================ */
-   
-   /* Header */
-   .list-row-head .list-row-col.like,
-   .list-row-head .list-row-col.comment,
-   .list-row-head .list-row-col.modified,
-   .list-row-head .list-row-col.creation,
-   .list-row-head .level-right {
-      display: none !important;
-   }
-   
-   /* Rows */
-   .frappe-list .list-row-col.like,
-   .frappe-list .list-row-col.comment,
-   .frappe-list .list-row-col.modified,
-   .frappe-list .list-row-col.creation,
-   .frappe-list .level-right {
-      display: none !important;
-   }
-   
-   /* Icons safety */
-   .list-row-like,
-   .like-action,
-   .like-icon,
-   .comment-count,
-   .list-comment-count {
-      display: none !important;
-   }
-   
-   /* ============================================================
-      PAGINATION — ATTACHED & CLEAN
-      ============================================================ */
-   
-   .list-paging-area {
-      position: sticky;
-      bottom: 0;
-      z-index: 90;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: #f8f9fa;
-      border-top: 1px solid var(--color-border-light, #e5e7eb);
-      margin: 0;
-   }
-   
-   /* Pagination buttons */
-   .list-paging-area .btn-paging,
-   .list-paging-area .btn-more {
-      padding: 6px 12px;
-      font-size: var(--font-size-xs);
-      border-radius: 6px;
-      border: 1px solid var(--color-border-light, #e5e7eb);
-      background: var(--color-bg-white);
-      color: var(--color-text-primary);
-      cursor: pointer;
-   }
-   
-   .list-paging-area .btn-paging:hover,
-   .list-paging-area .btn-more:hover {
-      background: var(--color-gray-50);
-   }
-   
-   /* Active page */
-   .list-paging-area .btn-paging.btn-info {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
-      color: #ffffff;
-   }
-   
-   /* ============================================================
-      REMOVE UNWANTED GAPS
-      ============================================================ */
-   
-   .list-view-container,
-   .result-container,
-   .frappe-list {
-      margin-bottom: 0 !important;
-      padding-bottom: 0 !important;
-   }
-   
-   /* ============================================================
-      RESPONSIVE
-      ============================================================ */
-   
-   @media (max-width: 768px) {
-      .frappe-list .list-row,
-      .list-row-head {
-         min-width: 720px;
-      }
-   }
-   
+.frappe-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	background: var(--color-bg-white);
+	font-size: var(--font-size-base) !important;
+}
+
+/* ============================================================
+   RESULT — SINGLE SCROLL AREA
+   ============================================================ */
+
+.frappe-list .result {
+	flex: 1;
+	overflow-x: auto;
+	overflow-y: auto;
+	max-height: calc(100vh - 220px);
+	width: 100%;
+	position: relative;
+	padding-right: 0; /* flush to the right */
+}
+
+/* ============================================================
+   PAGE HEADER (UNCHANGED)
+   ============================================================ */
+
+.page-head,
+.page-header {
+	position: sticky;
+	top: var(--navbar-height, 56px);
+	z-index: 100;
+	background: #f8f9fa;
+	border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+}
+
+.page-title .title-text {
+	font-size: var(--font-size-3xl) !important;
+	font-weight: 700;
+	padding: 12px 0;
+}
+
+/* ============================================================
+   LIST HEADER
+   ============================================================ */
+
+.list-row-head {
+	position: sticky;
+	top: 0;
+	z-index: 80;
+	display: flex;
+	align-items: center;
+	height: 40px;
+	padding: 0 16px;
+	background: #e6f0ff;
+	border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+	width: fit-content;     /* IMPORTANT */
+	min-width: 100%;        /* IMPORTANT */
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-semibold) !important;
+}
+
+/* ============================================================
+   LIST ROWS
+   ============================================================ */
+
+.frappe-list .list-row {
+	display: flex;
+	align-items: center;
+	height: 40px;
+	padding: 0 16px 0 16px;
+	margin-right: 0; /* remove extra right gap */
+	border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+	background: var(--color-bg-white);
+	width: fit-content;     /* IMPORTANT */
+	min-width: 100%;        /* IMPORTANT - full width without offset */
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================================
+   LIST COLUMNS (RECALCULATED)
+   ============================================================ */
+
+.frappe-list .list-row-col,
+.list-row-head .list-row-col {
+	padding: 0 12px;
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	min-width: 140px;
+	flex: 0 0 auto;
+}
+
+/* First column (checkbox + ID) */
+.list-row-col:first-child {
+	min-width: 60px;
+}
+
+/* Status */
+.frappe-list .list-row-col.status,
+.list-row-head .list-row-col.status {
+	min-width: 140px;
+	justify-content: center;
+}
+
+/* Changed By */
+.frappe-list .list-row-col.changed_by,
+.list-row-head .list-row-col.changed_by {
+	min-width: 200px;
+	white-space: normal;
+}
+
+/* ============================================================
+   REMOVE RIGHT-END COLUMNS COMPLETELY
+   ============================================================ */
+
+/* Header */
+.list-row-head .list-row-col.like,
+.list-row-head .list-row-col.comment,
+.list-row-head .list-row-col.modified,
+.list-row-head .list-row-col.creation,
+.list-row-head .level-right {
+	display: none !important;
+}
+
+/* Rows */
+.frappe-list .list-row-col.like,
+.frappe-list .list-row-col.comment,
+.frappe-list .list-row-col.modified,
+.frappe-list .list-row-col.creation,
+.frappe-list .level-right {
+	display: none !important;
+}
+
+/* Safety: icons */
+.list-row-like,
+.like-action,
+.like-icon,
+.comment-count,
+.list-comment-count {
+	display: none !important;
+}
+
+/* ============================================================
+   PAGINATION — ATTACHED & FULL WIDTH
+   ============================================================ */
+
+.list-paging-area {
+	position: sticky !important;
+	bottom: 0 !important;
+	z-index: 90 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	flex-wrap: wrap !important;
+	gap: 10px !important;
+	padding: 10px 18px !important;
+	background: linear-gradient(180deg, #f8fafc 0%, #ffffff 80%) !important;
+	border-top: 1px solid #e5e7eb !important;
+	box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.08) !important;
+	border-radius: 12px 12px 0 0 !important;
+	width: 100% !important;
+	margin: 0 !important;
+}
+
+/* Pagination button group */
+.list-paging-area .btn-group,
+.list-paging-area .btn-group-sm {
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+
+/* All pagination buttons */
+.list-paging-area .btn,
+.list-paging-area .btn-default,
+.list-paging-area .btn-group .btn,
+.list-paging-area .btn-group-sm .btn,
+.list-paging-area .btn-paging,
+.list-paging-area .btn-more {
+	padding: 8px 14px !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: 600 !important;
+	border-radius: 8px !important;
+	border: 1px solid #d1d5db !important;
+	background: #ffffff !important;
+	color: #374151 !important;
+	transition: all 0.18s ease !important;
+	cursor: pointer !important;
+	min-width: 48px !important;
+	text-align: center !important;
+	margin: 0 !important;
+	line-height: 1.4 !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07) !important;
+}
+
+.list-paging-area .btn:hover,
+.list-paging-area .btn-default:hover,
+.list-paging-area .btn-group .btn:hover,
+.list-paging-area .btn-group-sm .btn:hover {
+	background: #f3f4f6 !important;
+	border-color: #9ca3af !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Active/Selected pagination button */
+.list-paging-area .btn.btn-info,
+.list-paging-area .btn-group .btn.btn-info,
+.list-paging-area .btn-group-sm .btn.btn-info,
+.list-paging-area .btn.active,
+.list-paging-area .btn-group .btn.active {
+	background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+	color: #ffffff !important;
+	border-color: #1d4ed8 !important;
+	box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35) !important;
+}
+
+.list-paging-area .btn.btn-info:hover,
+.list-paging-area .btn-group .btn.btn-info:hover,
+.list-paging-area .btn.active:hover {
+	background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+	border-color: #1e40af !important;
+	transform: translateY(-2px) !important;
+	box-shadow: 0 10px 18px rgba(37, 99, 235, 0.45) !important;
+}
+
+.list-paging-area .btn:disabled {
+	opacity: 0.55 !important;
+	cursor: not-allowed !important;
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+/* Focus ring for keyboard users */
+.list-paging-area .btn:focus-visible {
+	outline: 2px solid #2563eb !important;
+	outline-offset: 2px !important;
+	box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* Tidy dropdown/input inside pagination */
+.list-paging-area select,
+.list-paging-area input[type="number"],
+.list-paging-area input[type="text"] {
+	font-size: var(--font-size-sm) !important;
+	border-radius: 8px !important;
+	border: 1px solid #d1d5db !important;
+	padding: 6px 10px !important;
+	color: #374151 !important;
+	background: #ffffff !important;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.list-paging-area select:focus,
+.list-paging-area input[type="number"]:focus,
+.list-paging-area input[type="text"]:focus {
+	border-color: #2563eb !important;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18) !important;
+}
+
+/* Page count text */
+.list-paging-area .btn-count,
+.list-paging-area .page-length {
+	font-size: var(--font-size-sm) !important;
+	color: #6b7280 !important;
+	font-weight: 500 !important;
+	margin-left: 16px !important;
+}
+
+/* ============================================================
+   LIST TEXT & LINKS — USE VARIABLES
+   ============================================================ */
+
+.frappe-list a,
+.frappe-list .like-disabled-link,
+.frappe-list .list-row-col {
+	font-size: var(--font-size-sm) !important;
+}
+
+.frappe-list .level-left .list-row-col.ellipsis a {
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-medium) !important;
+}
+
+/* Status badges */
+.frappe-list .indicator-pill {
+	font-size: var(--font-size-xs) !important;
+	padding: 2px 8px !important;
+}
+
+/* ============================================================
+   REMOVE EXTRA GAPS
+   ============================================================ */
+
+.list-view-container,
+.result-container,
+.frappe-list {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* ============================================================
+   RIGHT SIDE SPACING FOR TABLE VIEW
+   ============================================================ */
+
+.frappe-list,
+.frappe-list .result {
+	padding-right: 0 !important;
+}
+
+.layout-main,
+.layout-main-section,
+.page-container,
+.page-content {
+	padding-right: 0 !important;
+}
+
+.layout-main-section {
+	padding-right: 16px !important;
+}
+
+.page-container {
+	padding-right: 12px !important;
+}
+
+/* ============================================================
+   RESPONSIVE SAFETY
+   ============================================================ */
+
+@media (max-width: 768px) {
+	.list-row-head,
+	.frappe-list .list-row {
+		min-width: 720px;
+	}
+}

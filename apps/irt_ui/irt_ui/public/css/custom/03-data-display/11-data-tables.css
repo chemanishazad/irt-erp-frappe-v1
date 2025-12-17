@@ -1,26 +1,39 @@
 /**
  * Data Tables
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Table styling */
-.data-table {
-	/* TODO: Add table styling */
+.data-table,
+.datatable,
+.dt-scrollable {
+	font-size: var(--font-size-sm) !important;
+	background: var(--color-bg-white);
 }
 
 /* Column widths */
 .data-table th,
-.data-table td {
-	/* TODO: Add column width styles */
+.data-table td,
+.dt-cell,
+.dt-header {
+	font-size: var(--font-size-sm) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+}
+
+.data-table th,
+.dt-header {
+	font-weight: var(--font-weight-semibold) !important;
+	background: var(--color-gray-50) !important;
 }
 
 /* Row selection */
-.data-table tbody tr.selected {
-	/* TODO: Add row selection styles */
+.data-table tbody tr.selected,
+.dt-row.dt-row--selected {
+	background: var(--color-primary-rgba-10) !important;
 }
 
 /* Actions column */
 .data-table .actions-column {
-	/* TODO: Add actions column styles */
+	font-size: var(--font-size-xs) !important;
 }
 

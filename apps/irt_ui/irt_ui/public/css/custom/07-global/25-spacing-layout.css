@@ -1,25 +1,53 @@
 /**
- * Spacing & Layout
- * Status: TODO - Most spacing already in variables.css
+ * Spacing & Layout Utilities
+ * Uses variables from variables.css
  */
 
-/* Margins - override if needed */
-.margin-overrides {
-	/* TODO: Add margin overrides */
-}
+/* Margin utilities */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: var(--spacing-xs) !important; }
+.m-2 { margin: var(--spacing-sm) !important; }
+.m-3 { margin: var(--spacing-md) !important; }
+.m-4 { margin: var(--spacing-lg) !important; }
+.m-5 { margin: var(--spacing-xl) !important; }
 
-/* Padding - override if needed */
-.padding-overrides {
-	/* TODO: Add padding overrides */
-}
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: var(--spacing-xs) !important; }
+.mt-2 { margin-top: var(--spacing-sm) !important; }
+.mt-3 { margin-top: var(--spacing-md) !important; }
+.mt-4 { margin-top: var(--spacing-lg) !important; }
 
-/* Grid system */
-.grid-system {
-	/* TODO: Add grid system styles */
-}
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--spacing-xs) !important; }
+.mb-2 { margin-bottom: var(--spacing-sm) !important; }
+.mb-3 { margin-bottom: var(--spacing-md) !important; }
+.mb-4 { margin-bottom: var(--spacing-lg) !important; }
+
+/* Padding utilities */
+.p-0 { padding: 0 !important; }
+.p-1 { padding: var(--spacing-xs) !important; }
+.p-2 { padding: var(--spacing-sm) !important; }
+.p-3 { padding: var(--spacing-md) !important; }
+.p-4 { padding: var(--spacing-lg) !important; }
+.p-5 { padding: var(--spacing-xl) !important; }
+
+/* Gap utilities */
+.gap-0 { gap: 0 !important; }
+.gap-1 { gap: var(--spacing-xs) !important; }
+.gap-2 { gap: var(--spacing-sm) !important; }
+.gap-3 { gap: var(--spacing-md) !important; }
+.gap-4 { gap: var(--spacing-lg) !important; }
 
 /* Responsive breakpoints */
 @media (max-width: 768px) {
-	/* TODO: Add mobile responsive styles */
+	.container,
+	.container-fluid {
+		padding-left: var(--spacing-md) !important;
+		padding-right: var(--spacing-md) !important;
+	}
+	
+	.page-container {
+		padding: var(--spacing-sm) !important;
+	}
 }
 

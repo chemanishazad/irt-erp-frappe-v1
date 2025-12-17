@@ -1,21 +1,50 @@
 /**
  * Progress Indicators
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Loading spinners */
 .spinner,
-.loading-spinner {
-	/* TODO: Add spinner styles */
+.loading-spinner,
+.frappe-loading {
+	width: 24px;
+	height: 24px;
+	border: 2px solid var(--color-border-light);
+	border-top-color: var(--color-primary);
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
 }
 
 /* Progress bars */
+.progress,
 .progress-bar {
-	/* TODO: Add progress bar styles */
+	height: 8px;
+	background: var(--color-gray-200);
+	border-radius: var(--radius-full);
+	overflow: hidden;
+}
+
+.progress-bar,
+.progress .progress-bar {
+	background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+	transition: width var(--transition-slow);
 }
 
 /* Skeleton loaders */
-.skeleton-loader {
-	/* TODO: Add skeleton loader styles */
+.skeleton-loader,
+.skeleton {
+	background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
 }
 

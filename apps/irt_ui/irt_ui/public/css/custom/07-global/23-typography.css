@@ -1,28 +1,347 @@
 /**
- * Typography
- * Status: TODO
+ * Typography - Global Font Size System
+ * All sizes use CSS variables from variables.css
+ * Change --font-scale in variables.css to adjust all sizes at once
  */
 
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-	/* TODO: Add heading styles */
+/* ============================================
+   BASE FONT SIZE
+   ============================================ */
+html {
+	font-size: var(--font-size-base) !important;
 }
 
-/* Body text */
-body,
-p {
-	/* TODO: Add body text styles */
+body {
+	font-size: var(--font-size-base) !important;
+	line-height: var(--line-height-normal);
 }
 
-/* Links */
+/* ============================================
+   HEADINGS
+   ============================================ */
+h1, .h1 {
+	font-size: var(--font-size-4xl) !important;
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-tight);
+}
+
+h2, .h2 {
+	font-size: var(--font-size-3xl) !important;
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-tight);
+}
+
+h3, .h3 {
+	font-size: var(--font-size-2xl) !important;
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-tight);
+}
+
+h4, .h4 {
+	font-size: var(--font-size-xl) !important;
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-tight);
+}
+
+h5, .h5 {
+	font-size: var(--font-size-lg) !important;
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
+}
+
+h6, .h6 {
+	font-size: var(--font-size-md) !important;
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
+}
+
+/* ============================================
+   BODY TEXT & PARAGRAPHS
+   ============================================ */
+p,
+.paragraph,
+.text-regular {
+	font-size: var(--font-size-base) !important;
+	line-height: var(--line-height-normal);
+}
+
+/* ============================================
+   FRAPPE PAGE TITLES
+   ============================================ */
+.page-title .title-text,
+.title-area .title-text {
+	font-size: var(--font-size-2xl) !important;
+	font-weight: var(--font-weight-bold);
+}
+
+.page-title .sub-title,
+.subtitle {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   FORM LABELS & INPUTS
+   ============================================ */
+.frappe-control label,
+.control-label,
+.form-group label,
+label {
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-medium);
+}
+
+input,
+textarea,
+select,
+.form-control,
+.input-with-feedback,
+.like-disabled-input,
+.frappe-control input,
+.frappe-control textarea,
+.frappe-control select {
+	font-size: var(--font-size-base) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn,
+button,
+.frappe-control .btn {
+	font-size: var(--font-size-sm) !important;
+}
+
+.btn-lg {
+	font-size: var(--font-size-md) !important;
+}
+
+.btn-sm {
+	font-size: var(--font-size-xs) !important;
+}
+
+.btn-xs {
+	font-size: var(--font-size-2xs) !important;
+}
+
+/* ============================================
+   TABLES & LIST VIEWS
+   ============================================ */
+.frappe-list,
+.frappe-list .list-row,
+.frappe-list .list-row-head,
+.datatable,
+table,
+.report-wrapper {
+	font-size: var(--font-size-sm) !important;
+}
+
+th,
+td,
+.dt-cell,
+.dt-cell__content,
+.list-row-col {
+	font-size: var(--font-size-sm) !important;
+}
+
+.list-row-col .like-disabled-input,
+.list-row-col .level-left {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   SIDEBAR & NAVIGATION
+   ============================================ */
+.desk-sidebar,
+.sidebar-menu,
+.standard-sidebar-label,
+.sidebar-label {
+	font-size: var(--font-size-sm) !important;
+}
+
+.desk-sidebar .standard-sidebar-item span,
+.sidebar-menu .sidebar-label {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar,
+.navbar-nav,
+.nav-link,
+#navbar-breadcrumbs {
+	font-size: var(--font-size-sm) !important;
+}
+
+.navbar-brand {
+	font-size: var(--font-size-lg) !important;
+}
+
+/* ============================================
+   DROPDOWNS & SELECT
+   ============================================ */
+.dropdown-menu,
+.dropdown-item,
+.awesomplete li,
+.ui-menu-item,
+.select2-results {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   MODALS & DIALOGS
+   ============================================ */
+.modal-title {
+	font-size: var(--font-size-lg) !important;
+	font-weight: var(--font-weight-semibold);
+}
+
+.modal-body,
+.modal-content {
+	font-size: var(--font-size-base) !important;
+}
+
+/* ============================================
+   CARDS & PANELS
+   ============================================ */
+.card-title,
+.panel-title {
+	font-size: var(--font-size-md) !important;
+	font-weight: var(--font-weight-semibold);
+}
+
+.card-body,
+.panel-body {
+	font-size: var(--font-size-base) !important;
+}
+
+/* ============================================
+   BADGES & TAGS
+   ============================================ */
+.badge,
+.tag,
+.indicator-pill,
+.indicator {
+	font-size: var(--font-size-xs) !important;
+}
+
+/* ============================================
+   TOOLTIPS & POPOVERS
+   ============================================ */
+.tooltip,
+.tooltip-inner,
+.popover,
+.popover-body {
+	font-size: var(--font-size-xs) !important;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.list-paging-area,
+.pagination,
+.page-link,
+.btn-paging {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   HELPER / MUTED TEXT
+   ============================================ */
+.text-muted,
+.help-block,
+.form-text,
+small,
+.small,
+.text-small {
+	font-size: var(--font-size-xs) !important;
+}
+
+.text-extra-muted {
+	font-size: var(--font-size-2xs) !important;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
 a,
 .link {
-	/* TODO: Add link styles */
+	font-size: inherit;
 }
 
-/* Code blocks */
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
 code,
-pre {
-	/* TODO: Add code block styles */
+pre,
+.code-block {
+	font-size: var(--font-size-xs) !important;
+}
+
+/* ============================================
+   SECTION HEADINGS
+   ============================================ */
+.section-head,
+.form-section .section-head {
+	font-size: var(--font-size-md) !important;
+	font-weight: var(--font-weight-semibold);
+}
+
+/* ============================================
+   COMMENT & TIMELINE
+   ============================================ */
+.timeline-item,
+.comment-box,
+.comment-content {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   SEARCH
+   ============================================ */
+.search-bar input,
+#navbar-search,
+.awesomplete input {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   FRAPPE SPECIFIC OVERRIDES
+   ============================================ */
+.frappe-control .control-value,
+.like-disabled-input {
+	font-size: var(--font-size-base) !important;
+}
+
+.frappe-control .help-box {
+	font-size: var(--font-size-xs) !important;
+}
+
+.page-container,
+.layout-main-section {
+	font-size: var(--font-size-base) !important;
+}
+
+/* Filter area */
+.filter-box,
+.filter-area {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* Desk icons */
+.widget-title,
+.shortcut-widget-box .widget-title {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* Tree view */
+.tree-node,
+.tree-label {
+	font-size: var(--font-size-sm) !important;
 }
 

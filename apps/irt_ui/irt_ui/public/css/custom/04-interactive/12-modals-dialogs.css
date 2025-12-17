@@ -1,31 +1,53 @@
 /**
  * Modals / Dialogs
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Modal backdrop */
 .modal-backdrop {
-	/* TODO: Add modal backdrop styles */
+	background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal container */
+.modal-content {
+	font-size: var(--font-size-base) !important;
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-xl);
 }
 
 /* Modal header */
 .modal-header {
-	/* TODO: Add modal header styles */
+	padding: var(--spacing-lg) var(--spacing-xl);
+	border-bottom: 1px solid var(--color-border-light);
+}
+
+.modal-title {
+	font-size: var(--font-size-lg) !important;
+	font-weight: var(--font-weight-semibold);
 }
 
 /* Modal body */
 .modal-body {
-	/* TODO: Add modal body styles */
+	font-size: var(--font-size-base) !important;
+	padding: var(--spacing-xl);
 }
 
 /* Modal footer */
 .modal-footer {
-	/* TODO: Add modal footer styles */
+	padding: var(--spacing-md) var(--spacing-xl);
+	border-top: 1px solid var(--color-border-light);
 }
 
 /* Close buttons */
 .modal-close,
 .btn-close {
-	/* TODO: Add close button styles */
+	font-size: var(--font-size-lg) !important;
+	opacity: 0.6;
+	transition: opacity var(--transition-fast);
+}
+
+.modal-close:hover,
+.btn-close:hover {
+	opacity: 1;
 }
 

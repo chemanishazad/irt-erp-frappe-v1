@@ -1,20 +1,35 @@
 /**
  * Dashboard Layout
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Dashboard grid */
-.dashboard-grid {
-	/* TODO: Add dashboard grid styles */
+.dashboard-grid,
+.widget-group {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--spacing-lg);
+	padding: var(--spacing-lg);
 }
 
 /* Widget containers */
-.dashboard-widget {
-	/* TODO: Add widget container styles */
+.dashboard-widget,
+.widget,
+.shortcut-widget-box {
+	font-size: var(--font-size-base) !important;
+	background: var(--color-bg-white);
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--radius-md);
+	padding: var(--spacing-lg);
+	box-shadow: var(--shadow-sm);
 }
 
 /* Widget headers */
-.widget-header {
-	/* TODO: Add widget header styles */
+.widget-header,
+.widget-title {
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-semibold);
+	color: var(--color-text-primary);
+	margin-bottom: var(--spacing-md);
 }
 

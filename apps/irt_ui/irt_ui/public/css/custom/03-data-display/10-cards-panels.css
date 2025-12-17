@@ -1,34 +1,44 @@
 /**
  * Cards / Panels
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Card containers */
 .card,
 .panel {
-	/* TODO: Add card container styles */
+	background: var(--color-bg-white);
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
 }
 
 /* Card headers */
 .card-header,
 .panel-heading {
-	/* TODO: Add card header styles */
+	font-size: var(--font-size-md) !important;
+	font-weight: var(--font-weight-semibold);
+	padding: var(--spacing-md) var(--spacing-lg);
+	background: var(--color-gray-50);
+	border-bottom: 1px solid var(--color-border-light);
 }
 
 /* Card content */
 .card-body,
 .panel-body {
-	/* TODO: Add card content styles */
+	font-size: var(--font-size-base) !important;
+	padding: var(--spacing-lg);
 }
 
 /* Card actions */
 .card-actions,
 .panel-footer {
-	/* TODO: Add card action styles */
+	font-size: var(--font-size-sm) !important;
+	padding: var(--spacing-md) var(--spacing-lg);
+	border-top: 1px solid var(--color-border-light);
 }
 
 /* Dashboard cards */
 .dashboard-card {
-	/* TODO: Add dashboard card styles */
+	font-size: var(--font-size-base) !important;
 }
 

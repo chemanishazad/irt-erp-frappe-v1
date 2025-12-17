@@ -1,22 +1,51 @@
 /**
- * Colors & Theme
- * Status: TODO - Most colors already in variables.css
+ * Colors & Theme Overrides
+ * Uses variables from variables.css
  */
 
-/* Status colors - override if needed */
-.status-success {
-	/* TODO: Add success color overrides */
+/* Status colors - consistent styling */
+.status-success,
+.text-success {
+	color: var(--color-success) !important;
 }
 
-.status-error {
-	/* TODO: Add error color overrides */
+.status-error,
+.text-danger,
+.text-error {
+	color: var(--color-error) !important;
 }
 
-.status-warning {
-	/* TODO: Add warning color overrides */
+.status-warning,
+.text-warning {
+	color: var(--color-warning) !important;
 }
 
-.status-info {
-	/* TODO: Add info color overrides */
+.status-info,
+.text-info {
+	color: var(--color-info) !important;
+}
+
+/* Background colors */
+.bg-success {
+	background-color: var(--color-success-light) !important;
+}
+
+.bg-danger,
+.bg-error {
+	background-color: var(--color-error-light) !important;
+}
+
+.bg-warning {
+	background-color: var(--color-warning-light) !important;
+}
+
+.bg-info {
+	background-color: var(--color-info-light) !important;
+}
+
+/* Text muted */
+.text-muted {
+	color: var(--color-text-secondary) !important;
+	font-size: var(--font-size-sm) !important;
 }
 

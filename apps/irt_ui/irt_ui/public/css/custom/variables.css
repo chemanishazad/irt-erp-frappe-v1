@@ -134,17 +134,22 @@
 
 	/* ============================================
 	   TYPOGRAPHY - FONT SIZES
+	   Change --font-scale to adjust all sizes at once
+	   Default: 1 | Smaller: 0.9 | Larger: 1.1
 	   ============================================ */
-	--font-size-xs: 12px;
-	--font-size-sm: 13px;
-	--font-size-base: 14px;
-	--font-size-md: 15px;
-	--font-size-lg: 16px;
-	--font-size-xl: 18px;
-	--font-size-2xl: 20px;
-	--font-size-3xl: 24px;
-	--font-size-4xl: 28px;
-	--font-size-5xl: 32px;
+	--font-scale: 0.92; /* Adjust this to scale all font sizes */
+	
+	--font-size-2xs: calc(10px * var(--font-scale));
+	--font-size-xs: calc(11px * var(--font-scale));
+	--font-size-sm: calc(12px * var(--font-scale));
+	--font-size-base: calc(13px * var(--font-scale));
+	--font-size-md: calc(14px * var(--font-scale));
+	--font-size-lg: calc(15px * var(--font-scale));
+	--font-size-xl: calc(17px * var(--font-scale));
+	--font-size-2xl: calc(19px * var(--font-scale));
+	--font-size-3xl: calc(22px * var(--font-scale));
+	--font-size-4xl: calc(26px * var(--font-scale));
+	--font-size-5xl: calc(30px * var(--font-scale));
 
 	/* ============================================
 	   TYPOGRAPHY - FONT WEIGHTS

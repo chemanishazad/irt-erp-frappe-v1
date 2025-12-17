@@ -1,24 +1,57 @@
 /**
  * Badges / Labels
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Status badges */
 .badge,
-.label {
-	/* TODO: Add badge/label styles */
+.label,
+.indicator-pill {
+	font-size: var(--font-size-xs) !important;
+	font-weight: var(--font-weight-medium);
+	padding: 2px 8px;
+	border-radius: var(--radius-full);
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
 }
 
 /* Count badges */
 .badge-count {
-	/* TODO: Add count badge styles */
+	font-size: var(--font-size-2xs) !important;
+	font-weight: var(--font-weight-semibold);
+	min-width: 18px;
+	height: 18px;
+	padding: 0 6px;
+	border-radius: var(--radius-full);
+	background: var(--color-primary);
+	color: var(--color-bg-white);
 }
 
 /* Color coding */
 .badge-success,
+.indicator-pill.green {
+	background: var(--color-success-light) !important;
+	color: var(--color-success) !important;
+}
+
 .badge-error,
+.badge-danger,
+.indicator-pill.red {
+	background: var(--color-error-light) !important;
+	color: var(--color-error) !important;
+}
+
 .badge-warning,
-.badge-info {
-	/* TODO: Add color coded badge styles */
+.indicator-pill.orange,
+.indicator-pill.yellow {
+	background: var(--color-warning-light) !important;
+	color: var(--color-warning) !important;
+}
+
+.badge-info,
+.indicator-pill.blue {
+	background: var(--color-info-light) !important;
+	color: var(--color-info) !important;
 }
 

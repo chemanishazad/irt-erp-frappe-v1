@@ -1,11 +1,17 @@
 /**
  * Tooltips
- * Status: TODO
+ * Uses font variables from variables.css
  */
 
 /* Tooltip styling */
-.tooltip {
-	/* TODO: Add tooltip styles */
+.tooltip,
+.tooltip-inner {
+	font-size: var(--font-size-xs) !important;
+	padding: var(--spacing-xs) var(--spacing-sm);
+	background: var(--color-gray-800);
+	color: var(--color-bg-white);
+	border-radius: var(--radius-sm);
+	max-width: 250px;
 }
 
 /* Tooltip positioning */
@@ -13,11 +19,11 @@
 .tooltip.bottom,
 .tooltip.left,
 .tooltip.right {
-	/* TODO: Add tooltip positioning styles */
+	opacity: 0.95;
 }
 
 /* Tooltip animations */
 .tooltip.fade {
-	/* TODO: Add tooltip animation styles */
+	transition: opacity var(--transition-fast);
 }
 
