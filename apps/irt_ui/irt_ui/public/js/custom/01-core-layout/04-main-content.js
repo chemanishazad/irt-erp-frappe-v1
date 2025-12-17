@@ -85,13 +85,30 @@
 			layoutMain.style.setProperty('margin-right', '0px', 'important');
 		}
 
-		const sidebars = document.querySelectorAll('.form-sidebar, .list-sidebar, .layout-side-section, .layout-sidebar');
-		sidebars.forEach(sidebar => {
-			sidebar.style.setProperty('display', 'none', 'important');
-			sidebar.style.setProperty('width', '0', 'important');
-			sidebar.style.setProperty('margin', '0', 'important');
-			sidebar.style.setProperty('padding', '0', 'important');
-		});
+		// Only hide sidebars for list views and workspaces, NOT for DocType forms
+		const isDocTypeForm = document.querySelector('body[data-route*="doctype"]') && 
+		                      !document.querySelector('body[data-route*="List"]');
+		
+		if (!isDocTypeForm) {
+			const sidebars = document.querySelectorAll('.list-sidebar');
+			sidebars.forEach(sidebar => {
+				sidebar.style.setProperty('display', 'none', 'important');
+				sidebar.style.setProperty('width', '0', 'important');
+				sidebar.style.setProperty('margin', '0', 'important');
+				sidebar.style.setProperty('padding', '0', 'important');
+			});
+		}
+		
+		// Always show form sidebar for DocType forms
+		if (isDocTypeForm) {
+			const formSidebars = document.querySelectorAll('.form-sidebar, .layout-side-section');
+			formSidebars.forEach(sidebar => {
+				sidebar.style.setProperty('display', 'block', 'important');
+				sidebar.style.setProperty('width', '', 'important');
+				sidebar.style.setProperty('margin', '', 'important');
+				sidebar.style.setProperty('padding', '', 'important');
+			});
+		}
 	}
 
 	/**

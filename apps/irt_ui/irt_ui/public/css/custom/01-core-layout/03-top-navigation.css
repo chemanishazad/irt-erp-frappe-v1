@@ -8,7 +8,7 @@
    ============================================ */
 .navbar {
 	height: 63px;
-	background: var(--color-bg-white);
+	background-color: var(--color-bg-white);
 	padding: 0;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 	position: sticky;
@@ -124,7 +124,6 @@
 	width: 100%;
 	position: relative;
 }
-
 
 .search-bar .awesomplete input,
 .search-bar input.form-control,
@@ -257,7 +256,7 @@
 	transition: all var(--transition-base);
 	padding: var(--spacing-xs) var(--spacing-sm);
 	border-radius: var(--radius-sm);
-	background: transparent;
+	background-color: transparent;
 }
 
 #navbar-breadcrumbs a:hover {
@@ -322,7 +321,7 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-xs);
-	background: transparent;
+	background-color: transparent;
 }
 
 .navbar-nav .nav-link:hover {
@@ -358,7 +357,7 @@
 	position: absolute !important;
 }
 
-/* Show dropdown when parent has .show class - DEFAULT BEHAVIOR */
+/* Show dropdown when parent has .show class */
 .navbar-nav .dropdown.show .dropdown-menu,
 .navbar-nav .dropdown.open .dropdown-menu,
 .navbar-nav .show > .dropdown-menu,
@@ -367,12 +366,6 @@
 	display: block !important;
 	visibility: visible !important;
 	opacity: 1 !important;
-}
-
-/* Hide dropdown by default when not shown */
-.navbar-nav .dropdown:not(.show):not(.open) .dropdown-menu,
-.navbar-nav .dropdown-menu:not(.show):not(.open) {
-	display: none !important;
 }
 
 @keyframes dropdownFadeIn {
@@ -437,14 +430,6 @@
 	line-height: 1.5 !important;
 	white-space: normal !important;
 	word-wrap: break-word !important;
-}
-
-/* Ensure text content is properly aligned */
-.navbar-nav .dropdown-item * {
-	text-align: left !important;
-	vertical-align: middle !important;
-	padding: 0 !important;
-	margin: 0 !important;
 }
 
 .navbar-nav .dropdown-item:hover {
@@ -577,12 +562,6 @@
 
 #navbar-breadcrumbs a.breadcrumb-clicked {
 	transform: scale(0.95);
-}
-
-.navbar-nav .nav-link:focus-visible {
-	outline: 2px solid var(--color-primary);
-	outline-offset: 2px;
-	border-radius: var(--radius-md);
 }
 
 /* ============================================

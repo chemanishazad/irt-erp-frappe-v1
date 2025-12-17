@@ -39,9 +39,9 @@ input[type="number"]:focus,
 input[type="tel"]:focus,
 input[type="url"]:focus,
 input[type="search"]:focus {
-  outline: none;
+  outline: none !important;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
   background-color: var(--color-bg-white);
 }
 
@@ -81,6 +81,24 @@ input::placeholder {
   padding-right: 40px;
 }
 
+/* Hide duplicate icons in input-with-feedback - keep only one */
+.input-with-feedback .btn:not(:first-of-type),
+.input-with-feedback .link-btn:not(:first-of-type),
+.input-with-feedback .input-group-append:not(:first-of-type),
+.input-with-feedback .input-group-prepend:not(:first-of-type) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide duplicate icons in form groups */
+.form-group .input-group-append:not(:first-of-type),
+.form-group .input-group-prepend:not(:first-of-type),
+.form-group .btn:not(:first-of-type):not(.select-all):not(.deselect-all),
+.form-group .link-btn:not(:first-of-type) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
 /* ------------------------------------------------------------
    TEXTAREA
 -------------------------------------------------------------*/
@@ -89,7 +107,8 @@ textarea.form-control,
 textarea {
   width: 100%;
   max-width: 100%;
-  min-height: 80px;
+  min-height: 40px;
+  max-height: 500px;
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-sm);
   line-height: 1.5;
@@ -98,17 +117,56 @@ textarea {
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
   box-sizing: border-box;
-  resize: vertical;
+  resize: none;
+  overflow-y: auto;
   font-family: inherit;
   text-align: start;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
+}
+
+/* Auto-expand textarea */
+textarea.auto-expand {
+  resize: none;
+  overflow: hidden;
+}
+
+/* Auto-expand label inputs */
+input.auto-expand[type="text"] {
+  min-height: 40px;
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none;
+}
+
+/* Contenteditable label inputs (form builder) */
+[contenteditable="true"].auto-expand,
+.editable-input[contenteditable="true"],
+.form-builder [contenteditable="true"] {
+  min-height: 40px;
+  max-height: 200px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-white);
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
+}
+
+[contenteditable="true"]:focus,
+.editable-input[contenteditable="true"]:focus,
+.form-builder [contenteditable="true"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
 }
 
 textarea.form-control:focus,
 textarea:focus {
-  outline: none;
+  outline: none !important;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
   background-color: var(--color-bg-white);
 }
 
@@ -135,50 +193,73 @@ textarea::placeholder {
    SELECT DROPDOWNS (BASIC FIELD)
 -------------------------------------------------------------*/
 
+/* Base select styling with high specificity */
 select.form-control,
-select {
-  width: 100%;
-  max-width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  padding-right: 40px;
-  font-size: var(--font-size-sm);
-  line-height: 1.4;
-  font-weight: var(--font-weight-normal);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-white);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-md);
-  box-sizing: border-box;
-  text-align: start;
-  vertical-align: middle;
-  cursor: pointer;
-  height: 42px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230066FF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--spacing-md) center;
-  background-size: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+select,
+html body select,
+html body select.form-control,
+.frappe-control select,
+.form-group select,
+.form-control select {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  padding-right: 40px !important;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.5 !important;
+  font-weight: var(--font-weight-normal) !important;
+  color: var(--color-text-primary) !important;
+  background-color: var(--color-bg-white) !important;
+  background: var(--color-bg-white) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  box-sizing: border-box !important;
+  text-align: start !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  height: 42px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230066FF' d='M7 10L2 5h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--spacing-md) center !important;
+  background-size: 14px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 select::-ms-expand {
-  display: none;
+  display: none !important;
 }
 
 select.form-control:focus,
-select:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
-  background-color: var(--color-bg-white);
+select:focus,
+html body select:focus,
+html body select.form-control:focus,
+.frappe-control select:focus,
+.form-group select:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.1) !important;
+  background-color: var(--color-bg-white) !important;
+  transform: translateY(-1px) !important;
 }
 
 select.form-control:hover:not(:disabled):not(:focus),
-select:hover:not(:disabled):not(:focus) {
-  border-color: var(--color-primary);
-  background-color: var(--color-bg-white);
+select:hover:not(:disabled):not(:focus),
+html body select:hover:not(:disabled):not(:focus),
+.frappe-control select:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-primary) !important;
+  background-color: var(--color-bg-white) !important;
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.1) !important;
+}
+
+select.form-control:active:not(:disabled),
+select:active:not(:disabled),
+html body select:active:not(:disabled) {
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 select:disabled {
@@ -271,11 +352,13 @@ input[type="radio"] {
 input[type="checkbox"]:hover:not(:disabled):not(:checked) {
   border-color: var(--color-primary);
   background-color: var(--color-bg-white);
-  box-shadow: 0 0 0 2px var(--color-primary-rgba-10);
+  box-shadow: none;
+  outline: none !important;
 }
 
 /* Custom checkbox with theme color background and white tick */
-input[type="checkbox"]:checked {
+input[type="checkbox"]:checked,
+html body input[type="checkbox"]:checked {
   accent-color: var(--color-primary) !important;
   background-color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
@@ -286,12 +369,18 @@ input[type="checkbox"]:checked {
   box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
 }
 
+/* Ensure checkmark is never hidden */
+input[type="checkbox"]:checked[style*="background-image"],
+html body input[type="checkbox"]:checked[style*="background-image"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+}
+
 /* Checkbox checked hover state */
 input[type="checkbox"]:checked:hover:not(:disabled) {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3);
-  transform: scale(1.05);
+  outline: none !important;
 }
 
 /* Webkit browsers - override default checkbox */
@@ -301,25 +390,33 @@ input[type="checkbox"]::-webkit-checkbox-indicator {
   height: 0;
 }
 
-/* Global override for checkbox theme color */
+/* Global override for checkbox theme color - Ensure checkmark shows */
 html body input[type="checkbox"]:checked,
-html body input[type="checkbox"][checked] {
+html body input[type="checkbox"][checked],
+html body .frappe-control input[type="checkbox"]:checked,
+html body .frappe-control input[type="checkbox"][checked],
+html body .unit-checkbox input[type="checkbox"]:checked,
+html body .unit-checkbox input[type="checkbox"][checked],
+html body .form-group input[type="checkbox"]:checked,
+html body .form-group input[type="checkbox"][checked] {
   accent-color: var(--color-primary) !important;
   background-color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
 }
 
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-15);
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 input[type="checkbox"]:focus:checked {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2), 0 0 0 4px var(--color-primary-rgba-15);
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 input[type="checkbox"]:disabled,
@@ -381,19 +478,86 @@ input[type="file"]:disabled {
 }
 
 /* ------------------------------------------------------------
+   ATTACH BUTTON (File Attachment Control)
+-------------------------------------------------------------*/
+
+.btn-attach,
+.btn.btn-attach,
+.frappe-control[data-fieldtype="Attach"] .btn-attach,
+.frappe-control[data-fieldtype="Attach Image"] .btn-attach {
+  padding: 8px 16px !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-medium) !important;
+  color: var(--color-bg-white) !important;
+  background-color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 100px !important;
+  height: auto !important;
+  min-height: 36px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-attach:hover,
+.btn.btn-attach:hover,
+.frappe-control[data-fieldtype="Attach"] .btn-attach:hover,
+.frappe-control[data-fieldtype="Attach Image"] .btn-attach:hover {
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.2) !important;
+}
+
+.btn-attach:active,
+.btn.btn-attach:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-attach:focus,
+.btn.btn-attach:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+}
+
+/* Fix attachment area display */
+.frappe-control[data-fieldtype="Attach"] .control-input-wrapper,
+.frappe-control[data-fieldtype="Attach Image"] .control-input-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--spacing-xs) !important;
+}
+
+.frappe-control[data-fieldtype="Attach"] .attached-file,
+.frappe-control[data-fieldtype="Attach Image"] .attached-file {
+  margin-top: var(--spacing-xs) !important;
+  padding: var(--spacing-sm) !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--radius-sm) !important;
+  background: var(--color-gray-50) !important;
+}
+
+/* ------------------------------------------------------------
    FORM GROUPS & LABELS
 -------------------------------------------------------------*/
 
 .form-group {
   margin-bottom: var(--spacing-md);
+  margin-top: 0;
   padding: 0;
 }
 
 .form-group label,
 .control-label {
   display: block;
-  margin-bottom: var(--spacing-xs);
-  padding-bottom: 2px;
+  margin-bottom: var(--spacing-sm);
+  margin-top: 0;
+  padding-bottom: 4px;
   font-size: calc(var(--font-size-sm) * 1.15) !important; /* Make font bigger */
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
@@ -594,8 +758,14 @@ textarea[readonly]:focus {
 -------------------------------------------------------------*/
 
 .frappe-control {
-  margin-bottom: var(--spacing-lg) !important;
+  margin-bottom: var(--spacing-sm) !important;
   padding: 0 !important;
+}
+
+/* Remove bottom margin from last form control in section to reduce empty space */
+.form-section .section-body .frappe-control:last-child,
+.form-dashboard-section .section-body .frappe-control:last-child {
+  margin-bottom: 0 !important;
 }
 
 .frappe-control .control-input-wrapper {
@@ -605,8 +775,14 @@ textarea[readonly]:focus {
 }
 
 .frappe-control .form-group {
-  margin-bottom: var(--spacing-lg) !important;
+  margin-bottom: var(--spacing-sm) !important;
   padding: 0 !important;
+}
+
+/* Remove bottom margin from last form group in section */
+.form-section .section-body .frappe-control:last-child .form-group,
+.form-dashboard-section .section-body .frappe-control:last-child .form-group {
+  margin-bottom: 0 !important;
 }
 
 .frappe-control[data-fieldtype="Link"] .control-input-wrapper,
@@ -621,58 +797,85 @@ textarea[readonly]:focus {
 
 .frappe-control[data-fieldtype="Link"] input,
 .frappe-control[data-fieldtype="Select"] select {
-  width: 100%;
-  max-width: 100%;
-  background-color: var(--color-bg-white);
-  border-radius: var(--radius-md);
-  color: var(--color-text-primary);
-  text-align: start;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
-  height: 42px;
-  line-height: 1.4;
-  border: 1px solid var(--color-primary);
-  padding-right: 36px;
+  width: 100% !important;
+  max-width: 100% !important;
+  background-color: var(--color-bg-white) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--color-text-primary) !important;
+  text-align: start !important;
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  font-size: var(--font-size-sm) !important;
+  height: 42px !important;
+  line-height: 1.5 !important;
+  border: 1px solid var(--color-primary) !important;
+  padding-right: 40px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230066FF' d='M7 10L2 5h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--spacing-md) center !important;
+  background-size: 14px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer !important;
 }
 
 .frappe-control[data-fieldtype="Link"] input:focus,
 .frappe-control[data-fieldtype="Select"] select:focus {
   border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.1) !important;
   background-color: var(--color-bg-white) !important;
+  transform: translateY(-1px) !important;
 }
 
+.frappe-control[data-fieldtype="Select"] select:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.1) !important;
+}
+
+/* Hide duplicate icons for Select fields - keep only background-image arrow */
 .frappe-control[data-fieldtype="Select"] .input-group-append,
 .frappe-control[data-fieldtype="Select"] .input-group-prepend,
 .frappe-control[data-fieldtype="Select"] .link-btn,
 .frappe-control[data-fieldtype="Select"] .btn,
+.frappe-control[data-fieldtype="Select"] .select-icon,
+.frappe-control[data-fieldtype="Select"] .icon,
+.frappe-control[data-fieldtype="Select"] svg.select-icon,
+.frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-icon {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+}
+
+/* Hide duplicate icons for Link fields - keep only one icon */
 .frappe-control[data-fieldtype="Link"] .input-group-append,
 .frappe-control[data-fieldtype="Link"] .input-group-prepend,
 .frappe-control[data-fieldtype="Link"] .link-btn,
-.frappe-control[data-fieldtype="Link"] .btn {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 var(--spacing-sm) !important;
-  margin: 0 !important;
-  position: absolute !important;
-  right: 0 !important;
-  top: 0 !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 2 !important;
-  color: var(--color-text-tertiary) !important;
-}
-
+.frappe-control[data-fieldtype="Link"] .btn,
 .frappe-control[data-fieldtype="Link"] .btn-open {
   display: none !important;
+  visibility: hidden !important;
 }
 
 .frappe-control[data-fieldtype="Select"] .control-input-wrapper> :not(select):not(.form-control):last-child,
 .frappe-control[data-fieldtype="Link"] .control-input-wrapper> :not(input):not(.form-control):last-child {
   display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide any additional icon elements that might appear */
+.frappe-control[data-fieldtype="Select"] .control-input-wrapper .btn:not(:first-of-type),
+.frappe-control[data-fieldtype="Link"] .control-input-wrapper .btn:not(:first-of-type),
+.frappe-control[data-fieldtype="Select"] .input-with-feedback + *,
+.frappe-control[data-fieldtype="Link"] .input-with-feedback + * {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 /* ------------------------------------------------------------
@@ -714,7 +917,6 @@ html body .awesomplete:has(input.input-with-feedback[role="combobox"]) {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  margin-bottom: var(--spacing-lg) !important;
 }
 
 /* ------------------------------------------------------------
@@ -979,6 +1181,97 @@ html body div.awesomplete>input.input-with-feedback {
   border: none !important;
 }
 
+/* ============================================
+   ULTRA HIGH SPECIFICITY SELECT DROPDOWN OVERRIDES
+   ============================================ */
+
+/* Force select dropdown styling with maximum specificity */
+html body .frappe-control[data-fieldtype="Select"] select,
+html body .frappe-control[data-fieldtype="Select"] .form-control,
+html body .frappe-control[data-fieldtype="Select"] select.form-control,
+html body .form-group select,
+html body .form-group .frappe-control[data-fieldtype="Select"] select,
+html body .form-section .frappe-control[data-fieldtype="Select"] select,
+html body .form-section .form-group select {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  padding-right: 40px !important;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.5 !important;
+  font-weight: var(--font-weight-normal) !important;
+  color: var(--color-text-primary) !important;
+  background-color: var(--color-bg-white) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230066FF' d='M7 10L2 5h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--spacing-md) center !important;
+  background-size: 14px !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  box-sizing: border-box !important;
+  text-align: start !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  height: 42px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html body .frappe-control[data-fieldtype="Select"] select:focus,
+html body .frappe-control[data-fieldtype="Select"] select.form-control:focus,
+html body .form-group select:focus,
+html body .frappe-control[data-fieldtype="Select"] select:active,
+html body .frappe-control[data-fieldtype="Select"] select.form-control:active,
+html body .form-group select:active {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.1) !important;
+  background-color: var(--color-bg-white) !important;
+  background: var(--color-bg-white) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body .frappe-control[data-fieldtype="Select"] select:hover:not(:disabled):not(:focus),
+html body .form-group select:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.1) !important;
+  background-color: var(--color-bg-white) !important;
+  background: var(--color-bg-white) !important;
+}
+
+/* Force white background on select even when dropdown is open */
+html body select:not(:disabled),
+html body select.form-control:not(:disabled),
+html body .frappe-control select:not(:disabled),
+html body .form-group select:not(:disabled),
+html body .frappe-control[data-fieldtype="Select"] select:not(:disabled) {
+  background-color: var(--color-bg-white) !important;
+  background: var(--color-bg-white) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230066FF' d='M7 10L2 5h10z'/%3E%3C/svg%3E"), var(--color-bg-white) !important;
+}
+
+/* Hide ALL select-icon elements completely */
+html body .frappe-control[data-fieldtype="Select"] .select-icon,
+html body .frappe-control[data-fieldtype="Select"] .icon.select-icon,
+html body .frappe-control[data-fieldtype="Select"] svg.select-icon,
+html body .select-icon,
+html body .form-group .select-icon {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* ------------------------------------------------------------
    RESPONSIVE - Form Inputs
 -------------------------------------------------------------*/
@@ -1044,4 +1337,360 @@ html body div.awesomplete>input.input-with-feedback {
     padding: var(--spacing-sm);
     font-size: 16px;
   }
+}
+
+/* ------------------------------------------------------------
+   MULTICHECK CONTROL - SELECT ALL / UNSELECT ALL BUTTONS
+-------------------------------------------------------------*/
+
+.bulk-select-options {
+  margin: var(--spacing-sm) 0 var(--spacing-md) 0;
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.bulk-select-options .btn,
+.bulk-select-options .select-all,
+.bulk-select-options .deselect-all {
+  border: 1px solid var(--color-primary) !important;
+  background-color: var(--color-bg-white) !important;
+  color: var(--color-text-primary) !important;
+  padding: var(--spacing-xs) var(--spacing-md) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-medium) !important;
+  border-radius: var(--radius-md) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.bulk-select-options .btn:hover,
+.bulk-select-options .select-all:hover,
+.bulk-select-options .deselect-all:hover {
+  background-color: var(--color-primary-rgba-10) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: 0 1px 3px rgba(0, 102, 255, 0.1) !important;
+}
+
+.bulk-select-options .btn:active,
+.bulk-select-options .select-all:active,
+.bulk-select-options .deselect-all:active {
+  background-color: var(--color-primary-rgba-20) !important;
+  transform: translateY(1px) !important;
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+.bulk-select-options .btn:focus,
+.bulk-select-options .select-all:focus,
+.bulk-select-options .deselect-all:focus,
+.bulk-select-options .btn:focus:active,
+.bulk-select-options .select-all:focus:active,
+.bulk-select-options .deselect-all:focus:active {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ------------------------------------------------------------
+   MULTICHECK CONTROL - CHECKBOX GRID LAYOUT
+-------------------------------------------------------------*/
+
+.checkbox-options {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: var(--spacing-sm) var(--spacing-md) !important;
+  padding: var(--spacing-sm) 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 991px) {
+  .checkbox-options {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .checkbox-options {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.unit-checkbox {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0 !important;
+  min-height: 22px !important;
+  width: 100% !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+}
+
+.unit-checkbox label {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  cursor: pointer !important;
+  gap: var(--spacing-xs) !important;
+  position: relative !important;
+}
+
+.unit-checkbox input[type="checkbox"] {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  margin-right: var(--spacing-xs) !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  position: relative !important;
+  z-index: 1 !important;
+  border: 2px solid var(--color-primary-rgba-50) !important;
+  border-radius: 4px !important;
+  background-color: var(--color-bg-white) !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Unit-checkbox checked state - ensure checkmark shows */
+.unit-checkbox input[type="checkbox"]:checked,
+html body .unit-checkbox input[type="checkbox"]:checked,
+html body .unit-checkbox input[type="checkbox"][checked],
+html body .frappe-control .unit-checkbox input[type="checkbox"]:checked,
+html body .frappe-control .unit-checkbox input[type="checkbox"][checked] {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+}
+
+/* Unit-checkbox focus - no double box */
+.unit-checkbox input[type="checkbox"]:focus,
+html body .unit-checkbox input[type="checkbox"]:focus,
+html body .frappe-control .unit-checkbox input[type="checkbox"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.unit-checkbox input[type="checkbox"]:focus:checked,
+html body .unit-checkbox input[type="checkbox"]:focus:checked {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.unit-checkbox .label-area {
+  flex: 1 !important;
+  display: block !important;
+  cursor: pointer !important;
+  line-height: 1.5 !important;
+  position: relative !important;
+}
+
+/* Ensure all checkboxes are visible - override any hiding rules */
+.frappe-control .checkbox-options .unit-checkbox,
+.frappe-control .unit-checkbox {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.frappe-control .checkbox-options .unit-checkbox input[type="checkbox"],
+.frappe-control .unit-checkbox input[type="checkbox"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  border: 2px solid var(--color-primary-rgba-50) !important;
+  border-radius: 4px !important;
+  background-color: var(--color-bg-white) !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Ensure checkmark shows for frappe-control checkboxes */
+.frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:checked,
+.frappe-control .unit-checkbox input[type="checkbox"]:checked,
+html body .frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:checked,
+html body .frappe-control .unit-checkbox input[type="checkbox"]:checked,
+html body .frappe-control .checkbox-options .unit-checkbox input[type="checkbox"][checked],
+html body .frappe-control .unit-checkbox input[type="checkbox"][checked] {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+}
+
+/* Frappe-control checkbox focus - no double box */
+.frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:focus,
+.frappe-control .unit-checkbox input[type="checkbox"]:focus,
+html body .frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:focus,
+html body .frappe-control .unit-checkbox input[type="checkbox"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--color-primary-rgba-15) !important;
+}
+
+.frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:focus:checked,
+.frappe-control .unit-checkbox input[type="checkbox"]:focus:checked,
+html body .frappe-control .checkbox-options .unit-checkbox input[type="checkbox"]:focus:checked,
+html body .frappe-control .unit-checkbox input[type="checkbox"]:focus:checked {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================
+   ENHANCED DROPDOWN STYLING WITH THEME COLOR
+   ============================================ */
+
+/* All dropdowns - white background, normal text */
+html body select option,
+html body .dropdown-menu li,
+html body .dropdown-menu a,
+html body .select-dropdown li,
+html body .awesomplete ul li {
+  background-color: var(--color-bg-white) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Hover - theme color background, theme color text (bold) */
+html body select option:hover,
+html body select option:checked,
+html body .dropdown-menu li:hover,
+html body .dropdown-menu li.active,
+html body .select-dropdown li:hover,
+html body .awesomplete ul li:hover,
+html body .awesomplete ul li[aria-selected="true"] {
+  background-color: var(--color-primary-rgba-10) !important;
+  color: var(--color-primary) !important;
+  font-weight: var(--font-weight-medium) !important;
+}
+
+/* ============================================
+   CHECKBOX CHECKMARK FIX - ENSURE IT ALWAYS SHOWS
+   ============================================ */
+
+/* Ultimate override to ensure checkmark always appears when checked */
+html body input[type="checkbox"]:checked,
+html body input[type="checkbox"][checked],
+html body .frappe-control input[type="checkbox"]:checked,
+html body .frappe-control input[type="checkbox"][checked],
+html body .unit-checkbox input[type="checkbox"]:checked,
+html body .unit-checkbox input[type="checkbox"][checked],
+html body .checkbox-options input[type="checkbox"]:checked,
+html body .checkbox-options input[type="checkbox"][checked],
+html body .form-group input[type="checkbox"]:checked,
+html body .form-group input[type="checkbox"][checked] {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Prevent any rules from hiding the checkmark */
+html body input[type="checkbox"]:checked[style*="background-image: none"],
+html body input[type="checkbox"][checked][style*="background-image: none"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
+}
+
+/* ============================================
+   FIX DOUBLE BOX ON CLICK/FOCUS - ALL ELEMENTS
+   ============================================ */
+
+/* Remove double box effect - use only box-shadow, no outline */
+html body input[type="checkbox"]:focus,
+html body input[type="checkbox"]:active,
+html body input[type="radio"]:focus,
+html body input[type="radio"]:active,
+html body .frappe-control input[type="checkbox"]:focus,
+html body .frappe-control input[type="checkbox"]:active,
+html body .unit-checkbox input[type="checkbox"]:focus,
+html body .unit-checkbox input[type="checkbox"]:active,
+html body .checkbox-options input[type="checkbox"]:focus,
+html body .checkbox-options input[type="checkbox"]:active {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Focus state - no shadow */
+html body input[type="checkbox"]:focus:not(:checked),
+html body input[type="radio"]:focus:not(:checked),
+html body .frappe-control input[type="checkbox"]:focus:not(:checked),
+html body .unit-checkbox input[type="checkbox"]:focus:not(:checked) {
+  box-shadow: none !important;
+}
+
+html body input[type="checkbox"]:focus:checked,
+html body input[type="radio"]:focus:checked,
+html body .frappe-control input[type="checkbox"]:focus:checked,
+html body .unit-checkbox input[type="checkbox"]:focus:checked {
+  box-shadow: none !important;
+}
+
+/* Active/click state - no double box */
+html body input[type="checkbox"]:active,
+html body input[type="radio"]:active,
+html body .frappe-control input[type="checkbox"]:active,
+html body .unit-checkbox input[type="checkbox"]:active,
+html body input[type="checkbox"]:focus:active,
+html body input[type="radio"]:focus:active {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Specific fix for form elements - prevent double box */
+html body input:focus,
+html body input:active,
+html body select:focus,
+html body select:active,
+html body textarea:focus,
+html body textarea:active,
+html body button:focus,
+html body button:active,
+html body .btn:focus,
+html body .btn:active {
+  outline-offset: 0 !important;
+}
+
+/* Ensure no double outline/box-shadow combination - ALL BUTTONS */
+html body button:focus,
+html body button:active,
+html body .btn:focus,
+html body .btn:active,
+html body .btn:focus:active,
+html body .bulk-select-options .btn:focus,
+html body .bulk-select-options .btn:active,
+html body .bulk-select-options .btn:focus:active {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ensure no double outline/box-shadow combination - CHECKBOXES */
+html body input[type="checkbox"]:focus,
+html body input[type="radio"]:focus,
+html body input[type="checkbox"]:active,
+html body input[type="radio"]:active {
+  outline: none !important;
+  outline-offset: 0 !important;
 }

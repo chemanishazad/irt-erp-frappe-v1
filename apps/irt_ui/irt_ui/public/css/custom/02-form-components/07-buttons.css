@@ -54,8 +54,12 @@ button:not(.close):not(.navbar-toggler) {
 
 .btn:focus,
 .btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-primary-rgba-20);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn:active {
+  outline: none !important;
 }
 
 .btn:disabled,
@@ -94,7 +98,8 @@ button:not(.close):not(.navbar-toggler) {
 
 .btn-primary:focus,
 .btn.btn-primary:focus {
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 4px 8px rgba(0, 102, 255, 0.3);
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* ============================================
@@ -134,7 +139,15 @@ button:not(.close):not(.navbar-toggler) {
 .btn.btn-secondary:focus,
 .btn-default:focus,
 .btn.btn-default:focus {
-  box-shadow: 0 0 0 4px var(--color-primary-rgba-20), 0 2px 4px rgba(0, 102, 255, 0.15);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-secondary:active,
+.btn.btn-secondary:active,
+.btn-default:active,
+.btn.btn-default:active {
+  outline: none !important;
 }
 
 /* ============================================
@@ -337,6 +350,66 @@ button:not(.close):not(.navbar-toggler) {
   height: 28px;
   min-width: 28px;
   min-height: 28px;
+}
+
+/* ============================================
+   FORM BUILDER - Add Field Button Fix
+   ============================================ */
+
+/* Fix truncated "Add field" button text */
+.add-field-btn,
+.btn.add-field-btn,
+.form-builder .add-field-btn,
+.form-builder-container .add-field-btn,
+button[title="Add field"],
+button[title*="Add field"],
+.btn-xs.btn-icon[title*="Add field"],
+.form-builder button.btn-xs.btn-icon {
+  width: auto !important;
+  min-width: auto !important;
+  padding: 6px 12px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+/* Ensure button text is visible */
+.add-field-btn span,
+.add-field-btn .btn-text,
+.add-field-btn::after,
+.btn.add-field-btn span,
+.btn.add-field-btn .btn-text {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Fix for buttons with icon + text */
+.add-field-btn.btn-icon,
+.btn.add-field-btn.btn-icon {
+  width: auto !important;
+  min-width: auto !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+/* Ensure proper sizing for small buttons with text */
+.form-builder .btn-xs:not(.icon-btn):not(.btn-icon),
+.form-builder-container .btn-xs:not(.icon-btn):not(.btn-icon),
+button.btn-xs.btn-icon:not(:only-child),
+.form-builder .btn-xs.btn-icon:has(span),
+.form-builder-container .btn-xs.btn-icon:has(span) {
+  width: auto !important;
+  min-width: 80px !important;
+  padding: 6px 12px !important;
+  white-space: nowrap !important;
 }
 
 .icon-btn.btn-sm,

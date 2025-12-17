@@ -1,0 +1,296 @@
+/**
+ * Datepicker & Calendar Styling
+ * White backgrounds with theme colors
+ */
+
+/* ============================================
+   DATEPICKER (Air Datepicker)
+   ============================================ */
+
+/* Main datepicker container - White background */
+html body .datepicker,
+.datepicker,
+.frappe-control .datepicker {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	border: 1px solid var(--color-primary-rgba-20) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+	z-index: 10005 !important;
+	font-family: inherit !important;
+}
+
+/* Datepicker navigation */
+.datepicker--nav,
+.datepicker--nav-title,
+.datepicker--nav-action {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	border-bottom: 1px solid var(--color-gray-200) !important;
+}
+
+.datepicker--nav-title:hover,
+.datepicker--nav-action:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+.datepicker--nav-action svg {
+	fill: var(--color-primary) !important;
+}
+
+/* Datepicker days container */
+.datepicker--days-names,
+.datepicker--cells {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+}
+
+/* Day names (Mon, Tue, etc.) */
+.datepicker--day-name {
+	color: var(--color-text-secondary) !important;
+	font-weight: var(--font-weight-semibold) !important;
+	background-color: var(--color-bg-white) !important;
+}
+
+/* Date cells */
+.datepicker--cell {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+}
+
+.datepicker--cell.-current- {
+	color: var(--color-text-primary) !important;
+	font-weight: var(--font-weight-semibold) !important;
+}
+
+/* Today's date */
+.datepicker--cell.-current-.-focus-,
+.datepicker--cell.-current-:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Selected date */
+.datepicker--cell.-selected-,
+.datepicker--cell.-current-.-selected- {
+	background-color: var(--color-primary) !important;
+	color: var(--color-bg-white) !important;
+	font-weight: var(--font-weight-semibold) !important;
+	border-radius: var(--radius-sm) !important;
+}
+
+.datepicker--cell.-selected-.-focus- {
+	background-color: var(--color-primary) !important;
+	color: var(--color-bg-white) !important;
+}
+
+/* Hover state */
+.datepicker--cell.-focus-,
+.datepicker--cell:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Range selection */
+.datepicker--cell.-in-range- {
+	background-color: var(--color-primary-rgba-05) !important;
+	color: var(--color-text-primary) !important;
+}
+
+.datepicker--cell.-range-from-,
+.datepicker--cell.-range-to- {
+	background-color: var(--color-primary) !important;
+	color: var(--color-bg-white) !important;
+	border-color: var(--color-primary) !important;
+}
+
+/* Disabled dates */
+.datepicker--cell.-disabled- {
+	color: var(--color-text-tertiary) !important;
+	opacity: 0.4 !important;
+	background-color: var(--color-gray-50) !important;
+	cursor: not-allowed !important;
+}
+
+/* Time picker */
+.datepicker--time {
+	background-color: var(--color-bg-white) !important;
+	border-top: 1px solid var(--color-gray-200) !important;
+}
+
+.datepicker--time-current-hours,
+.datepicker--time-current-minutes,
+.datepicker--time-current-seconds {
+	color: var(--color-text-primary) !important;
+}
+
+.datepicker--time-current-hours:after,
+.datepicker--time-current-minutes:after,
+.datepicker--time-current-seconds:after {
+	color: var(--color-text-primary) !important;
+	background-color: var(--color-primary-rgba-10) !important;
+}
+
+/* Buttons */
+.datepicker--buttons {
+	background-color: var(--color-bg-white) !important;
+	border-top: 1px solid var(--color-gray-200) !important;
+}
+
+.datepicker--button {
+	color: var(--color-primary) !important;
+	background-color: transparent !important;
+}
+
+.datepicker--button:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Month/Year picker */
+.datepicker--months,
+.datepicker--years {
+	background-color: var(--color-bg-white) !important;
+}
+
+.datepicker--month-name,
+.datepicker--year-name {
+	color: var(--color-text-primary) !important;
+	background-color: var(--color-bg-white) !important;
+}
+
+.datepicker--month-name:hover,
+.datepicker--year-name:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+.datepicker--month-name.-selected-,
+.datepicker--year-name.-selected- {
+	background-color: var(--color-primary) !important;
+	color: var(--color-bg-white) !important;
+}
+
+/* ============================================
+   DROPDOWN MENUS - SIMPLE & CLEAN
+   ============================================ */
+
+/* All dropdowns - white background, theme color text */
+html body .dropdown-menu,
+html body .select-dropdown,
+html body .awesomplete ul,
+html body select option {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Dropdown items */
+html body .dropdown-menu li,
+html body .dropdown-menu a,
+html body .select-dropdown li,
+html body .select-dropdown a,
+html body select option {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-primary) !important;
+}
+
+/* Hover - white background, theme color text (bold) */
+html body .dropdown-menu li:hover,
+html body .dropdown-menu li.active,
+html body .select-dropdown li:hover,
+html body .select-dropdown li.active,
+html body select option:hover,
+html body select option:checked {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-primary) !important;
+	font-weight: var(--font-weight-medium) !important;
+}
+
+/* ============================================
+   SELECT OPTIONS - WHITE BACKGROUND
+   ============================================ */
+
+html body select,
+html body select.form-control,
+html body select option,
+html body .frappe-control select,
+html body .frappe-control select option {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+}
+
+html body select:focus,
+html body select:active {
+	background-color: var(--color-bg-white) !important;
+}
+
+html body select option:hover,
+html body select option:focus,
+html body select option:checked {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+}
+
+/* ============================================
+   DATE INPUT FIELDS - WHITE BACKGROUND
+   ============================================ */
+
+html body input[type="date"],
+html body input[type="datetime-local"],
+html body input[type="time"],
+html body .frappe-control input[type="date"],
+html body .frappe-control input[type="datetime-local"],
+html body .frappe-control input[type="time"] {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	border: 1px solid var(--color-primary) !important;
+}
+
+html body input[type="date"]:focus,
+html body input[type="datetime-local"]:focus,
+html body input[type="time"]:focus {
+	background-color: var(--color-bg-white) !important;
+	border-color: var(--color-primary) !important;
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+}
+
+/* ============================================
+   FORM CONTROLS - WHITE BACKGROUND OVERRIDE
+   ============================================ */
+
+/* Ensure all form controls have white background */
+html body .frappe-control input,
+html body .frappe-control select,
+html body .frappe-control textarea,
+html body .form-group input,
+html body .form-group select,
+html body .form-group textarea,
+html body .form-control {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+}
+
+html body .frappe-control input:focus,
+html body .frappe-control select:focus,
+html body .frappe-control textarea:focus,
+html body .form-group input:focus,
+html body .form-group select:focus,
+html body .form-group textarea:focus,
+html body .form-control:focus {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+}
+
+/* Disabled state - light grey but still white base */
+html body .frappe-control input:disabled,
+html body .frappe-control select:disabled,
+html body .frappe-control textarea:disabled {
+	background-color: var(--color-gray-50) !important;
+	color: var(--color-text-tertiary) !important;
+	opacity: 0.7 !important;
+}
