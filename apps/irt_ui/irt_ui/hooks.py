@@ -18,6 +18,7 @@ app_include_js = [
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js",
 	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js",
+	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js",
 ]
 
 # Includes for website pages (login, signup, etc.)

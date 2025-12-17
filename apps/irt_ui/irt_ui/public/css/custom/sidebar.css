@@ -32,8 +32,19 @@
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
+	font-size: var(--font-size-base);
 	overflow: visible;
 	position: relative;
+}
+
+.body-sidebar,
+.body-sidebar * {
+	user-select: none;
+}
+
+.body-sidebar ::selection {
+	background: transparent;
+	color: inherit;
 }
 
 .body-sidebar-container.expanded .body-sidebar {
@@ -122,6 +133,16 @@
 	border-bottom: 1px solid var(--sidebar-border);
 }
 
+/* Remove hover/active tint on header */
+.sidebar-header,
+.sidebar-header:hover,
+.sidebar-header:focus,
+.sidebar-header:active {
+	background: transparent !important;
+	box-shadow: none !important;
+	text-decoration: none !important;
+}
+
 .body-sidebar-container:not(.expanded) .sidebar-header {
 	justify-content: center;
 	border-bottom: none;
@@ -137,6 +158,16 @@
 	transform: scale(1.05);
 }
 
+/* Keep logo icon clean (no grey bg) */
+.sidebar-header .sidebar-item-icon,
+.sidebar-header .sidebar-item-icon svg {
+	background: transparent !important;
+	box-shadow: none !important;
+	border: none !important;
+	fill: currentColor !important;
+	stroke: currentColor !important;
+}
+
 .title-container {
 	flex: 1 1 0%;
 	margin-left: 10px;
@@ -147,7 +178,7 @@
 }
 
 .header-title {
-	font-size: 15px;
+	font-size: var(--font-size-md);
 	font-weight: 600;
 	color: var(--sidebar-text);
 	line-height: 1.3;
@@ -332,7 +363,7 @@
 
 /* Labels */
 .standard-sidebar-item .sidebar-item-label {
-	font-size: 14px;
+	font-size: var(--font-size-base);
 	font-weight: 500;
 	white-space: nowrap;
 	transition: opacity 0.2s ease, max-width 0.2s ease;
