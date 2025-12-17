@@ -193,6 +193,53 @@ textarea::placeholder {
    SELECT DROPDOWNS (BASIC FIELD)
 -------------------------------------------------------------*/
 
+
+/* ------------------------------------------------------------
+   FORM LAYOUT PADDING (GLOBAL PAGE FORMS)
+-------------------------------------------------------------*/
+
+.page-content,
+.layout-main,
+.layout-main-section {
+  padding-left: 4px !important;
+  padding-right: 8px !important;
+  box-sizing: border-box !important;
+}
+
+/* Dashboard pages: remove extra horizontal padding */
+.dashboard-view .page-content,
+.dashboard-view .layout-main,
+.dashboard-view .layout-main-section {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Form containers - add breathing room */
+.form-page,
+.form-page .page-body,
+.form-page .layout-main-section,
+.form-page .form-layout,
+.form-layout {
+  padding-left: 4px !important;
+  padding-right: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.form-section .section-body {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+/* Hide right-side detail pane on forms */
+.layout-side-section.right,
+.layout-main .layout-side-section.right {
+  display: none !important;
+}
+
+.layout-main .layout-main-section-wrapper {
+  width: 100% !important;
+}
+
 /* Base select styling with high specificity */
 select.form-control,
 select,

@@ -6,11 +6,7 @@
 /* Tab navigation */
 .tab-nav,
 .nav-tabs,
-.form-tabs-list {
-	font-size: var(--font-size-sm) !important;
-	border-bottom: 1px solid var(--color-border-light);
-	gap: var(--spacing-xs);
-}
+
 
 .nav-tabs .nav-link,
 .form-tabs .nav-link {

@@ -283,10 +283,7 @@ body .section-body,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.form-tabs-list.form-tabs-sticky-down {
-  top: calc(var(--navbar-height, 60px) + var(--page-head-height, 50px) - 1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
+
 
 .form-tabs,
 .nav-tabs {
