@@ -225,19 +225,24 @@ console.log('🔍 Unified search script loaded');
 		const input = document.createElement('input');
 		input.type = 'text';
 		input.className = 'unified-search-input form-control';
-		input.placeholder = 'Search...';
+		input.placeholder = 'Search records...';
 		input.autocomplete = 'off';
 
 		const icon = document.createElement('span');
 		icon.className = 'unified-search-icon';
-		// Changed to a different search icon style (outline with circle and line)
 		icon.innerHTML =
-			'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
+			'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
+
+		// Create search button
+		const searchBtn = document.createElement('button');
+		searchBtn.type = 'button';
+		searchBtn.className = 'unified-search-btn btn btn-primary';
+		searchBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg><span>Search</span>';
+		searchBtn.setAttribute('aria-label', 'Search');
 
 		const clearBtn = document.createElement('button');
 		clearBtn.type = 'button';
 		clearBtn.className = 'unified-search-clear';
-		// Force hide with multiple methods to ensure it never shows
 		clearBtn.style.setProperty('display', 'none', 'important');
 		clearBtn.style.setProperty('visibility', 'hidden', 'important');
 		clearBtn.style.setProperty('opacity', '0', 'important');
@@ -252,9 +257,11 @@ console.log('🔍 Unified search script loaded');
 		formGroup.appendChild(input);
 		formGroup.appendChild(clearBtn);
 		wrapper.appendChild(formGroup);
+		wrapper.appendChild(searchBtn);
 
 		state.wrapper = wrapper;
 		state.input = input;
+		state.searchBtn = searchBtn;
 		state.clearBtn = clearBtn;
 	}
 
@@ -274,6 +281,13 @@ console.log('🔍 Unified search script loaded');
 				handleInput(this.value);
 			}
 		});
+
+		// Bind search button click
+		if (state.searchBtn) {
+			state.searchBtn.addEventListener('click', function() {
+				handleInput(state.input.value);
+			});
+		}
 
 		if (state.clearBtn) {
 			state.clearBtn.addEventListener('click', handleClearClick);
