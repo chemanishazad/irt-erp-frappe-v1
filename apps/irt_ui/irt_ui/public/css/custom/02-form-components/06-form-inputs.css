@@ -329,10 +329,8 @@ input[type="time"]:hover::-webkit-calendar-picker-indicator {
 
 input[type="checkbox"],
 input[type="radio"] {
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
-  min-height: 22px;
+ 
+
   margin: 0;
   cursor: pointer;
   accent-color: var(--color-primary) !important;

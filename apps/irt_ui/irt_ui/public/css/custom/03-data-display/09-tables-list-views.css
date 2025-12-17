@@ -152,8 +152,8 @@
 }
 
 /* ============================================================
-   PAGINATION — SIMPLE & CLEAN
-   Shows: "Showing 20 of 150"  |  Load More  |  20/page ▼
+   PAGINATION — PAGE-BASED WITH NUMBERS
+   Shows: 1-20 of 150 | Prev | 1 | 2 | 3 | ... | N | Next | 20/page
    ============================================================ */
 
 .list-paging-area {
@@ -172,78 +172,127 @@
 }
 
 /* Left - Info text */
-.list-paging-area .pagination-left {
-	display: flex !important;
-	align-items: center !important;
-}
-
 .list-paging-area .pagination-info {
-	font-size: 13px !important;
-	color: #6b7280 !important;
+	font-size: 12px !important;
+	color: var(--color-gray-500) !important;
 	white-space: nowrap !important;
 }
 
-.list-paging-area .pagination-info strong {
-	color: #374151 !important;
-	font-weight: 600 !important;
-}
-
-/* Center - Load More button */
-.list-paging-area .pagination-center {
+/* Center - Pagination controls */
+.list-paging-area .pagination-controls {
 	display: flex !important;
 	align-items: center !important;
-	justify-content: center !important;
-	flex: 1 !important;
+	gap: 4px !important;
 }
 
-.list-paging-area .btn-load-more {
-	background: var(--color-primary) !important;
-	color: #ffffff !important;
-	border: none !important;
-	padding: 4px 10px !important;
+/* Previous / Next buttons */
+.list-paging-area .btn-nav {
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 4px !important;
+	background: transparent !important;
+	border: 1px solid var(--color-gray-200) !important;
+	padding: 4px 8px !important;
 	font-size: 11px !important;
 	font-weight: 500 !important;
+	color: var(--color-gray-600) !important;
 	border-radius: 4px !important;
 	cursor: pointer !important;
-	transition: background 0.15s ease !important;
+	transition: all 0.15s ease !important;
 }
 
-.list-paging-area .btn-load-more:hover {
-	background: var(--color-primary-dark) !important;
+.list-paging-area .btn-nav:hover:not(:disabled) {
+	background: var(--color-gray-50) !important;
+	border-color: var(--color-gray-300) !important;
+	color: var(--color-gray-700) !important;
+}
+
+.list-paging-area .btn-nav:disabled {
+	opacity: 0.4 !important;
+	cursor: not-allowed !important;
+}
+
+.list-paging-area .btn-nav svg {
+	width: 12px !important;
+	height: 12px !important;
+}
+
+/* Page numbers container */
+.list-paging-area .page-numbers {
+	display: flex !important;
+	align-items: center !important;
+	gap: 2px !important;
+}
+
+/* Page number buttons */
+.list-paging-area .btn-page {
+	min-width: 26px !important;
+	height: 26px !important;
+	padding: 0 !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	font-size: 11px !important;
+	font-weight: 500 !important;
+	color: var(--color-gray-600) !important;
+	background: transparent !important;
+	border: 1px solid transparent !important;
+	border-radius: 4px !important;
+	cursor: pointer !important;
+	transition: all 0.15s ease !important;
+}
+
+.list-paging-area .btn-page:hover {
+	background: var(--color-gray-100) !important;
+	color: var(--color-gray-700) !important;
+}
+
+/* Active page */
+.list-paging-area .btn-page.active {
+	background: var(--color-primary) !important;
+	color: #ffffff !important;
+	border-color: var(--color-primary) !important;
+}
+
+/* Ellipsis */
+.list-paging-area .page-ellipsis {
+	padding: 0 4px !important;
+	color: var(--color-gray-400) !important;
+	font-size: 11px !important;
 }
 
 /* Right - Page size dropdown */
-.list-paging-area .pagination-right {
+.list-paging-area .pagination-size {
 	display: flex !important;
 	align-items: center !important;
 }
 
 .list-paging-area .page-size-select {
-	font-size: 12px !important;
+	font-size: 11px !important;
 	font-weight: 500 !important;
-	color: #374151 !important;
-	background: #f9fafb !important;
-	border: 1px solid #e5e7eb !important;
+	color: var(--color-gray-600) !important;
+	background: var(--color-gray-50) !important;
+	border: 1px solid var(--color-gray-200) !important;
 	border-radius: 4px !important;
-	padding: 4px 28px 4px 10px !important;
+	padding: 4px 24px 4px 8px !important;
 	cursor: pointer !important;
 	appearance: none !important;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
 	background-repeat: no-repeat !important;
-	background-position: right 8px center !important;
-	background-size: 14px !important;
+	background-position: right 6px center !important;
+	background-size: 12px !important;
 	transition: border-color 0.15s ease !important;
 }
 
 .list-paging-area .page-size-select:hover {
-	border-color: #d1d5db !important;
+	border-color: var(--color-gray-300) !important;
 	background-color: #ffffff !important;
 }
 
 .list-paging-area .page-size-select:focus {
 	outline: none !important;
-	border-color: #6366f1 !important;
-	box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
+	border-color: var(--color-primary) !important;
+	box-shadow: 0 0 0 2px var(--color-primary-rgba-10) !important;
 }
 
 /* Hide old Frappe pagination elements */

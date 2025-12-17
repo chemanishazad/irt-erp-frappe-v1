@@ -58,6 +58,7 @@
 	min-height: 34px !important;
 	overflow: visible !important;
 	z-index: 10 !important;
+	padding: 0 8px !important; /* left/right breathing room */
 }
 
 /* ============================================================
@@ -68,11 +69,12 @@
 .unified-search-wrapper {
 	display: flex !important;
 	position: relative !important;
-	flex: 1 1 auto !important;
+	flex: 1 1 100% !important;
 	height: 34px !important;
 	margin: 0 !important;
 	min-width: 200px !important;
 	z-index: 5 !important;
+	max-width: none !important;
 }
 
 /* Ensure visibility */
@@ -144,7 +146,10 @@
 /* Search at start */
 .filter-section .unified-search-wrapper {
 	order: 0 !important;
-	margin-right: 10px !important;
+	margin-right: 12px !important;
+	flex: 1 1 100% !important;
+	max-width: none !important;
+	min-width: 420px !important;
 }
 
 /* Buttons to the right */
@@ -153,7 +158,7 @@
 .filter-section button,
 .filter-section .sort-selector,
 .filter-section .filter-button {
-	order: 1 !important;
+	order: 2 !important;
 	flex: 0 0 auto !important;
 	display: inline-flex !important;
 	align-items: center !important;
@@ -161,9 +166,72 @@
 	opacity: 1 !important;
 	white-space: nowrap !important;
 	max-width: none !important;
+	gap: 6px !important;
+	margin-left: 8px !important;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	height: 34px !important;
 }
 
-/* Push filter/sort controls to right end */
+/* Push the first control group to the right so search grows */
+.filter-section .filter-selector:first-of-type,
+.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group):first-of-type,
+.filter-section .sort-selector:first-of-type {
+	margin-left: auto !important;
+}
+
+/* Ensure non-search items don't steal space */
+.filter-section > :not(.unified-search-wrapper) {
+	flex: 0 0 auto !important;
+}
+
+/* Hide empty filter selector block if present */
+.filter-section .filter-selector {
+	display: none !important;
+}
+
+/* Size/spacing for controls */
+.filter-section .btn-group > .btn,
+.filter-section .btn-group > button,
+.filter-section .sort-selector button,
+.filter-section .filter-button {
+	min-height: 34px !important;
+	padding: 6px 12px !important;
+	border-radius: 6px !important;
+	line-height: 1.2 !important;
+	background: transparent !important;
+	border: 1px solid #e2e8f0 !important;
+	color: #1f2937 !important;
+	box-shadow: none !important;
+	height: 34px !important;
+}
+
+.filter-section .btn-group > .btn:hover,
+.filter-section .btn-group > button:hover,
+.filter-section .sort-selector button:hover,
+.filter-section .filter-button:hover {
+	background: #f3f6fb !important;
+	border-color: #cbd5e1 !important;
+	color: #0f172a !important;
+}
+
+/* Normalize button-group containers */
+.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group),
+.filter-section .sort-selector {
+	display: inline-flex !important;
+	align-items: center !important;
+	height: 34px !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	gap: 6px !important;
+}
+
+/* Balanced spacing between controls */
 .filter-section .filter-selector,
 .filter-section .filter-button,
 .filter-section .sort-selector,
@@ -174,9 +242,53 @@
 .filter-section button[data-original-title*="Sort"],
 .filter-section button[title*="Sort"],
 .filter-section button[data-original-title*="Last Updated"],
-.filter-section button[title*="Last Updated"] {
-	margin-left: auto !important;
-	margin-right: 0 !important;
+.filter-section button[title*="Last Updated"],
+.filter-section .btn-clear-filters {
+	margin-left: 8px !important;
+}
+
+/* Ordering: search first, then filter/clear, then others */
+.filter-section .unified-search-wrapper {
+	order: 0 !important;
+}
+
+.filter-section .filter-button,
+.filter-section .btn-clear-filters,
+.filter-section button[data-label="Filter"],
+.filter-section button[data-original-title*="Filter"],
+.filter-section button[title*="Filter"] {
+	order: 1 !important;
+}
+
+.filter-section .sort-selector,
+.filter-section button[data-original-title*="Sort"],
+.filter-section button[title*="Sort"] {
+	order: 2 !important;
+}
+
+.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group) {
+	order: 3 !important;
+}
+
+/* Clear filters button styling (when present) */
+.filter-section .btn-clear-filters {
+	min-height: 34px !important;
+	padding: 6px 12px !important;
+	border-radius: 6px !important;
+	background: transparent !important;
+	border: 1px solid #e2e8f0 !important;
+	color: #1f2937 !important;
+}
+
+/* Hide Filter button entirely */
+.filter-section .filter-button,
+.filter-section button[data-label="Filter"],
+.filter-section button[data-original-title*="Filter"],
+.filter-section button[title*="Filter"] {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
 }
 
 /* Spacing between buttons */
