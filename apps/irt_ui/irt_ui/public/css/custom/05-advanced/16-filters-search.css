@@ -24,7 +24,7 @@
    2. LAYOUT - SINGLE ROW
    ============================================================ */
 
-/* Page form - full width container */
+/* Page form - full width container - LEFT ALIGNED */
 [data-page-route^="List"] .page-form {
 	display: flex !important;
 	flex-direction: row !important;
@@ -35,6 +35,7 @@
 	max-width: none !important;
 	padding: 8px 12px !important;
 	margin: 0 !important;
+	justify-content: flex-start !important;
 }
 
 /* Override any col-* or grid restrictions */
@@ -45,73 +46,101 @@
 	width: auto !important;
 }
 
-/* Standard filter section - take full available space */
+/* Ensure standard-filter-section is first and left-aligned */
+[data-page-route^="List"] .page-form > .standard-filter-section {
+	order: -1 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	flex: 1 1 auto !important;
+	align-self: center !important;
+}
+
+/* Ensure other elements in page-form don't push standard-filter-section right */
+[data-page-route^="List"] .page-form > *:not(.standard-filter-section) {
+	order: 1 !important;
+	margin-left: 12px !important;
+	margin-right: 0 !important;
+	flex: 0 0 auto !important;
+}
+
+/* Standard filter section - take full available space - LEFT ALIGNED */
 [data-page-route^="List"] .standard-filter-section {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
 	gap: 16px !important;
 	flex-wrap: nowrap !important;
-	flex: 1 1 100% !important;
+	flex: 1 1 auto !important;
 	width: 100% !important;
 	max-width: 100% !important;
 	min-width: 0 !important;
+	justify-content: flex-start !important;
+	order: -1 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 }
 
 /* Filter section - full width flex container */
 [data-page-route^="List"] .page-form .filter-section,
 [data-page-route^="List"] .filter-section {
-	display: flex !important;
-	flex-direction: row !important;
-	align-items: center !important;
-	gap: 12px !important;
-	width: 100% !important;
-	flex: 1 !important;
-	flex-wrap: nowrap !important;
-	justify-content: flex-start !important;
-	align-content: flex-start !important;
-	min-height: 42px !important;
-	overflow: visible !important;
-	z-index: 10 !important;
-	padding: 0 !important;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	flex: 1;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	min-height: 42px;
+	overflow: visible;
+	z-index: 10;
+	padding: 0;
+}
+
+/* Force search wrapper to be first */
+.filter-section .unified-search-wrapper:first-child {
+	margin-left: 0;
+	margin-right: 12px;
+	order: -1;
 }
 
 /* ============================================================
    3. UNIFIED SEARCH FIELD
    ============================================================ */
 
-/* Search wrapper - main container */
+/* Search wrapper - main container - FULL WIDTH */
 .unified-search-wrapper {
-	display: flex !important;
-	position: relative !important;
-	flex: 0 0 auto !important;
-	height: 42px !important;
-	margin: 0 !important;
-	margin-right: 12px !important;
-	min-width: 320px !important;
-	max-width: 500px !important;
-	z-index: 5 !important;
-	gap: 0 !important;
-	align-items: center !important;
-	width: auto !important;
-	order: -1 !important;
+	display: flex;
+	position: relative;
+	flex: 1 1 auto;
+	height: 42px;
+	margin-right: 12px;
+	margin-left: 0;
+	min-width: 320px;
+	max-width: 100%;
+	width: 100%;
+	z-index: 5;
+	gap: 0;
+	align-items: center;
+	order: -1;
 }
 
-/* Force proper sizing in list views */
+/* Force proper sizing in list views - FULL WIDTH */
 [data-page-route^="List"] .unified-search-wrapper,
 .page-form .unified-search-wrapper,
 .filter-section .unified-search-wrapper,
 .standard-filter-section .unified-search-wrapper {
-	flex: 0 0 auto !important;
-	width: auto !important;
-	min-width: 320px !important;
-	max-width: 500px !important;
-	display: flex !important;
-	visibility: visible !important;
-	opacity: 1 !important;
-	height: 42px !important;
-	margin-right: 12px !important;
-	order: -1 !important;
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 320px;
+	max-width: 100%;
+	display: flex;
+	visibility: visible;
+	opacity: 1;
+	height: 42px;
+	margin-right: 12px;
+	margin-left: 0;
+	order: -1;
 }
 
 /* Ensure visibility */
@@ -124,13 +153,14 @@
 	opacity: 1 !important;
 }
 
-/* Inner form group - flexible container */
+/* Inner form group - flexible container - FULL WIDTH */
 .unified-search-wrapper .unified-search-group,
 .unified-search-wrapper .form-group {
 	display: flex !important;
-	flex: 1 1 auto !important;
+	flex: 1 1 100% !important;
 	position: relative !important;
 	min-width: 0 !important;
+	width: 100% !important;
 	margin: 0 !important;
 	height: 100% !important;
 	width: 100% !important;
@@ -268,14 +298,15 @@ body[data-route*="List"] .page-form .form-group {
    4. BUTTONS POSITIONING
    ============================================================ */
 
-/* Search at start - takes most of the space */
+/* Search at start - left aligned, FULL WIDTH */
 .filter-section .unified-search-wrapper {
-	order: 0 !important;
-	margin-right: auto !important;
-	flex: 1 1 100% !important;
-	max-width: 85% !important;
-	min-width: 700px !important;
-	width: 100% !important;
+	order: -1;
+	margin-right: 12px;
+	margin-left: 0;
+	flex: 1 1 auto;
+	max-width: 100%;
+	min-width: 320px;
+	width: 100%;
 }
 
 /* Buttons to the right */
@@ -301,16 +332,35 @@ body[data-route*="List"] .page-form .form-group {
 	height: 34px !important;
 }
 
-/* Push the first control group to the right so search grows */
-.filter-section .filter-selector:first-of-type,
-.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group):first-of-type,
-.filter-section .sort-selector:first-of-type {
+/* Push filter controls to the right, but NOT if search wrapper comes first */
+.filter-section .filter-selector:first-of-type:not(:first-child),
+.filter-section .btn-group:not(.unified-search-wrapper):not(.unified-search-group):first-of-type:not(:first-child),
+.filter-section .sort-selector:first-of-type:not(:first-child) {
 	margin-left: auto !important;
+}
+
+/* Ensure search wrapper is always first and at left */
+.filter-section .unified-search-wrapper:first-child {
+	margin-left: 0;
+	margin-right: 12px;
+	order: -1;
 }
 
 /* Ensure non-search items don't steal space */
 .filter-section > :not(.unified-search-wrapper) {
 	flex: 0 0 auto !important;
+	margin-left: 0 !important;
+}
+
+/* Override any margin-left: auto on other elements when search is present */
+.filter-section:has(.unified-search-wrapper) > :not(.unified-search-wrapper) {
+	margin-left: 12px !important;
+}
+
+.filter-section:has(.unified-search-wrapper) > .filter-selector,
+.filter-section:has(.unified-search-wrapper) > .btn-group:not(.unified-search-wrapper),
+.filter-section:has(.unified-search-wrapper) > .sort-selector {
+	margin-left: 12px !important;
 }
 
 /* Hide empty filter selector block if present */

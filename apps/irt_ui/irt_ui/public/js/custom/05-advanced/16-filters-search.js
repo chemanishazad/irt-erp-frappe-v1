@@ -397,23 +397,34 @@ console.log('🔍 Unified search script loaded');
 			state.wrapper.parentElement.removeChild(state.wrapper);
 		}
 
-		// Insert as first child (left side)
+		// Remove search wrapper from anywhere else first
+		if (state.wrapper.parentElement) {
+			state.wrapper.parentElement.removeChild(state.wrapper);
+		}
+		
+		// Insert as FIRST child (absolute left position)
 		if (target.firstChild) {
 			target.insertBefore(state.wrapper, target.firstChild);
 		} else {
-			target.appendChild(state.wrapper);
+			target.insertBefore(state.wrapper, null);
+		}
+		
+		// Force it to be the first element
+		if (target.firstChild !== state.wrapper) {
+			target.insertBefore(state.wrapper, target.firstChild);
 		}
 
-		// Minimal inline layout to cooperate with CSS - ensure left alignment
+		// Minimal inline layout - simple approach
 		const wStyle = state.wrapper.style;
 		wStyle.display = 'flex';
-		wStyle.flex = '0 0 auto';
+		wStyle.flex = '1 1 auto';
 		wStyle.minWidth = '320px';
-		wStyle.maxWidth = '500px';
-		wStyle.width = 'auto';
+		wStyle.maxWidth = '100%';
+		wStyle.width = '100%';
 		wStyle.height = '42px';
 		wStyle.alignItems = 'center';
 		wStyle.marginRight = '12px';
+		wStyle.marginLeft = '0';
 		wStyle.order = '-1';
 
 		// Ensure input stretches
@@ -421,12 +432,34 @@ console.log('🔍 Unified search script loaded');
 			state.input.style.width = '100%';
 		}
 
-		// Push filter controls to the right (first filter-like control gets auto margin)
-		const rightControls = target.querySelector(
-			'.filter-selector, .filter-button, .sort-selector, button[data-label="Filter"], button[data-original-title*="Filter"], button[title*="Filter"], button[data-original-title*="Sort"], button[title*="Sort"], button[data-original-title*="Last Updated"], button[title*="Last Updated"]'
-		);
-		if (rightControls && !rightControls.style.marginLeft) {
-			rightControls.style.marginLeft = 'auto';
+		// Ensure filter section and parent containers align left
+		if (target && target.style) {
+			target.style.justifyContent = 'flex-start';
+			target.style.marginLeft = '0';
+			target.style.marginRight = '0';
+		}
+		
+		// Also fix standard-filter-section if it exists - LEFT ALIGNED
+		const standardFilterSection = target.closest('.standard-filter-section') || 
+		                             document.querySelector('.standard-filter-section');
+		if (standardFilterSection) {
+			standardFilterSection.style.justifyContent = 'flex-start';
+			standardFilterSection.style.order = '-1';
+			standardFilterSection.style.marginLeft = '0';
+			standardFilterSection.style.marginRight = '0';
+		}
+		
+		// Fix page-form alignment - LEFT ALIGNED
+		const pageForm = target.closest('.page-form') || document.querySelector('.page-form');
+		if (pageForm) {
+			pageForm.style.justifyContent = 'flex-start';
+			pageForm.style.alignItems = 'center';
+			
+			// Ensure standard-filter-section is first child
+			const stdFilter = pageForm.querySelector('.standard-filter-section');
+			if (stdFilter && pageForm.firstChild !== stdFilter) {
+				pageForm.insertBefore(stdFilter, pageForm.firstChild);
+			}
 		}
 
 		log('Search wrapper placed', {
