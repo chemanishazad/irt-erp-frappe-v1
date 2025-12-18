@@ -414,46 +414,128 @@ console.log('🔍 Unified search script loaded');
 			target.insertBefore(state.wrapper, target.firstChild);
 		}
 
-		// Minimal inline layout - simple approach
+		// Minimal inline layout - AGGRESSIVE LEFT ALIGNMENT - VISIBLE SIZE - NO CLIPPING
 		const wStyle = state.wrapper.style;
-		wStyle.display = 'flex';
-		wStyle.flex = '1 1 auto';
-		wStyle.minWidth = '320px';
-		wStyle.maxWidth = '100%';
-		wStyle.width = '100%';
-		wStyle.height = '36px';
-		wStyle.alignItems = 'center';
-		wStyle.marginRight = '12px';
-		wStyle.marginLeft = '0';
-		wStyle.order = '-1';
+		wStyle.setProperty('display', 'flex', 'important');
+		wStyle.setProperty('flex', '1 1 auto', 'important');
+		wStyle.setProperty('min-width', '400px', 'important');
+		wStyle.setProperty('max-width', 'calc(100% - 150px)', 'important');
+		wStyle.setProperty('width', 'auto', 'important');
+		wStyle.setProperty('overflow', 'visible', 'important');
+		wStyle.setProperty('height', '36px', 'important');
+		wStyle.setProperty('min-height', '36px', 'important');
+		wStyle.setProperty('max-height', 'none', 'important');
+		wStyle.setProperty('align-items', 'center', 'important');
+		wStyle.setProperty('align-self', 'center', 'important');
+		wStyle.setProperty('margin-right', '12px', 'important');
+		wStyle.setProperty('margin-left', '8px', 'important');
+		wStyle.setProperty('margin-top', '0', 'important');
+		wStyle.setProperty('margin-bottom', '0', 'important');
+		wStyle.setProperty('padding', '0', 'important');
+		wStyle.setProperty('padding-left', '0', 'important');
+		wStyle.setProperty('order', '-1', 'important');
+		wStyle.setProperty('position', 'relative', 'important');
+		wStyle.setProperty('box-sizing', 'border-box', 'important');
+		
+		// Ensure input height is also 36px - NO CLIPPING
+		if (state.input) {
+			state.input.style.setProperty('height', '36px', 'important');
+			state.input.style.setProperty('min-height', '36px', 'important');
+			state.input.style.setProperty('max-height', 'none', 'important');
+			state.input.style.setProperty('line-height', '36px', 'important');
+			state.input.style.setProperty('padding-top', '0', 'important');
+			state.input.style.setProperty('padding-bottom', '0', 'important');
+			state.input.style.setProperty('padding-left', '36px', 'important');
+			state.input.style.setProperty('margin', '0', 'important');
+			state.input.style.setProperty('font-size', '14px', 'important');
+			state.input.style.setProperty('overflow', 'visible', 'important');
+			state.input.style.setProperty('vertical-align', 'middle', 'important');
+			state.input.style.setProperty('box-sizing', 'border-box', 'important');
+		}
+		
+		// Ensure form group has proper overflow
+		const formGroup = state.wrapper.querySelector('.unified-search-group, .form-group');
+		if (formGroup) {
+			formGroup.style.setProperty('overflow', 'visible', 'important');
+			formGroup.style.setProperty('max-height', 'none', 'important');
+			formGroup.style.setProperty('align-items', 'center', 'important');
+		}
 
 		// Ensure input stretches
 		if (state.input) {
 			state.input.style.width = '100%';
 		}
 
-		// Ensure filter section and parent containers align left
+		// Ensure filter section and parent containers align left - AGGRESSIVE - NO CLIPPING - MINIMAL SPACING
 		if (target && target.style) {
-			target.style.justifyContent = 'flex-start';
-			target.style.marginLeft = '0';
-			target.style.marginRight = '0';
+			target.style.setProperty('justify-content', 'flex-start', 'important');
+			target.style.setProperty('align-items', 'center', 'important');
+			target.style.setProperty('margin-left', '0', 'important');
+			target.style.setProperty('margin-right', '0', 'important');
+			target.style.setProperty('margin-top', '0', 'important');
+			target.style.setProperty('margin-bottom', '4px', 'important');
+			target.style.setProperty('padding-left', '0', 'important');
+			target.style.setProperty('padding-top', '0', 'important');
+			target.style.setProperty('padding-bottom', '0', 'important');
+			target.style.setProperty('min-height', '36px', 'important');
+			target.style.setProperty('height', 'auto', 'important');
+			target.style.setProperty('overflow', 'visible', 'important');
 		}
 		
-		// Also fix standard-filter-section if it exists - LEFT ALIGNED
+		// Also fix standard-filter-section if it exists - AGGRESSIVE LEFT ALIGNMENT
 		const standardFilterSection = target.closest('.standard-filter-section') || 
 		                             document.querySelector('.standard-filter-section');
 		if (standardFilterSection) {
-			standardFilterSection.style.justifyContent = 'flex-start';
-			standardFilterSection.style.order = '-1';
-			standardFilterSection.style.marginLeft = '0';
-			standardFilterSection.style.marginRight = '0';
+			standardFilterSection.style.setProperty('justify-content', 'flex-start', 'important');
+			standardFilterSection.style.setProperty('order', '-1', 'important');
+			standardFilterSection.style.setProperty('margin-left', '0', 'important');
+			standardFilterSection.style.setProperty('margin-right', '0', 'important');
+			standardFilterSection.style.setProperty('padding-left', '0', 'important');
+			standardFilterSection.style.setProperty('position', 'relative', 'important');
+			standardFilterSection.style.setProperty('left', '0', 'important');
 		}
 		
-		// Fix page-form alignment - LEFT ALIGNED
+		// Fix page-form alignment - AGGRESSIVE LEFT ALIGNMENT - NO CLIPPING - MINIMAL SPACING
 		const pageForm = target.closest('.page-form') || document.querySelector('.page-form');
 		if (pageForm) {
-			pageForm.style.justifyContent = 'flex-start';
-			pageForm.style.alignItems = 'center';
+			pageForm.style.setProperty('justify-content', 'flex-start', 'important');
+			pageForm.style.setProperty('align-items', 'center', 'important');
+			pageForm.style.setProperty('padding-left', '0', 'important');
+			pageForm.style.setProperty('padding', '2px 12px 2px 0', 'important');
+			pageForm.style.setProperty('padding-top', '2px', 'important');
+			pageForm.style.setProperty('padding-bottom', '2px', 'important');
+			pageForm.style.setProperty('margin-left', '0', 'important');
+			pageForm.style.setProperty('margin-top', '0', 'important');
+			pageForm.style.setProperty('min-height', '36px', 'important');
+			pageForm.style.setProperty('height', 'auto', 'important');
+			pageForm.style.setProperty('overflow', 'visible', 'important');
+			
+			// Also check parent containers - REMOVE ALL LEFT PADDING - ADD TOP PADDING
+			const layoutMain = pageForm.closest('.layout-main-section') || 
+			                  pageForm.closest('.page-body') ||
+			                  pageForm.closest('.layout-main') ||
+			                  pageForm.closest('.page-container') ||
+			                  pageForm.closest('.layout-main-section-wrapper') ||
+			                  pageForm.closest('.page-content-wrapper');
+			if (layoutMain) {
+				layoutMain.style.setProperty('padding-left', '0', 'important');
+				layoutMain.style.setProperty('margin-left', '0', 'important');
+				layoutMain.style.setProperty('padding-top', '4px', 'important');
+			}
+			
+			// Also add top padding to page-head if it exists
+			const pageHead = document.querySelector('.page-head');
+			if (pageHead) {
+				pageHead.style.setProperty('padding-top', '8px', 'important');
+				pageHead.style.setProperty('margin-top', '0', 'important');
+			}
+			
+			// Also check for container/container-fluid
+			const containers = document.querySelectorAll('body[data-route*="List"] .container, body[data-route*="List"] .container-fluid');
+			containers.forEach(container => {
+				container.style.setProperty('padding-left', '0', 'important');
+				container.style.setProperty('margin-left', '0', 'important');
+			});
 			
 			// Ensure standard-filter-section is first child
 			const stdFilter = pageForm.querySelector('.standard-filter-section');

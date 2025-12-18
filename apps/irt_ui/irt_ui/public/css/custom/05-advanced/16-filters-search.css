@@ -6,6 +6,94 @@
  */
 
 /* ============================================================
+   0. AGGRESSIVE LEFT ALIGNMENT - HIGHEST PRIORITY
+   ============================================================ */
+
+/* Force page-form to have NO left padding/margin */
+body[data-route*="List"] .page-form,
+body[data-route*="List"] .page-form.flex,
+[data-page-route^="List"] .page-form,
+[data-page-route^="List"] .page-form.flex {
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	justify-content: flex-start !important;
+}
+
+/* Force standard-filter-section to be at absolute left */
+body[data-route*="List"] .page-form > .standard-filter-section,
+body[data-route*="List"] .standard-filter-section,
+[data-page-route^="List"] .page-form > .standard-filter-section,
+[data-page-route^="List"] .standard-filter-section {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+	order: -1 !important;
+}
+
+/* Force filter-section to have NO left padding/margin */
+body[data-route*="List"] .filter-section,
+body[data-route*="List"] .page-form .filter-section,
+[data-page-route^="List"] .filter-section,
+[data-page-route^="List"] .page-form .filter-section {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* Force search wrapper - SMALLER HEIGHT, SLIGHTLY RIGHT */
+body[data-route*="List"] .unified-search-wrapper,
+body[data-route*="List"] .filter-section .unified-search-wrapper,
+body[data-route*="List"] .standard-filter-section .unified-search-wrapper,
+[data-page-route^="List"] .unified-search-wrapper {
+	margin-left: 8px !important;
+	padding-left: 0 !important;
+	height: 28px !important;
+	max-height: 28px !important;
+}
+
+/* Remove padding from parent containers that might push content right - OVERRIDE 04-main-content.css */
+/* Ensure parent containers don't clip search bar - ADD TOP PADDING */
+body[data-route*="List"] .layout-main-section,
+body[data-route*="List"] .page-body,
+body[data-route*="List"] .layout-main-section-wrapper,
+body[data-route*="List"] .page-container,
+body[data-route*="List"] .container,
+body[data-route*="List"] .container-fluid,
+body[data-route*="List"] .page-content-wrapper {
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	padding-top: 0 !important;
+	overflow: visible !important;
+}
+
+/* Ensure page-head and related containers don't clip - ADD TOP PADDING */
+body[data-route*="List"] .page-head,
+[data-page-route^="List"] .page-head {
+	overflow: visible !important;
+	min-height: auto !important;
+	padding-top: 0 !important;
+	margin-top: 0 !important;
+}
+
+/* Override page-container padding for list views - REMOVE LEFT PADDING - ADD TOP PADDING */
+body[data-route*="List"] .page-container {
+	padding-left: 0 !important;
+	padding-top: 4px !important;
+	padding-right: var(--spacing-lg) !important;
+	padding-bottom: var(--spacing-lg) !important;
+}
+
+/* Ensure page-form container has no left spacing - MINIMAL VERTICAL SPACING */
+body[data-route*="List"] .page-form,
+body[data-route*="List"] .page-form.flex,
+[data-page-route^="List"] .page-form {
+	padding-left: 0 !important;
+	margin-left: 0 !important;
+	margin-top: 0 !important;
+	padding: 2px 12px 2px 0 !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+/* ============================================================
    1. HIDE DUPLICATE SEARCH / DEFAULT FILTERS
    ============================================================ */
 
@@ -24,7 +112,7 @@
    2. LAYOUT - SINGLE ROW
    ============================================================ */
 
-/* Page form - full width container - LEFT ALIGNED */
+/* Page form - full width container - LEFT ALIGNED - NO LEFT PADDING - NO CLIPPING - MINIMAL SPACING */
 [data-page-route^="List"] .page-form {
 	display: flex !important;
 	flex-direction: row !important;
@@ -33,9 +121,17 @@
 	flex-wrap: nowrap !important;
 	width: 100% !important;
 	max-width: none !important;
-	padding: 8px 12px !important;
+	padding: 2px 12px 2px 0 !important;
+	padding-left: 0 !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
 	margin: 0 !important;
+	margin-left: 0 !important;
+	margin-top: 0 !important;
 	justify-content: flex-start !important;
+	min-height: 36px !important;
+	height: auto !important;
+	overflow: visible !important;
 }
 
 /* Override any col-* or grid restrictions */
@@ -51,6 +147,7 @@
 	order: -1 !important;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
+	padding-left: 0 !important;
 	flex: 1 1 auto !important;
 	align-self: center !important;
 }
@@ -63,12 +160,12 @@
 	flex: 0 0 auto !important;
 }
 
-/* Standard filter section - take full available space - LEFT ALIGNED */
+/* Standard filter section - take available space - LEFT ALIGNED - NO OVERLAP */
 [data-page-route^="List"] .standard-filter-section {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
-	gap: 16px !important;
+	gap: 12px !important;
 	flex-wrap: nowrap !important;
 	flex: 1 1 auto !important;
 	width: 100% !important;
@@ -78,9 +175,12 @@
 	order: -1 !important;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
+	padding-left: 0 !important;
+	overflow: visible !important;
+	box-sizing: border-box !important;
 }
 
-/* Filter section - full width flex container */
+/* Filter section - full width flex container - VISIBLE HEIGHT - NO OVERLAP - NO CLIPPING - MINIMAL SPACING */
 [data-page-route^="List"] .page-form .filter-section,
 [data-page-route^="List"] .filter-section {
 	display: flex;
@@ -92,9 +192,23 @@
 	flex-wrap: nowrap;
 	justify-content: flex-start;
 	min-height: 36px;
+	height: auto;
 	overflow: visible;
 	z-index: 10;
 	padding: 0;
+	padding-left: 0;
+	margin-left: 0;
+	margin-top: 0;
+	margin-bottom: 4px;
+	box-sizing: border-box;
+	position: relative;
+}
+
+/* Prevent filter section from overlapping table */
+[data-page-route^="List"] .filter-section {
+	margin-bottom: 4px;
+	position: relative;
+	overflow: visible !important;
 }
 
 /* Force search wrapper to be first */
@@ -108,39 +222,57 @@
    3. UNIFIED SEARCH FIELD
    ============================================================ */
 
-/* Search wrapper - main container - FULL WIDTH */
+/* Search wrapper - main container - PROPER SIZE - VISIBLE HEIGHT - NO CLIPPING */
 .unified-search-wrapper {
 	display: flex;
 	position: relative;
 	flex: 1 1 auto;
 	height: 36px;
+	min-height: 36px;
+	max-height: none;
 	margin-right: 12px;
-	margin-left: 0;
-	min-width: 320px;
-	max-width: 100%;
-	width: 100%;
+	margin-left: 8px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 0;
+	padding-left: 0;
+	min-width: 400px;
+	max-width: calc(100% - 150px);
+	width: auto;
 	z-index: 5;
 	gap: 0;
 	align-items: center;
+	align-self: center;
 	order: -1;
+	overflow: visible;
+	box-sizing: border-box;
 }
 
-/* Force proper sizing in list views - FULL WIDTH */
+/* Force proper sizing in list views - PROPER SIZE - VISIBLE HEIGHT - NO CLIPPING */
 [data-page-route^="List"] .unified-search-wrapper,
 .page-form .unified-search-wrapper,
 .filter-section .unified-search-wrapper,
 .standard-filter-section .unified-search-wrapper {
 	flex: 1 1 auto;
-	width: 100%;
-	min-width: 320px;
-	max-width: 100%;
-	display: flex;
-	visibility: visible;
-	opacity: 1;
-	height: 36px;
+	width: auto;
+	min-width: 400px !important;
+	max-width: calc(100% - 150px) !important;
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	height: 36px !important;
+	min-height: 36px !important;
+	max-height: none !important;
 	margin-right: 12px;
-	margin-left: 0;
+	margin-left: 8px;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding: 0 !important;
+	padding-left: 0;
 	order: -1;
+	overflow: visible !important;
+	align-self: center !important;
+	box-sizing: border-box !important;
 }
 
 /* Ensure visibility */
@@ -153,7 +285,7 @@
 	opacity: 1 !important;
 }
 
-/* Inner form group - flexible container - FULL WIDTH */
+/* Inner form group - flexible container - FULL WIDTH - VISIBLE HEIGHT - NO CLIPPING */
 .unified-search-wrapper .unified-search-group,
 .unified-search-wrapper .form-group {
 	display: flex !important;
@@ -162,14 +294,18 @@
 	min-width: 0 !important;
 	width: 100% !important;
 	margin: 0 !important;
-	height: 100% !important;
-	width: 100% !important;
-	min-width: 0 !important;
+	padding: 0 !important;
+	height: 36px !important;
+	min-height: 36px !important;
+	max-height: none !important;
 	visibility: visible !important;
+	overflow: visible !important;
+	box-sizing: border-box !important;
+	align-items: center !important;
 	opacity: 1 !important;
 }
 
-/* Keep list header/form bar visible */
+/* Keep list header/form bar visible - MINIMAL SPACING */
 body[data-route*="List"] .page-head,
 body[data-route*="List"] .page-form,
 body[data-route*="List"] .standard-filter-section,
@@ -181,6 +317,10 @@ body[data-route*="List"] .filter-section {
 	visibility: visible !important;
 	width: 100% !important;
 	min-height: 36px !important;
+	height: auto !important;
+	overflow: visible !important;
+	margin-top: 0 !important;
+	padding-top: 0 !important;
 }
 
 body[data-route*="List"] .page-head .row,
@@ -200,24 +340,33 @@ body[data-route*="List"] .page-form .form-group {
 	visibility: visible !important;
 }
 
-/* Input field - main search input */
+/* Input field - main search input - VISIBLE HEIGHT - NO CLIPPING */
 .unified-search-input {
 	display: block !important;
 	flex: 1 1 100% !important;
 	width: 100% !important;
 	min-width: 0 !important;
 	height: 36px !important;
+	min-height: 36px !important;
+	max-height: none !important;
+	line-height: 36px !important;
 	padding-left: 36px !important;
 	padding-right: 12px !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	margin: 0 !important;
+	font-size: 14px !important;
+	box-sizing: border-box !important;
 	border-radius: 8px !important;
 	border: 1.5px solid #cbd5e1 !important;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 	background: var(--color-bg-white) !important;
 	visibility: visible !important;
 	opacity: 1 !important;
-	font-size: 14px !important;
 	transition: all 0.2s ease !important;
 	color: #1e293b !important;
+	overflow: visible !important;
+	vertical-align: middle !important;
 }
 
 .unified-search-input::placeholder {
@@ -232,7 +381,7 @@ body[data-route*="List"] .page-form .form-group {
 	outline: none !important;
 }
 
-/* Always show native list search (fallback/default) */
+/* Always show native list search (fallback/default) - VISIBLE HEIGHT */
 .list-search {
 	display: flex !important;
 	opacity: 1 !important;
@@ -240,8 +389,10 @@ body[data-route*="List"] .page-form .form-group {
 	align-items: center !important;
 	width: 100% !important;
 	max-width: 100% !important;
-	min-width: 240px !important;
+	min-width: 400px !important;
 	height: 36px !important;
+	min-height: 36px !important;
+	max-height: 36px !important;
 	gap: 8px !important;
 }
 
@@ -253,17 +404,20 @@ body[data-route*="List"] .page-form .form-group {
 	width: 100% !important;
 	min-width: 0 !important;
 	height: 36px !important;
+	min-height: 36px !important;
+	max-height: 36px !important;
+	line-height: 36px !important;
 }
 
-/* Search icon */
+/* Search icon - VISIBLE SIZE */
 .unified-search-icon {
 	position: absolute !important;
 	left: 12px !important;
 	top: 50% !important;
 	transform: translateY(-50%) !important;
 	pointer-events: none !important;
-	width: 16px !important;
-	height: 16px !important;
+	width: 18px !important;
+	height: 18px !important;
 	color: #64748b !important;
 	z-index: 10 !important;
 	display: flex !important;
@@ -298,18 +452,19 @@ body[data-route*="List"] .page-form .form-group {
    4. BUTTONS POSITIONING
    ============================================================ */
 
-/* Search at start - left aligned, FULL WIDTH */
+/* Search at start - left aligned, PROPER SIZE to be visible */
 .filter-section .unified-search-wrapper {
 	order: -1;
 	margin-right: 12px;
-	margin-left: 0;
+	margin-left: 8px;
 	flex: 1 1 auto;
-	max-width: 100%;
-	min-width: 320px;
-	width: 100%;
+	max-width: calc(100% - 150px);
+	min-width: 400px;
+	width: auto;
+	overflow: visible;
 }
 
-/* Buttons to the right */
+/* Buttons to the right - PREVENT OVERLAP */
 .filter-section .btn-group,
 .filter-section .btn,
 .filter-section button,
@@ -325,11 +480,15 @@ body[data-route*="List"] .page-form .form-group {
 	max-width: none !important;
 	gap: 6px !important;
 	margin-left: 12px !important;
+	margin-right: 0 !important;
 	background: transparent !important;
 	border: none !important;
 	box-shadow: none !important;
 	padding: 0 !important;
-	height: 34px !important;
+	height: 36px !important;
+	min-width: auto !important;
+	overflow: visible !important;
+	z-index: 1 !important;
 }
 
 /* Push filter controls to the right, but NOT if search wrapper comes first */
@@ -373,7 +532,7 @@ body[data-route*="List"] .page-form .form-group {
 .filter-section .btn-group > button,
 .filter-section .sort-selector button,
 .filter-section .filter-button {
-	min-height: 34px !important;
+	min-height: 36px !important;
 	padding: 6px 12px !important;
 	border-radius: 6px !important;
 	line-height: 1.2 !important;
@@ -381,7 +540,7 @@ body[data-route*="List"] .page-form .form-group {
 	border: 1px solid #e2e8f0 !important;
 	color: #1f2937 !important;
 	box-shadow: none !important;
-	height: 34px !important;
+	height: 36px !important;
 }
 
 .filter-section .btn-group > .btn:hover,
