@@ -13,12 +13,14 @@ app_include_css = [
 ]
 
 app_include_js = [
-	"/assets/irt_ui/js/custom/sidebar.js",
-	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js",
-	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js",
-	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js",
-	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js",
-	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js",
+	"/assets/irt_ui/js/custom/sidebar.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/02-form-components/11-form-activity-tab.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/03-data-display/12-form-activity.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js?v=1.1.6",
 ]
 
 # Includes for website pages (login, signup, etc.)

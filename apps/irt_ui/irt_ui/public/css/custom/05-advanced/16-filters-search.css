@@ -69,6 +69,7 @@
 	flex: 1 !important;
 	flex-wrap: nowrap !important;
 	justify-content: flex-start !important;
+	align-content: flex-start !important;
 	min-height: 42px !important;
 	overflow: visible !important;
 	z-index: 10 !important;
@@ -83,26 +84,34 @@
 .unified-search-wrapper {
 	display: flex !important;
 	position: relative !important;
-	flex: 1 1 100% !important;
+	flex: 0 0 auto !important;
 	height: 42px !important;
 	margin: 0 !important;
-	min-width: 0 !important;
-	max-width: 100% !important;
+	margin-right: 12px !important;
+	min-width: 320px !important;
+	max-width: 500px !important;
 	z-index: 5 !important;
 	gap: 0 !important;
 	align-items: center !important;
-	width: 100% !important;
+	width: auto !important;
+	order: -1 !important;
 }
 
-/* Force full width in list views */
+/* Force proper sizing in list views */
 [data-page-route^="List"] .unified-search-wrapper,
 .page-form .unified-search-wrapper,
 .filter-section .unified-search-wrapper,
 .standard-filter-section .unified-search-wrapper {
-	flex: 1 1 100% !important;
-	width: 100% !important;
-	max-width: 100% !important;
-	min-width: 0 !important;
+	flex: 0 0 auto !important;
+	width: auto !important;
+	min-width: 320px !important;
+	max-width: 500px !important;
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	height: 42px !important;
+	margin-right: 12px !important;
+	order: -1 !important;
 }
 
 /* Ensure visibility */
@@ -119,12 +128,46 @@
 .unified-search-wrapper .unified-search-group,
 .unified-search-wrapper .form-group {
 	display: flex !important;
-	flex: 1 1 100% !important;
+	flex: 1 1 auto !important;
 	position: relative !important;
+	min-width: 0 !important;
 	margin: 0 !important;
 	height: 100% !important;
 	width: 100% !important;
 	min-width: 0 !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+/* Keep list header/form bar visible */
+body[data-route*="List"] .page-head,
+body[data-route*="List"] .page-form,
+body[data-route*="List"] .standard-filter-section,
+body[data-route*="List"] .filter-section {
+	display: flex !important;
+	flex-wrap: nowrap !important;
+	align-items: center !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	width: 100% !important;
+	min-height: 42px !important;
+}
+
+body[data-route*="List"] .page-head .row,
+body[data-route*="List"] .page-head .col,
+body[data-route*="List"] .page-head .form-group,
+body[data-route*="List"] .page-form .row,
+body[data-route*="List"] .page-form .col,
+body[data-route*="List"] .page-form .form-group {
+	display: flex !important;
+	flex: 1 1 auto !important;
+	align-items: center !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	gap: 8px !important;
+	flex-wrap: nowrap !important;
+	opacity: 1 !important;
+	visibility: visible !important;
 }
 
 /* Input field - main search input */
@@ -157,6 +200,29 @@
 	border-color: var(--color-primary) !important;
 	box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 	outline: none !important;
+}
+
+/* Always show native list search (fallback/default) */
+.list-search {
+	display: flex !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	align-items: center !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	min-width: 240px !important;
+	height: 42px !important;
+	gap: 8px !important;
+}
+
+.list-search .input-with-feedback,
+.list-search input {
+	display: block !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	height: 42px !important;
 }
 
 /* Search icon */

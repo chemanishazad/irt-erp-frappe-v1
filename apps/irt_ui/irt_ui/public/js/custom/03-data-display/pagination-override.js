@@ -72,8 +72,8 @@
 		
 		// Calculate range based on actual data length shown
 		const dataLength = listView.data ? listView.data.length : 0;
-		const from = totalCount > 0 ? start + 1 : 0;
-		const to = Math.min(start + dataLength, totalCount);
+		const from = totalCount > 0 && dataLength > 0 ? start + 1 : 0;
+		const to = totalCount > 0 && dataLength > 0 ? Math.min(start + dataLength, totalCount) : 0;
 		
 		// Build HTML
 		const html = buildPaginationHTML(currentPage, totalPages, pageSize, totalCount, from, to);
@@ -204,6 +204,16 @@
 				listView.render();
 				
 				// Update pagination
+				$area.removeClass('custom-pagination-applied');
+				transformPagination(listView);
+			}).catch((err) => {
+				// Handle errors gracefully
+				console.error('Pagination error:', err);
+				frappe.show_alert({
+					message: __('Failed to load page. Please try again.'),
+					indicator: 'red'
+				}, 3);
+				// Restore pagination state
 				$area.removeClass('custom-pagination-applied');
 				transformPagination(listView);
 			});

@@ -79,18 +79,20 @@ console.log('🔍 Unified search script loaded');
 		return Object.values(views).find((view) => view && view.doctype) || null;
 	}
 
-	function isDeskPage() {
+	function isListRoute() {
+		// Prefer DOM detection so we don't miss tree-like routes that still show list UI
+		if (document.querySelector('.list-search')) return true;
+		if (window.cur_list && window.cur_list.doctype) return true;
+
 		const route = typeof frappe?.get_route === 'function' ? frappe.get_route() : [];
-		if (!route || route.length === 0 || route[0] === '' || route[0] === 'desk') {
-			return true;
-		}
-		if (document.querySelector('.standard-icons, .desk-page')) {
-			return true;
-		}
-		const listView = getActiveListView();
-		if (!listView || !listView.doctype) {
-			return true;
-		}
+		return (
+			(route && route.length && route[0] && route[0].toLowerCase() === 'list') ||
+			(route && route.length && route[1] && route[1].toLowerCase() === 'list')
+		);
+	}
+
+	// Backward compat: keep a no-op isDeskPage to avoid ReferenceErrors
+	function isDeskPage() {
 		return false;
 	}
 
@@ -189,6 +191,22 @@ console.log('🔍 Unified search script loaded');
 		log('Applied unified search filters:', fields);
 	}
 
+	function showNativeSearchFallback() {
+		const native = document.querySelector('.list-search');
+		if (native) {
+			native.style.setProperty('display', 'flex', 'important');
+			native.style.setProperty('opacity', '1', 'important');
+			native.style.setProperty('visibility', 'visible', 'important');
+			const input = native.querySelector('input');
+			if (input) {
+				input.style.setProperty('display', 'block', 'important');
+				input.style.setProperty('opacity', '1', 'important');
+				input.style.setProperty('visibility', 'visible', 'important');
+				input.style.setProperty('width', '100%', 'important');
+			}
+		}
+	}
+
 	function syncInputWithListView() {
 		const listView = getActiveListView();
 		if (!listView || !state.input) return;
@@ -196,6 +214,7 @@ console.log('🔍 Unified search script loaded');
 		const active = listView.__unified_search_query || '';
 		state.input.value = active;
 		// Clear button is always hidden - do nothing
+	showNativeSearchFallback();
 	}
 
 	function handleInput(value) {
@@ -286,6 +305,7 @@ console.log('🔍 Unified search script loaded');
 		if (state.searchBtn) {
 			state.searchBtn.addEventListener('click', function() {
 				handleInput(state.input.value);
+			showNativeSearchFallback();
 			});
 		}
 
@@ -298,9 +318,16 @@ console.log('🔍 Unified search script loaded');
 	 * 5. PLACE SEARCH WRAPPER IN FILTER SECTION
 	 * ----------------------------------------------------------- */
 	function findTargetContainer() {
-		if (isDeskPage()) return null;
+		// First, try to use the list view's $filter_section property (most reliable)
+		const listView = window.cur_list || getActiveListView();
+		if (listView && listView.$filter_section && listView.$filter_section.length) {
+			const domElement = listView.$filter_section[0];
+			if (domElement && !domElement.closest('.sidebar, .list-sidebar, .desk-sidebar')) {
+				return domElement;
+			}
+		}
 
-		// Prefer filter-section inside page-form, not in sidebars
+		// Fallback: Prefer filter-section inside page-form (created by FilterArea)
 		let target =
 			document.querySelector('.page-form .filter-section') ||
 			document.querySelector('.filter-section');
@@ -309,14 +336,44 @@ console.log('🔍 Unified search script loaded');
 			return target;
 		}
 
+		// Try to find page-form (where FilterArea creates filter-section)
 		const pageForm = document.querySelector('.page-form');
 		if (pageForm && !pageForm.closest('.sidebar, .list-sidebar, .desk-sidebar')) {
-			// Find or create filter-section inside page-form
+			// Check if filter-section exists (created by FilterArea)
 			target = pageForm.querySelector('.filter-section');
+			if (!target) {
+				// FilterArea might not have created it yet, create our own
+				target = document.createElement('div');
+				target.className = 'filter-section flex';
+				target.style.width = '100%';
+				target.style.gap = '8px';
+				// Insert at the beginning of page-form
+				if (pageForm.firstChild) {
+					pageForm.insertBefore(target, pageForm.firstChild);
+				} else {
+					pageForm.appendChild(target);
+				}
+			}
+			return target;
+		}
+
+		// Fallback: create inside page head container
+		const headContainer =
+			document.querySelector('.page-head .page-head-content') ||
+			document.querySelector('.page-head .container') ||
+			document.querySelector('.page-head');
+		if (headContainer) {
+			target = headContainer.querySelector('.filter-section');
 			if (!target) {
 				target = document.createElement('div');
 				target.className = 'filter-section flex';
-				pageForm.insertBefore(target, pageForm.firstChild);
+				target.style.width = '100%';
+				target.style.gap = '8px';
+				if (headContainer.firstChild) {
+					headContainer.insertBefore(target, headContainer.firstChild);
+				} else {
+					headContainer.appendChild(target);
+				}
 			}
 			return target;
 		}
@@ -327,7 +384,6 @@ console.log('🔍 Unified search script loaded');
 	function placeWrapper() {
 		const target = findTargetContainer();
 		if (!target || !state.wrapper) {
-			log('No target container or wrapper found', { target: !!target, wrapper: !!state.wrapper });
 			return false;
 		}
 
@@ -348,13 +404,17 @@ console.log('🔍 Unified search script loaded');
 			target.appendChild(state.wrapper);
 		}
 
-		// Minimal inline layout to cooperate with CSS
+		// Minimal inline layout to cooperate with CSS - ensure left alignment
 		const wStyle = state.wrapper.style;
 		wStyle.display = 'flex';
-		wStyle.flex = '1 1 auto';
-		wStyle.minWidth = '200px';
-		wStyle.height = '34px';
+		wStyle.flex = '0 0 auto';
+		wStyle.minWidth = '320px';
+		wStyle.maxWidth = '500px';
+		wStyle.width = 'auto';
+		wStyle.height = '42px';
 		wStyle.alignItems = 'center';
+		wStyle.marginRight = '12px';
+		wStyle.order = '-1';
 
 		// Ensure input stretches
 		if (state.input) {
@@ -378,119 +438,154 @@ console.log('🔍 Unified search script loaded');
 	}
 
 	function ensureSearchField(attempt = 0) {
+		// Only proceed if we're on a list route or have a list view
+		if (!isListRoute() && !window.cur_list) {
+			return false;
+		}
+
 		// Reuse existing wrapper if present
 		const existing = document.querySelector('.unified-search-wrapper');
 		if (existing && !state.wrapper) {
 			state.wrapper = existing;
 			state.input = existing.querySelector('.unified-search-input');
 			state.clearBtn = existing.querySelector('.unified-search-clear');
+			state.searchBtn = existing.querySelector('.unified-search-btn');
 		}
 
 		if (!state.wrapper) {
 			buildSearchWrapper();
 		}
 
+		// Try to place the wrapper
 		const placed = placeWrapper();
 
 		if (placed) {
 			bindInputEvents();
 			syncInputWithListView();
+			showNativeSearchFallback();
 			if (attempt === 0) {
 				log('Search field inserted/updated successfully');
 			}
 			return true;
 		}
 
-		if (attempt < 10 && !isDeskPage()) {
-			log(`Retry placing search field (${attempt + 1}/10)`);
-			setTimeout(() => ensureSearchField(attempt + 1), 300);
-		} else if (attempt >= 10) {
-			log('Failed to place search field after 10 attempts');
+		// If not placed and we haven't exceeded retry limit, try again
+		if (attempt < 20) {
+			// Increase delay for later attempts
+			const delay = attempt < 5 ? 200 : attempt < 10 ? 300 : 400;
+			setTimeout(() => ensureSearchField(attempt + 1), delay);
+		} else {
+			// Final fallback: show native search
+			if (attempt === 20) {
+				log('Failed to place search field after 20 attempts; showing native search');
+			}
+			showNativeSearchFallback();
 		}
 
 		return false;
 	}
 
 	/* -----------------------------------------------------------
-	 * 6. OBSERVERS & HOOKS
+	 * 6. APPLY LIST VIEW OVERRIDES (Same pattern as pagination)
+	 * ----------------------------------------------------------- */
+	function applyListViewOverrides() {
+		if (!frappe.views || !frappe.views.ListView) {
+			setTimeout(applyListViewOverrides, 100);
+			return;
+		}
+
+		// Hook into setup_filter_area to place search field right after filter section is created
+		const OriginalSetupFilterArea = frappe.views.ListView.prototype.setup_filter_area;
+		if (OriginalSetupFilterArea && !frappe.views.ListView.prototype.__unifiedSearchFilterAreaHooked) {
+			frappe.views.ListView.prototype.setup_filter_area = function() {
+				const result = OriginalSetupFilterArea.call(this);
+				// Store reference to this list view
+				window.cur_list = this;
+				
+				// FilterArea creates $filter_section synchronously, so it should be ready
+				// But wait a tiny bit for DOM to update
+				setTimeout(() => {
+					ensureSearchField();
+					syncInputWithListView();
+					showNativeSearchFallback();
+				}, 50);
+				
+				return result;
+			};
+			frappe.views.ListView.prototype.__unifiedSearchFilterAreaHooked = true;
+		}
+
+		// Override after_render - same timing as pagination (100ms)
+		const OriginalAfterRender = frappe.views.ListView.prototype.after_render;
+		frappe.views.ListView.prototype.after_render = function() {
+			OriginalAfterRender.call(this);
+			// Store reference to this list view
+			window.cur_list = this;
+			
+			// Ensure search field is placed - filter section should exist by now
+			setTimeout(() => {
+				ensureSearchField();
+				syncInputWithListView();
+				showNativeSearchFallback();
+			}, 100);
+		};
+
+		// Override refresh to update search field after data loads
+		const OriginalRefresh = frappe.views.ListView.prototype.refresh;
+		frappe.views.ListView.prototype.refresh = function(args) {
+			const self = this;
+			// Store reference to this list view
+			window.cur_list = self;
+			const result = OriginalRefresh.call(this, args);
+			
+			if (result && result.then) {
+				result.then(() => {
+					setTimeout(() => {
+						// Ensure search field is placed and synced
+						ensureSearchField();
+						syncInputWithListView();
+						showNativeSearchFallback();
+					}, 50);
+				});
+			} else {
+				setTimeout(() => {
+					// Ensure search field is placed and synced
+					ensureSearchField();
+					syncInputWithListView();
+					showNativeSearchFallback();
+				}, 50);
+			}
+			
+			return result;
+		};
+	}
+
+	/* -----------------------------------------------------------
+	 * 7. OBSERVERS & INITIALIZATION
 	 * ----------------------------------------------------------- */
 	function initObservers() {
-		// Watch DOM for filter-section creation
+		// Watch DOM for filter-section creation - debounced
 		if (typeof MutationObserver !== 'undefined') {
+			let mutationTimeout;
 			const observer = new MutationObserver(() => {
-				if (!document.querySelector('.unified-search-wrapper') &&
-					document.querySelector('.filter-section') &&
-					!isDeskPage()
-				) {
-					log('MutationObserver: filter-section detected, ensuring search field');
-					ensureSearchField();
-				}
+				clearTimeout(mutationTimeout);
+				mutationTimeout = setTimeout(() => {
+					if (isListRoute() && !document.querySelector('.unified-search-wrapper')) {
+						ensureSearchField();
+						showNativeSearchFallback();
+					}
+				}, 200);
 			});
 
-			const root = document.querySelector('.page-form') || document.body;
+			const root = document.body;
 			observer.observe(root, {
 				childList: true,
 				subtree: true,
 			});
 		}
 
-		// Router changes
-		if (window.frappe && frappe.router && typeof frappe.router.on === 'function') {
-			frappe.router.on('change', () => {
-				setTimeout(() => {
-					log('Route changed, ensuring search field');
-					ensureSearchField();
-					syncInputWithListView();
-				}, 300);
-			});
-		}
-
-		// List view setup hook
-		if (window.frappe && frappe.views && frappe.views.ListView) {
-			const proto = frappe.views.ListView.prototype;
-			const originalSetup = proto.setup_view;
-			if (originalSetup && !proto.__unifiedSearchSetupHooked) {
-				proto.setup_view = function () {
-					const result = originalSetup.apply(this, arguments);
-					setTimeout(() => {
-						log('List view setup complete, ensuring search field');
-						ensureSearchField();
-						syncInputWithListView();
-					}, 400);
-					return result;
-				};
-				proto.__unifiedSearchSetupHooked = true;
-			}
-		}
-
-		// Initial DOM hooks
-		document.addEventListener('DOMContentLoaded', () => {
-			setTimeout(() => {
-				log('DOM loaded, ensuring search field');
-				ensureSearchField();
-				syncInputWithListView();
-			}, 200);
-		});
-
-		window.addEventListener('load', () => {
-			setTimeout(() => {
-				log('Window loaded, ensuring search field');
-				ensureSearchField();
-				syncInputWithListView();
-			}, 300);
-		});
-
-		// Periodic sanity check as a fallback
-		setInterval(() => {
-			if (!isDeskPage() &&
-				document.querySelector('.filter-section') &&
-				!document.querySelector('.unified-search-wrapper')
-			) {
-				log('Periodic check: filter-section exists but search field missing');
-				ensureSearchField();
-			}
-
-			// Force hide clear button if it somehow becomes visible
+		// Periodic sanity check to ensure clear buttons stay hidden
+		const hideClearButtons = () => {
 			const clearButtons = document.querySelectorAll('.unified-search-clear');
 			clearButtons.forEach(btn => {
 				const computed = window.getComputedStyle(btn);
@@ -502,10 +597,62 @@ console.log('🔍 Unified search script loaded');
 					btn.setAttribute('hidden', 'true');
 				}
 			});
-		}, 3000);
+		};
+
+		// Run periodic check less frequently
+		setInterval(() => {
+			if (isListRoute()) {
+				hideClearButtons();
+			}
+		}, 2000);
 	}
 
-	// Kick things off
-	ensureSearchField();
-	initObservers();
+	// Wait for frappe to be ready, then apply overrides - EXACT same approach as pagination
+	$(document).ready(function() {
+		applyListViewOverrides();
+		initObservers();
+		
+		// Initial load check - wait for list view and filter section to be ready
+		function tryInitialLoad(attempt = 0) {
+			if (attempt > 20) return; // Stop after 20 attempts (~6 seconds)
+			
+			// Check multiple ways to detect list view
+			const listView = window.cur_list || getActiveListView();
+			// Check for filter section via list view property (most reliable)
+			const hasFilterSectionViaListView = listView && listView.$filter_section && listView.$filter_section.length;
+			// Or check DOM
+			const hasFilterSectionInDOM = document.querySelector('.page-form .filter-section') || 
+			                              document.querySelector('.filter-section');
+			const hasFilterSection = hasFilterSectionViaListView || hasFilterSectionInDOM;
+			const hasListContainer = document.querySelector('.frappe-list, .list-container, .list-view-container');
+			const isList = isListRoute() || hasListContainer || listView;
+			
+			if (isList && hasFilterSection) {
+				// We're on a list route and filter section exists - place search field
+				ensureSearchField();
+				syncInputWithListView();
+				showNativeSearchFallback();
+			} else if (isList) {
+				// We're on a list route but filter section not ready yet, retry
+				setTimeout(() => tryInitialLoad(attempt + 1), 250);
+			} else if (attempt < 12) {
+				// Not on list route yet, keep checking (but less aggressively)
+				setTimeout(() => tryInitialLoad(attempt + 1), 400);
+			}
+		}
+		
+		// Start initial load check after a short delay
+		setTimeout(() => tryInitialLoad(), 200);
+		
+		// Route change handler - same timing as pagination (500ms)
+		frappe.router && frappe.router.on('change', function() {
+			setTimeout(() => {
+				if (isListRoute() || window.cur_list) {
+					ensureSearchField();
+					syncInputWithListView();
+					showNativeSearchFallback();
+				}
+			}, 500);
+		});
+	});
 })();
