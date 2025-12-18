@@ -28,11 +28,11 @@
         "idx": 3,
         "version": "16.0.0-dev"
     },
-    "workspaceperms": {
+    "irt_hrms": {
         "is_repo": true,
         "resolution": {
-            "commit_hash": "4a85138c15791ae6f8604d92376da50445cf67b0",
-            "branch": "master"
+            "commit_hash": "d9b9fa760852710f289a4c229b2e0957de37bfc1",
+            "branch": "version-16-beta"
         },
         "required": [],
         "idx": 4,

@@ -19,6 +19,7 @@ app_include_js = [
 	"/assets/irt_ui/js/custom/01-core-layout/05-page-headers.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/02-form-components/11-form-activity-tab.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/02-form-components/12-form-builder-default-tab.js?v=1.5.0",
 	"/assets/irt_ui/js/custom/03-data-display/12-form-activity.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js?v=1.1.6",
