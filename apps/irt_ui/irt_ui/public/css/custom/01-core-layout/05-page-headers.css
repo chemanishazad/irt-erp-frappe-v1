@@ -48,6 +48,16 @@
 	margin-bottom: 0 !important;
 }
 
+/* Remove all padding from page-head children */
+.page-head > *,
+.page-head .container,
+.page-head .container-fluid,
+.page-head .row,
+.page-head [class*="col"] {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
 /* Single consolidated rule for all page-head elements - white background */
 .page-head .container,
 .page-head .container-fluid,
@@ -506,6 +516,47 @@ button:has(.es-icon.icon-md),
 	gap: var(--spacing-xs);
 	padding: var(--spacing-xs);
 	border-radius: var(--radius-md);
+}
+
+/* ============================================================
+      HIDE LIST VIEW BUTTON AND MENU BUTTON
+      ============================================================ */
+
+/* Hide List View button (view switcher) */
+.page-actions .custom-btn-group:has(.custom-btn-group-label),
+.page-actions .custom-btn-group .custom-btn-group-label,
+.page-actions .btn-group:has(button[data-label*="List View"]),
+.page-actions .btn-group:has(button[data-label*="List"]),
+.page-actions button[data-label*="List View"],
+.page-actions button:has(.custom-btn-group-label) {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
+	pointer-events: none !important;
+}
+
+/* Hide Menu button (ellipsis/menu button) */
+.page-actions .menu-btn-group,
+.page-actions .actions-btn-group:has(button[aria-label*="Menu"]),
+.page-actions .actions-btn-group:has(button[title*="Menu"]),
+.page-actions button[aria-label*="Menu"],
+.page-actions button[title*="Menu"],
+.page-actions .btn-group:has(button[aria-label*="More"]),
+.page-actions .btn-group:has(button[title*="More"]) {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
+	pointer-events: none !important;
 }
 
 /* ============================================================

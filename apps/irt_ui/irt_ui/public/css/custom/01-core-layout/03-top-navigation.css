@@ -22,7 +22,7 @@
 }
 
 .navbar .container {
-	padding: 0 var(--spacing-lg);
+	padding: 0 var(--spacing-lg) 0 calc(var(--spacing-lg) + 16px);
 	display: flex;
 	align-items: center;
 	height: 100%;
@@ -357,6 +357,13 @@
 	position: absolute !important;
 }
 
+/* Hide all dropdowns by default */
+.navbar-nav .dropdown-menu {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
 /* Show dropdown when parent has .show class */
 .navbar-nav .dropdown.show .dropdown-menu,
 .navbar-nav .dropdown.open .dropdown-menu,
@@ -366,6 +373,14 @@
 	display: block !important;
 	visibility: visible !important;
 	opacity: 1 !important;
+}
+
+/* Special handling for notification dropdown - ensure it's hidden by default */
+.dropdown-notifications:not(.show):not(.open) .notifications-list,
+.dropdown-notifications:not([aria-expanded="true"]) .notifications-list {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
 }
 
 @keyframes dropdownFadeIn {
