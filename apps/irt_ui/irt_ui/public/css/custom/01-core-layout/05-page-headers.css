@@ -519,16 +519,19 @@ button:has(.es-icon.icon-md),
 }
 
 /* ============================================================
-      HIDE LIST VIEW BUTTON AND MENU BUTTON
+      HIDE TOP NAVIGATION SEARCH BAR (NON-ADMINISTRATORS ONLY)
       ============================================================ */
 
-/* Hide List View button (view switcher) */
-.page-actions .custom-btn-group:has(.custom-btn-group-label),
-.page-actions .custom-btn-group .custom-btn-group-label,
-.page-actions .btn-group:has(button[data-label*="List View"]),
-.page-actions .btn-group:has(button[data-label*="List"]),
-.page-actions button[data-label*="List View"],
-.page-actions button:has(.custom-btn-group-label) {
+/* Hide Top Navigation Search Bar - Only for non-administrators */
+body.user-is-not-administrator .search-bar,
+body.user-is-not-administrator .desktop-search-wrapper,
+body.user-is-not-administrator #navbar-search,
+body.user-is-not-administrator .navbar .search-bar,
+body.user-is-not-administrator .navbar .desktop-search-wrapper,
+body.user-is-not-administrator .search-bar input,
+body.user-is-not-administrator .desktop-search-wrapper input,
+body.user-is-not-administrator .search-bar .awesomplete,
+body.user-is-not-administrator .desktop-search-wrapper .awesomplete {
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;
@@ -540,14 +543,91 @@ button:has(.es-icon.icon-md),
 	pointer-events: none !important;
 }
 
-/* Hide Menu button (ellipsis/menu button) */
-.page-actions .menu-btn-group,
-.page-actions .actions-btn-group:has(button[aria-label*="Menu"]),
-.page-actions .actions-btn-group:has(button[title*="Menu"]),
-.page-actions button[aria-label*="Menu"],
-.page-actions button[title*="Menu"],
-.page-actions .btn-group:has(button[aria-label*="More"]),
-.page-actions .btn-group:has(button[title*="More"]) {
+/* Show Top Navigation Search Bar for administrators */
+body.user-is-administrator .search-bar,
+body.user-is-administrator .desktop-search-wrapper,
+body.user-is-administrator #navbar-search,
+body.user-is-administrator .navbar .search-bar,
+body.user-is-administrator .navbar .desktop-search-wrapper,
+body.user-is-administrator .search-bar input,
+body.user-is-administrator .desktop-search-wrapper input,
+body.user-is-administrator .search-bar .awesomplete,
+body.user-is-administrator .desktop-search-wrapper .awesomplete {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: auto !important;
+	height: auto !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	pointer-events: auto !important;
+}
+
+/* ============================================================
+      HIDE LIST VIEW BUTTON AND MENU BUTTON (NON-ADMINISTRATORS ONLY)
+      ============================================================ */
+
+/* Hide List View button (view switcher) - Only for non-administrators */
+body.user-is-not-administrator .page-actions .custom-btn-group:has(.custom-btn-group-label),
+body.user-is-not-administrator .page-actions .custom-btn-group .custom-btn-group-label,
+body.user-is-not-administrator .page-actions .btn-group:has(button[data-label*="List View"]),
+body.user-is-not-administrator .page-actions .btn-group:has(button[data-label*="List"]),
+body.user-is-not-administrator .page-actions button[data-label*="List View"],
+body.user-is-not-administrator .page-actions button:has(.custom-btn-group-label) {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
+	pointer-events: none !important;
+}
+
+/* Hide Menu button (ellipsis/menu button) - Only for non-administrators */
+body.user-is-not-administrator .page-actions .menu-btn-group,
+body.user-is-not-administrator .standard-actions .menu-btn-group,
+body.user-is-not-administrator .page-actions .actions-btn-group:has(button[aria-label*="Menu"]),
+body.user-is-not-administrator .page-actions .actions-btn-group:has(button[title*="Menu"]),
+body.user-is-not-administrator .standard-actions .actions-btn-group:has(button[aria-label*="Menu"]),
+body.user-is-not-administrator .standard-actions .actions-btn-group:has(button[title*="Menu"]),
+body.user-is-not-administrator .page-actions button[aria-label*="Menu"],
+body.user-is-not-administrator .page-actions button[title*="Menu"],
+body.user-is-not-administrator .page-actions button[aria-label="Menu"],
+body.user-is-not-administrator .page-actions button[data-original-title="Menu"],
+body.user-is-not-administrator .standard-actions button[aria-label*="Menu"],
+body.user-is-not-administrator .standard-actions button[title*="Menu"],
+body.user-is-not-administrator .standard-actions button[aria-label="Menu"],
+body.user-is-not-administrator .standard-actions button[data-original-title="Menu"],
+body.user-is-not-administrator .page-actions .btn-group:has(button[aria-label*="More"]),
+body.user-is-not-administrator .page-actions .btn-group:has(button[title*="More"]),
+body.user-is-not-administrator .standard-actions .btn-group:has(button[aria-label*="More"]),
+body.user-is-not-administrator .standard-actions .btn-group:has(button[title*="More"]),
+body.user-is-not-administrator .page-actions button:has(svg[data-icon="ellipsis"]),
+body.user-is-not-administrator .page-actions button:has(svg[data-icon="more"]),
+body.user-is-not-administrator .standard-actions button:has(svg[data-icon="ellipsis"]),
+body.user-is-not-administrator .standard-actions button:has(svg[data-icon="more"]),
+body.user-is-not-administrator .page-actions .btn-group:has(button:has(svg[data-icon="ellipsis"])),
+body.user-is-not-administrator .page-actions .btn-group:has(button:has(svg[data-icon="more"])),
+body.user-is-not-administrator .standard-actions .btn-group:has(button:has(svg[data-icon="ellipsis"])),
+body.user-is-not-administrator .standard-actions .btn-group:has(button:has(svg[data-icon="more"])),
+body.user-is-not-administrator .page-actions button[data-toggle="dropdown"]:not(:has(.custom-btn-group-label)),
+body.user-is-not-administrator .standard-actions button[data-toggle="dropdown"]:not(:has(.custom-btn-group-label)),
+body.user-is-not-administrator .standard-actions .menu-btn-group button,
+body.user-is-not-administrator .page-actions .menu-btn-group button,
+body.user-is-not-administrator .standard-actions .menu-btn-group,
+body.user-is-not-administrator .page-actions .menu-btn-group,
+/* Catch-all for menu button with icon-btn class */
+body.user-is-not-administrator button.btn-default.icon-btn[aria-label="Menu"],
+body.user-is-not-administrator button.btn-default.icon-btn[data-original-title="Menu"],
+body.user-is-not-administrator button.icon-btn[aria-label="Menu"],
+body.user-is-not-administrator button.icon-btn[data-original-title="Menu"],
+body.user-is-not-administrator .standard-actions button.btn-default.icon-btn[aria-label="Menu"],
+body.user-is-not-administrator .standard-actions button.btn-default.icon-btn[data-original-title="Menu"],
+body.user-is-not-administrator .page-actions button.btn-default.icon-btn[aria-label="Menu"],
+body.user-is-not-administrator .page-actions button.btn-default.icon-btn[data-original-title="Menu"] {
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;

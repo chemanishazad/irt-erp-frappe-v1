@@ -85,6 +85,29 @@
       border-color: var(--avatar-frame-border) !important;
    }
    
+   /* Remove white circle backgrounds from navbar elements */
+   .navbar-nav .avatar-frame,
+   .navbar-nav .avatar .avatar-frame,
+   .navbar-nav .avatar .standard-image,
+   .navbar-nav .nav-link .avatar-frame,
+   .desktop-avatar .avatar-frame,
+   .desktop-avatar .avatar .avatar-frame,
+   .desktop-avatar .avatar .standard-image {
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+   }
+   
+   /* Remove backgrounds from notification and help icons */
+   .navbar-nav .notifications-icon,
+   .navbar-nav .notifications-icon svg,
+   .navbar-nav [data-toggle="dropdown"]:not(.desktop-avatar),
+   .navbar-nav .nav-link:has(svg) {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+   }
+   
    /* Ensure body and html don't clip dropdowns */
    body {
       overflow-x: hidden;

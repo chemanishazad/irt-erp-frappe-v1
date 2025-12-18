@@ -523,11 +523,13 @@ console.log('🔍 Unified search script loaded');
 				layoutMain.style.setProperty('padding-top', '4px', 'important');
 			}
 			
-			// Also add top padding to page-head if it exists
+			// Remove top padding from page-head if it exists
 			const pageHead = document.querySelector('.page-head');
 			if (pageHead) {
-				pageHead.style.setProperty('padding-top', '8px', 'important');
+				pageHead.style.setProperty('padding-top', '0', 'important');
+				pageHead.style.setProperty('padding-bottom', '0', 'important');
 				pageHead.style.setProperty('margin-top', '0', 'important');
+				pageHead.style.setProperty('margin-bottom', '0', 'important');
 			}
 			
 			// Also check for container/container-fluid

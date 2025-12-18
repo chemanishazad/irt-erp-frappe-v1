@@ -357,23 +357,47 @@
 	position: absolute !important;
 }
 
-/* Hide all dropdowns by default */
-.navbar-nav .dropdown-menu {
+/* Hide all dropdowns by default - PREVENT AUTO-OPEN */
+.navbar-nav .dropdown-menu,
+.navbar .dropdown-menu,
+.dropdown-help .dropdown-menu,
+.dropdown-profile .dropdown-menu,
+.dropdown-user .dropdown-menu,
+.dropdown-notifications .notifications-list,
+.navbar-nav .dropdown .dropdown-menu,
+.navbar .dropdown .dropdown-menu {
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;
 }
 
-/* Show dropdown when parent has .show class */
+/* Show dropdown when parent has .show or .open class */
 .navbar-nav .dropdown.show .dropdown-menu,
 .navbar-nav .dropdown.open .dropdown-menu,
 .navbar-nav .show > .dropdown-menu,
 .navbar-nav .open > .dropdown-menu,
-.navbar-nav .dropdown[aria-expanded="true"] .dropdown-menu {
+.navbar .dropdown.show .dropdown-menu,
+.navbar .dropdown.open .dropdown-menu,
+.dropdown-help.show .dropdown-menu,
+.dropdown-help.open .dropdown-menu,
+.dropdown-profile.show .dropdown-menu,
+.dropdown-profile.open .dropdown-menu,
+.dropdown-user.show .dropdown-menu,
+.dropdown-user.open .dropdown-menu {
 	display: block !important;
 	visibility: visible !important;
 	opacity: 1 !important;
+	pointer-events: auto !important;
 }
+
+/* DO NOT show dropdowns just because of aria-expanded - require .show or .open class */
+.navbar-nav .dropdown[aria-expanded="true"]:not(.show):not(.open) .dropdown-menu,
+.navbar .dropdown[aria-expanded="true"]:not(.show):not(.open) .dropdown-menu {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
 
 /* Special handling for notification dropdown - ensure it's hidden by default */
 .dropdown-notifications:not(.show):not(.open) .notifications-list,
@@ -381,6 +405,15 @@
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;
+}
+
+/* Show notification dropdown ONLY when explicitly opened */
+.dropdown-notifications.show .notifications-list,
+.dropdown-notifications.open .notifications-list,
+.dropdown-notifications[aria-expanded="true"] .notifications-list {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
 @keyframes dropdownFadeIn {
@@ -414,20 +447,21 @@
 }
 
 .navbar-nav .dropdown-item {
-	padding: 0 !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
 	margin: 0 !important;
-	color: var(--color-text-primary);
-	font-size: var(--font-size-sm);
-	font-weight: var(--font-weight-normal);
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-normal) !important;
 	border-radius: 0;
 	transition: all var(--transition-base);
 	display: block !important;
 	text-align: left !important;
 	width: 100%;
-	line-height: 1.5;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	line-height: 1.5 !important;
+	white-space: normal !important;
+	overflow: visible !important;
+	text-overflow: clip !important;
+	background-color: transparent !important;
 }
 
 .navbar-nav .dropdown-item > a,
@@ -445,29 +479,46 @@
 	line-height: 1.5 !important;
 	white-space: normal !important;
 	word-wrap: break-word !important;
+	overflow: visible !important;
 }
 
 .navbar-nav .dropdown-item:hover {
-	background-color: var(--color-primary-rgba-15);
-	color: var(--color-primary);
+	background-color: var(--color-primary-rgba-15) !important;
+	color: var(--color-primary) !important;
 	transform: none;
 }
 
 .navbar-nav .dropdown-item:hover > a,
 .navbar-nav .dropdown-item:hover > span,
 .navbar-nav .dropdown-item:hover > div {
-	color: var(--color-primary);
+	color: var(--color-primary) !important;
 }
 
 .navbar-nav .dropdown-item:active {
-	background-color: var(--color-primary-rgba-30);
-	color: var(--color-primary);
+	background-color: var(--color-primary-rgba-30) !important;
+	color: var(--color-primary) !important;
 }
 
 .navbar-nav .dropdown-item:active > a,
 .navbar-nav .dropdown-item:active > span,
 .navbar-nav .dropdown-item:active > div {
-	color: var(--color-primary);
+	color: var(--color-primary) !important;
+}
+
+/* Ensure dropdown menu has proper padding and spacing */
+.navbar-nav .dropdown-menu {
+	padding: var(--spacing-xs) 0 !important;
+	min-width: 200px !important;
+	max-width: 300px !important;
+}
+
+/* Fix dropdown menu positioning for help and profile */
+.navbar-nav .dropdown-help .dropdown-menu,
+.navbar-nav .dropdown-profile .dropdown-menu,
+.navbar-nav .dropdown-user .dropdown-menu {
+	right: 0 !important;
+	left: auto !important;
+	margin-top: var(--spacing-sm) !important;
 }
 
 .navbar-nav .dropdown-divider {
@@ -524,35 +575,44 @@
 }
 
 /* ============================================
-   USER MENU / AVATAR / PROFILE NAME
+   USER MENU / AVATAR / PROFILE NAME - SIMPLE
    ============================================ */
 .desktop-avatar {
 	margin-left: var(--spacing-sm);
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-sm);
-	padding: var(--spacing-xs);
-	border-radius: var(--radius-lg);
+	padding: 0;
+	border-radius: 0;
 	transition: all var(--transition-base);
 	cursor: pointer;
+	background: transparent !important;
 }
 
 .desktop-avatar:hover {
-	background-color: var(--color-primary-rgba-10);
+	background-color: transparent !important;
 }
 
 .desktop-avatar .avatar {
 	cursor: pointer;
 	border-radius: var(--radius-full);
-	border: 3px solid var(--color-primary);
-	box-shadow: 0 0 0 1px var(--color-border);
+	border: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
 	transition: all var(--transition-base);
 }
 
 .desktop-avatar:hover .avatar {
-	border-color: var(--color-primary-dark);
-	box-shadow: 0 0 0 1px var(--color-border), 0 2px 8px var(--color-primary-rgba-20);
-	transform: scale(1.05);
+	border: none !important;
+	box-shadow: none !important;
+	transform: none;
+}
+
+.desktop-avatar .avatar .avatar-frame,
+.desktop-avatar .avatar .standard-image {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
 }
 
 .desktop-avatar .user-name {
@@ -564,6 +624,9 @@
 	text-overflow: ellipsis;
 	max-width: 180px;
 	transition: color var(--transition-base);
+	background: transparent !important;
+	padding: 0;
+	margin: 0;
 }
 
 .desktop-avatar:hover .user-name {
@@ -572,7 +635,64 @@
 
 .desktop-avatar:active,
 .desktop-avatar.avatar-clicked {
-	transform: scale(0.98);
+	transform: none;
+}
+
+/* Remove white circle backgrounds from nav links (notifications, help, etc.) - BUT KEEP FUNCTIONALITY */
+.navbar-nav .nav-link,
+.navbar-nav .notifications-icon,
+.navbar-nav [data-toggle="dropdown"],
+.navbar-nav .dropdown-toggle {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: var(--spacing-xs) var(--spacing-sm) !important;
+	border-radius: 0 !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .notifications-icon:hover,
+.navbar-nav [data-toggle="dropdown"]:hover,
+.navbar-nav .dropdown-toggle:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	transform: none;
+}
+
+.navbar-nav .nav-link:active,
+.navbar-nav .notifications-icon:active,
+.navbar-nav [data-toggle="dropdown"]:active,
+.navbar-nav .dropdown-toggle:active {
+	background-color: var(--color-primary-rgba-15) !important;
+	transform: none;
+}
+
+/* Ensure dropdown menus are not affected by transparent backgrounds */
+.navbar-nav .dropdown-menu {
+	background-color: var(--color-bg-white) !important;
+	border: 1px solid var(--color-border) !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Remove backgrounds from icon containers */
+.navbar-nav .nav-link svg,
+.navbar-nav .notifications-icon svg,
+.navbar-nav .nav-link .icon,
+.navbar-nav .notifications-icon .icon {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+/* Remove white circle from avatar frame */
+.navbar-nav .avatar-frame,
+.navbar-nav .avatar .avatar-frame,
+.navbar-nav .avatar .standard-image,
+.desktop-avatar .avatar-frame,
+.desktop-avatar .avatar .avatar-frame,
+.desktop-avatar .avatar .standard-image {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
 }
 
 #navbar-breadcrumbs a.breadcrumb-clicked {
@@ -582,6 +702,46 @@
 /* ============================================
    RESPONSIVE
    ============================================ */
+/* ============================================================
+   HIDE TOP NAVIGATION SEARCH BAR FOR NON-ADMINISTRATORS
+   ============================================================ */
+
+/* Hide Top Navigation Search Bar - Only for non-administrators */
+body.user-is-not-administrator .navbar .search-bar,
+body.user-is-not-administrator .navbar .desktop-search-wrapper,
+body.user-is-not-administrator .navbar #navbar-search,
+body.user-is-not-administrator .search-bar,
+body.user-is-not-administrator .desktop-search-wrapper {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
+	pointer-events: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Show Top Navigation Search Bar for administrators */
+body.user-is-administrator .navbar .search-bar,
+body.user-is-administrator .navbar .desktop-search-wrapper,
+body.user-is-administrator .navbar #navbar-search,
+body.user-is-administrator .search-bar,
+body.user-is-administrator .desktop-search-wrapper {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: auto !important;
+	height: auto !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	pointer-events: auto !important;
+}
+
 @media (max-width: 767px) {
 	.navbar {
 		height: auto;

@@ -64,13 +64,30 @@ body[data-route*="List"] .page-content-wrapper {
 	overflow: visible !important;
 }
 
-/* Ensure page-head and related containers don't clip - ADD TOP PADDING */
+/* Ensure page-head and related containers don't clip - NO PADDING */
 body[data-route*="List"] .page-head,
 [data-page-route^="List"] .page-head {
 	overflow: visible !important;
 	min-height: auto !important;
 	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+/* Remove padding from page-head children */
+body[data-route*="List"] .page-head > *,
+body[data-route*="List"] .page-head .container,
+body[data-route*="List"] .page-head .container-fluid,
+body[data-route*="List"] .page-head .row,
+body[data-route*="List"] .page-head [class*="col"],
+[data-page-route^="List"] .page-head > *,
+[data-page-route^="List"] .page-head .container,
+[data-page-route^="List"] .page-head .container-fluid,
+[data-page-route^="List"] .page-head .row,
+[data-page-route^="List"] .page-head [class*="col"] {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 /* Override page-container padding for list views - REMOVE LEFT PADDING - ADD TOP PADDING */
@@ -320,7 +337,9 @@ body[data-route*="List"] .filter-section {
 	height: auto !important;
 	overflow: visible !important;
 	margin-top: 0 !important;
+	margin-bottom: 0 !important;
 	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 body[data-route*="List"] .page-head .row,
