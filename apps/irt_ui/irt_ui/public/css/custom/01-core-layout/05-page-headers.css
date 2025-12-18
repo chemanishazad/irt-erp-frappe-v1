@@ -54,7 +54,7 @@
 .page-head .container-fluid,
 .page-head .row,
 .page-head [class*="col"] {
-	padding-top: 0 !important;
+	padding-top: 4px !important;
 	padding-bottom: 0 !important;
 }
 
