@@ -421,7 +421,7 @@ console.log('🔍 Unified search script loaded');
 		wStyle.minWidth = '320px';
 		wStyle.maxWidth = '100%';
 		wStyle.width = '100%';
-		wStyle.height = '42px';
+		wStyle.height = '36px';
 		wStyle.alignItems = 'center';
 		wStyle.marginRight = '12px';
 		wStyle.marginLeft = '0';
