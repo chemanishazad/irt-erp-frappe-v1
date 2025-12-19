@@ -309,6 +309,7 @@ button:not(.close):not(.navbar-toggler) {
   min-height: 28px;
 }
 
+
 .btn-sm,
 .btn.btn-sm {
   padding: var(--spacing-sm) var(--spacing-md);
@@ -407,8 +408,8 @@ button.btn-xs.btn-icon:not(:only-child),
 .form-builder .btn-xs.btn-icon:has(span),
 .form-builder-container .btn-xs.btn-icon:has(span) {
   width: auto !important;
-  min-width: 80px !important;
-  padding: 6px 12px !important;
+  gap: var(--spacing-2xl);
+  
   white-space: nowrap !important;
 }
 

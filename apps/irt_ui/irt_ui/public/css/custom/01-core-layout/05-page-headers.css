@@ -393,6 +393,15 @@ button:has(.es-icon.icon-md),
 	position: relative;
 }
 
+/* Sort selector in page-actions - position at right end */
+.page-actions .sort-selector,
+.page-actions button[data-original-title*="Sort"],
+.page-actions button[title*="Sort"] {
+	margin-left: auto !important;
+	margin-right: 0 !important;
+	order: 999 !important;
+}
+
 .page-actions .standard-actions {
 	display: flex;
 	align-items: center;

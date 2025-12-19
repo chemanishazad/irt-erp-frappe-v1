@@ -108,16 +108,29 @@
 	 * Enhance Search Bar Functionality
 	 */
 	function enhanceSearchBar() {
-		// Set width for navbar search bar
+		// Set default size for navigation search bar (right end)
 		const navbarSearchBars = document.querySelectorAll(
-			'.navbar .search-bar, .navbar .desktop-search-wrapper, .navbar .navbar-collapse .search-bar, .navbar .navbar-collapse .desktop-search-wrapper'
+			'.navbar .search-bar, .navbar .navbar-collapse .search-bar, .navbar .form-inline .search-bar'
 		);
 		
 		navbarSearchBars.forEach(searchBar => {
+			searchBar.style.setProperty('min-width', '250px', 'important');
+			searchBar.style.setProperty('max-width', '300px', 'important');
+			searchBar.style.setProperty('width', '300px', 'important');
+			searchBar.style.setProperty('flex', '0 0 auto', 'important');
+			searchBar.style.setProperty('margin-left', 'auto', 'important');
+		});
+		
+		// Set width for desktop page search bar (keep centered)
+		const desktopSearchBars = document.querySelectorAll(
+			'.navbar-container .desktop-search-wrapper, .desktop-wrapper .desktop-search-wrapper'
+		);
+		
+		desktopSearchBars.forEach(searchBar => {
 			searchBar.style.setProperty('min-width', '350px', 'important');
 			searchBar.style.setProperty('max-width', '500px', 'important');
 			searchBar.style.setProperty('width', '450px', 'important');
-			searchBar.style.setProperty('flex', '0 0 auto', 'important');
+			searchBar.style.setProperty('flex', '1', 'important');
 		});
 		
 		// Also set width for form containers
@@ -132,7 +145,7 @@
 		});
 		
 		const searchInputs = document.querySelectorAll(
-			'.search-bar input, .desktop-search-wrapper input, #navbar-search'
+			'.search-bar input, .desktop-search-wrapper input, #navbar-search, .navbar-container .desktop-search-wrapper input, .desktop-wrapper .desktop-search-wrapper input'
 		);
 
 		searchInputs.forEach(input => {

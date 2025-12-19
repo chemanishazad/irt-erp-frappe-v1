@@ -30,6 +30,22 @@
 	overflow: visible;
 }
 
+/* Ensure form-inline positions search bar at right end */
+.navbar .form-inline {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex: 0 0 auto;
+	margin-left: auto;
+}
+
+.navbar .navbar-collapse {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex: 1;
+}
+
 /* ============================================
    NAVBAR BRAND / LOGO
    ============================================ */
@@ -85,7 +101,22 @@
 /* ============================================
    SEARCH BAR - Fixed Text Merging
    ============================================ */
-.search-bar,
+/* Navigation search bar - positioned at right end with default size */
+.navbar .search-bar,
+.navbar .navbar-collapse .search-bar,
+.navbar .form-inline .search-bar {
+	flex: 0 0 auto;
+	width: 300px;
+	max-width: 300px;
+	min-width: 250px;
+	margin: 0;
+	margin-left: auto;
+	position: relative;
+	overflow: visible;
+	z-index: 10000;
+}
+
+/* Desktop page search bar - keep centered */
 .desktop-search-wrapper {
 	flex: 1;
 	max-width: 450px;
@@ -93,6 +124,20 @@
 	position: relative;
 	overflow: visible;
 	z-index: 10000;
+}
+
+/* Desktop page specific search bar styling */
+.navbar-container .desktop-search-wrapper,
+.desktop-wrapper .desktop-search-wrapper {
+	flex: 1;
+	max-width: 450px;
+	margin: 0 var(--spacing-lg);
+	position: relative;
+	overflow: visible;
+	z-index: 10000;
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
 .search-bar .search-icon,
@@ -110,6 +155,21 @@
 	pointer-events: none;
 }
 
+/* Desktop page specific icon positioning */
+.navbar-container .desktop-search-wrapper .desktop-search-icon,
+.desktop-wrapper .desktop-search-wrapper .desktop-search-icon {
+	position: absolute !important;
+	left: var(--spacing-md) !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	display: flex !important;
+	align-items: center;
+	height: 100%;
+	z-index: 2;
+	color: var(--color-text-tertiary);
+	pointer-events: none;
+}
+
 .search-bar svg,
 .desktop-search-wrapper svg {
 	width: 18px;
@@ -118,11 +178,35 @@
 	transition: stroke var(--transition-base);
 }
 
+/* Desktop page specific SVG styling */
+.navbar-container .desktop-search-wrapper svg,
+.desktop-wrapper .desktop-search-wrapper svg,
+.navbar-container .desktop-search-wrapper .desktop-search-icon svg,
+.desktop-wrapper .desktop-search-wrapper .desktop-search-icon svg {
+	width: 18px !important;
+	height: 18px !important;
+	stroke: var(--color-text-tertiary) !important;
+	transition: stroke var(--transition-base);
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
 .search-bar .awesomplete,
 .search-bar.input-group,
 .desktop-search-wrapper.input-group {
 	width: 100%;
 	position: relative;
+}
+
+/* Desktop page specific input-group styling */
+.navbar-container .desktop-search-wrapper.input-group,
+.desktop-wrapper .desktop-search-wrapper.input-group {
+	width: 100% !important;
+	position: relative !important;
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
 .search-bar .awesomplete input,
@@ -142,6 +226,32 @@
 	transition: all var(--transition-base) !important;
 	line-height: 1.5 !important;
 	box-sizing: border-box !important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Desktop page specific input styling */
+.navbar-container .desktop-search-wrapper input.form-control,
+.navbar-container .desktop-search-wrapper #navbar-search,
+.desktop-wrapper .desktop-search-wrapper input.form-control,
+.desktop-wrapper .desktop-search-wrapper #navbar-search {
+	width: 100% !important;
+	padding-left: 48px !important;
+	padding-right: var(--spacing-md) !important;
+	height: 36px !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-normal) !important;
+	background-color: var(--color-bg-white) !important;
+	border: 1px solid var(--color-border) !important;
+	border-radius: var(--radius-lg) !important;
+	color: var(--color-text-primary) !important;
+	transition: all var(--transition-base) !important;
+	line-height: 1.5 !important;
+	box-sizing: border-box !important;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -209,6 +319,15 @@
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 	will-change: transform;
+}
+
+/* Right-aligned search bar dropdown positioning - align with search bar width */
+.navbar .form-inline .search-bar .awesomplete ul,
+.navbar .navbar-collapse .search-bar .awesomplete ul {
+	left: 0;
+	right: 0;
+	min-width: 100%;
+	width: 100%;
 }
 
 .search-bar .awesomplete ul li,
