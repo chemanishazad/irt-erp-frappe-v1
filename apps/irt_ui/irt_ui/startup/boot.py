@@ -3,6 +3,85 @@
 
 import frappe
 
+# Override add_home_page to handle standard routes (like dashboard-view) as default routing
+def override_add_home_page():
+	"""Override frappe.boot.add_home_page to handle standard routes correctly"""
+	try:
+		from frappe import boot
+	except ImportError:
+		# Frappe not fully loaded yet, skip override
+		return
+	
+	if not hasattr(boot, 'add_home_page'):
+		# add_home_page not available yet, skip override
+		return
+	
+	original_add_home_page = boot.add_home_page
+	
+	def add_home_page(bootinfo, docs):
+		"""Override to handle standard routes like dashboard-view/HRMS Dashboard as default routing"""
+		if frappe.session.user == "Guest":
+			return
+		
+		home_page = frappe.db.get_default("desktop:home_page")
+		
+		if not frappe.is_setup_complete():
+			bootinfo.setup_wizard_requires = frappe.get_hooks("setup_wizard_requires")
+		
+		if not home_page:
+			# No home page set, use original function
+			return original_add_home_page(bootinfo, docs)
+		
+		# Check if this is a standard Frappe route (not a Page doctype)
+		# Standard routes that should work as default routing
+		standard_routes = [
+			"dashboard-view",
+			"workspace",
+			"list",
+			"form",
+			"report",
+			"tree",
+			"kanban",
+			"calendar",
+			"gantt",
+			"map",
+			"image",
+			"inbox",
+		]
+		
+		# Extract the first part of the route (before any slash)
+		home_page_clean = home_page.strip("/")
+		if home_page_clean.startswith("desk/"):
+			home_page_clean = home_page_clean.replace("desk/", "", 1)
+		elif home_page_clean.startswith("/desk/"):
+			home_page_clean = home_page_clean.replace("/desk/", "", 1)
+		
+		route_first_part = home_page_clean.split("/")[0] if "/" in home_page_clean else home_page_clean
+		
+		# If it's a standard route, set it directly without trying to load as Page doctype
+		if route_first_part in standard_routes:
+			bootinfo["home_page"] = home_page_clean
+			return
+		
+		# For non-standard routes, try to load as Page doctype (original behavior)
+		try:
+			page = frappe.desk.desk_page.get(home_page)
+			docs.append(page)
+			bootinfo["home_page"] = page.name
+		except (frappe.DoesNotExistError, frappe.PermissionError):
+			frappe.clear_last_message()
+			# If it fails and looks like a route (contains /), try setting it directly
+			if "/" in home_page_clean:
+				bootinfo["home_page"] = home_page_clean
+			else:
+				bootinfo["home_page"] = "desktop"
+	
+	# Replace the original function
+	boot.add_home_page = add_home_page
+
+# Apply the override when module is imported
+override_add_home_page()
+
 
 def get_role_based_sidebar_items():
 	"""Get role-based sidebars for current user based on their roles"""

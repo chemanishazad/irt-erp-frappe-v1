@@ -14,10 +14,12 @@ app_include_css = [
 
 app_include_js = [
 	"/assets/irt_ui/js/custom/sidebar.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/default-route-handler.js?v=1.0.0",
 	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/01-core-layout/05-page-headers.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/02-form-components/06-form-inputs.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/02-form-components/10-hide-form-sidebar.js?v=1.0.0",
 	"/assets/irt_ui/js/custom/02-form-components/11-form-activity-tab.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/02-form-components/12-form-builder-default-tab.js?v=3.0.0",
 	"/assets/irt_ui/js/custom/02-form-components/99-force-dropdown-styles.js?v=1.0.0",

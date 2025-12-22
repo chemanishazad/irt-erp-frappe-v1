@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "hash",
  "creation": "2025-01-20 10:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -17,10 +17,7 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1,
-   "reqd": 1
-  },
+   "label": "Title"  },
   {
    "fieldname": "items",
    "fieldtype": "Table",
@@ -42,6 +39,7 @@
   {
    "fieldname": "for_role",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "For Role",
    "options": "Role",
    "get_query": "irt_ui.irt_ui.doctype.role_based_sidebar.role_based_sidebar.get_role_query"

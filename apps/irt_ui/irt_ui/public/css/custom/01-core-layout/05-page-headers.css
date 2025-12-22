@@ -46,6 +46,15 @@
 	padding-bottom: 0 !important;
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
+	overflow: visible !important;
+}
+
+/* Ensure page-head children don't clip dropdowns */
+.page-head .page-head-content,
+.page-head .page-actions,
+.page-head .page-actions-wrapper {
+	overflow: visible !important;
+	position: relative !important;
 }
 
 /* Remove all padding from page-head children */
@@ -415,6 +424,8 @@ button:has(.es-icon.icon-md),
 .page-actions .btn-group,
 .page-actions .dropdown {
 	position: relative;
+	z-index: 10003 !important;
+	overflow: visible !important;
 }
 
 /* ============================================================
@@ -432,8 +443,9 @@ button:has(.es-icon.icon-md),
 	background-color: var(--color-bg-white);
 	-webkit-backdrop-filter: blur(10px);
 	backdrop-filter: blur(10px);
-	position: absolute;
-	z-index: 10002;
+	position: absolute !important;
+	z-index: 10003 !important;
+	overflow: visible !important;
 }
 
 /* Show dropdown when open */
@@ -502,6 +514,16 @@ button:has(.es-icon.icon-md),
 	opacity: 0;
 	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 	transition: opacity 0.3s ease;
+}
+
+/* Ensure dropdown menu items are fully visible above table headers */
+.page-actions .dropdown-menu .dropdown-item {
+	position: relative !important;
+	z-index: 10004 !important;
+	background-color: var(--color-bg-white) !important;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
 .page-actions .dropdown-menu a:hover {

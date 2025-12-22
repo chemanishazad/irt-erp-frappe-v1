@@ -45,6 +45,42 @@ class RoleBasedSidebar(Document):
 		if not self.user.can_read:
 			self.user.build_permissions()
 
+	def autoname(self):
+		"""Generate name from title and role to allow same title for different roles"""
+		if not self.name and self.title and self.for_role:
+			# Create name from title and role: "title-role"
+			title_slug = frappe.scrub(self.title)
+			role_slug = frappe.scrub(self.for_role)
+			name = f"{title_slug}-{role_slug}"
+			
+			# Ensure uniqueness by appending number if needed
+			if frappe.db.exists("Role Based Sidebar", name):
+				counter = 1
+				while frappe.db.exists("Role Based Sidebar", f"{name}-{counter}"):
+					counter += 1
+				name = f"{name}-{counter}"
+			
+			self.name = name
+
+	def validate(self):
+		"""Validate that title+role combination is unique"""
+		if self.title and self.for_role:
+			existing = frappe.db.get_value(
+				"Role Based Sidebar",
+				{
+					"title": self.title,
+					"for_role": self.for_role,
+					"name": ["!=", self.name]
+				},
+				"name"
+			)
+			if existing:
+				frappe.throw(
+					_("A sidebar with title '{0}' for role '{1}' already exists").format(
+						self.title, self.for_role
+					)
+				)
+
 	def before_save(self):
 		allow_export = self.app and not frappe.flags.in_import and frappe.conf.developer_mode
 		if allow_export:

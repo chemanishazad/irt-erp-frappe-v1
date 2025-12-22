@@ -70,6 +70,21 @@
 	font-weight: var(--font-weight-semibold) !important;
 }
 
+/* Ensure page actions dropdown appears above table headers */
+.page-actions,
+.page-actions .btn-group,
+.page-actions .dropdown {
+	position: relative !important;
+	z-index: 10003 !important;
+	overflow: visible !important;
+}
+
+.page-actions .dropdown-menu {
+	z-index: 10003 !important;
+	position: absolute !important;
+	overflow: visible !important;
+}
+
 /* ============================================================
    LIST ROWS
    ============================================================ */

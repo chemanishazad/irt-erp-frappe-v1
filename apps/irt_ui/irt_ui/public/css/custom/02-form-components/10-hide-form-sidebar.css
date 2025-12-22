@@ -1,0 +1,57 @@
+/**
+ * Hide Right Sidebar (Activity Panel) for Specific DocTypes
+ * Only hides for Employee Onboarding Case
+ */
+
+/* Hide right sidebar/activity panel for Employee Onboarding Case only */
+body[data-route*="employee-onboarding-case"] .layout-side-section,
+body[data-route*="employee-onboarding-case"] .form-sidebar,
+body[data-route*="employee-onboarding-case"] .layout-side-section.right,
+body[data-route*="Employee Onboarding Case"] .layout-side-section,
+body[data-route*="Employee Onboarding Case"] .form-sidebar,
+body[data-route*="Employee Onboarding Case"] .layout-side-section.right {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+/* Adjust main content to use full width when sidebar is hidden */
+body[data-route*="employee-onboarding-case"] .layout-main-section-wrapper,
+body[data-route*="Employee Onboarding Case"] .layout-main-section-wrapper {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin-right: 0 !important;
+	padding-right: 0 !important;
+}
+
+body[data-route*="employee-onboarding-case"] .layout-main-section,
+body[data-route*="Employee Onboarding Case"] .layout-main-section {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin-right: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* Ensure layout-main uses full width */
+body[data-route*="employee-onboarding-case"] .layout-main,
+body[data-route*="Employee Onboarding Case"] .layout-main {
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+/* Hide any activity/communication panels in the sidebar */
+body[data-route*="employee-onboarding-case"] .form-sidebar .form-sidebar-items,
+body[data-route*="employee-onboarding-case"] .form-sidebar .activity-section,
+body[data-route*="employee-onboarding-case"] .form-sidebar .communication-section,
+body[data-route*="Employee Onboarding Case"] .form-sidebar .form-sidebar-items,
+body[data-route*="Employee Onboarding Case"] .form-sidebar .activity-section,
+body[data-route*="Employee Onboarding Case"] .form-sidebar .communication-section {
+	display: none !important;
+	visibility: hidden !important;
+}
