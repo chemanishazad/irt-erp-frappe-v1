@@ -37,3 +37,8 @@ web_include_js = [
 	"/assets/irt_ui/js/custom/login.js"
 ]
 
+# Boot session hook to load role-based sidebars
+boot_session = [
+	"irt_ui.startup.boot.load_role_based_sidebars"
+]
+
