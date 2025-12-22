@@ -33,9 +33,16 @@
 @import url('02-form-components/08-form-layout.css');
 
 /* ============================================
-   FORMS (04-forms/)
+   INTERACTIVE - DROPDOWNS (Load early for form dropdowns)
    ============================================ */
-@import url('04-forms/13-form-activity.css');   /* ============================================
+@import url('04-interactive/13-dropdowns-menus.css');
+
+/* ============================================
+   FORM COMPONENTS - Activity (consolidated)
+   ============================================ */
+@import url('02-form-components/09-form-activity.css');
+
+/* ============================================
       DATA DISPLAY (03-data-display/)
       ============================================ */
    @import url('03-data-display/09-tables-list-views.css');
@@ -46,7 +53,7 @@
       INTERACTIVE (04-interactive/)
       ============================================ */
    @import url('04-interactive/12-modals-dialogs.css');
-   @import url('04-interactive/13-dropdowns-menus.css');
+   /* @import url('04-interactive/13-dropdowns-menus.css'); - Moved earlier before form-layout for proper overrides */
    @import url('04-interactive/14-datepicker-calendar.css');
    @import url('04-interactive/14-tooltips.css');
    @import url('04-interactive/15-notifications-toasts.css');

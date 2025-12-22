@@ -4,105 +4,309 @@
  */
 
 /* ============================================
+   FORM DROPDOWN EMERGENCY FIX - ABSOLUTE PRIORITY
+   Must be at the very top to override everything
+   ============================================ */
+
+/* NUCLEAR OPTION - Target EVERYTHING that could be a dropdown in forms */
+/* Use attribute selectors to override inline styles */
+html body .form-section ul li[style*="background"],
+html body .form-section ul li[style*="background-color"],
+html body .form-section ul.dropdown-menu li,
+html body .form-section ul.dropdown-menu li[style*="background"],
+html body .form-section ul.dropdown-menu a,
+html body .form-section ul.select-dropdown li,
+html body .form-section ul.select-dropdown li[style*="background"],
+html body .form-section ul.select-dropdown a,
+html body .form-section .dropdown-menu li,
+html body .form-section .dropdown-menu li[style*="background"],
+html body .form-section .dropdown-menu a,
+html body .form-section .dropdown-menu ul li,
+html body .form-section .dropdown-menu ul li[style*="background"],
+html body .form-section .select-dropdown li,
+html body .form-section .select-dropdown li[style*="background"],
+html body .form-section .select-dropdown a,
+html body .form-section .select-dropdown ul li,
+html body .form-section .select-dropdown ul li[style*="background"],
+html body .form-section .section-body ul li[style*="background"],
+html body .form-section .section-body ul.dropdown-menu li,
+html body .form-section .section-body ul.dropdown-menu li[style*="background"],
+html body .form-section .section-body ul.select-dropdown li,
+html body .form-section .section-body ul.select-dropdown li[style*="background"],
+html body .form-section .section-body .dropdown-menu li,
+html body .form-section .section-body .dropdown-menu li[style*="background"],
+html body .form-section .section-body .dropdown-menu a,
+html body .form-section .section-body .dropdown-menu ul li,
+html body .form-section .section-body .dropdown-menu ul li[style*="background"],
+html body .form-section .section-body .select-dropdown li,
+html body .form-section .section-body .select-dropdown li[style*="background"],
+html body .form-section .section-body .select-dropdown a,
+html body .form-section .section-body .select-dropdown ul li,
+html body .form-section .section-body .select-dropdown ul li[style*="background"],
+html body .form-section .section-body .frappe-control ul li[style*="background"],
+html body .form-section .section-body .frappe-control ul.dropdown-menu li,
+html body .form-section .section-body .frappe-control ul.dropdown-menu li[style*="background"],
+html body .form-section .section-body .frappe-control ul.select-dropdown li,
+html body .form-section .section-body .frappe-control ul.select-dropdown li[style*="background"],
+html body .form-section .section-body .frappe-control .dropdown-menu li,
+html body .form-section .section-body .frappe-control .dropdown-menu li[style*="background"],
+html body .form-section .section-body .frappe-control .dropdown-menu a,
+html body .form-section .section-body .frappe-control .dropdown-menu ul li,
+html body .form-section .section-body .frappe-control .dropdown-menu ul li[style*="background"],
+html body .form-section .section-body .frappe-control .select-dropdown li,
+html body .form-section .section-body .frappe-control .select-dropdown li[style*="background"],
+html body .form-section .section-body .frappe-control .select-dropdown a,
+html body .form-section .section-body .frappe-control .select-dropdown ul li,
+html body .form-section .section-body .frappe-control .select-dropdown ul li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.dropdown-menu li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.dropdown-menu li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.select-dropdown li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.select-dropdown li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu ul li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu ul li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown a,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown ul li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown ul li[style*="background"] {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section ul li:hover,
+html body .form-section ul li.active,
+html body .form-section ul li.selected,
+html body .form-section ul.dropdown-menu li:hover,
+html body .form-section ul.dropdown-menu li.active,
+html body .form-section ul.dropdown-menu li.selected,
+html body .form-section ul.select-dropdown li:hover,
+html body .form-section ul.select-dropdown li.active,
+html body .form-section ul.select-dropdown li.selected,
+html body .form-section .dropdown-menu li:hover,
+html body .form-section .dropdown-menu li.active,
+html body .form-section .dropdown-menu li.selected,
+html body .form-section .dropdown-menu ul li:hover,
+html body .form-section .dropdown-menu ul li.active,
+html body .form-section .dropdown-menu ul li.selected,
+html body .form-section .select-dropdown li:hover,
+html body .form-section .select-dropdown li.active,
+html body .form-section .select-dropdown li.selected,
+html body .form-section .select-dropdown ul li:hover,
+html body .form-section .select-dropdown ul li.active,
+html body .form-section .select-dropdown ul li.selected,
+html body .form-section .section-body ul li:hover,
+html body .form-section .section-body ul li.active,
+html body .form-section .section-body ul li.selected,
+html body .form-section .section-body ul.dropdown-menu li:hover,
+html body .form-section .section-body ul.dropdown-menu li.active,
+html body .form-section .section-body ul.dropdown-menu li.selected,
+html body .form-section .section-body ul.select-dropdown li:hover,
+html body .form-section .section-body ul.select-dropdown li.active,
+html body .form-section .section-body ul.select-dropdown li.selected,
+html body .form-section .section-body .dropdown-menu li:hover,
+html body .form-section .section-body .dropdown-menu li.active,
+html body .form-section .section-body .dropdown-menu li.selected,
+html body .form-section .section-body .dropdown-menu ul li:hover,
+html body .form-section .section-body .dropdown-menu ul li.active,
+html body .form-section .section-body .dropdown-menu ul li.selected,
+html body .form-section .section-body .select-dropdown li:hover,
+html body .form-section .section-body .select-dropdown li.active,
+html body .form-section .section-body .select-dropdown li.selected,
+html body .form-section .section-body .select-dropdown ul li:hover,
+html body .form-section .section-body .select-dropdown ul li.active,
+html body .form-section .section-body .select-dropdown ul li.selected,
+html body .form-section .section-body .frappe-control ul li:hover,
+html body .form-section .section-body .frappe-control ul li.active,
+html body .form-section .section-body .frappe-control ul li.selected,
+html body .form-section .section-body .frappe-control ul.dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control ul.dropdown-menu li.active,
+html body .form-section .section-body .frappe-control ul.dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control ul.select-dropdown li:hover,
+html body .form-section .section-body .frappe-control ul.select-dropdown li.active,
+html body .form-section .section-body .frappe-control ul.select-dropdown li.selected,
+html body .form-section .section-body .frappe-control .dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control .dropdown-menu li.active,
+html body .form-section .section-body .frappe-control .dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control .dropdown-menu ul li:hover,
+html body .form-section .section-body .frappe-control .dropdown-menu ul li.active,
+html body .form-section .section-body .frappe-control .dropdown-menu ul li.selected,
+html body .form-section .section-body .frappe-control .select-dropdown li:hover,
+html body .form-section .section-body .frappe-control .select-dropdown li.active,
+html body .form-section .section-body .frappe-control .select-dropdown li.selected,
+html body .form-section .section-body .frappe-control .select-dropdown ul li:hover,
+html body .form-section .section-body .frappe-control .select-dropdown ul li.active,
+html body .form-section .section-body .frappe-control .select-dropdown ul li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.dropdown-menu li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.select-dropdown li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.select-dropdown li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul.select-dropdown li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu ul li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu ul li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu ul li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown ul li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown ul li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown ul li.selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	background: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   ABSOLUTE FINAL OVERRIDE - END OF FILE
+   This must be the last rule to override everything
+   ============================================ */
+
+/* Universal form dropdown fix - catches everything */
+html body .form-section .section-body ul li:not(.grid-form-heading):not(.list-row),
+html body .form-section .section-body .frappe-control ul li:not(.grid-form-heading):not(.list-row),
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li:not(.grid-form-heading):not(.list-row) {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section .section-body ul li:not(.grid-form-heading):not(.list-row):hover,
+html body .form-section .section-body ul li:not(.grid-form-heading):not(.list-row).active,
+html body .form-section .section-body ul li:not(.grid-form-heading):not(.list-row).selected,
+html body .form-section .section-body .frappe-control ul li:not(.grid-form-heading):not(.list-row):hover,
+html body .form-section .section-body .frappe-control ul li:not(.grid-form-heading):not(.list-row).active,
+html body .form-section .section-body .frappe-control ul li:not(.grid-form-heading):not(.list-row).selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li:not(.grid-form-heading):not(.list-row):hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li:not(.grid-form-heading):not(.list-row).active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] ul li:not(.grid-form-heading):not(.list-row).selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	background: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
    AWESOMPLETE (Autocomplete Dropdown)
    ============================================ */
 
-/* Wrapper Reset - Remove any default borders/backgrounds */
-html body div.awesomplete {
-	border: none !important;
-	background: transparent !important;
-	box-shadow: none !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	display: block !important;
-	width: 100% !important;
-	position: relative !important;
-	overflow: visible !important;
-}
+/* ============================================
+   AWESOMPLETE DROPDOWN - THEME COLOR BORDERS
+   ============================================ */
 
-/* Dropdown List Container */
-html body div.awesomplete>ul,
-html body .awesomplete>ul,
-html body .awesomplete>[role="listbox"] {
-	background-color: var(--color-bg-white) !important;
-	background: var(--color-bg-white) !important;
-	border: 1px solid var(--color-gray-200) !important;
+/* Awesomplete dropdown list - Theme color border */
+html body .awesomplete > ul,
+html body .awesomplete ul,
+html body .awesomplete [role="listbox"],
+html body div.awesomplete > ul {
+	border: 1px solid var(--color-primary) !important;
 	border-radius: var(--radius-md) !important;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-	margin-top: 6px !important;
-	padding: 6px 0 !important;
-	z-index: 10005 !important;
-	min-width: 100% !important;
-	max-height: 300px !important;
-	overflow-y: auto !important;
-	overflow-x: hidden !important;
-	position: absolute !important;
-	transform: translateZ(0) !important;
-	-webkit-transform: translateZ(0) !important;
-	isolation: isolate !important;
-	animation: dropdownFadeIn 0.2s ease-out !important;
-}
-
-@keyframes dropdownFadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(-8px) translateZ(0);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0) translateZ(0);
-	}
-}
-
-/* Dropdown Items - Enhanced with Theme Color */
-html body div.awesomplete>ul>li,
-html body div.awesomplete>ul>li>p,
-html body div.awesomplete>ul>li>span,
-html body .awesomplete>[role="listbox"]>li,
-html body .awesomplete>[role="listbox"]>div[role="option"] {
 	background-color: var(--color-bg-white) !important;
-	color: var(--color-text-primary) !important;
-	padding: var(--spacing-md) var(--spacing-lg) !important;
-	font-size: var(--font-size-sm) !important;
-	line-height: 1.5 !important;
-	cursor: pointer !important;
-	border-bottom: 1px solid var(--color-gray-100) !important;
-	border-left: 3px solid transparent !important;
-	transition: all 0.15s ease !important;
-	position: relative !important;
 }
 
-/* Last item no border */
-html body div.awesomplete>ul>li:last-child,
-html body .awesomplete>[role="listbox"]>li:last-child {
-	border-bottom: none !important;
-}
-
-/* Hover - Theme color background with white text */
-html body div.awesomplete>ul>li:hover,
-html body div.awesomplete>ul>li[aria-selected="true"],
-html body .awesomplete>[role="listbox"]>li:hover,
-html body .awesomplete>[role="listbox"]>div[role="option"]:hover,
-html body .awesomplete>[role="listbox"]>div[role="option"][aria-selected="true"] {
+/* Awesomplete dropdown items - Theme color on hover/selected */
+html body .awesomplete ul li:hover,
+html body .awesomplete ul li[aria-selected="true"],
+html body .awesomplete [role="listbox"] li:hover,
+html body .awesomplete [role="listbox"] div[role="option"]:hover,
+html body .awesomplete [role="listbox"] div[role="option"][aria-selected="true"] {
 	background-color: var(--color-primary-rgba-10) !important;
 	color: var(--color-primary) !important;
 	font-weight: var(--font-weight-medium) !important;
-	border-left-color: var(--color-primary) !important;
-	padding-left: calc(var(--spacing-lg) - 3px) !important;
+	font-size: var(--font-size-sm) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
 }
 
-/* Hidden State */
-html body div.awesomplete>ul[hidden],
-html body .awesomplete>[role="listbox"][hidden],
-html body .awesomplete>ul:empty {
-	display: none !important;
+/* ============================================
+   FORM AWESOMPLETE DROPDOWNS - ABSOLUTE PRIORITY
+   Target awesomplete dropdowns specifically in forms
+   ============================================ */
+
+/* Normal state - white background, primary text */
+html body .form-section .awesomplete ul li,
+html body .form-section .awesomplete ul li[style*="background"],
+html body .form-section .awesomplete > ul li,
+html body .form-section .awesomplete > ul li[style*="background"],
+html body .form-section .section-body .awesomplete ul li,
+html body .form-section .section-body .awesomplete ul li[style*="background"],
+html body .form-section .section-body .awesomplete > ul li,
+html body .form-section .section-body .awesomplete > ul li[style*="background"],
+html body .form-section .frappe-control .awesomplete ul li,
+html body .form-section .frappe-control .awesomplete ul li[style*="background"],
+html body .form-section .frappe-control .awesomplete > ul li,
+html body .form-section .frappe-control .awesomplete > ul li[style*="background"],
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete ul li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete ul li[style*="background"],
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete > ul li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[style*="background"],
+html body .form-section .section-body .frappe-control .awesomplete ul li,
+html body .form-section .section-body .frappe-control .awesomplete ul li[style*="background"],
+html body .form-section .section-body .frappe-control .awesomplete > ul li,
+html body .form-section .section-body .frappe-control .awesomplete > ul li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete ul li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete ul li[style*="background"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete > ul li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[style*="background"] {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
-/* Mark matching text */
-html body .awesomplete mark {
-	background: var(--color-warning-light) !important;
-	color: inherit !important;
-	padding: 0 !important;
+/* Hover/Selected state - theme color background */
+html body .form-section .awesomplete ul li:hover,
+html body .form-section .awesomplete ul li[aria-selected="true"],
+html body .form-section .awesomplete ul li[style*="background"]:hover,
+html body .form-section .awesomplete > ul li:hover,
+html body .form-section .awesomplete > ul li[aria-selected="true"],
+html body .form-section .awesomplete > ul li[style*="background"]:hover,
+html body .form-section .section-body .awesomplete ul li:hover,
+html body .form-section .section-body .awesomplete ul li[aria-selected="true"],
+html body .form-section .section-body .awesomplete ul li[style*="background"]:hover,
+html body .form-section .section-body .awesomplete > ul li:hover,
+html body .form-section .section-body .awesomplete > ul li[aria-selected="true"],
+html body .form-section .section-body .awesomplete > ul li[style*="background"]:hover,
+html body .form-section .frappe-control .awesomplete ul li:hover,
+html body .form-section .frappe-control .awesomplete ul li[aria-selected="true"],
+html body .form-section .frappe-control .awesomplete ul li[style*="background"]:hover,
+html body .form-section .frappe-control .awesomplete > ul li:hover,
+html body .form-section .frappe-control .awesomplete > ul li[aria-selected="true"],
+html body .form-section .frappe-control .awesomplete > ul li[style*="background"]:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete ul li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete ul li[aria-selected="true"],
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete ul li[style*="background"]:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete > ul li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[aria-selected="true"],
+html body .form-section .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[style*="background"]:hover,
+html body .form-section .section-body .frappe-control .awesomplete ul li:hover,
+html body .form-section .section-body .frappe-control .awesomplete ul li[aria-selected="true"],
+html body .form-section .section-body .frappe-control .awesomplete ul li[style*="background"]:hover,
+html body .form-section .section-body .frappe-control .awesomplete > ul li:hover,
+html body .form-section .section-body .frappe-control .awesomplete > ul li[aria-selected="true"],
+html body .form-section .section-body .frappe-control .awesomplete > ul li[style*="background"]:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete ul li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete ul li[aria-selected="true"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete ul li[style*="background"]:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete > ul li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[aria-selected="true"],
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .awesomplete > ul li[style*="background"]:hover {
+	background-color: var(--color-primary-rgba-10) !important;
+	background: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
 /* ============================================
@@ -138,22 +342,24 @@ body .main-section {
 	position: relative !important;
 }
 
+/* Removed form container overflow fixes - use Frappe default */
+
 /* ============================================
    NATIVE SELECT DROPDOWN OPTIONS
    ============================================ */
 
-/* Native select options - Enhanced with Theme Color */
+/* Native select options - Enhanced with Theme Color - Consistent styling */
 html body select option,
 select option,
 .frappe-control select option,
 .form-group select option,
 select.form-control option,
 html body .frappe-control[data-fieldtype="Select"] select option {
-	padding: var(--spacing-md) var(--spacing-lg) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
 	font-size: var(--font-size-sm) !important;
 	color: var(--color-text-primary) !important;
 	background-color: var(--color-bg-white) !important;
-	line-height: 1.5 !important;
+	line-height: 1.4 !important;
 }
 
 html body select option:hover,
@@ -208,41 +414,57 @@ html body .frappe-control[data-fieldtype="Select"] select:active {
    FRAPPE SELECT DROPDOWN MENU (CUSTOM DROPDOWN)
    ============================================ */
 
-/* Style Frappe's custom dropdown menu if it exists */
+/* Style Frappe's custom dropdown menu - Simplified */
 html body .dropdown-menu,
 html body .select-dropdown,
 html body .frappe-control[data-fieldtype="Select"] .dropdown-menu,
 html body .frappe-control[data-fieldtype="Select"] .select-dropdown,
-html body .form-group .dropdown-menu {
+html body .form-group .dropdown-menu,
+html body .form-section .dropdown-menu,
+html body .form-section .select-dropdown,
+html body .form-section .frappe-control .dropdown-menu,
+html body .form-section .frappe-control .select-dropdown,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown {
 	background-color: var(--color-bg-white) !important;
 	border: 1px solid var(--color-gray-200) !important;
-	border-radius: var(--radius-md) !important;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-	padding: 6px 0 !important;
-	margin-top: 4px !important;
+	border-radius: var(--radius-sm) !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+	padding: var(--spacing-xs) 0 !important;
+	margin-top: 2px !important;
 	z-index: 10005 !important;
 	min-width: 100% !important;
 	max-height: 300px !important;
 	overflow-y: auto !important;
-	animation: dropdownFadeIn 0.2s ease-out !important;
 }
 
-/* Dropdown menu items - Enhanced with Theme Color */
+/* Dropdown menu items - Simplified styling */
 html body .dropdown-menu li,
 html body .dropdown-menu a,
 html body .select-dropdown li,
 html body .select-dropdown a,
 html body .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
-html body .frappe-control[data-fieldtype="Select"] .dropdown-menu a {
-	padding: var(--spacing-md) var(--spacing-lg) !important;
+html body .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
+html body .dropdown-menu .dropdown-item,
+html body .awesomplete ul li,
+html body .form-section .dropdown-menu li,
+html body .form-section .dropdown-menu a,
+html body .form-section .select-dropdown li,
+html body .form-section .select-dropdown a,
+html body .form-section .frappe-control .dropdown-menu li,
+html body .form-section .frappe-control .dropdown-menu a,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
+html body .form-group .dropdown-menu li,
+html body .form-group .dropdown-menu a {
+	padding: var(--spacing-sm) var(--spacing-md) !important;
 	font-size: var(--font-size-sm) !important;
 	color: var(--color-text-primary) !important;
 	background-color: var(--color-bg-white) !important;
-	line-height: 1.5 !important;
+	line-height: 1.4 !important;
 	cursor: pointer !important;
-	transition: all 0.15s ease !important;
-	border-bottom: 1px solid var(--color-gray-100) !important;
-	border-left: 3px solid transparent !important;
+	transition: background-color 0.15s ease !important;
+	border: none !important;
 	text-decoration: none !important;
 	position: relative !important;
 }
@@ -252,7 +474,7 @@ html body .select-dropdown li:last-child {
 	border-bottom: none !important;
 }
 
-/* Hover - Theme color background */
+/* Hover - Simple theme color background */
 html body .dropdown-menu li:hover,
 html body .dropdown-menu li.active,
 html body .dropdown-menu a:hover,
@@ -260,18 +482,36 @@ html body .dropdown-menu a.active,
 html body .select-dropdown li:hover,
 html body .select-dropdown li.active,
 html body .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
-html body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active {
+html body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
+html body .form-section .dropdown-menu li:hover,
+html body .form-section .dropdown-menu li.active,
+html body .form-section .dropdown-menu a:hover,
+html body .form-section .dropdown-menu a.active,
+html body .form-section .select-dropdown li:hover,
+html body .form-section .select-dropdown li.active,
+html body .form-section .frappe-control .dropdown-menu li:hover,
+html body .form-section .frappe-control .dropdown-menu li.active,
+html body .form-section .frappe-control .dropdown-menu a:hover,
+html body .form-section .frappe-control .dropdown-menu a.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a.active,
+html body .form-group .dropdown-menu li:hover,
+html body .form-group .dropdown-menu li.active,
+html body .form-group .dropdown-menu a:hover,
+html body .form-group .dropdown-menu a.active {
 	background-color: var(--color-primary-rgba-10) !important;
 	color: var(--color-primary) !important;
 	font-weight: var(--font-weight-medium) !important;
-	padding-left: calc(var(--spacing-lg) - 3px) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
 /* ============================================
    ENHANCED DROPDOWN STYLING WITH THEME COLOR
    ============================================ */
 
-/* All dropdowns - white background, normal text */
+/* All dropdowns - white background, normal text - Simplified */
 html body select option,
 html body .dropdown-menu li,
 html body .dropdown-menu a,
@@ -280,9 +520,12 @@ html body .select-dropdown a,
 html body .awesomplete ul li {
 	background-color: var(--color-bg-white) !important;
 	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	border: none !important;
 }
 
-/* Hover - theme color background, theme color text (bold) */
+/* Hover - Simple theme color background */
 html body select option:hover,
 html body select option:checked,
 html body .dropdown-menu li:hover,
@@ -294,6 +537,7 @@ html body .awesomplete ul li[aria-selected="true"] {
 	background-color: var(--color-primary-rgba-10) !important;
 	color: var(--color-primary) !important;
 	font-weight: var(--font-weight-medium) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
 /* ============================================
@@ -322,4 +566,210 @@ html body .awesomplete>[role="listbox"]::-webkit-scrollbar-thumb {
 html body div.awesomplete>ul::-webkit-scrollbar-thumb:hover,
 html body .awesomplete>[role="listbox"]::-webkit-scrollbar-thumb:hover {
 	background: var(--color-gray-400) !important;
+}
+
+/* ============================================
+   FORM DROPDOWN OVERRIDES - HIGHEST PRIORITY
+   Force proper styling for form dropdowns only
+   ============================================ */
+
+/* Force form dropdowns to use proper colors - HIGHEST SPECIFICITY */
+html body .form-section .dropdown-menu > li,
+html body .form-section .dropdown-menu > li > a,
+html body .form-section .select-dropdown > li,
+html body .form-section .select-dropdown > li > a,
+html body .form-section .frappe-control .dropdown-menu > li,
+html body .form-section .frappe-control .dropdown-menu > li > a,
+html body .form-section .frappe-control .select-dropdown > li,
+html body .form-section .frappe-control .select-dropdown > li > a,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu > li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu > li > a,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown > li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown > li > a {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section .dropdown-menu > li:hover,
+html body .form-section .dropdown-menu > li.active,
+html body .form-section .dropdown-menu > li.selected,
+html body .form-section .select-dropdown > li:hover,
+html body .form-section .select-dropdown > li.active,
+html body .form-section .select-dropdown > li.selected,
+html body .form-section .frappe-control .dropdown-menu > li:hover,
+html body .form-section .frappe-control .dropdown-menu > li.active,
+html body .form-section .frappe-control .dropdown-menu > li.selected,
+html body .form-section .frappe-control .select-dropdown > li:hover,
+html body .form-section .frappe-control .select-dropdown > li.active,
+html body .form-section .frappe-control .select-dropdown > li.selected,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu > li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu > li.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu > li.selected,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown > li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown > li.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown > li.selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   ULTIMATE FORM DROPDOWN FIX - MAXIMUM SPECIFICITY
+   Target all possible Frappe dropdown structures
+   ============================================ */
+
+/* Target dropdowns within form sections with all possible class combinations */
+html body .form-section .control-input-wrapper .dropdown-menu li,
+html body .form-section .control-input-wrapper .select-dropdown li,
+html body .form-section .control-input-wrapper .dropdown-menu a,
+html body .form-section .control-input-wrapper .select-dropdown a,
+html body .form-section .frappe-control .control-input-wrapper .dropdown-menu li,
+html body .form-section .frappe-control .control-input-wrapper .select-dropdown li,
+html body .form-section .frappe-control .control-input-wrapper .dropdown-menu a,
+html body .form-section .frappe-control .control-input-wrapper .select-dropdown a,
+html body .form-section .input-with-feedback + .dropdown-menu li,
+html body .form-section .input-with-feedback + .select-dropdown li,
+html body .form-section .form-control + .dropdown-menu li,
+html body .form-section .form-control + .select-dropdown li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .dropdown-menu li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-dropdown li,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .dropdown-menu a,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-dropdown a,
+html body .form-section .section-body .dropdown-menu li,
+html body .form-section .section-body .select-dropdown li,
+html body .form-section .section-body .dropdown-menu a,
+html body .form-section .section-body .select-dropdown a {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section .control-input-wrapper .dropdown-menu li:hover,
+html body .form-section .control-input-wrapper .dropdown-menu li.active,
+html body .form-section .control-input-wrapper .dropdown-menu li.selected,
+html body .form-section .control-input-wrapper .select-dropdown li:hover,
+html body .form-section .control-input-wrapper .select-dropdown li.active,
+html body .form-section .control-input-wrapper .select-dropdown li.selected,
+html body .form-section .frappe-control .control-input-wrapper .dropdown-menu li:hover,
+html body .form-section .frappe-control .control-input-wrapper .dropdown-menu li.active,
+html body .form-section .frappe-control .control-input-wrapper .dropdown-menu li.selected,
+html body .form-section .frappe-control .control-input-wrapper .select-dropdown li:hover,
+html body .form-section .frappe-control .control-input-wrapper .select-dropdown li.active,
+html body .form-section .frappe-control .control-input-wrapper .select-dropdown li.selected,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .dropdown-menu li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .dropdown-menu li.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .dropdown-menu li.selected,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-dropdown li:hover,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-dropdown li.active,
+html body .form-section .frappe-control[data-fieldtype="Select"] .control-input-wrapper .select-dropdown li.selected,
+html body .form-section .section-body .dropdown-menu li:hover,
+html body .form-section .section-body .dropdown-menu li.active,
+html body .form-section .section-body .dropdown-menu li.selected,
+html body .form-section .section-body .select-dropdown li:hover,
+html body .form-section .section-body .select-dropdown li.active,
+html body .form-section .section-body .select-dropdown li.selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+/* Override any inline styles or default Frappe styles - ULTIMATE OVERRIDE */
+html body .form-section .dropdown-menu,
+html body .form-section .select-dropdown,
+html body .form-section .frappe-control .dropdown-menu,
+html body .form-section .frappe-control .select-dropdown,
+html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu,
+html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown {
+	background-color: var(--color-bg-white) !important;
+}
+
+html body .form-section .dropdown-menu li,
+html body .form-section .dropdown-menu a,
+html body .form-section .select-dropdown li,
+html body .form-section .select-dropdown a,
+html body .form-section .frappe-control .dropdown-menu li,
+html body .form-section .frappe-control .dropdown-menu a,
+html body .form-section .frappe-control .select-dropdown li,
+html body .form-section .frappe-control .select-dropdown a {
+	background-color: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section .dropdown-menu li:hover,
+html body .form-section .dropdown-menu li.active,
+html body .form-section .dropdown-menu li.selected,
+html body .form-section .select-dropdown li:hover,
+html body .form-section .select-dropdown li.active,
+html body .form-section .select-dropdown li.selected,
+html body .form-section .frappe-control .dropdown-menu li:hover,
+html body .form-section .frappe-control .dropdown-menu li.active,
+html body .form-section .frappe-control .dropdown-menu li.selected,
+html body .form-section .frappe-control .select-dropdown li:hover,
+html body .form-section .frappe-control .select-dropdown li.active,
+html body .form-section .frappe-control .select-dropdown li.selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+/* ============================================
+   FINAL FORM DROPDOWN OVERRIDE - ABSOLUTE PRIORITY
+   Target every possible combination to ensure form dropdowns work
+   ============================================ */
+
+/* Override ALL possible grey colors in form dropdowns */
+html body .form-section .section-body .dropdown-menu li,
+html body .form-section .section-body .dropdown-menu a,
+html body .form-section .section-body .select-dropdown li,
+html body .form-section .section-body .select-dropdown a,
+html body .form-section .section-body .frappe-control .dropdown-menu li,
+html body .form-section .section-body .frappe-control .dropdown-menu a,
+html body .form-section .section-body .frappe-control .select-dropdown li,
+html body .form-section .section-body .frappe-control .select-dropdown a,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown a,
+html body .form-section .section-body .control-input-wrapper .dropdown-menu li,
+html body .form-section .section-body .control-input-wrapper .select-dropdown li,
+html body .form-section .section-body .control-input-wrapper .dropdown-menu a,
+html body .form-section .section-body .control-input-wrapper .select-dropdown a {
+	background-color: var(--color-bg-white) !important;
+	background: var(--color-bg-white) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+html body .form-section .section-body .dropdown-menu li:hover,
+html body .form-section .section-body .dropdown-menu li.active,
+html body .form-section .section-body .dropdown-menu li.selected,
+html body .form-section .section-body .select-dropdown li:hover,
+html body .form-section .section-body .select-dropdown li.active,
+html body .form-section .section-body .select-dropdown li.selected,
+html body .form-section .section-body .frappe-control .dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control .dropdown-menu li.active,
+html body .form-section .section-body .frappe-control .dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control .dropdown-menu a:hover,
+html body .form-section .section-body .frappe-control .dropdown-menu a.active,
+html body .form-section .section-body .frappe-control .select-dropdown li:hover,
+html body .form-section .section-body .frappe-control .select-dropdown li.active,
+html body .form-section .section-body .frappe-control .select-dropdown li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .dropdown-menu li.selected,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li:hover,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li.active,
+html body .form-section .section-body .frappe-control[data-fieldtype="Select"] .select-dropdown li.selected,
+html body .form-section .section-body .control-input-wrapper .dropdown-menu li:hover,
+html body .form-section .section-body .control-input-wrapper .dropdown-menu li.active,
+html body .form-section .section-body .control-input-wrapper .dropdown-menu li.selected,
+html body .form-section .section-body .control-input-wrapper .select-dropdown li:hover,
+html body .form-section .section-body .control-input-wrapper .select-dropdown li.active,
+html body .form-section .section-body .control-input-wrapper .select-dropdown li.selected {
+	background-color: var(--color-primary-rgba-10) !important;
+	background: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	font-size: var(--font-size-sm) !important;
 }

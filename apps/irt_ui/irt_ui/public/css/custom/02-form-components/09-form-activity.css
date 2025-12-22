@@ -1,35 +1,49 @@
 /**
- * Form Activity Section
+ * Form Activity Section - Consolidated
  * - Hide New Email and New Event buttons
  * - Style activity section properly
+ * - All duplicate files consolidated here
  */
 
 /* ============================================================
    HIDE NEW EMAIL AND NEW EVENT BUTTONS
    ============================================================ */
 
-/* Hide New Email button */
+/* Hide New Email button - consolidated selectors */
 button[data-label="New Email"],
 button[title="New Email"],
+.new-btn[data-label="New Email"],
+.new-btn[data-communication-type="Email"],
 .btn-new-email,
 .form-footer button:has(.fa-envelope),
-.form-footer .btn:contains("New Email") {
+.form-footer .btn:contains("New Email"),
+.timeline-actions button[data-label="New Email"] {
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;
 	pointer-events: none !important;
 }
 
-/* Hide New Event button */
+/* Hide New Event button - consolidated selectors */
 button[data-label="New Event"],
 button[title="New Event"],
+.new-btn[data-label="New Event"],
+.new-btn[data-communication-type="Event"],
 .btn-new-event,
 .form-footer button:has(.fa-calendar),
-.form-footer .btn:contains("New Event") {
+.form-footer .btn:contains("New Event"),
+.timeline-actions button[data-label="New Event"] {
 	display: none !important;
 	visibility: hidden !important;
 	opacity: 0 !important;
 	pointer-events: none !important;
+}
+
+/* Hide the entire button group if needed */
+.form-footer .timeline-actions,
+.form-documents .timeline-actions,
+.form-sidebar .timeline-actions {
+	display: none !important;
 }
 
 /* ============================================================
@@ -40,20 +54,22 @@ button[title="New Event"],
 .form-footer,
 .form-section[data-fieldname="activity"],
 .activity-section {
-	padding: 16px 0 !important;
-	margin-top: 24px !important;
-	border-top: 1px solid #e5e7eb !important;
+	padding: var(--spacing-lg) 0 !important;
+	margin-top: var(--spacing-2xl) !important;
+	border-top: 1px solid var(--color-border) !important;
 	background: transparent !important;
 }
 
 /* Activity heading */
 .form-footer .form-section-heading,
 .activity-section .section-head,
-.form-section[data-fieldname="activity"] .section-head {
-	font-size: 16px !important;
-	font-weight: 600 !important;
-	color: #1f2937 !important;
-	margin-bottom: 12px !important;
+.form-section[data-fieldname="activity"] .section-head,
+.form-footer .section-head,
+.form-documents .section-head {
+	font-size: var(--font-size-base) !important;
+	font-weight: var(--font-weight-semibold) !important;
+	color: var(--color-text-primary) !important;
+	margin-bottom: var(--spacing-md) !important;
 	padding: 0 !important;
 }
 
@@ -67,10 +83,10 @@ button[title="New Event"],
 
 /* Timeline items */
 .timeline-item {
-	padding: 12px 0 !important;
-	border-left: 2px solid #e5e7eb !important;
-	padding-left: 20px !important;
-	margin-left: 8px !important;
+	padding: var(--spacing-md) 0 !important;
+	border-left: 2px solid var(--color-border) !important;
+	padding-left: var(--spacing-xl) !important;
+	margin-left: var(--spacing-sm) !important;
 	position: relative !important;
 }
 
@@ -81,56 +97,75 @@ button[title="New Event"],
 	top: 16px !important;
 	width: 10px !important;
 	height: 10px !important;
-	background: #3b82f6 !important;
+	background: var(--color-primary) !important;
 	border-radius: 50% !important;
-	border: 2px solid #fff !important;
+	border: 2px solid var(--color-bg-white) !important;
 }
 
 .timeline-item:hover::before {
-	background: #2563eb !important;
+	background: var(--color-primary-dark) !important;
 }
 
 /* Timeline content */
 .timeline-item .timeline-content {
-	font-size: 13px !important;
-	color: #4b5563 !important;
-	line-height: 1.5 !important;
+	font-size: var(--font-size-base) !important;
+	color: var(--color-text-secondary) !important;
+	line-height: var(--line-height-normal) !important;
 }
 
 .timeline-item .timeline-content strong {
-	color: #1f2937 !important;
-	font-weight: 500 !important;
+	color: var(--color-text-primary) !important;
+	font-weight: var(--font-weight-medium) !important;
 }
 
 /* Timeline date */
 .timeline-item .timeline-date,
 .timeline-item .text-muted {
-	font-size: 12px !important;
-	color: #9ca3af !important;
-	margin-top: 4px !important;
+	font-size: var(--font-size-sm) !important;
+	color: var(--color-text-tertiary) !important;
+	margin-top: var(--spacing-xs) !important;
 }
 
 /* Activity comments */
 .comment-box {
-	margin-top: 16px !important;
-	padding: 12px !important;
-	background: #f9fafb !important;
-	border-radius: 6px !important;
-	border: 1px solid #e5e7eb !important;
+	margin-top: var(--spacing-lg) !important;
+	padding: var(--spacing-md) !important;
+	background: var(--color-gray-50) !important;
+	border-radius: var(--radius-md) !important;
+	border: 1px solid var(--color-border) !important;
 }
 
 .comment-box textarea {
-	border: 1px solid #d1d5db !important;
-	border-radius: 4px !important;
-	padding: 8px 12px !important;
-	font-size: 13px !important;
+	border: 1px solid var(--color-gray-300) !important;
+	border-radius: var(--radius-sm) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	font-size: var(--font-size-base) !important;
 	min-height: 80px !important;
 }
 
 .comment-box textarea:focus {
-	border-color: #3b82f6 !important;
+	border-color: var(--color-primary) !important;
 	outline: none !important;
-	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+}
+
+/* Clean activity list */
+.form-footer ul,
+.timeline-content ul {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.form-footer ul li,
+.timeline-content ul li {
+	padding: var(--spacing-sm) 0 !important;
+	border-bottom: 1px solid var(--color-gray-100) !important;
+}
+
+.form-footer ul li:last-child,
+.timeline-content ul li:last-child {
+	border-bottom: none !important;
 }
 
 /* ============================================================

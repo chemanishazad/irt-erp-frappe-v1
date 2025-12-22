@@ -354,64 +354,9 @@ button:not(.close):not(.navbar-toggler) {
 }
 
 /* ============================================
-   FORM BUILDER - Add Field Button Fix
+   FORM BUILDER BUTTONS - REMOVED ALL OVERRIDES
+   Use Frappe defaults for all form builder buttons
    ============================================ */
-
-/* Fix truncated "Add field" button text */
-.add-field-btn,
-.btn.add-field-btn,
-.form-builder .add-field-btn,
-.form-builder-container .add-field-btn,
-button[title="Add field"],
-button[title*="Add field"],
-.btn-xs.btn-icon[title*="Add field"],
-.form-builder button.btn-xs.btn-icon {
-  width: auto !important;
-  min-width: auto !important;
-  padding: 6px 12px !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-}
-
-/* Ensure button text is visible */
-.add-field-btn span,
-.add-field-btn .btn-text,
-.add-field-btn::after,
-.btn.add-field-btn span,
-.btn.add-field-btn .btn-text {
-  display: inline-block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-}
-
-/* Fix for buttons with icon + text */
-.add-field-btn.btn-icon,
-.btn.add-field-btn.btn-icon {
-  width: auto !important;
-  min-width: auto !important;
-  padding-left: 12px !important;
-  padding-right: 12px !important;
-}
-
-/* Ensure proper sizing for small buttons with text */
-.form-builder .btn-xs:not(.icon-btn):not(.btn-icon),
-.form-builder-container .btn-xs:not(.icon-btn):not(.btn-icon),
-button.btn-xs.btn-icon:not(:only-child),
-.form-builder .btn-xs.btn-icon:has(span),
-.form-builder-container .btn-xs.btn-icon:has(span) {
-  width: auto !important;
-  gap: var(--spacing-2xl);
-  
-  white-space: nowrap !important;
-}
 
 .icon-btn.btn-sm,
 .btn.icon-btn.btn-sm {

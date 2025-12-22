@@ -13,7 +13,7 @@
 	z-index: 1;
 }
 
-/* Default containers – standard padding, no right margin */
+/* Default containers – proper left padding, no right margin */
 body[data-route*="desk"] .container,
 body[data-route*="desk"] .container-fluid,
 body[data-route*="desk"] .container-lg,
@@ -21,7 +21,7 @@ body[data-route*="desk"] .container-md,
 body[data-route*="desk"] .container-sm,
 body[data-route*="desk"] .container-xl {
 	max-width: 100% !important;
-	padding-left: var(--spacing-md) !important;
+	padding-left: var(--spacing-xl) !important;
 	padding-right: var(--spacing-md) !important;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
@@ -72,7 +72,7 @@ body[data-route*="desk"] .container-xl {
 	background-color: var(--color-bg-white);
 	width: 100% !important;
 	min-height: 100%;
-	padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) !important;
+	padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg) var(--spacing-xl) !important;
 	padding-right: var(--spacing-md) !important;
 	padding-bottom: var(--spacing-lg) !important;
 	margin: 0 !important;
@@ -138,7 +138,7 @@ body[data-route*="desk"] .container-xl {
 .page-title .title-text,
 .page-title h3.title-text,
 .page-head .title-text {
-	font-size: 20px !important;
+	font-size: var(--font-size-xl) !important;
 	font-weight: 700 !important;
 	color: var(--color-text-primary) !important;
 	margin: 0 !important;
@@ -186,7 +186,7 @@ body[data-route*="desk"] .container-xl {
 [data-page-route*="Workspace"] h5,
 [data-page-route*="Workspace"] .widget-group-title,
 [data-page-route*="Workspace"] .section-title {
-	font-size: 14px !important;
+	font-size: var(--font-size-md) !important;
 	font-weight: 600 !important;
 	color: var(--color-text-primary) !important;
 	margin: var(--spacing-lg) 0 var(--spacing-md) 0 !important;
@@ -230,7 +230,7 @@ body[data-route*="desk"] .container-xl {
 
 /* Sub-headings */
 .sub-heading {
-	font-size: 13px !important;
+	font-size: var(--font-size-base) !important;
 	font-weight: 500 !important;
 	color: var(--color-text-secondary) !important;
 	margin-top: var(--spacing-xs) !important;
@@ -390,7 +390,7 @@ body[data-route*="desk"] .container-xl {
 .shortcut-widget-box .indicator-pill {
 	padding: 3px 10px;
 	border-radius: var(--radius-sm);
-	font-size: 11px;
+	font-size: var(--font-size-xs);
 	font-weight: 600;
 	color: var(--color-primary-dark);
 	background: rgba(255, 255, 255, 0.9);
@@ -411,7 +411,7 @@ body[data-route*="desk"] .container-xl {
 	position: absolute;
 	right: var(--spacing-md);
 	bottom: var(--spacing-md);
-	font-size: 18px;
+	font-size: var(--font-size-lg);
 	color: var(--color-primary);
 	opacity: 0.5;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -617,7 +617,7 @@ body[data-route*="desk"] .container-xl {
 .link-item::after {
 	content: "→";
 	flex-shrink: 0;
-	font-size: 16px;
+	font-size: var(--font-size-base);
 	color: var(--color-primary);
 	opacity: 0.3;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

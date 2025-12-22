@@ -178,39 +178,44 @@ html body .datepicker,
    DROPDOWN MENUS - SIMPLE & CLEAN
    ============================================ */
 
-/* All dropdowns - clean white background */
+/* All dropdowns - Simplified */
 html body .dropdown-menu,
 html body .select-dropdown,
 html body .awesomplete ul,
 html body select option {
 	background-color: var(--color-bg-white) !important;
-	color: #334155 !important;
-	font-size: 13px !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-xs) !important;
+	border: 1px solid var(--color-gray-200) !important;
+	border-radius: var(--radius-sm) !important;
 }
 
-/* Dropdown items - simpler styling */
+/* Dropdown items - Simplified */
 html body .dropdown-menu li,
 html body .dropdown-menu a,
 html body .select-dropdown li,
 html body .select-dropdown a,
 html body select option {
 	background-color: var(--color-bg-white) !important;
-	color: #334155 !important;
-	padding: 5px 12px !important;
-	font-size: 13px !important;
-	font-weight: 400 !important;
+	color: var(--color-text-primary) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-normal) !important;
+	line-height: 1.4 !important;
+	border: none !important;
 }
 
-/* Hover - subtle highlight */
+/* Hover - Simple theme color highlight */
 html body .dropdown-menu li:hover,
 html body .dropdown-menu li.active,
 html body .select-dropdown li:hover,
 html body .select-dropdown li.active,
 html body select option:hover,
 html body select option:checked {
-	background-color: #f8fafc !important;
+	background-color: var(--color-primary-rgba-10) !important;
 	color: var(--color-primary) !important;
-	font-weight: 500 !important;
+	font-weight: var(--font-weight-medium) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
 /* ============================================

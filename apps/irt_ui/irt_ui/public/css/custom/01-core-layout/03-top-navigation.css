@@ -302,7 +302,7 @@
 .search-bar .awesomplete ul,
 .desktop-search-wrapper .awesomplete ul,
 .navbar .awesomplete ul {
-	border: 1px solid var(--color-border);
+	border: 1px solid var(--color-primary);
 	border-top: none;
 	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 	box-shadow: var(--shadow-xl);
@@ -332,20 +332,25 @@
 
 .search-bar .awesomplete ul li,
 .desktop-search-wrapper .awesomplete ul li {
-	padding: var(--spacing-md) var(--spacing-lg);
+	padding: var(--spacing-sm) var(--spacing-md);
 	cursor: pointer;
-	transition: all var(--transition-base);
-	color: var(--color-text-primary);
-	font-size: var(--font-size-sm);
+	transition: background-color var(--transition-base);
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+	line-height: 1.4;
+	border: none;
+	background-color: var(--color-bg-white) !important;
 }
 
 .search-bar .awesomplete ul li:hover,
 .search-bar .awesomplete ul li[aria-selected="true"],
 .desktop-search-wrapper .awesomplete ul li:hover,
 .desktop-search-wrapper .awesomplete ul li[aria-selected="true"] {
-	background-color: var(--color-primary-rgba-15);
-	color: var(--color-primary);
-	transform: translateX(2px);
+	background-color: var(--color-primary-rgba-10) !important;
+	color: var(--color-primary) !important;
+	transform: none;
+	font-weight: var(--font-weight-medium) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
 /* ============================================
@@ -458,14 +463,13 @@
    DROPDOWN MENUS
    ============================================ */
 .navbar-nav .dropdown-menu {
-	background-color: var(--color-bg-white);
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius-lg);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	padding: 0 !important;
+	background-color: var(--color-bg-white) !important;
+	border: 1px solid var(--color-gray-200) !important;
+	border-radius: var(--radius-sm) !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+	padding: var(--spacing-xs) 0 !important;
 	margin-top: var(--spacing-sm);
 	min-width: 220px;
-	animation: dropdownFadeIn 0.2s ease-out;
 	z-index: 10001 !important;
 	position: absolute !important;
 }
@@ -589,14 +593,21 @@
 	text-align: left !important;
 	color: inherit !important;
 	text-decoration: none !important;
-	line-height: 1.5 !important;
+	line-height: 1.4 !important;
 	white-space: normal !important;
 	word-wrap: break-word !important;
 	overflow: visible !important;
+	font-size: var(--font-size-xs) !important;
+}
+
+.navbar-nav .dropdown-item {
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	font-size: var(--font-size-xs) !important;
+	border: none !important;
 }
 
 .navbar-nav .dropdown-item:hover {
-	background-color: var(--color-primary-rgba-15) !important;
+	background-color: var(--color-primary-rgba-10) !important;
 	color: var(--color-primary) !important;
 	transform: none;
 }
@@ -618,11 +629,23 @@
 	color: var(--color-primary) !important;
 }
 
-/* Ensure dropdown menu has proper padding and spacing */
+/* Ensure dropdown menu has proper padding and spacing - Consistent styling */
 .navbar-nav .dropdown-menu {
 	padding: var(--spacing-xs) 0 !important;
 	min-width: 200px !important;
 	max-width: 300px !important;
+}
+
+.navbar-nav .dropdown-item {
+	font-size: var(--font-size-xs) !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	border-left: 3px solid transparent !important;
+}
+
+.navbar-nav .dropdown-item:hover,
+.navbar-nav .dropdown-item.active {
+	border-left-color: var(--color-primary) !important;
+	padding-left: calc(var(--spacing-md) - 3px) !important;
 }
 
 /* Fix dropdown menu positioning for help and profile */
