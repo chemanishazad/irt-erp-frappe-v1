@@ -27,64 +27,9 @@
 		return standard_routes.includes(route_first_part);
 	}
 	
-	// Override pageview.show to handle standard routes correctly
-	if (frappe.views && frappe.views.pageview && frappe.views.pageview.show) {
-		const original_show = frappe.views.pageview.show;
-		
-		frappe.views.pageview.show = function(page_name) {
-			// Get the actual page name (might be empty, use boot.home_page)
-			let name = page_name;
-			if (!name && frappe.boot && frappe.boot.home_page) {
-				name = frappe.boot.home_page;
-			}
-			
-			// If it's a standard route (contains / and starts with standard route), use router instead
-			if (name && isStandardRoute(name)) {
-				// This is a standard route - use frappe.set_route instead of pageview.show
-				frappe.set_route(name);
-				return;
-			}
-			
-			// Use original function for standard pages
-			return original_show.call(this, page_name);
-		};
-	}
-	
-	// Override pageview.with_page to handle standard routes
-	if (frappe.views && frappe.views.pageview && frappe.views.pageview.with_page) {
-		const original_with_page = frappe.views.pageview.with_page;
-		
-		frappe.views.pageview.with_page = function(name, callback) {
-			// If it's a standard route, don't try to load as Page
-			if (name && isStandardRoute(name)) {
-				// Standard routes are handled by router, just call callback
-				if (callback) callback();
-				return;
-			}
-			
-			// Use original function for standard pages
-			return original_with_page.call(this, name, callback);
-		};
-	}
-	
-	// Override router.render to handle home_page routes correctly
-	if (frappe.router && frappe.router.render) {
-		const original_render = frappe.router.render;
-		
-		frappe.router.render = function() {
-			// If no route and home_page is a standard route, set it
-			if (!this.current_route || this.current_route.length === 0) {
-				if (frappe.boot && frappe.boot.home_page && isStandardRoute(frappe.boot.home_page)) {
-					// Home page is a standard route - navigate to it
-					frappe.set_route(frappe.boot.home_page);
-					return;
-				}
-			}
-			
-			// Use original function
-			return original_render.call(this);
-		};
-	}
+	// REMOVED: pageview.show override - was interfering with dashboard routing
+	// REMOVED: pageview.with_page override - was interfering with dashboard routing  
+	// REMOVED: router.render override - was interfering with default dashboard
 	
 	// Override sidebar item get_path to ensure Dashboard links include dashboard name
 	if (frappe.ui && frappe.ui.sidebar_item && frappe.ui.sidebar_item.TypeLink) {
@@ -159,4 +104,65 @@
 			}
 		});
 	});
+
+	// Remove workflow_state filter from URL for Employee Onboarding Case
+	// Note: Filter will still be applied and shown in badges, but won't appear in URL
+	if (frappe.views && frappe.views.ListView) {
+		const ListView = frappe.views.ListView;
+		const DOCTYPE_TO_FIX = 'Employee Onboarding Case';
+		const FILTER_TO_REMOVE = 'workflow_state';
+
+		// Override get_search_params to exclude workflow_state from URL
+		if (ListView.prototype.get_search_params) {
+			const original_get_search_params = ListView.prototype.get_search_params;
+			ListView.prototype.get_search_params = function() {
+				const search_params = original_get_search_params.call(this);
+				
+				// Remove workflow_state from URL params for Employee Onboarding Case
+				// This prevents it from being added to URL, but filter will still be applied
+				if (this.doctype === DOCTYPE_TO_FIX && search_params.has(FILTER_TO_REMOVE)) {
+					search_params.delete(FILTER_TO_REMOVE);
+				}
+				
+				return search_params;
+			};
+		}
+
+		// Clean up URL on page load and after filter updates if workflow_state is present
+		function cleanupWorkflowStateFromURL() {
+			const route = frappe.get_route();
+			const routeStr = frappe.get_route_str();
+			const isOnboardingCase = route && (
+				route[1] === 'employee-onboarding-case' || 
+				route[1] === 'Employee Onboarding Case' ||
+				routeStr.includes('employee-onboarding-case')
+			);
+			
+			if (isOnboardingCase) {
+				const urlParams = new URLSearchParams(window.location.search);
+				if (urlParams.has(FILTER_TO_REMOVE)) {
+					urlParams.delete(FILTER_TO_REMOVE);
+					const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+					window.history.replaceState(null, null, newUrl);
+				}
+			}
+		}
+
+		frappe.ready(function() {
+			cleanupWorkflowStateFromURL();
+			
+			// Also clean up after URL updates
+			if (ListView.prototype.update_url_with_filters) {
+				const original_update_url = ListView.prototype.update_url_with_filters;
+				ListView.prototype.update_url_with_filters = function() {
+					const result = original_update_url.apply(this, arguments);
+					if (this.doctype === DOCTYPE_TO_FIX) {
+						setTimeout(cleanupWorkflowStateFromURL, 50);
+					}
+					return result;
+				};
+			}
+		});
+	}
 })();
+
