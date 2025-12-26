@@ -190,6 +190,8 @@ td,
 	font-size: var(--font-size-sm) !important;
 }
 
+/* Exclude page-actions dropdowns from typography rules - handled in page-headers.css */
+
 /* ============================================
    MODALS & DIALOGS
    ============================================ */

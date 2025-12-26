@@ -69,7 +69,7 @@
 	}
 	
 	// Intercept sidebar item clicks to fix Dashboard routes
-	frappe.ready(function() {
+	function initDashboardRouteHandler() {
 		// Use event delegation to catch all sidebar item clicks
 		$(document).on('click', '.sidebar-item-container a.item-anchor[href*="dashboard-view"]', function(e) {
 			const href = $(this).attr('href');
@@ -103,7 +103,19 @@
 				frappe.set_route('dashboard-view');
 			}
 		});
-	});
+	}
+
+	// Initialize when Frappe is ready, or immediately if already available
+	if (typeof frappe !== 'undefined' && frappe.ready) {
+		frappe.ready(initDashboardRouteHandler);
+	} else {
+		// Wait for Frappe to be available
+		$(document).ready(function() {
+			if (typeof frappe !== 'undefined') {
+				initDashboardRouteHandler();
+			}
+		});
+	}
 
 	// Remove workflow_state filter from URL for Employee Onboarding Case
 	// Note: Filter will still be applied and shown in badges, but won't appear in URL
@@ -148,7 +160,7 @@
 			}
 		}
 
-		frappe.ready(function() {
+		function initWorkflowStateURLCleanup() {
 			cleanupWorkflowStateFromURL();
 			
 			// Also clean up after URL updates
@@ -162,7 +174,19 @@
 					return result;
 				};
 			}
-		});
+		}
+
+		// Initialize when Frappe is ready, or immediately if already available
+		if (typeof frappe !== 'undefined' && frappe.ready) {
+			frappe.ready(initWorkflowStateURLCleanup);
+		} else {
+			// Wait for Frappe to be available
+			$(document).ready(function() {
+				if (typeof frappe !== 'undefined') {
+					initWorkflowStateURLCleanup();
+				}
+			});
+		}
 	}
 })();
 

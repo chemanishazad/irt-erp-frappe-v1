@@ -61,10 +61,15 @@ body .frappe-list .list-row-col {
 	flex: 0 !important;
 }
 
-/* Hide all checkbox inputs */
-.frappe-list input[type="checkbox"],
+/* Hide only selection checkboxes (bulk selection column), NOT data cell checkboxes */
 .frappe-list .list-row-checkbox,
-.frappe-list .list-check-all {
+.frappe-list .list-check-all,
+.list-row-head .select-like input[type="checkbox"],
+.frappe-list .list-row .select-like input[type="checkbox"],
+.list-row-head .checkbox-actions input[type="checkbox"],
+.frappe-list .list-row .checkbox-actions input[type="checkbox"],
+.list-row-head .level-item.select-like input[type="checkbox"],
+.frappe-list .list-row .level-item.select-like input[type="checkbox"] {
 	display: none !important;
 	visibility: hidden !important;
 	width: 0 !important;
@@ -72,6 +77,39 @@ body .frappe-list .list-row-col {
 	opacity: 0 !important;
 	position: absolute !important;
 	left: -9999px !important;
+}
+
+/* Ensure data cell checkboxes are visible and properly styled */
+.frappe-list .list-row-col input[type="checkbox"],
+.frappe-list .list-row .list-row-col input[type="checkbox"],
+body .frappe-list .list-row-col input[type="checkbox"],
+body .frappe-list .list-row .list-row-col input[type="checkbox"] {
+	display: inline-block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	left: auto !important;
+}
+
+/* Ensure checked state is visible for table checkboxes - MAXIMUM SPECIFICITY */
+.frappe-list .list-row-col input[type="checkbox"]:checked,
+.frappe-list .list-row-col input[type="checkbox"][checked],
+.frappe-list .list-row-col input[type="checkbox"].disabled-selected,
+.frappe-list .list-row .list-row-col input[type="checkbox"]:checked,
+.frappe-list .list-row .list-row-col input[type="checkbox"][checked],
+.frappe-list .list-row .list-row-col input[type="checkbox"].disabled-selected,
+body .frappe-list .list-row-col input[type="checkbox"]:checked,
+body .frappe-list .list-row-col input[type="checkbox"][checked],
+body .frappe-list .list-row-col input[type="checkbox"].disabled-selected,
+body .frappe-list .list-row .list-row-col input[type="checkbox"]:checked,
+body .frappe-list .list-row .list-row-col input[type="checkbox"][checked],
+body .frappe-list .list-row .list-row-col input[type="checkbox"].disabled-selected {
+	background-color: #0066FF !important;
+	border: none !important;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, #0066FF -124.51%, #0066FF 100%) !important;
+	background-size: 57%, 100% !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
 }
 
 /* ============================================================

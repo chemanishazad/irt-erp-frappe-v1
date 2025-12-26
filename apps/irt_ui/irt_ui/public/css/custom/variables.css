@@ -8,6 +8,13 @@
 	   COLOR PALETTE - PRIMARY (Bright Blue)
 	   ============================================ */
 	--color-primary: #0066FF;
+	/* Map Frappe's --primary to our custom color */
+	--primary: var(--color-primary);
+	/* Checkbox variables - ensure compatibility with Frappe */
+	--checkbox-size: 14px;
+	--checkbox-right-margin: 8px;
+	--checkbox-gradient: linear-gradient(180deg, var(--primary) -124.51%, var(--primary) 100%);
+	--checkbox-focus-shadow: 0 0 0 2px var(--color-gray-300, #d1d5db);
 	--color-primary-dark: #0052CC;
 	--color-primary-light: #1A7AFF;
 	--color-primary-lighter: #3388FF;

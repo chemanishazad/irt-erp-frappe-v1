@@ -79,11 +79,7 @@
 	overflow: visible !important;
 }
 
-.page-actions .dropdown-menu {
-	z-index: 10003 !important;
-	position: absolute !important;
-	overflow: visible !important;
-}
+/* Removed custom dropdown styling - use Frappe defaults */
 
 /* ============================================================
    LIST ROWS

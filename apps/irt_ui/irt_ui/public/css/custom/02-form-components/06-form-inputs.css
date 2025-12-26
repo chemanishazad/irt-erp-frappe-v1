@@ -216,63 +216,20 @@ html body select:not(:disabled),
   -webkit-text-fill-color: var(--color-text-primary) !important;
 }
 
-/* Native select option styling - CLEAN WHITE BACKGROUND - NO GREY */
 select.form-control option,
 select option,
 .frappe-control select option,
 .frappe-control[data-fieldtype="Select"] select option,
-html body select option,
-html body .form-section select option,
-html body .form-section .frappe-control select option,
-html body .form-section .section-body select option,
-html body .form-section .frappe-control[data-fieldtype="Select"] select option {
-	color: var(--color-gray-800, #1f2937) !important;
-	background-color: #ffffff !important;
-	padding: 10px 14px !important;
-	font-size: 13px !important;
-	font-weight: 500 !important;
-	border: none !important;
-	margin: 0 !important;
-	min-height: 36px !important;
-	line-height: 1.4 !important;
+html body select option {
+  color: var(--color-text-primary) !important;
+  background-color: var(--color-bg-white) !important;
 }
 
-/* Selected/hovered option styling */
-html body .form-section select option:checked,
-html body .form-section select option:hover,
-html body .form-section .frappe-control select option:checked,
-html body .form-section .frappe-control select option:hover,
-html body .form-section .frappe-control[data-fieldtype="Select"] select option:checked,
-html body .form-section .frappe-control[data-fieldtype="Select"] select option:hover {
-	background-color: var(--color-primary-rgba-10, rgba(0, 102, 255, 0.1)) !important;
-	color: var(--color-primary, #0066FF) !important;
-	font-weight: 600 !important;
-}
-
-/* Ensure select elements have white background */
-select.form-control,
-select,
-.frappe-control select {
-	background-color: #ffffff !important;
-}
-
-select.form-control:focus,
-select:focus,
-.frappe-control select:focus {
-	background-color: #ffffff !important;
-}
-
-/* Fix grey color in Frappe custom dropdown menus - Form specific */
+/* Fix grey color in Frappe custom dropdown menus */
 .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
 .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
 .frappe-control[data-fieldtype="Select"] .select-dropdown li,
-.frappe-control[data-fieldtype="Select"] .select-dropdown a,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
-.form-section .frappe-control[data-fieldtype="Select"] .select-dropdown li,
-.form-section .frappe-control[data-fieldtype="Select"] .select-dropdown a,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu a {
+.frappe-control[data-fieldtype="Select"] .select-dropdown a {
   color: var(--color-text-primary) !important;
   background-color: var(--color-bg-white) !important;
   font-size: var(--font-size-sm) !important;
@@ -281,106 +238,7 @@ select:focus,
 .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
 .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
 .frappe-control[data-fieldtype="Select"] .dropdown-menu a:hover,
-.frappe-control[data-fieldtype="Select"] .dropdown-menu a.active,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a:hover,
-.form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a.active,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu a:hover,
-.form-group .frappe-control[data-fieldtype="Select"] .dropdown-menu a.active {
-  background-color: var(--color-primary-rgba-10) !important;
-  color: var(--color-primary) !important;
-  font-size: var(--font-size-sm) !important;
-}
-
-/* Override any grey background in form dropdowns - HIGH SPECIFICITY */
-.form-section .dropdown-menu li,
-.form-section .select-dropdown li,
-.form-section .dropdown-menu a,
-.form-section .select-dropdown a,
-.form-section .frappe-control .dropdown-menu li,
-.form-section .frappe-control .dropdown-menu a,
-.form-section .frappe-control .select-dropdown li,
-.form-section .frappe-control .select-dropdown a,
-.form-section .form-group .dropdown-menu li,
-.form-section .form-group .dropdown-menu a,
-.form-section .form-group .select-dropdown li,
-.form-section .form-group .select-dropdown a,
-.form-section-body .dropdown-menu li,
-.form-section-body .dropdown-menu a,
-.form-section-body .select-dropdown li,
-.form-section-body .select-dropdown a {
-  background-color: var(--color-bg-white) !important;
-  color: var(--color-text-primary) !important;
-  font-size: var(--font-size-sm) !important;
-}
-
-.form-section .dropdown-menu li:hover,
-.form-section .dropdown-menu li.active,
-.form-section .select-dropdown li:hover,
-.form-section .select-dropdown li.active,
-.form-section .frappe-control .dropdown-menu li:hover,
-.form-section .frappe-control .dropdown-menu li.active,
-.form-section .frappe-control .dropdown-menu a:hover,
-.form-section .frappe-control .dropdown-menu a.active,
-.form-section .frappe-control .select-dropdown li:hover,
-.form-section .frappe-control .select-dropdown li.active,
-.form-section .form-group .dropdown-menu li:hover,
-.form-section .form-group .dropdown-menu li.active,
-.form-section .form-group .dropdown-menu a:hover,
-.form-section .form-group .dropdown-menu a.active,
-.form-section-body .dropdown-menu li:hover,
-.form-section-body .dropdown-menu li.active,
-.form-section-body .select-dropdown li:hover,
-.form-section-body .select-dropdown li.active {
-  background-color: var(--color-primary-rgba-10) !important;
-  color: var(--color-primary) !important;
-  font-size: var(--font-size-sm) !important;
-}
-
-/* ============================================
-   FORM DROPDOWN OVERRIDES - HIGHEST PRIORITY
-   Force proper styling for form dropdowns
-   ============================================ */
-
-/* Force form dropdowns to use proper colors - HIGHEST SPECIFICITY */
-html body .form-section .dropdown-menu li,
-html body .form-section .dropdown-menu a,
-html body .form-section .select-dropdown li,
-html body .form-section .select-dropdown a,
-html body .form-section .frappe-control .dropdown-menu li,
-html body .form-section .frappe-control .dropdown-menu a,
-html body .form-section .frappe-control .select-dropdown li,
-html body .form-section .frappe-control .select-dropdown a,
-html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li,
-html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu a,
-html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown li,
-html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown a {
-  background-color: var(--color-bg-white) !important;
-  color: var(--color-text-primary) !important;
-  font-size: var(--font-size-sm) !important;
-}
-
-html body .form-section .dropdown-menu li:hover,
-html body .form-section .dropdown-menu li.active,
-html body .form-section .dropdown-menu li.selected,
-html body .form-section .select-dropdown li:hover,
-html body .form-section .select-dropdown li.active,
-html body .form-section .select-dropdown li.selected,
-html body .form-section .frappe-control .dropdown-menu li:hover,
-html body .form-section .frappe-control .dropdown-menu li.active,
-html body .form-section .frappe-control .dropdown-menu li.selected,
-html body .form-section .frappe-control .select-dropdown li:hover,
-html body .form-section .frappe-control .select-dropdown li.active,
-html body .form-section .frappe-control .select-dropdown li.selected,
-html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li:hover,
-html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li.active,
-html body .form-section .frappe-control[data-fieldtype="Select"] .dropdown-menu li.selected,
-html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown li:hover,
-html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown li.active,
-html body .form-section .frappe-control[data-fieldtype="Select"] .select-dropdown li.selected {
+.frappe-control[data-fieldtype="Select"] .dropdown-menu a.active {
   background-color: var(--color-primary-rgba-10) !important;
   color: var(--color-primary) !important;
   font-size: var(--font-size-sm) !important;
@@ -538,110 +396,156 @@ input[type="time"]:hover::-webkit-calendar-picker-indicator {
    CHECKBOXES & RADIOS
 -------------------------------------------------------------*/
 
-input[type="checkbox"],
-input[type="radio"] {
- 
-
+/* Base checkbox styles */
+input[type="checkbox"] {
+  width: var(--checkbox-size, 14px) !important;
+  height: var(--checkbox-size, 14px) !important;
+  min-width: var(--checkbox-size, 14px) !important;
+  min-height: var(--checkbox-size, 14px) !important;
   margin: 0;
+  margin-right: var(--checkbox-right-margin, 8px) !important;
   cursor: pointer;
-  accent-color: var(--color-primary) !important;
+  accent-color: #0066FF !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border: 1px solid var(--gray-500, #6b7280) !important;
+  border-radius: 4px;
+  background-color: #ffffff !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 57%, 100% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+}
+
+/* Unchecked checkbox hover */
+input[type="checkbox"]:hover:not(:disabled):not(:checked):not([checked]):not(.disabled-selected) {
+  border-color: #0066FF !important;
+}
+
+/* CHECKED STATE - Blue background with white checkmark */
+input[type="checkbox"]:checked,
+input[type="checkbox"][checked],
+input[type="checkbox"].disabled-selected {
+  background-color: #0066FF !important;
+  border: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, #0066FF -124.51%, #0066FF 100%) !important;
+  background-size: 57%, 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+/* Checked state in all contexts - maximum specificity */
+html body input[type="checkbox"]:checked,
+html body input[type="checkbox"][checked],
+html body input[type="checkbox"].disabled-selected,
+html body table input[type="checkbox"]:checked,
+html body table input[type="checkbox"][checked],
+html body table input[type="checkbox"].disabled-selected,
+html body .frappe-list input[type="checkbox"]:checked,
+html body .frappe-list input[type="checkbox"][checked],
+html body .frappe-list input[type="checkbox"].disabled-selected,
+html body .list-row-col input[type="checkbox"]:checked,
+html body .list-row-col input[type="checkbox"][checked],
+html body .list-row-col input[type="checkbox"].disabled-selected,
+html body .frappe-control input[type="checkbox"]:checked,
+html body .frappe-control input[type="checkbox"][checked],
+html body .frappe-control input[type="checkbox"].disabled-selected,
+html body .form-group input[type="checkbox"]:checked,
+html body .form-group input[type="checkbox"][checked],
+html body .form-group input[type="checkbox"].disabled-selected {
+  background-color: #0066FF !important;
+  border: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, #0066FF -124.51%, #0066FF 100%) !important;
+  background-size: 57%, 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+/* Checked hover */
+input[type="checkbox"]:checked:hover:not(:disabled),
+input[type="checkbox"][checked]:hover:not(:disabled),
+input[type="checkbox"].disabled-selected:hover {
+  background-color: #0066FF !important;
+  border: none !important;
+}
+
+/* Focus states */
+input[type="checkbox"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--gray-300, #d1d5db) !important;
+}
+
+input[type="checkbox"]:focus:checked,
+input[type="checkbox"]:focus[checked],
+input[type="checkbox"]:focus.disabled-selected {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--gray-300, #d1d5db) !important;
+}
+
+/* Disabled unchecked */
+input[type="checkbox"]:disabled:not(:checked):not([checked]):not(.disabled-selected),
+input[type="checkbox"].disabled-deselected {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: var(--gray-50, #f9fafb) !important;
+  border-color: var(--gray-300, #d1d5db) !important;
+}
+
+/* Disabled checked - Blue background with white checkmark */
+input[type="checkbox"]:disabled:checked,
+input[type="checkbox"]:disabled[checked],
+input[type="checkbox"].disabled-selected,
+input[type="checkbox"].disabled-selected:disabled {
+  cursor: not-allowed;
+  opacity: 1 !important;
+  background-color: #0066FF !important;
+  border: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, #0066FF -124.51%, #0066FF 100%) !important;
+  background-size: 57%, 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Webkit indicator */
+input[type="checkbox"]::-webkit-checkbox-indicator {
+  display: none !important;
+}
+
+/* Radio buttons */
+input[type="radio"] {
+  width: var(--checkbox-size, 14px) !important;
+  height: var(--checkbox-size, 14px) !important;
+  min-width: var(--checkbox-size, 14px) !important;
+  min-height: var(--checkbox-size, 14px) !important;
+  margin: 0;
+  margin-right: var(--checkbox-right-margin, 8px) !important;
+  cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border: 2px solid var(--color-primary-rgba-50);
-  border-radius: 4px;
-  background-color: var(--color-bg-white);
+  border: 1px solid var(--gray-500, #6b7280);
+  border-radius: 50%;
+  background-color: #ffffff;
   position: relative;
   flex-shrink: 0;
-  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
-/* Checkbox hover state */
-input[type="checkbox"]:hover:not(:disabled):not(:checked) {
-  border-color: var(--color-primary);
-  background-color: var(--color-bg-white);
-  box-shadow: none;
-  outline: none !important;
+input[type="radio"]:checked {
+  background-color: #0066FF !important;
+  border-color: #0066FF !important;
 }
 
-/* Custom checkbox with theme color background and white tick */
-input[type="checkbox"]:checked,
-html body input[type="checkbox"]:checked {
-  accent-color: var(--color-primary) !important;
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: 16px 16px !important;
-  box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2);
-}
-
-/* Ensure checkmark is never hidden */
-input[type="checkbox"]:checked[style*="background-image"],
-html body input[type="checkbox"]:checked[style*="background-image"] {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
-}
-
-/* Checkbox checked hover state */
-input[type="checkbox"]:checked:hover:not(:disabled) {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  box-shadow: 0 2px 6px rgba(0, 102, 255, 0.3);
-  outline: none !important;
-}
-
-/* Webkit browsers - override default checkbox */
-input[type="checkbox"]::-webkit-checkbox-indicator {
-  display: none !important;
-  width: 0;
-  height: 0;
-}
-
-/* Global override for checkbox theme color - Ensure checkmark shows */
-html body input[type="checkbox"]:checked,
-html body input[type="checkbox"][checked],
-html body .frappe-control input[type="checkbox"]:checked,
-html body .frappe-control input[type="checkbox"][checked],
-html body .unit-checkbox input[type="checkbox"]:checked,
-html body .unit-checkbox input[type="checkbox"][checked],
-html body .form-group input[type="checkbox"]:checked,
-html body .form-group input[type="checkbox"][checked] {
-  accent-color: var(--color-primary) !important;
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='white' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5L6 12L2.5 8.5L3.5 7.5L6 10L12.5 3.5Z'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: 16px 16px !important;
-}
-
-input[type="checkbox"]:focus,
-input[type="radio"]:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-input[type="checkbox"]:focus:checked {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-input[type="checkbox"]:disabled,
 input[type="radio"]:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-  border-color: var(--color-gray-300);
-}
-
-input[type="checkbox"]:disabled:checked {
-  background-color: var(--color-gray-400);
-  border-color: var(--color-gray-400);
-}
-
-input[type="checkbox"] {
-  border-radius: 4px;
 }
 
 input[type="radio"] {
