@@ -178,19 +178,22 @@
 	display: flex !important;
 	align-items: center !important;
 	justify-content: space-between !important;
-	gap: 12px !important;
-	padding: 6px 16px !important;
+	gap: 16px !important;
+	padding: 10px 20px !important;
 	background: #ffffff !important;
-	border-top: 1px solid #e5e7eb !important;
+	border-top: 1px solid var(--color-gray-200, #e5e7eb) !important;
 	width: 100% !important;
 	margin: 0 !important;
+	box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Left - Info text */
 .list-paging-area .pagination-info {
-	font-size: var(--font-size-sm) !important;
-	color: var(--color-gray-500) !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	color: var(--color-gray-600, #4b5563) !important;
 	white-space: nowrap !important;
+	padding: 4px 0 !important;
 }
 
 /* Center - Pagination controls */
@@ -204,27 +207,38 @@
 .list-paging-area .btn-nav {
 	display: inline-flex !important;
 	align-items: center !important;
-	gap: 4px !important;
-	background: transparent !important;
-	border: 1px solid var(--color-gray-200) !important;
-	padding: 4px 8px !important;
-	font-size: var(--font-size-xs) !important;
+	gap: 6px !important;
+	background: #ffffff !important;
+	border: 1px solid var(--color-gray-300, #d1d5db) !important;
+	padding: 6px 12px !important;
+	font-size: 13px !important;
 	font-weight: 500 !important;
-	color: var(--color-gray-600) !important;
-	border-radius: 4px !important;
+	color: var(--color-gray-700, #374151) !important;
+	border-radius: 0 !important;
 	cursor: pointer !important;
-	transition: all 0.15s ease !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .list-paging-area .btn-nav:hover:not(:disabled) {
-	background: var(--color-gray-50) !important;
-	border-color: var(--color-gray-300) !important;
-	color: var(--color-gray-700) !important;
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	color: var(--color-primary, #0066FF) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.15) !important;
+}
+
+.list-paging-area .btn-nav:active:not(:disabled) {
+	transform: translateY(0) !important;
+	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.1) !important;
 }
 
 .list-paging-area .btn-nav:disabled {
 	opacity: 0.4 !important;
 	cursor: not-allowed !important;
+	background: var(--color-gray-50, #f9fafb) !important;
+	border-color: var(--color-gray-200, #e5e7eb) !important;
+	color: var(--color-gray-400, #9ca3af) !important;
 }
 
 .list-paging-area .btn-nav svg {
@@ -241,32 +255,49 @@
 
 /* Page number buttons */
 .list-paging-area .btn-page {
-	min-width: 26px !important;
-	height: 26px !important;
-	padding: 0 !important;
+	min-width: 32px !important;
+	height: 32px !important;
+	padding: 0 8px !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
-	font-size: var(--font-size-xs) !important;
+	font-size: 13px !important;
 	font-weight: 500 !important;
-	color: var(--color-gray-600) !important;
-	background: transparent !important;
-	border: 1px solid transparent !important;
-	border-radius: 4px !important;
+	color: var(--color-gray-700, #374151) !important;
+	background: #ffffff !important;
+	border: 1px solid var(--color-gray-300, #d1d5db) !important;
+	border-radius: 0 !important;
 	cursor: pointer !important;
-	transition: all 0.15s ease !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .list-paging-area .btn-page:hover {
-	background: var(--color-gray-100) !important;
-	color: var(--color-gray-700) !important;
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	color: var(--color-primary, #0066FF) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.15) !important;
+}
+
+.list-paging-area .btn-page:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.1) !important;
 }
 
 /* Active page */
 .list-paging-area .btn-page.active {
-	background: var(--color-primary) !important;
+	background: var(--color-primary, #0066FF) !important;
 	color: #ffffff !important;
-	border-color: var(--color-primary) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.25) !important;
+	font-weight: 600 !important;
+}
+
+.list-paging-area .btn-page.active:hover {
+	background: var(--color-primary-dark, #0052CC) !important;
+	border-color: var(--color-primary-dark, #0052CC) !important;
+	color: #ffffff !important;
 }
 
 /* Ellipsis */
@@ -276,39 +307,94 @@
 	font-size: var(--font-size-xs) !important;
 }
 
-/* Right - Page size dropdown */
+/* Right - Page size dropdown - ENHANCED UI */
 .list-paging-area .pagination-size {
 	display: flex !important;
 	align-items: center !important;
+	position: relative !important;
 }
 
 .list-paging-area .page-size-select {
-	font-size: var(--font-size-xs) !important;
-	font-weight: var(--font-weight-normal) !important;
-	color: var(--color-text-primary) !important;
-	background: var(--color-bg-white) !important;
-	border: 1px solid var(--color-primary) !important;
-	border-radius: var(--radius-md) !important;
-	padding: var(--spacing-sm) var(--spacing-4xl) var(--spacing-sm) var(--spacing-md) !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	color: var(--color-gray-700, #374151) !important;
+	background: #ffffff !important;
+	border: 1px solid var(--color-gray-300, #d1d5db) !important;
+	border-radius: 0 !important;
+	padding: 7px 36px 7px 14px !important;
 	cursor: pointer !important;
 	appearance: none !important;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230066FF' d='M7 10L2 5h10z'/%3E%3C/svg%3E") !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%230066FF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 	background-repeat: no-repeat !important;
-	background-position: right var(--spacing-md) center !important;
-	background-size: 14px !important;
-	transition: all 0.2s ease !important;
-	height: 36px !important;
+	background-position: right 12px center !important;
+	background-size: 12px 12px !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	height: 34px !important;
+	min-height: 34px !important;
+	min-width: 90px !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .list-paging-area .page-size-select:hover {
-	border-color: var(--color-primary) !important;
-	background-color: var(--color-bg-white) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	background-color: #ffffff !important;
+	box-shadow: 0 2px 6px rgba(0, 102, 255, 0.18) !important;
+	transform: translateY(-1px) !important;
 }
 
 .list-paging-area .page-size-select:focus {
 	outline: none !important;
-	border-color: var(--color-primary) !important;
-	box-shadow: 0 0 0 3px var(--color-primary-rgba-20) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
+	background-color: #ffffff !important;
+}
+
+.list-paging-area .page-size-select:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 1px 3px rgba(0, 102, 255, 0.15) !important;
+}
+
+/* Dropdown option styling - CLEAN WHITE BACKGROUND */
+.list-paging-area .page-size-select option {
+	padding: 10px 14px !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	color: var(--color-gray-800, #1f2937) !important;
+	background: #ffffff !important;
+	border: none !important;
+	margin: 0 !important;
+	min-height: 36px !important;
+	line-height: 1.4 !important;
+}
+
+.list-paging-area .page-size-select option:hover {
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: 600 !important;
+}
+
+.list-paging-area .page-size-select option:checked,
+.list-paging-area .page-size-select option:focus,
+.list-paging-area .page-size-select option[selected] {
+	background: var(--color-primary-rgba-10, rgba(0, 102, 255, 0.1)) !important;
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: 600 !important;
+}
+
+/* Ensure dropdown list has white background */
+.list-paging-area .page-size-select {
+	background-color: #ffffff !important;
+}
+
+/* Remove any grey backgrounds from select element */
+.list-paging-area .page-size-select,
+.list-paging-area .page-size-select:focus,
+.list-paging-area .page-size-select:active,
+.list-paging-area .page-size-select:hover {
+	background-color: #ffffff !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%230066FF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), #ffffff !important;
 }
 
 /* Hide old Frappe pagination elements - but only for list views */
@@ -336,9 +422,42 @@
 }
 
 /* Status badges */
-.frappe-list .indicator-pill {
-	font-size: var(--font-size-xs) !important;
-	padding: 2px 8px !important;
+/* Status badges in list view - SIMPLIFIED */
+.frappe-list .indicator-pill,
+.frappe-list .badge,
+.frappe-list .label {
+	font-size: 11px !important;
+	font-weight: 500 !important;
+	padding: 2px 6px !important;
+	border-radius: 0 !important;
+	line-height: 1.2 !important;
+	text-transform: none !important;
+	letter-spacing: 0 !important;
+	border: none !important;
+	box-shadow: none !important;
+	background: rgba(234, 179, 8, 0.1) !important;
+	color: #a16207 !important;
+}
+
+.frappe-list .indicator-pill.green {
+	background: rgba(34, 197, 94, 0.1) !important;
+	color: #15803d !important;
+}
+
+.frappe-list .indicator-pill.red {
+	background: rgba(239, 68, 68, 0.1) !important;
+	color: #dc2626 !important;
+}
+
+.frappe-list .indicator-pill.yellow,
+.frappe-list .indicator-pill.orange {
+	background: rgba(234, 179, 8, 0.1) !important;
+	color: #a16207 !important;
+}
+
+.frappe-list .indicator-pill.blue {
+	background: rgba(59, 130, 246, 0.1) !important;
+	color: #1e40af !important;
 }
 
 /* ============================================================

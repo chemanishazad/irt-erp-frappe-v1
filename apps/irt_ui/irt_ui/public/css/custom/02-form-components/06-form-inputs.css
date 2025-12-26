@@ -216,7 +216,7 @@ html body select:not(:disabled),
   -webkit-text-fill-color: var(--color-text-primary) !important;
 }
 
-/* Native select option styling - MAXIMUM SPECIFICITY */
+/* Native select option styling - CLEAN WHITE BACKGROUND - NO GREY */
 select.form-control option,
 select option,
 .frappe-control select option,
@@ -226,9 +226,15 @@ html body .form-section select option,
 html body .form-section .frappe-control select option,
 html body .form-section .section-body select option,
 html body .form-section .frappe-control[data-fieldtype="Select"] select option {
-  color: var(--color-text-primary) !important;
-  background-color: var(--color-bg-white) !important;
-  font-size: var(--font-size-sm) !important;
+	color: var(--color-gray-800, #1f2937) !important;
+	background-color: #ffffff !important;
+	padding: 10px 14px !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	border: none !important;
+	margin: 0 !important;
+	min-height: 36px !important;
+	line-height: 1.4 !important;
 }
 
 /* Selected/hovered option styling */
@@ -238,8 +244,22 @@ html body .form-section .frappe-control select option:checked,
 html body .form-section .frappe-control select option:hover,
 html body .form-section .frappe-control[data-fieldtype="Select"] select option:checked,
 html body .form-section .frappe-control[data-fieldtype="Select"] select option:hover {
-  background-color: var(--color-primary-rgba-10) !important;
-  color: var(--color-primary) !important;
+	background-color: var(--color-primary-rgba-10, rgba(0, 102, 255, 0.1)) !important;
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: 600 !important;
+}
+
+/* Ensure select elements have white background */
+select.form-control,
+select,
+.frappe-control select {
+	background-color: #ffffff !important;
+}
+
+select.form-control:focus,
+select:focus,
+.frappe-control select:focus {
+	background-color: #ffffff !important;
 }
 
 /* Fix grey color in Frappe custom dropdown menus - Form specific */

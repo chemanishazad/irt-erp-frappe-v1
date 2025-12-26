@@ -348,18 +348,22 @@ body .main-section {
    NATIVE SELECT DROPDOWN OPTIONS
    ============================================ */
 
-/* Native select options - Enhanced with Theme Color - Consistent styling */
+/* Native select options - CLEAN WHITE BACKGROUND - NO GREY */
 html body select option,
 select option,
 .frappe-control select option,
 .form-group select option,
 select.form-control option,
 html body .frappe-control[data-fieldtype="Select"] select option {
-	padding: var(--spacing-sm) var(--spacing-md) !important;
-	font-size: var(--font-size-sm) !important;
-	color: var(--color-text-primary) !important;
-	background-color: var(--color-bg-white) !important;
+	padding: 10px 14px !important;
+	font-size: 13px !important;
+	color: var(--color-gray-800, #1f2937) !important;
+	background-color: #ffffff !important;
+	border: none !important;
+	margin: 0 !important;
+	min-height: 36px !important;
 	line-height: 1.4 !important;
+	font-weight: 500 !important;
 }
 
 html body select option:hover,
@@ -372,9 +376,24 @@ select option:checked,
 .frappe-control select option:checked,
 html body .frappe-control[data-fieldtype="Select"] select option:hover,
 html body .frappe-control[data-fieldtype="Select"] select option:checked {
-	background-color: var(--color-primary-rgba-10) !important;
-	color: var(--color-primary) !important;
-	font-weight: var(--font-weight-medium) !important;
+	background-color: var(--color-primary-rgba-10, rgba(0, 102, 255, 0.1)) !important;
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: 600 !important;
+}
+
+/* Ensure select dropdown has white background */
+html body select,
+select,
+.frappe-control select,
+select.form-control {
+	background-color: #ffffff !important;
+}
+
+html body select:focus,
+select:focus,
+.frappe-control select:focus,
+select.form-control:focus {
+	background-color: #ffffff !important;
 }
 
 html body select option:disabled,

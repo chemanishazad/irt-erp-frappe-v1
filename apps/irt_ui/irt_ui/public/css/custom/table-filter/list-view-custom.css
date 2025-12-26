@@ -1,0 +1,565 @@
+/**
+ * List View Custom Styles
+ * - Hide checkbox column
+ * - Style View button
+ * - Disable cell selection
+ * - Remove all curves (border-radius) from tables and cells
+ */
+
+/* ============================================================
+   REMOVE ALL CURVES (BORDER-RADIUS) FROM TABLES AND CELLS
+   ============================================================ */
+
+/* Remove border-radius from all table elements */
+.frappe-list,
+.frappe-list .result-container,
+.frappe-list .result,
+.frappe-list .list-row-head,
+.frappe-list .list-row,
+.frappe-list .list-row-col,
+.frappe-list .list-row-container,
+.frappe-list .level-left,
+.frappe-list .level-right,
+body .frappe-list,
+body .frappe-list .result-container,
+body .frappe-list .result,
+body .frappe-list .list-row-head,
+body .frappe-list .list-row,
+body .frappe-list .list-row-col {
+	border-radius: 0 !important;
+}
+
+/* ============================================================
+   HIDE CHECKBOX COLUMN
+   ============================================================ */
+
+/* Hide checkbox column header - ONLY hide select-like elements, NOT first data column */
+.list-row-head .select-like,
+.list-row-head .checkbox-actions,
+.list-row-head .level-item.select-like {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	flex: 0 !important;
+}
+
+/* Hide checkbox column in rows - ONLY hide select-like elements, NOT first data column */
+.frappe-list .list-row .select-like,
+.frappe-list .list-row .checkbox-actions,
+.frappe-list .list-row .level-item.select-like {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	flex: 0 !important;
+}
+
+/* Hide all checkbox inputs */
+.frappe-list input[type="checkbox"],
+.frappe-list .list-row-checkbox,
+.frappe-list .list-check-all {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+}
+
+/* ============================================================
+   DISABLE CELL SELECTION AND CLICKS
+   ============================================================ */
+
+/* Disable text selection on table cells */
+.frappe-list .list-row-col {
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	cursor: default !important;
+}
+
+/* Remove pointer cursor from cells */
+.frappe-list .list-row-col:not(.actions) {
+	cursor: default !important;
+}
+
+/* Remove hover effects from cells */
+.frappe-list .list-row-col:not(.actions):hover {
+	background: transparent !important;
+}
+
+/* Disable link clicks in cells */
+.frappe-list .list-row-col a:not(.view-detail-btn) {
+	pointer-events: none !important;
+	cursor: default !important;
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+/* Disable status badge/clicks */
+.frappe-list .indicator-pill,
+.frappe-list .status,
+.frappe-list [class*="status"],
+.frappe-list .filterable {
+	pointer-events: none !important;
+	cursor: default !important;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+}
+
+/* Disable clicks on status cells */
+.frappe-list .list-row-col.status,
+.frappe-list .list-row-col[class*="status"] {
+	pointer-events: none !important;
+	cursor: default !important;
+}
+
+/* ============================================================
+   VIEW BUTTON STYLES
+   ============================================================ */
+
+/* Actions column - matches header width and alignment - NO LEFT BORDER */
+.frappe-list .list-row-col.actions,
+body .frappe-list .list-row-col.actions,
+body[data-route*="List"] .frappe-list .list-row-col.actions {
+	display: flex !important;
+	justify-content: flex-end !important;
+	align-items: center !important;
+	padding: 0 12px !important;
+	min-width: 90px !important;
+	flex-shrink: 0 !important;
+	text-align: right !important;
+	background: transparent !important;
+	background-color: transparent !important;
+	border-left: none !important;
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent !important;
+	border-right: none !important;
+}
+
+/* View button */
+.frappe-list .view-detail-btn {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	padding: 5px 14px !important;
+	height: 28px !important;
+	min-height: 28px !important;
+	font-size: 12px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.3px !important;
+	border-radius: 0 !important;
+	background: var(--color-primary, #0066FF) !important;
+	color: #ffffff !important;
+	border: 1px solid var(--color-primary, #0066FF) !important;
+	cursor: pointer !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	white-space: nowrap !important;
+	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.15) !important;
+}
+
+.frappe-list .view-detail-btn:hover {
+	background: var(--color-primary-dark, #0052CC) !important;
+	border-color: var(--color-primary-dark, #0052CC) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 3px 6px rgba(0, 102, 255, 0.25) !important;
+}
+
+.frappe-list .view-detail-btn:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.2) !important;
+	background: var(--color-primary-dark, #0052CC) !important;
+}
+
+.frappe-list .view-detail-btn:focus {
+	outline: none !important;
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
+}
+
+.frappe-list .view-detail-btn span {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* ============================================================
+   ACTIONS HEADER COLUMN
+   ============================================================ */
+
+/* Actions header column - styled like other headers - NO LEFT BORDER */
+.list-row-head .list-row-col.actions-header,
+body .list-row-head .list-row-col.actions-header,
+body[data-route*="List"] .list-row-head .list-row-col.actions-header {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	padding: 8px 12px !important;
+	min-width: 90px !important;
+	flex-shrink: 0 !important;
+	font-size: 11px !important;
+	font-weight: 500 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.3px !important;
+	color: var(--text-muted, #6c757d) !important;
+	text-align: left !important;
+	background: transparent !important;
+	background-color: transparent !important;
+	position: relative !important;
+	left: auto !important;
+	width: auto !important;
+	height: auto !important;
+	border-left: none !important;
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent !important;
+	border-right: none !important;
+}
+
+.list-row-head .list-row-col.actions-header span {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Ensure header level-right is visible and properly structured - REMOVE GREY BACKGROUND */
+.list-row-head .level-right {
+	display: flex !important;
+	align-items: stretch !important;
+	flex-shrink: 0 !important;
+	gap: 0 !important;
+	background: transparent !important;
+	background-color: transparent !important;
+	border-left: none !important;
+}
+
+.list-row-head:hover .level-right {
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+/* Hide unwanted right-end elements */
+.frappe-list .list-row .level-right .list-count,
+.frappe-list .list-row-head .level-right .list-count,
+.frappe-list .list-row .level-right .list-liked-by-me,
+.frappe-list .list-row-head .level-right .list-liked-by-me,
+.frappe-list .list-row .level-right .list-row-activity,
+.frappe-list .list-row-head .level-right .list-row-activity,
+.frappe-list .list-row .level-right .level-item:not(.actions):not(.list-row-col.actions),
+.frappe-list .list-row-head .level-right .level-item:not(.actions-header):not(.list-row-col.actions-header):not(.list-row-col.actions) {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+}
+
+/* Ensure level-right container only shows Actions column */
+.frappe-list .list-row .level-right {
+	display: flex !important;
+	justify-content: flex-end !important;
+	align-items: center !important;
+	flex-shrink: 0 !important;
+	gap: 0 !important;
+}
+
+/* Hide level-right completely if it has no actions column */
+.frappe-list .list-row .level-right:not(:has(.list-row-col.actions)) {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+}
+
+/* ============================================================
+   ENSURE FIRST DATA COLUMN IS VISIBLE
+   ============================================================ */
+
+/* Make sure subject/first data column is visible */
+.frappe-list .list-row-col.list-subject,
+.frappe-list .list-row .level-left .list-row-col.list-subject,
+.frappe-list .list-row-head .list-row-col.list-subject {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	left: auto !important;
+	width: auto !important;
+	min-width: 150px !important;
+	flex: 1.5 !important;
+}
+
+/* Ensure first visible column in level-left is visible */
+.frappe-list .list-row .level-left .list-row-col:not(.select-like):not(.checkbox-actions):first-child,
+.frappe-list .list-row-head .level-left .list-row-col:not(.select-like):not(.checkbox-actions):first-child {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	left: auto !important;
+	width: auto !important;
+	min-width: 150px !important;
+}
+
+/* Ensure level-left container itself is visible */
+.frappe-list .list-row .level-left,
+.frappe-list .list-row-head .level-left {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+/* ============================================================
+   CELL BORDERS - COLUMN WISE LINES (ALL CELLS VISIBLE)
+   ============================================================ */
+
+/* Apply FULL vertical borders to ALL header data columns (including empty cells) - FULL HEIGHT - THIN LINES */
+/* Note: Top/bottom borders handled by row container, only vertical borders here */
+/* Note: Left border on first column handled separately, right border on actions column handled separately */
+.list-row-head .level-left .list-row-col,
+body .list-row-head .level-left .list-row-col,
+body[data-route*="List"] .list-row-head .level-left .list-row-col,
+.list-row-head .list-row-col:not(.actions-header),
+body .list-row-head .list-row-col:not(.actions-header),
+.list-row-head .list-row-col:empty,
+body .list-row-head .list-row-col:empty {
+	border-right: 1px solid #e2e8f0 !important;
+	border-right-width: 1px !important;
+	border-right-style: solid !important;
+	border-right-color: #e2e8f0 !important;
+	border-top: none !important;
+	border-bottom: none !important;
+	border-left: none !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	align-self: stretch !important;
+}
+
+/* Apply FULL vertical borders to ALL row data columns (including empty cells) - FULL HEIGHT - THIN LINES */
+/* Note: Top/bottom borders handled by row container, only vertical borders here */
+/* Note: Left border on first column handled separately, right border on actions column handled separately */
+.frappe-list .list-row .level-left .list-row-col,
+body .frappe-list .list-row .level-left .list-row-col,
+body[data-route*="List"] .frappe-list .list-row .level-left .list-row-col,
+.frappe-list .list-row .list-row-col:not(.actions),
+body .frappe-list .list-row .list-row-col:not(.actions),
+.frappe-list .list-row-col:empty,
+body .frappe-list .list-row-col:empty,
+.frappe-list .list-row .list-row-col:empty,
+body .frappe-list .list-row .list-row-col:empty {
+	border-right: 1px solid #e2e8f0 !important;
+	border-right-width: 1px !important;
+	border-right-style: solid !important;
+	border-right-color: #e2e8f0 !important;
+	border-top: none !important;
+	border-bottom: none !important;
+	border-left: none !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	align-self: stretch !important;
+}
+
+/* Ensure empty cells also have borders - FULL HEIGHT - THIN LINES */
+.frappe-list .list-row-col:empty,
+.list-row-head .list-row-col:empty,
+.frappe-list .list-row-col:not(:has(*)),
+.list-row-head .list-row-col:not(:has(*)) {
+	border-right: 1px solid #e2e8f0 !important;
+	border-right-width: 1px !important;
+	border-right-style: solid !important;
+	border-right-color: #e2e8f0 !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	display: flex !important;
+	align-items: stretch !important;
+}
+
+/* Last data column - keep right border (this creates the separation line) - FULL HEIGHT - THIN LINES */
+.frappe-list .list-row .level-left .list-row-col:last-child,
+.list-row-head .level-left .list-row-col:last-child,
+body .frappe-list .list-row .level-left .list-row-col:last-child,
+body .list-row-head .level-left .list-row-col:last-child {
+	border-right: 1px solid #e2e8f0 !important;
+	border-right-width: 1px !important;
+	border-right-style: solid !important;
+	border-right-color: #e2e8f0 !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	align-self: stretch !important;
+}
+
+/* Actions header column - NO left border (last data column already has right border) */
+.list-row-head .level-right .list-row-col.actions-header,
+body .list-row-head .level-right .list-row-col.actions-header,
+body[data-route*="List"] .list-row-head .level-right .list-row-col.actions-header {
+	border-left: none !important;
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent !important;
+	border-right: none !important;
+	border-top: none !important;
+	border-bottom: none !important;
+}
+
+/* Actions column in rows - NO left border (last data column already has right border) */
+/* Note: Right border added separately in table left/right borders section */
+.frappe-list .list-row .level-right .list-row-col.actions,
+body .frappe-list .list-row .level-right .list-row-col.actions,
+body[data-route*="List"] .frappe-list .list-row .level-right .list-row-col.actions {
+	border-left: none !important;
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent !important;
+	border-right: none !important;
+	border-top: none !important;
+	border-bottom: none !important;
+}
+
+/* Level-right container - NO left border (prevents double line) */
+.frappe-list .list-row .level-right,
+.list-row-head .level-right,
+body .frappe-list .list-row .level-right,
+body .list-row-head .level-right {
+	border-left: none !important;
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent !important;
+}
+
+/* Ensure rows and headers stretch to full height for continuous borders */
+.frappe-list .list-row,
+.list-row-head {
+	display: flex !important;
+	align-items: stretch !important;
+	min-height: 38px !important;
+}
+
+.frappe-list .list-row .level-left,
+.list-row-head .level-left {
+	display: flex !important;
+	align-items: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+}
+
+.frappe-list .list-row .level-right,
+.list-row-head .level-right {
+	display: flex !important;
+	align-items: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+}
+
+/* Horizontal row borders - THIN LAYER LINES */
+.frappe-list .list-row {
+	border-top: 1px solid #e2e8f0 !important;
+	border-bottom: 1px solid #e2e8f0 !important;
+	border-top-width: 1px !important;
+	border-bottom-width: 1px !important;
+	border-top-style: solid !important;
+	border-bottom-style: solid !important;
+	border-top-color: #e2e8f0 !important;
+	border-bottom-color: #e2e8f0 !important;
+}
+
+.frappe-list .list-row:last-child {
+	border-bottom: 1px solid #e2e8f0 !important;
+	border-bottom-width: 1px !important;
+	border-bottom-style: solid !important;
+	border-bottom-color: #e2e8f0 !important;
+}
+
+/* Header top and bottom borders - THIN LAYER LINES */
+.list-row-head {
+	border-top: 1px solid #e2e8f0 !important;
+	border-bottom: 1px solid #e2e8f0 !important;
+	border-top-width: 1px !important;
+	border-bottom-width: 1px !important;
+	border-top-style: solid !important;
+	border-bottom-style: solid !important;
+	border-top-color: #e2e8f0 !important;
+	border-bottom-color: #e2e8f0 !important;
+}
+
+/* ============================================================
+   TABLE LEFT AND RIGHT BORDERS
+   ============================================================ */
+
+/* Add left and right borders to table container */
+.frappe-list,
+body .frappe-list,
+body[data-route*="List"] .frappe-list {
+	border-left: 1px solid #e2e8f0 !important;
+	border-right: 1px solid #e2e8f0 !important;
+	border-left-width: 1px !important;
+	border-right-width: 1px !important;
+	border-left-style: solid !important;
+	border-right-style: solid !important;
+	border-left-color: #e2e8f0 !important;
+	border-right-color: #e2e8f0 !important;
+	box-sizing: border-box !important;
+}
+
+/* Ensure result container also has left and right borders */
+.frappe-list .result-container,
+body .frappe-list .result-container,
+body[data-route*="List"] .frappe-list .result-container {
+	border-left: 1px solid #e2e8f0 !important;
+	border-right: 1px solid #e2e8f0 !important;
+	border-left-width: 1px !important;
+	border-right-width: 1px !important;
+	border-left-style: solid !important;
+	border-right-style: solid !important;
+	border-left-color: #e2e8f0 !important;
+	border-right-color: #e2e8f0 !important;
+	box-sizing: border-box !important;
+}
+
+/* Add left border to first column to complete the border */
+.frappe-list .list-row .level-left .list-row-col:first-child,
+.list-row-head .level-left .list-row-col:first-child,
+body .frappe-list .list-row .level-left .list-row-col:first-child,
+body .list-row-head .level-left .list-row-col:first-child {
+	border-left: 1px solid #e2e8f0 !important;
+	border-left-width: 1px !important;
+	border-left-style: solid !important;
+	border-left-color: #e2e8f0 !important;
+}
+
+/* Add right border to actions column to complete the border */
+.frappe-list .list-row .level-right .list-row-col.actions,
+.list-row-head .level-right .list-row-col.actions-header,
+body .frappe-list .list-row .level-right .list-row-col.actions,
+body .list-row-head .level-right .list-row-col.actions-header {
+	border-right: 1px solid #e2e8f0 !important;
+	border-right-width: 1px !important;
+	border-right-style: solid !important;
+	border-right-color: #e2e8f0 !important;
+}
+

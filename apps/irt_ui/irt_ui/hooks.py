@@ -9,7 +9,8 @@ app_license = "mit"
 # Order: variables first, then main.css (which imports all components)
 app_include_css = [
 	"/assets/irt_ui/css/custom/variables.css?v=1.1.5",
-	"/assets/irt_ui/css/custom/main.css?v=1.1.5",
+	"/assets/irt_ui/css/custom/main.css?v=1.1.9",
+	"/assets/irt_ui/css/custom/table-filter/list-view-custom.css?v=2.7.0",
 ]
 
 app_include_js = [
@@ -25,7 +26,8 @@ app_include_js = [
 	"/assets/irt_ui/js/custom/02-form-components/99-force-dropdown-styles.js?v=1.0.0",
 	"/assets/irt_ui/js/custom/03-data-display/12-form-activity.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/05-advanced/16-filters-search.js?v=1.1.6",
-	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/03-data-display/pagination-override.js?v=2.3.0",
+	"/assets/irt_ui/js/custom/table-filter/list-view-custom.js?v=2.0.0",
 ]
 
 # Includes for website pages (login, signup, etc.)
