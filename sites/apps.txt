@@ -2,4 +2,3 @@ frappe
 erpnext
 hrms
 irt_ui
-irt_hrms
