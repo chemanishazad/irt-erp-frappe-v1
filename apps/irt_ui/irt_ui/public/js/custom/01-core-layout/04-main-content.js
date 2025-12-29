@@ -367,6 +367,18 @@
 	}
 
 	/**
+	 * Remove fixed height from result-container
+	 */
+	function removeResultContainerHeight() {
+		const resultContainers = document.querySelectorAll('.frappe-list .result-container');
+		resultContainers.forEach(container => {
+			container.style.setProperty('height', 'auto', 'important');
+			container.style.setProperty('min-height', 'auto', 'important');
+			container.style.setProperty('max-height', 'none', 'important');
+		});
+	}
+
+	/**
 	 * Ensure Pagination Area is Always Visible
 	 */
 	function ensurePaginationVisible() {
@@ -427,6 +439,9 @@
 						target.classList.contains('result-container') ||
 						target.classList.contains('result')) {
 						setTimeout(ensurePaginationVisible, 50);
+						if (target.classList.contains('result-container')) {
+							setTimeout(removeResultContainerHeight, 50);
+						}
 					}
 				}
 				if (mutation.type === 'childList') {
@@ -474,7 +489,32 @@
 		};
 	}
 
-	if (typeof frappe !== 'undefined') {
+		// Override Frappe's set_result_height to prevent fixed height
+		if (typeof frappe !== 'undefined' && frappe.listview && frappe.listview.ListView) {
+			const ListView = frappe.listview.ListView;
+			if (ListView.prototype.set_result_height) {
+				const originalSetResultHeight = ListView.prototype.set_result_height;
+				ListView.prototype.set_result_height = function() {
+					// Call original function but then remove the height
+					const result = originalSetResultHeight.apply(this, arguments);
+					// Remove height immediately after it's set
+					if (this.$result && this.$result.parent('.result-container').length) {
+						this.$result.parent('.result-container').css({
+							height: 'auto',
+							minHeight: 'auto',
+							maxHeight: 'none'
+						});
+					}
+					// Also remove height from result element
+					if (this.$result && this.$result.length) {
+						this.$result[0].style.removeProperty('height');
+					}
+					return result;
+				};
+			}
+		}
+
+		if (typeof frappe !== 'undefined') {
 		frappe.router?.on('change', function() {
 			setTimeout(() => {
 				fixLayoutSpacing();
@@ -484,11 +524,13 @@
 				enhanceLinkItems();
 				ensureDataVisibility();
 				ensurePaginationVisible();
+				removeResultContainerHeight();
 			}, 100);
 			// Also run after a longer delay to catch dynamically loaded content
 			setTimeout(() => {
 				ensureDataVisibility();
 				ensurePaginationVisible();
+				removeResultContainerHeight();
 			}, 500);
 		});
 		
@@ -499,10 +541,12 @@
 				setTimeout(() => {
 					ensurePaginationVisible();
 					ensureDataVisibility();
+					removeResultContainerHeight();
 				}, 50);
 				setTimeout(() => {
 					ensurePaginationVisible();
 					ensureDataVisibility();
+					removeResultContainerHeight();
 				}, 200);
 				return result;
 			};
@@ -515,10 +559,12 @@
 					setTimeout(() => {
 						ensureDataVisibility();
 						ensurePaginationVisible();
+						removeResultContainerHeight();
 					}, 50);
 					setTimeout(() => {
 						ensureDataVisibility();
 						ensurePaginationVisible();
+						removeResultContainerHeight();
 					}, 200);
 					return result;
 				};
@@ -543,15 +589,22 @@
 	// Run on page load and continuously check
 	document.addEventListener('DOMContentLoaded', function() {
 		ensurePaginationVisible();
+		removeResultContainerHeight();
 		setInterval(ensurePaginationVisible, 1000);
+		setInterval(removeResultContainerHeight, 1000);
 	});
 	
 	// Also run immediately if DOM is already loaded
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', ensurePaginationVisible);
+		document.addEventListener('DOMContentLoaded', function() {
+			ensurePaginationVisible();
+			removeResultContainerHeight();
+		});
 	} else {
 		ensurePaginationVisible();
+		removeResultContainerHeight();
 		setInterval(ensurePaginationVisible, 1000);
+		setInterval(removeResultContainerHeight, 1000);
 	}
 })();
 

@@ -100,3 +100,4 @@
 	// Run periodically to catch dynamically added elements
 	setInterval(hideRightSidebar, 500);
 })();
+

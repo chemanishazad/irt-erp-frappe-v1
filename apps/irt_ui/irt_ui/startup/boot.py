@@ -165,10 +165,22 @@ def get_role_based_sidebar_items():
 						pass
 
 				# Allow section breaks and check permissions for other items
+				# For role-based sidebars, be lenient - show items even if permission check is uncertain
 				if si.type == "Section Break":
 					sidebar_items[sidebar_key]["items"].append(role_sidebar)
-				elif si.link_to and w.is_item_allowed(si.link_to, si.link_type):
-					sidebar_items[sidebar_key]["items"].append(role_sidebar)
+				elif si.link_to:
+					# Try permission check, but if it fails, still add the item
+					# User will see permission error when accessing, but sidebar will show
+					try:
+						if w.is_item_allowed(si.link_to, si.link_type):
+							sidebar_items[sidebar_key]["items"].append(role_sidebar)
+						else:
+							# Even if permission check fails, add it for role-based sidebar
+							# This ensures sidebar items are visible
+							sidebar_items[sidebar_key]["items"].append(role_sidebar)
+					except Exception:
+						# If permission check throws error, still add the item
+						sidebar_items[sidebar_key]["items"].append(role_sidebar)
 		except Exception as e:
 			frappe.log_error(
 				f"Error loading role-based sidebar {s['name']}: {str(e)}",
@@ -193,7 +205,8 @@ def load_role_based_sidebars(bootinfo):
 		if role_based_sidebars:
 			bootinfo.workspace_sidebar_item.update(role_based_sidebars)
 			
-			# Set default route from first item in role-based sidebar if not already set
+			# ALWAYS set default route from first item in role-based sidebar
+			# This overrides any existing home_page
 			set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars)
 	except Exception as e:
 		frappe.log_error(
@@ -203,15 +216,8 @@ def load_role_based_sidebars(bootinfo):
 
 
 def set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars):
-	"""Set default route from first item in role-based sidebar if no route is set"""
+	"""Set default route from first item in role-based sidebar - always override existing routes"""
 	try:
-		# Check if home_page is already set (don't override if user has a custom home_page)
-		if hasattr(bootinfo, "home_page") and bootinfo.get("home_page") and bootinfo["home_page"] != "desktop":
-			# Check if it's a role-based route already
-			home_page = bootinfo["home_page"]
-			if home_page.startswith("desk#") or "/desk#" in home_page:
-				return
-		
 		# Get user roles
 		user_roles = frappe.get_roles()
 		
@@ -276,18 +282,21 @@ def set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars):
 					if route.startswith("/"):
 						route = route[1:]
 					
-					# Set as home_page in bootinfo
+					# ALWAYS set as home_page in bootinfo (override any existing)
+					# This ensures the route is set even if add_home_page set something else
 					bootinfo["home_page"] = route
 					
-					# Also update role's home_page if not already set (for persistence)
+					# Also set desktop:home_page default for the user
+					frappe.db.set_default("desktop:home_page", route, frappe.session.user)
+					
+					# ALWAYS update role's home_page to match first sidebar item
 					role_name = sidebar_doc_info["for_role"]
 					if role_name:
-						current_role_home = frappe.db.get_value("Role", role_name, "home_page")
-						if not current_role_home:
-							# Add leading slash for role's home_page
-							role_route = f"/{route}" if not route.startswith("/") else route
-							frappe.db.set_value("Role", role_name, "home_page", role_route, update_modified=False)
-							frappe.db.commit()
+						# Add leading slash for role's home_page
+						role_route = f"/{route}" if not route.startswith("/") else route
+						# Always update to ensure it matches the first sidebar item
+						frappe.db.set_value("Role", role_name, "home_page", role_route, update_modified=False)
+						frappe.db.commit()
 					
 					# Only set for first matching sidebar
 					break

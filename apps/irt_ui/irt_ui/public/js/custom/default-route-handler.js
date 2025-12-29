@@ -54,6 +54,36 @@
 		return false;
 	}
 	
+	// Force redirect on initial page load if home_page is set
+	function forceInitialRedirect() {
+		if (!frappe.boot || !frappe.boot.home_page) return;
+		
+		const home_page = frappe.boot.home_page;
+		const current_route = frappe.get_route();
+		
+		// Only redirect if we're on default desk/home route
+		const is_default_route = current_route.length === 0 || 
+			(current_route.length === 1 && current_route[0] === "desk") ||
+			(current_route.length === 2 && current_route[0] === "desk" && current_route[1] === "home");
+		
+		if (is_default_route && home_page && home_page !== "desktop" && home_page !== "home") {
+			// Handle desk# routes
+			if (home_page.startsWith("desk#")) {
+				const route_part = home_page.split("#")[1];
+				if (route_part) {
+					frappe.set_route(route_part);
+					return;
+				}
+			}
+			
+			// Handle standard routes
+			if (isStandardRoute(home_page)) {
+				frappe.set_route(home_page);
+				return;
+			}
+		}
+	}
+	
 	// Override router render to handle role-based home_page on initial load
 	if (frappe.router && frappe.router.render) {
 		const original_render = frappe.router.render;
@@ -86,16 +116,23 @@
 			
 			// After bootinfo is loaded, check for role-based home_page
 			setTimeout(() => {
-				const current_route = frappe.get_route();
-				const is_default_desk = current_route.length === 0 || 
-					(current_route.length === 1 && current_route[0] === "desk") ||
-					(current_route.length === 2 && current_route[0] === "desk" && current_route[1] === "home");
-				
-				if (is_default_desk && frappe.boot && frappe.boot.home_page) {
-					handleRoleBasedHomePage();
-				}
-			}, 200);
+				forceInitialRedirect();
+			}, 300);
 		};
+	}
+	
+	// Also handle on app startup
+	if (frappe.ready) {
+		frappe.ready(function() {
+			setTimeout(forceInitialRedirect, 500);
+		});
+	}
+	
+	// Handle on route change to catch initial load
+	if (frappe.router && frappe.router.on) {
+		frappe.router.on("change", function() {
+			setTimeout(forceInitialRedirect, 100);
+		});
 	}
 	
 	// REMOVED: pageview.show override - was interfering with dashboard routing

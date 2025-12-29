@@ -467,6 +467,13 @@
 	padding-bottom: 0 !important;
 }
 
+/* Remove fixed height from result-container */
+.frappe-list .result-container {
+	height: auto !important;
+	min-height: auto !important;
+	max-height: none !important;
+}
+
 /* ============================================================
    RIGHT SIDE SPACING FOR TABLE VIEW
    ============================================================ */

@@ -93,9 +93,7 @@ body[data-route*="List"] .page-head [class*="col"],
 /* Override page-container padding for list views - REMOVE LEFT PADDING - ADD TOP PADDING - MATCH PAGE-HEAD RIGHT PADDING */
 body[data-route*="List"] .page-container {
 	padding-left: 0 !important;
-	padding-top: 4px !important;
 	padding-right: var(--spacing-md) !important;
-	padding-bottom: var(--spacing-lg) !important;
 }
 
 /* Ensure page-form container has no left spacing - MINIMAL VERTICAL SPACING - MATCH PAGE-ACTIONS RIGHT PADDING */
