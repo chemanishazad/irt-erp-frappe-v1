@@ -19,11 +19,22 @@ def override_add_home_page():
 	original_add_home_page = boot.add_home_page
 	
 	def add_home_page(bootinfo, docs):
-		"""Override to handle standard routes like dashboard-view/HRMS Dashboard as default routing"""
+		"""Override to handle role-based routes and standard routes like dashboard-view"""
 		if frappe.session.user == "Guest":
 			return
 		
-		home_page = frappe.db.get_default("desktop:home_page")
+		# First check role's home_page (takes precedence)
+		home_page = None
+		user_roles = frappe.get_roles()
+		for role in user_roles:
+			role_home_page = frappe.db.get_value("Role", role, "home_page")
+			if role_home_page:
+				home_page = role_home_page
+				break
+		
+		# If no role home_page, check user's desktop:home_page default
+		if not home_page:
+			home_page = frappe.db.get_default("desktop:home_page")
 		
 		if not frappe.is_setup_complete():
 			bootinfo.setup_wizard_requires = frappe.get_hooks("setup_wizard_requires")
@@ -31,6 +42,13 @@ def override_add_home_page():
 		if not home_page:
 			# No home page set, use original function
 			return original_add_home_page(bootinfo, docs)
+		
+		# Handle desk# routes (Frappe's hash-based routing)
+		if home_page.startswith("/desk#") or home_page.startswith("desk#"):
+			# Extract route after desk#
+			route_part = home_page.split("#", 1)[1] if "#" in home_page else home_page.replace("/desk#", "").replace("desk#", "")
+			bootinfo["home_page"] = f"desk#{route_part}"
+			return
 		
 		# Check if this is a standard Frappe route (not a Page doctype)
 		# Standard routes that should work as default routing
@@ -60,7 +78,7 @@ def override_add_home_page():
 		
 		# If it's a standard route, set it directly without trying to load as Page doctype
 		if route_first_part in standard_routes:
-			bootinfo["home_page"] = home_page_clean
+			bootinfo["home_page"] = f"desk#{home_page_clean}"
 			return
 		
 		# For non-standard routes, try to load as Page doctype (original behavior)
@@ -72,7 +90,7 @@ def override_add_home_page():
 			frappe.clear_last_message()
 			# If it fails and looks like a route (contains /), try setting it directly
 			if "/" in home_page_clean:
-				bootinfo["home_page"] = home_page_clean
+				bootinfo["home_page"] = f"desk#{home_page_clean}"
 			else:
 				bootinfo["home_page"] = "desktop"
 	
@@ -86,10 +104,13 @@ override_add_home_page()
 def get_role_based_sidebar_items():
 	"""Get role-based sidebars for current user based on their roles"""
 	user_roles = frappe.get_roles()
+	
+	# Get all role-based sidebars for user's roles
 	role_based_sidebars = frappe.get_all(
 		"Role Based Sidebar",
 		fields=["name", "header_icon", "for_role", "title"],
 		filters={"for_role": ["in", user_roles]},
+		ignore_permissions=True
 	)
 
 	sidebar_items = {}
@@ -131,18 +152,28 @@ def get_role_based_sidebar_items():
 				}
 
 				if si.link_type == "Report" and si.link_to:
-					report_type, ref_doctype = frappe.db.get_value(
-						"Report", si.link_to, ["report_type", "ref_doctype"]
-					)
-					role_sidebar["report"] = {
-						"report_type": report_type,
-						"ref_doctype": ref_doctype,
-					}
+					try:
+						report_type, ref_doctype = frappe.db.get_value(
+							"Report", si.link_to, ["report_type", "ref_doctype"]
+						)
+						if report_type and ref_doctype:
+							role_sidebar["report"] = {
+								"report_type": report_type,
+								"ref_doctype": ref_doctype,
+							}
+					except Exception:
+						pass
 
-				if si.type == "Section Break" or w.is_item_allowed(si.link_to, si.link_type):
+				# Allow section breaks and check permissions for other items
+				if si.type == "Section Break":
+					sidebar_items[sidebar_key]["items"].append(role_sidebar)
+				elif si.link_to and w.is_item_allowed(si.link_to, si.link_type):
 					sidebar_items[sidebar_key]["items"].append(role_sidebar)
 		except Exception as e:
-			frappe.log_error(f"Error loading role-based sidebar {s['name']}: {str(e)}")
+			frappe.log_error(
+				f"Error loading role-based sidebar {s['name']}: {str(e)}",
+				"Role Based Sidebar Load Error"
+			)
 			continue
 
 	return sidebar_items
@@ -150,9 +181,215 @@ def get_role_based_sidebar_items():
 
 def load_role_based_sidebars(bootinfo):
 	"""Hook function to load role-based sidebars into bootinfo"""
-	# Merge role-based sidebars with workspace sidebars
-	role_based_sidebars = get_role_based_sidebar_items()
-	if hasattr(bootinfo, "workspace_sidebar_item"):
-		bootinfo.workspace_sidebar_item.update(role_based_sidebars)
-	else:
-		bootinfo.workspace_sidebar_item = role_based_sidebars
+	try:
+		# Merge role-based sidebars with workspace sidebars
+		role_based_sidebars = get_role_based_sidebar_items()
+		
+		# Ensure workspace_sidebar_item exists
+		if not hasattr(bootinfo, "workspace_sidebar_item"):
+			bootinfo.workspace_sidebar_item = {}
+		
+		# Update with role-based sidebars (they will override workspace sidebars with same key)
+		if role_based_sidebars:
+			bootinfo.workspace_sidebar_item.update(role_based_sidebars)
+			
+			# Set default route from first item in role-based sidebar if not already set
+			set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars)
+	except Exception as e:
+		frappe.log_error(
+			f"Error in load_role_based_sidebars: {str(e)}",
+			"Role Based Sidebar Boot Error"
+		)
+
+
+def set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars):
+	"""Set default route from first item in role-based sidebar if no route is set"""
+	try:
+		# Check if home_page is already set (don't override if user has a custom home_page)
+		if hasattr(bootinfo, "home_page") and bootinfo.get("home_page") and bootinfo["home_page"] != "desktop":
+			# Check if it's a role-based route already
+			home_page = bootinfo["home_page"]
+			if home_page.startswith("desk#") or "/desk#" in home_page:
+				return
+		
+		# Get user roles
+		user_roles = frappe.get_roles()
+		
+		# Get role-based sidebars for user's roles
+		role_based_sidebar_docs = frappe.get_all(
+			"Role Based Sidebar",
+			fields=["name", "for_role", "title"],
+			filters={"for_role": ["in", user_roles]},
+			order_by="creation asc"
+		)
+		
+		if not role_based_sidebar_docs:
+			return
+		
+		# Process each sidebar to find first valid item
+		for sidebar_doc_info in role_based_sidebar_docs:
+			sidebar_key = (sidebar_doc_info.get("title") or sidebar_doc_info["name"]).lower()
+			sidebar_data = role_based_sidebars.get(sidebar_key)
+			
+			if not sidebar_data:
+				continue
+			
+			# Get items from sidebar
+			items = sidebar_data.get("items", [])
+			if not items:
+				continue
+			
+			# Find first non-section-break item with a valid link
+			first_item = None
+			for item in items:
+				if item.get("type") != "Section Break" and item.get("link_to"):
+					first_item = item
+					break
+			
+			if not first_item:
+				continue
+			
+			# Generate route from first item
+			try:
+				sidebar_doc = frappe.get_doc("Role Based Sidebar", sidebar_doc_info["name"])
+				# Create a mock item object with the necessary attributes for get_route_from_item
+				class MockItem:
+					def __init__(self, item_dict):
+						self.link_type = item_dict.get("link_type")
+						self.link_to = item_dict.get("link_to")
+						self.url = item_dict.get("url")
+				
+				mock_item = MockItem(first_item)
+				route = sidebar_doc.get_route_from_item(mock_item)
+				
+				if route:
+					# Ensure route is in correct format
+					if not route.startswith("desk#") and not route.startswith("/desk#"):
+						if route.startswith("/app/"):
+							route = route.replace("/app/", "desk#", 1)
+						elif route.startswith("/app"):
+							route = route.replace("/app", "desk#", 1)
+						else:
+							route = f"desk#{route.lstrip('/')}"
+					
+					# Remove leading slash for bootinfo (Frappe expects desk#... not /desk#...)
+					if route.startswith("/"):
+						route = route[1:]
+					
+					# Set as home_page in bootinfo
+					bootinfo["home_page"] = route
+					
+					# Also update role's home_page if not already set (for persistence)
+					role_name = sidebar_doc_info["for_role"]
+					if role_name:
+						current_role_home = frappe.db.get_value("Role", role_name, "home_page")
+						if not current_role_home:
+							# Add leading slash for role's home_page
+							role_route = f"/{route}" if not route.startswith("/") else route
+							frappe.db.set_value("Role", role_name, "home_page", role_route, update_modified=False)
+							frappe.db.commit()
+					
+					# Only set for first matching sidebar
+					break
+			except Exception as e:
+				frappe.log_error(
+					f"Error setting default route from sidebar {sidebar_doc_info['name']}: {str(e)}",
+					"Role Based Sidebar Default Route"
+				)
+				continue
+	except Exception as e:
+		frappe.log_error(
+			f"Error in set_default_route_from_first_sidebar_item: {str(e)}",
+			"Role Based Sidebar Default Route"
+		)
+
+
+def get_role_based_home_page():
+	"""Get home page from user's roles - used by login redirect"""
+	user_roles = frappe.get_roles()
+	for role in user_roles:
+		role_home_page = frappe.db.get_value("Role", role, "home_page")
+		if role_home_page:
+			# Convert desk# route to /desk# for proper client-side routing
+			if role_home_page.startswith("/desk#") or role_home_page.startswith("desk#"):
+				return role_home_page if role_home_page.startswith("/") else f"/{role_home_page}"
+			# If it's a regular path, ensure it starts with /
+			if not role_home_page.startswith("/"):
+				return f"/{role_home_page}"
+			return role_home_page
+	return None
+
+
+def override_login_redirect():
+	"""Override login redirect to use role's home_page"""
+	try:
+		import frappe.www.login as login_module
+		from frappe.apps import get_default_path
+	except ImportError:
+		return
+	
+	if not hasattr(login_module, 'get_context'):
+		return
+	
+	original_get_context = login_module.get_context
+	
+	def get_context(context):
+		from frappe.integrations.frappe_providers.frappecloud_billing import get_site_login_url
+		from frappe.utils.frappecloud import on_frappecloud
+		
+		redirect_to = frappe.local.request.args.get("redirect-to")
+		redirect_to = login_module.sanitize_redirect(redirect_to)
+		
+		if frappe.session.user != "Guest":
+			if not redirect_to:
+				# Check role's home_page first
+				role_home_page = get_role_based_home_page()
+				if role_home_page:
+					redirect_to = role_home_page
+				elif frappe.session.data.user_type == "Website User":
+					from frappe.website.utils import get_home_page
+					redirect_to = get_default_path() or get_home_page()
+				else:
+					redirect_to = get_default_path() or "/desk"
+			
+			if redirect_to != "login":
+				frappe.local.flags.redirect_location = redirect_to
+				raise frappe.Redirect
+		
+		# Call original function for the rest
+		return original_get_context(context)
+	
+	login_module.get_context = get_context
+
+
+def override_auth_home_page():
+	"""Override auth.py set_user_info to use role's home_page"""
+	try:
+		from frappe import auth
+		from frappe.apps import get_default_path
+		from frappe.website.utils import get_home_page
+	except ImportError:
+		return
+	
+	if not hasattr(auth, 'LoginManager'):
+		return
+	
+	original_set_user_info = auth.LoginManager.set_user_info
+	
+	def set_user_info(self, resume=False):
+		# Call original method first
+		original_set_user_info(self, resume)
+		
+		# Override home_page if not resuming and user is System User
+		if not resume and self.info.user_type == "System User":
+			# Check role's home_page
+			role_home_page = get_role_based_home_page()
+			if role_home_page:
+				frappe.local.response["home_page"] = role_home_page
+	
+	auth.LoginManager.set_user_info = set_user_info
+
+
+# Apply overrides when module is imported
+override_login_redirect()
+override_auth_home_page()

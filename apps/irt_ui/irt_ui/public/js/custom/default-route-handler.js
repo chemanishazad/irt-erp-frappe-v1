@@ -27,6 +27,77 @@
 		return standard_routes.includes(route_first_part);
 	}
 	
+	// Handle role-based home_page routing on initial load
+	function handleRoleBasedHomePage() {
+		if (!frappe.boot || !frappe.boot.home_page) return false;
+		
+		const home_page = frappe.boot.home_page;
+		
+		// Check if home_page is in desk# format (from role's home_page)
+		if (home_page.startsWith("desk#") || home_page.startsWith("/desk#")) {
+			// Extract route after desk#
+			const route_part = home_page.split("#")[1];
+			
+			// Navigate to the route
+			if (route_part) {
+				frappe.set_route(route_part);
+				return true;
+			}
+		}
+		
+		// Check if it's a standard route that should be handled directly
+		if (isStandardRoute(home_page)) {
+			frappe.set_route(home_page);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	// Override router render to handle role-based home_page on initial load
+	if (frappe.router && frappe.router.render) {
+		const original_render = frappe.router.render;
+		
+		frappe.router.render = function() {
+			// Check if we're on the default desk route and should redirect
+			const current_route = frappe.get_route();
+			const is_default_desk = current_route.length === 0 || 
+				(current_route.length === 1 && current_route[0] === "desk") ||
+				(current_route.length === 2 && current_route[0] === "desk" && current_route[1] === "home");
+			
+			if (is_default_desk && frappe.boot && frappe.boot.home_page) {
+				// Try to handle role-based home_page
+				if (handleRoleBasedHomePage()) {
+					return; // Route handled, don't show default desktop
+				}
+			}
+			
+			// Call original render
+			return original_render.call(this);
+		};
+	}
+	
+	// Also handle on desk.js load_bootinfo as fallback
+	if (frappe.desk && frappe.desk.load_bootinfo) {
+		const original_load_bootinfo = frappe.desk.load_bootinfo;
+		
+		frappe.desk.load_bootinfo = function() {
+			original_load_bootinfo.call(this);
+			
+			// After bootinfo is loaded, check for role-based home_page
+			setTimeout(() => {
+				const current_route = frappe.get_route();
+				const is_default_desk = current_route.length === 0 || 
+					(current_route.length === 1 && current_route[0] === "desk") ||
+					(current_route.length === 2 && current_route[0] === "desk" && current_route[1] === "home");
+				
+				if (is_default_desk && frappe.boot && frappe.boot.home_page) {
+					handleRoleBasedHomePage();
+				}
+			}, 200);
+		};
+	}
+	
 	// REMOVED: pageview.show override - was interfering with dashboard routing
 	// REMOVED: pageview.with_page override - was interfering with dashboard routing  
 	// REMOVED: router.render override - was interfering with default dashboard

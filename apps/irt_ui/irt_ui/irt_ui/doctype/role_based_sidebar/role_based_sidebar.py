@@ -87,6 +87,10 @@ class RoleBasedSidebar(Document):
 			self.export_sidebar()
 		self.set_module()
 
+	def on_update(self):
+		"""Set default route after save is successful"""
+		self.set_role_default_route()
+
 	def export_sidebar(self):
 		folder_path = create_directory_on_app_path("role_based_sidebar", self.app)
 		file_path = os.path.join(folder_path, f"{frappe.scrub(self.title)}.json")
@@ -111,24 +115,51 @@ class RoleBasedSidebar(Document):
 		if frappe.session.user == "Administrator":
 			return True
 
-		item_type = item_type.lower()
+		if not name:
+			return False
+
+		item_type = item_type.lower() if item_type else ""
 
 		if item_type == "doctype":
-			return (
-				name in (self.can_read or [])
-				and name in (self.restricted_doctypes or [])
-				and frappe.has_permission(name)
-			)
+			# Check if user can read and has permission
+			can_read = name in (self.can_read or [])
+			has_permission = frappe.has_permission(name, "read")
+			
+			# If restricted_doctypes is set, check if doctype is in it
+			# If not set (None/empty), allow all doctypes that user can read
+			if self.restricted_doctypes:
+				return can_read and name in self.restricted_doctypes and has_permission
+			else:
+				return can_read and has_permission
+		
 		if item_type == "page":
-			return name in self.allowed_pages and name in self.restricted_pages
+			# Check if page is in allowed pages
+			allowed = name in (self.allowed_pages or [])
+			
+			# If restricted_pages is set, check if page is in it
+			# If not set (None/empty), allow all pages that user has access to
+			if self.restricted_pages:
+				return allowed and name in self.restricted_pages
+			else:
+				return allowed
+		
 		if item_type == "report":
-			return name in self.allowed_reports
+			return name in (self.allowed_reports or [])
+		
 		if item_type == "help":
 			return True
+		
 		if item_type == "dashboard":
 			return True
+		
 		if item_type == "url":
 			return True
+		
+		if item_type == "workspace":
+			return True
+		
+		# Default: allow if we can't determine
+		return True
 
 	def get_cached(self, cache_key, fallback_fn):
 		value = frappe.cache.get_value(cache_key, user=frappe.session.user)
@@ -159,6 +190,141 @@ class RoleBasedSidebar(Document):
 		counts = Counter(all_modules_in_sidebars)
 		if counts and counts.most_common(1)[0]:
 			return counts.most_common(1)[0][0]
+
+	def get_route_from_item(self, item):
+		"""Generate route from sidebar item based on link_type and link_to"""
+		if not item or not item.link_to:
+			return None
+		
+		link_type = item.link_type.lower() if item.link_type else None
+		link_to = item.link_to
+		
+		# Handle different link types
+		if link_type == "doctype":
+			# Default to list view for DocType
+			doctype_slug = frappe.scrub(link_to)
+			try:
+				if frappe.get_meta(link_to).is_single:
+					return f"desk#form/{doctype_slug}"
+				else:
+					return f"desk#list/{doctype_slug}"
+			except Exception:
+				return f"desk#list/{doctype_slug}"
+		
+		elif link_type == "dashboard":
+			# Dashboard route - use Frappe's dashboard-view format
+			dashboard_slug = frappe.scrub(link_to)
+			return f"desk#dashboard-view/{dashboard_slug}"
+		
+		elif link_type == "workspace":
+			# Workspace route
+			workspace_slug = frappe.scrub(link_to)
+			return f"desk#workspace/{workspace_slug}"
+		
+		elif link_type == "page":
+			# Page route
+			return f"desk#page/{frappe.scrub(link_to)}"
+		
+		elif link_type == "report":
+			# Report route - need to check if it's a query report
+			try:
+				report = frappe.get_doc("Report", link_to)
+				if report.report_type == "Query Report" or report.report_type == "Script Report":
+					return f"desk#query-report/{frappe.scrub(link_to)}"
+				elif report.ref_doctype:
+					return f"desk#report/{frappe.scrub(report.ref_doctype)}/{frappe.scrub(link_to)}"
+				else:
+					return f"desk#report/{frappe.scrub(link_to)}"
+			except Exception:
+				return f"desk#report/{frappe.scrub(link_to)}"
+		
+		elif link_type == "url":
+			# External URL
+			return item.url if hasattr(item, 'url') and item.url else None
+		
+		return None
+
+	def set_role_default_route(self):
+		"""Set the first sidebar item as the default route for the role"""
+		if not self.for_role or not self.items:
+			return
+		
+		# Get the first non-section-break item
+		first_item = None
+		for item in sorted(self.items, key=lambda x: x.idx or 0):
+			if item.type not in ["Section Break", "Sidebar Item Group"] and item.link_to:
+				# Verify the link exists before using it
+				try:
+					if item.link_type == "DocType":
+						frappe.get_meta(item.link_to)  # Verify doctype exists
+					elif item.link_type == "Dashboard":
+						frappe.get_doc("Dashboard", item.link_to)  # Verify dashboard exists
+					elif item.link_type == "Workspace":
+						frappe.get_doc("Workspace", item.link_to)  # Verify workspace exists
+					elif item.link_type == "Page":
+						frappe.get_doc("Page", item.link_to)  # Verify page exists
+					elif item.link_type == "Report":
+						frappe.get_doc("Report", item.link_to)  # Verify report exists
+					first_item = item
+					break
+				except (frappe.DoesNotExistError, Exception):
+					# Skip invalid items
+					continue
+		
+		if not first_item:
+			return
+		
+		# Generate route from first item
+		route = self.get_route_from_item(first_item)
+		if not route:
+			return
+		
+		# Frappe expects routes in format: desk#route or /desk#route
+		# Ensure route is in correct format
+		if not route.startswith("desk#") and not route.startswith("/desk#"):
+			if route.startswith("/app/"):
+				# Convert /app/... to desk#...
+				route = route.replace("/app/", "desk#", 1)
+			elif route.startswith("/app"):
+				route = route.replace("/app", "desk#", 1)
+			else:
+				route = f"desk#{route.lstrip('/')}"
+		
+		# Ensure it starts with /desk# for proper routing
+		if not route.startswith("/"):
+			route = f"/{route}"
+		
+		# Update role's home_page
+		try:
+			role_doc = frappe.get_doc("Role", self.for_role)
+			if role_doc.home_page != route:
+				role_doc.home_page = route
+				role_doc.save(ignore_permissions=True)
+				
+				# Also update desktop:home_page default for users with this role
+				users_with_role = frappe.get_all(
+					"Has Role",
+					filters={"role": self.for_role, "parenttype": "User"},
+					fields=["parent"]
+				)
+				for user_role in users_with_role:
+					user = user_role["parent"]
+					frappe.db.set_default("desktop:home_page", route, user)
+				
+				frappe.db.commit()
+				
+				frappe.msgprint(
+					_("Default route for role '{0}' has been set to '{1}'").format(
+						self.for_role, route
+					),
+					indicator="green",
+					alert=True
+				)
+		except Exception as e:
+			frappe.log_error(
+				f"Error setting default route for role {self.for_role}: {str(e)}",
+				"Role Based Sidebar: set_role_default_route"
+			)
 
 
 def is_workspace_manager():

@@ -31,8 +31,8 @@
     "irt_hrms": {
         "is_repo": true,
         "resolution": {
-            "commit_hash": "d9b9fa760852710f289a4c229b2e0957de37bfc1",
-            "branch": "version-16-beta"
+            "commit_hash": "11e8c26c537b4bbed29a65e247157fe399937add",
+            "branch": "n"
         },
         "required": [],
         "idx": 4,
