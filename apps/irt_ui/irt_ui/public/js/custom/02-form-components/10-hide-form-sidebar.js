@@ -1,45 +1,54 @@
 /**
- * Hide Right Sidebar (Activity Panel) for Employee Onboarding Case
- * Hides the right sidebar completely for this specific doctype
+ * Hide Right Sidebar (Activity Panel) for Onboarding
+ * Hides the right sidebar completely for this specific doctype - FORM VIEWS ONLY
  */
 
 (function() {
 	'use strict';
 	
-	const DOCTYPE_NAME = 'Employee Onboarding Case';
-	const DOCTYPE_ROUTE = 'employee-onboarding-case';
+	const DOCTYPE_NAME = 'Onboarding';
+	const DOCTYPE_ROUTE = 'onboarding';
 	
 	function hideRightSidebar() {
-		// Check if we're on Employee Onboarding Case form
+		// Check if we're on Onboarding form (NOT list view)
 		const route = frappe.get_route();
-		const isOnboardingCase = route && route.length > 0 && 
-			(route[0] === DOCTYPE_ROUTE || route[0] === DOCTYPE_NAME);
+		const isOnboarding = route && route.length > 0 && 
+			(route[0] === DOCTYPE_ROUTE || route[0] === DOCTYPE_NAME || 
+			 route[0] === 'Form' && route[1] === DOCTYPE_NAME);
 		
-		if (!isOnboardingCase) {
+		// Check if it's a list view - don't hide sidebar on list views
+		const isListView = route && (
+			route[0] === 'List' || 
+			route[1] === 'view' || 
+			route[2] === 'List' ||
+			route[2] === 'list' ||
+			window.location.pathname.includes('/view/list') ||
+			document.body.getAttribute('data-route')?.includes('List')
+		);
+		
+		// Only hide on form detail screens, not on list views
+		if (!isOnboarding || isListView) {
 			return;
 		}
 		
-		// Hide right sidebar elements
+		// Hide right sidebar elements - use inline styles with !important
 		const selectors = [
 			'.layout-side-section',
 			'.layout-side-section.right',
-			'.form-sidebar',
-			'.form-sidebar-items',
-			'.activity-section',
-			'.communication-section'
+			'.form-sidebar'
 		];
 		
 		selectors.forEach(selector => {
 			document.querySelectorAll(selector).forEach(el => {
-				el.style.display = 'none';
-				el.style.visibility = 'hidden';
-				el.style.width = '0';
-				el.style.height = '0';
-				el.style.overflow = 'hidden';
-				el.style.padding = '0';
-				el.style.margin = '0';
-				el.style.opacity = '0';
-				el.style.pointerEvents = 'none';
+				el.style.setProperty('display', 'none', 'important');
+				el.style.setProperty('visibility', 'hidden', 'important');
+				el.style.setProperty('width', '0', 'important');
+				el.style.setProperty('height', '0', 'important');
+				el.style.setProperty('overflow', 'hidden', 'important');
+				el.style.setProperty('padding', '0', 'important');
+				el.style.setProperty('margin', '0', 'important');
+				el.style.setProperty('opacity', '0', 'important');
+				el.style.setProperty('pointer-events', 'none', 'important');
 			});
 		});
 		
@@ -100,4 +109,5 @@
 	// Run periodically to catch dynamically added elements
 	setInterval(hideRightSidebar, 500);
 })();
+
 

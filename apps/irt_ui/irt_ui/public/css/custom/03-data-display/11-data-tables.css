@@ -1,6 +1,7 @@
 /**
  * Data Tables
  * Uses font variables from variables.css
+ * Clean and minimal styling
  */
 
 /* Table styling */
@@ -13,15 +14,19 @@
 
 /* Column widths */
 .data-table th,
-.data-table td,
-.dt-cell,
-.dt-header {
+.data-table td {
 	font-size: var(--font-size-sm) !important;
-	padding: var(--spacing-sm) var(--spacing-md) !important;
 }
 
+/* dt-cell - only font size, let Frappe handle padding */
+.dt-cell {
+	font-size: var(--font-size-sm) !important;
+}
+
+/* Header styling */
 .data-table th,
 .dt-header {
+	font-size: var(--font-size-sm) !important;
 	font-weight: var(--font-weight-semibold) !important;
 	background: var(--color-gray-50) !important;
 }

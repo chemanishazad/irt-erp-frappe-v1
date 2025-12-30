@@ -1,15 +1,21 @@
 /**
  * Hide Right Sidebar (Activity Panel) for Specific DocTypes
- * Only hides for Employee Onboarding Case
+ * Only hides for Onboarding - FORM VIEWS ONLY (not list views)
  */
 
-/* Hide right sidebar/activity panel for Employee Onboarding Case only */
-body[data-route*="employee-onboarding-case"] .layout-side-section,
-body[data-route*="employee-onboarding-case"] .form-sidebar,
-body[data-route*="employee-onboarding-case"] .layout-side-section.right,
-body[data-route*="Employee Onboarding Case"] .layout-side-section,
-body[data-route*="Employee Onboarding Case"] .form-sidebar,
-body[data-route*="Employee Onboarding Case"] .layout-side-section.right {
+/* Hide right sidebar/activity panel for Onboarding - FORM VIEWS ONLY */
+/* Only hide on form detail screens, not on list views */
+/* Match multiple route patterns to catch all form views */
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .layout-side-section,
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .form-sidebar,
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .layout-side-section.right,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .layout-side-section,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .form-sidebar,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .layout-side-section.right,
+/* Additional patterns for form detail screens */
+body[data-route^="Form/Onboarding/"] .layout-side-section,
+body[data-route^="Form/Onboarding/"] .form-sidebar,
+body[data-route^="Form/Onboarding/"] .layout-side-section.right {
 	display: none !important;
 	visibility: hidden !important;
 	width: 0 !important;
@@ -21,37 +27,40 @@ body[data-route*="Employee Onboarding Case"] .layout-side-section.right {
 	pointer-events: none !important;
 }
 
-/* Adjust main content to use full width when sidebar is hidden */
-body[data-route*="employee-onboarding-case"] .layout-main-section-wrapper,
-body[data-route*="Employee Onboarding Case"] .layout-main-section-wrapper {
+/* Adjust main content to use full width when sidebar is hidden - FORM VIEWS ONLY */
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .layout-main-section-wrapper,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .layout-main-section-wrapper,
+body[data-route^="Form/Onboarding/"] .layout-main-section-wrapper {
 	width: 100% !important;
 	max-width: 100% !important;
 	margin-right: 0 !important;
 	padding-right: 0 !important;
 }
 
-body[data-route*="employee-onboarding-case"] .layout-main-section,
-body[data-route*="Employee Onboarding Case"] .layout-main-section {
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .layout-main-section,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .layout-main-section,
+body[data-route^="Form/Onboarding/"] .layout-main-section {
 	width: 100% !important;
 	max-width: 100% !important;
 	margin-right: 0 !important;
 	padding-right: 0 !important;
 }
 
-/* Ensure layout-main uses full width */
-body[data-route*="employee-onboarding-case"] .layout-main,
-body[data-route*="Employee Onboarding Case"] .layout-main {
+/* Ensure layout-main uses full width - FORM VIEWS ONLY */
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .layout-main,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .layout-main,
+body[data-route^="Form/Onboarding/"] .layout-main {
 	width: 100% !important;
 	max-width: 100% !important;
 }
 
-/* Hide any activity/communication panels in the sidebar */
-body[data-route*="employee-onboarding-case"] .form-sidebar .form-sidebar-items,
-body[data-route*="employee-onboarding-case"] .form-sidebar .activity-section,
-body[data-route*="employee-onboarding-case"] .form-sidebar .communication-section,
-body[data-route*="Employee Onboarding Case"] .form-sidebar .form-sidebar-items,
-body[data-route*="Employee Onboarding Case"] .form-sidebar .activity-section,
-body[data-route*="Employee Onboarding Case"] .form-sidebar .communication-section {
+/* Hide any activity/communication panels in the sidebar - FORM VIEWS ONLY */
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .form-sidebar .form-sidebar-items,
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .form-sidebar .activity-section,
+body[data-route*="Form/Onboarding"]:not([data-route*="List"]) .form-sidebar .communication-section,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .form-sidebar .form-sidebar-items,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .form-sidebar .activity-section,
+body[data-route*="/onboarding/"]:not([data-route*="List"]):not([data-route*="view/list"]) .form-sidebar .communication-section {
 	display: none !important;
 	visibility: hidden !important;
 }

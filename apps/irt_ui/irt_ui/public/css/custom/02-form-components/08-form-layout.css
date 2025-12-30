@@ -12,6 +12,59 @@ body .section-body {
   width: 100% !important;
 }
 
+/* ============================================================
+   FORM SIDEBAR - COLUMN LAYOUT
+   ============================================================ */
+
+/* Form sidebar items - label and button in row, button at right end */
+.form-sidebar .sidebar-section .form-sidebar-items {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  gap: 8px !important;
+}
+
+/* Labels take available space, buttons stay at right */
+.form-sidebar .sidebar-section .form-sidebar-items > span:first-child,
+.form-sidebar .sidebar-section .form-sidebar-items > div:first-child {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+/* Buttons align to right end */
+.form-sidebar .add-assignment-btn,
+.form-sidebar .add-attachment-btn,
+.form-sidebar .share-doc-btn,
+.form-sidebar .add-tags-btn {
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  order: 2 !important;
+}
+
+/* Ensure sidebar sections stack vertically - but allow hide rules to work */
+.form-sidebar .sidebar-section:not(.hide) {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Content areas (assignments, shares, etc.) */
+.form-sidebar .assignments,
+.form-sidebar .shares,
+.form-sidebar .tag-area {
+  width: 100% !important;
+  margin-top: 8px !important;
+  display: block !important;
+}
+
+/* Right align the sidebar at the end */
+.layout-side-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
 /* Remove grey background from tab panes and form containers */
 .tab-pane,
 .form-section.card-section,
