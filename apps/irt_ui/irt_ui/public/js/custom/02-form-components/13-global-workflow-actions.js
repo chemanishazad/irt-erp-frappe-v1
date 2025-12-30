@@ -187,6 +187,7 @@
 							args: {
 								doc: frm.doc,
 								action: transition.action,
+								remark: remark || ""
 							},
 							silent: true, // Prevent Frappe from showing its own error dialogs
 							callback: (r) => {
