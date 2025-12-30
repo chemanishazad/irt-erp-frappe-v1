@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-30 19:39:38.942357",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "rejection_details_section",
+  "rejected_by",
+  "rejection_remark",
+  "column_break_jtsg",
+  "rejected_role",
+  "rejected_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "rejection_details_section",
+   "fieldtype": "Section Break",
+   "label": "Rejection Details"
+  },
+  {
+   "fieldname": "rejected_by",
+   "fieldtype": "Link",
+   "label": "Rejected By User",
+   "options": "User"
+  },
+  {
+   "fieldname": "rejection_remark",
+   "fieldtype": "Small Text",
+   "label": "Rejection Remark"
+  },
+  {
+   "fieldname": "column_break_jtsg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejected_role",
+   "fieldtype": "Data",
+   "label": "Rejected By Role"
+  },
+  {
+   "fieldname": "rejected_on",
+   "fieldtype": "Datetime",
+   "label": "Rejected On"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-30 19:41:01.883264",
+ "modified_by": "Administrator",
+ "module": "IRT HRMS",
+ "name": "Onboarding Rejection Log",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

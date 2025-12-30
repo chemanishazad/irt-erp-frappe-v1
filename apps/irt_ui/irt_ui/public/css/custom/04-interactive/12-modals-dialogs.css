@@ -3,9 +3,37 @@
  * Uses font variables from variables.css
  */
 
-/* Modal backdrop */
+/* Modal backdrop with proper blur effect */
 .modal-backdrop {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.6) !important;
+	backdrop-filter: blur(8px) saturate(180%) !important;
+	-webkit-backdrop-filter: blur(8px) saturate(180%) !important;
+	z-index: var(--z-index-modal-backdrop, 1040) !important;
+	transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+}
+
+/* Freeze overlay backdrop blur - enhanced for real popup effect */
+#freeze.modal-backdrop,
+#freeze {
+	background: rgba(0, 0, 0, 0.6) !important;
+	backdrop-filter: blur(8px) saturate(180%) !important;
+	-webkit-backdrop-filter: blur(8px) saturate(180%) !important;
+	transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+}
+
+/* Grid form modal backdrop - enhanced blur when modal is open */
+.grid-row-open ~ .modal-backdrop,
+body:has(.grid-row-open) .modal-backdrop,
+#freeze:has(.grid-row-open),
+#freeze.grid-form,
+#freeze.modal-backdrop.grid-form {
+	background: rgba(0, 0, 0, 0.6) !important;
+	backdrop-filter: blur(8px) saturate(180%) !important;
+	-webkit-backdrop-filter: blur(8px) saturate(180%) !important;
+	transition: backdrop-filter 0.3s ease, background-color 0.3s ease !important;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
 }
 
 /* Modal container */
@@ -13,6 +41,160 @@
 	font-size: var(--font-size-base) !important;
 	border-radius: var(--radius-lg);
 	box-shadow: var(--shadow-xl);
+	z-index: var(--z-index-modal, 1050) !important;
+}
+
+/* CRITICAL: Hide freeze overlay when it's empty or not needed */
+#freeze:not(:has(.grid-row-open)):not(:has(.modal.show)):not(:has(.dialog.show)) {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+#freeze:empty {
+	display: none !important;
+}
+
+/* Hide freeze message container when empty */
+.freeze-message-container:empty,
+#freeze .freeze-message-container:empty {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
+/* Only show freeze overlay when there's actual content */
+#freeze:has(.grid-row-open),
+#freeze:has(.modal.show),
+#freeze:has(.dialog.show) {
+	display: block !important;
+}
+
+/* Grid form modals (for workflow transitions, etc.) - Ensure visibility when open */
+.grid-row-open .modal-content,
+.grid-row-open .modal-dialog,
+.grid-row-open .modal {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	z-index: var(--z-index-modal, 1050) !important;
+}
+
+/* CRITICAL: Ensure form-in-grid is fully visible with proper dimensions - default Frappe behavior */
+.grid-row-open .form-in-grid {
+	opacity: 1 !important;
+	height: auto !important;
+	overflow: auto !important;
+	margin: auto !important;
+	padding: var(--padding-sm) var(--padding-md) !important;
+	max-width: 865px !important;
+	position: fixed !important;
+	top: 5% !important;
+	left: 50% !important;
+	transform: translate(-50%, 0%) !important;
+	width: 100% !important;
+	z-index: 1021 !important;
+	display: block !important;
+	visibility: visible !important;
+	background: white !important;
+	border-radius: var(--border-radius-md) !important;
+	box-shadow: var(--shadow-xl) !important;
+}
+
+/* CRITICAL: Ensure grid form header and all content is visible - default Frappe behavior */
+.grid-row-open .grid-form-heading {
+	padding: var(--padding-sm) var(--padding-md) !important;
+	font-size: var(--text-xl) !important;
+	font-weight: 600 !important;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	height: auto !important;
+	overflow: visible !important;
+	width: 100% !important;
+}
+
+.grid-row-open .grid-form-body {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	max-height: 80vh !important;
+	overflow-y: scroll !important;
+	overflow-x: visible !important;
+}
+
+.grid-row-open .form-area {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	height: auto !important;
+	overflow: visible !important;
+}
+
+/* Grid header toolbar - ensure flex layout for proper button alignment */
+.grid-row-open .grid-header-toolbar {
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: 100% !important;
+	padding: var(--padding-sm) var(--padding-md) !important;
+}
+
+/* Panel title and row actions - ensure they're visible */
+.grid-row-open .panel-title,
+.grid-row-open .row-actions {
+	display: flex !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	align-items: center !important;
+	gap: var(--spacing-xs) !important;
+}
+
+/* Ensure all action buttons in grid form header are visible - override hidden-xs */
+.grid-row-open .row-actions button,
+.grid-row-open .row-actions .btn,
+.grid-row-open .grid-delete-row,
+.grid-row-open .grid-insert-row,
+.grid-row-open .grid-insert-row-below,
+.grid-row-open .grid-duplicate-row,
+.grid-row-open .grid-move-row,
+.grid-row-open .grid-collapse-row,
+.grid-row-open .row-actions .hidden-xs {
+	display: inline-block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	width: auto !important;
+	height: auto !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+}
+
+/* Ensure grid form title is visible */
+.grid-row-open .panel-title,
+.grid-row-open .grid-form-row-index,
+.grid-row-open .panel-title span {
+	display: inline !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	font-size: var(--text-xl) !important;
+	font-weight: 600 !important;
+}
+
+/* Grid form modal backdrop - only when modal is open */
+.grid-row-open ~ .modal-backdrop,
+body:has(.grid-row-open) .modal-backdrop {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	z-index: var(--z-index-modal-backdrop, 1040) !important;
+	background: rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Modal header */
