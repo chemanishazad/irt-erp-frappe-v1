@@ -27,28 +27,83 @@
 		return standard_routes.includes(route_first_part);
 	}
 	
+	// Helper function to normalize route format
+	function normalizeRoute(route) {
+		if (!route) return route;
+		
+		// Convert desk# format to /desk/ format
+		let normalized = route;
+		if (normalized.startsWith("desk#")) {
+			normalized = normalized.replace("desk#", "/desk/");
+		} else if (normalized.startsWith("/desk#")) {
+			normalized = normalized.replace("/desk#", "/desk/");
+		}
+		
+		// For dashboard-view routes, convert underscores back to spaces in dashboard name
+		// Format: /desk/dashboard-view/dashboard_name_with_underscores
+		if (normalized.includes("/dashboard-view/")) {
+			const parts = normalized.split("/dashboard-view/");
+			if (parts.length === 2) {
+				const dashboard_part = parts[1];
+				// Convert underscores to spaces for dashboard names
+				const dashboard_name = dashboard_part.replace(/_/g, " ");
+				normalized = `${parts[0]}/dashboard-view/${dashboard_name}`;
+			}
+		}
+		
+		return normalized;
+	}
+	
+	// Helper function to convert route to Frappe's route array format
+	function routeToArray(route) {
+		if (!route) return [];
+		
+		// Remove leading /desk/ or /app/ if present
+		let clean_route = route.replace(/^\/?(desk|app)\//, "");
+		
+		// For dashboard-view routes, preserve spaces in dashboard name
+		// Format: dashboard-view/Dashboard Name (with spaces)
+		if (clean_route.startsWith("dashboard-view/")) {
+			const dashboard_part = clean_route.replace("dashboard-view/", "");
+			// Return array with "dashboard-view" and the full dashboard name (with spaces)
+			return ["dashboard-view", dashboard_part];
+		}
+		
+		// For other routes, split by / to get route parts
+		const parts = clean_route.split("/").filter(p => p);
+		
+		return parts;
+	}
+	
 	// Handle role-based home_page routing on initial load
 	function handleRoleBasedHomePage() {
 		if (!frappe.boot || !frappe.boot.home_page) return false;
 		
 		const home_page = frappe.boot.home_page;
 		
-		// Check if home_page is in desk# format (from role's home_page)
-		if (home_page.startsWith("desk#") || home_page.startsWith("/desk#")) {
-			// Extract route after desk#
-			const route_part = home_page.split("#")[1];
+		// Normalize the route (convert desk# to /desk/ and handle spaces)
+		const normalized_route = normalizeRoute(home_page);
+		
+		// Check if home_page is in desk# or /desk/ format
+		if (normalized_route.startsWith("/desk/")) {
+			// Extract route after /desk/
+			const route_part = normalized_route.replace(/^\/desk\//, "");
 			
 			// Navigate to the route
 			if (route_part) {
-				frappe.set_route(route_part);
+				const route_array = routeToArray(route_part);
+				frappe.set_route(...route_array);
 				return true;
 			}
 		}
 		
 		// Check if it's a standard route that should be handled directly
 		if (isStandardRoute(home_page)) {
-			frappe.set_route(home_page);
-			return true;
+			const route_array = routeToArray(normalized_route);
+			if (route_array.length > 0) {
+				frappe.set_route(...route_array);
+				return true;
+			}
 		}
 		
 		return false;
@@ -67,19 +122,28 @@
 			(current_route.length === 2 && current_route[0] === "desk" && current_route[1] === "home");
 		
 		if (is_default_route && home_page && home_page !== "desktop" && home_page !== "home") {
-			// Handle desk# routes
-			if (home_page.startsWith("desk#")) {
-				const route_part = home_page.split("#")[1];
+			// Normalize the route (convert desk# to /desk/ and handle spaces)
+			const normalized_route = normalizeRoute(home_page);
+			
+			// Handle desk# or /desk/ routes
+			if (normalized_route.startsWith("/desk/")) {
+				const route_part = normalized_route.replace(/^\/desk\//, "");
 				if (route_part) {
-					frappe.set_route(route_part);
-					return;
+					const route_array = routeToArray(route_part);
+					if (route_array.length > 0) {
+						frappe.set_route(...route_array);
+						return;
+					}
 				}
 			}
 			
 			// Handle standard routes
 			if (isStandardRoute(home_page)) {
-				frappe.set_route(home_page);
-				return;
+				const route_array = routeToArray(normalized_route);
+				if (route_array.length > 0) {
+					frappe.set_route(...route_array);
+					return;
+				}
 			}
 		}
 	}

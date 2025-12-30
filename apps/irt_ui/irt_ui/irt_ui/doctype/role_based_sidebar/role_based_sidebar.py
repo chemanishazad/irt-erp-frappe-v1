@@ -237,16 +237,17 @@ class RoleBasedSidebar(Document):
 			doctype_slug = frappe.scrub(link_to)
 			try:
 				if frappe.get_meta(link_to).is_single:
-					return f"desk#form/{doctype_slug}"
+					return f"/desk/form/{doctype_slug}"
 				else:
-					return f"desk#list/{doctype_slug}"
+					return f"/desk/list/{doctype_slug}"
 			except Exception:
-				return f"desk#list/{doctype_slug}"
+				return f"/desk/list/{doctype_slug}"
 		
 		elif link_type == "dashboard":
 			# Dashboard route - use Frappe's dashboard-view format
-			dashboard_slug = frappe.scrub(link_to)
-			return f"desk#dashboard-view/{dashboard_slug}"
+			# Use actual dashboard name with spaces (not scrubbed) for proper routing
+			# Format: /desk/dashboard-view/Dashboard Name (with spaces)
+			return f"/desk/dashboard-view/{link_to}"
 		
 		elif link_type == "workspace":
 			# Workspace route - use /app/ format for home_page compatibility
@@ -268,20 +269,20 @@ class RoleBasedSidebar(Document):
 		
 		elif link_type == "page":
 			# Page route
-			return f"desk#page/{frappe.scrub(link_to)}"
+			return f"/desk/page/{frappe.scrub(link_to)}"
 		
 		elif link_type == "report":
 			# Report route - need to check if it's a query report
 			try:
 				report = frappe.get_doc("Report", link_to)
 				if report.report_type == "Query Report" or report.report_type == "Script Report":
-					return f"desk#query-report/{frappe.scrub(link_to)}"
+					return f"/desk/query-report/{frappe.scrub(link_to)}"
 				elif report.ref_doctype:
-					return f"desk#report/{frappe.scrub(report.ref_doctype)}/{frappe.scrub(link_to)}"
+					return f"/desk/report/{frappe.scrub(report.ref_doctype)}/{frappe.scrub(link_to)}"
 				else:
-					return f"desk#report/{frappe.scrub(link_to)}"
+					return f"/desk/report/{frappe.scrub(link_to)}"
 			except Exception:
-				return f"desk#report/{frappe.scrub(link_to)}"
+				return f"/desk/report/{frappe.scrub(link_to)}"
 		
 		elif link_type == "url":
 			# External URL
@@ -336,20 +337,22 @@ class RoleBasedSidebar(Document):
 		if not route:
 			return
 		
-		# For home_page field, use /app/ format (not desk#)
-		# The home_page field expects routes like /app/workspace/... or /app/list/...
-		# Convert desk# routes to /app/ format for home_page compatibility
+		# For home_page field, use /desk/ format (not desk#)
+		# Routes are already in /desk/ format, but ensure they're properly formatted
 		if route.startswith("desk#"):
-			route = route.replace("desk#", "/app/", 1)
+			# Convert old desk# format to /desk/ format
+			route = route.replace("desk#", "/desk/", 1)
 		elif route.startswith("/desk#"):
-			route = route.replace("/desk#", "/app/", 1)
+			route = route.replace("/desk#", "/desk/", 1)
 		
-		# Ensure route starts with /app/ for home_page field
-		if not route.startswith("/app/"):
-			if route.startswith("/app"):
-				route = route.replace("/app", "/app/", 1)
+		# Ensure route starts with /desk/ for home_page field
+		if not route.startswith("/desk/"):
+			if route.startswith("/desk"):
+				route = route.replace("/desk", "/desk/", 1)
+			elif route.startswith("desk/"):
+				route = f"/{route}"
 			else:
-				route = f"/app/{route.lstrip('/')}"
+				route = f"/desk/{route.lstrip('/')}"
 		
 		# Update role's home_page
 		try:

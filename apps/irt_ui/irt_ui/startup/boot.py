@@ -43,11 +43,16 @@ def override_add_home_page():
 			# No home page set, use original function
 			return original_add_home_page(bootinfo, docs)
 		
-		# Handle desk# routes (Frappe's hash-based routing)
+		# Handle desk# or /desk/ routes - convert to /desk/ format
 		if home_page.startswith("/desk#") or home_page.startswith("desk#"):
 			# Extract route after desk#
 			route_part = home_page.split("#", 1)[1] if "#" in home_page else home_page.replace("/desk#", "").replace("desk#", "")
-			bootinfo["home_page"] = f"desk#{route_part}"
+			# Convert to /desk/ format (not desk#)
+			bootinfo["home_page"] = f"/desk/{route_part}"
+			return
+		elif home_page.startswith("/desk/"):
+			# Already in correct format, use as is
+			bootinfo["home_page"] = home_page
 			return
 		
 		# Check if this is a standard Frappe route (not a Page doctype)
@@ -78,7 +83,8 @@ def override_add_home_page():
 		
 		# If it's a standard route, set it directly without trying to load as Page doctype
 		if route_first_part in standard_routes:
-			bootinfo["home_page"] = f"desk#{home_page_clean}"
+			# Use /desk/ format (not desk#)
+			bootinfo["home_page"] = f"/desk/{home_page_clean}"
 			return
 		
 		# For non-standard routes, try to load as Page doctype (original behavior)
@@ -90,7 +96,8 @@ def override_add_home_page():
 			frappe.clear_last_message()
 			# If it fails and looks like a route (contains /), try setting it directly
 			if "/" in home_page_clean:
-				bootinfo["home_page"] = f"desk#{home_page_clean}"
+				# Use /desk/ format (not desk#)
+				bootinfo["home_page"] = f"/desk/{home_page_clean}"
 			else:
 				bootinfo["home_page"] = "desktop"
 	
@@ -269,18 +276,22 @@ def set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars):
 				route = sidebar_doc.get_route_from_item(mock_item)
 				
 				if route:
-					# Ensure route is in correct format
-					if not route.startswith("desk#") and not route.startswith("/desk#"):
-						if route.startswith("/app/"):
-							route = route.replace("/app/", "desk#", 1)
-						elif route.startswith("/app"):
-							route = route.replace("/app", "desk#", 1)
-						else:
-							route = f"desk#{route.lstrip('/')}"
+					# Ensure route is in correct format (/desk/ format)
+					if route.startswith("desk#"):
+						# Convert old desk# format to /desk/ format
+						route = route.replace("desk#", "/desk/", 1)
+					elif route.startswith("/desk#"):
+						route = route.replace("/desk#", "/desk/", 1)
+					elif route.startswith("/app/"):
+						# Convert /app/ to /desk/ format
+						route = route.replace("/app/", "/desk/", 1)
+					elif route.startswith("/app"):
+						route = route.replace("/app", "/desk/", 1)
+					elif not route.startswith("/desk/"):
+						# Ensure it starts with /desk/
+						route = f"/desk/{route.lstrip('/')}"
 					
-					# Remove leading slash for bootinfo (Frappe expects desk#... not /desk#...)
-					if route.startswith("/"):
-						route = route[1:]
+					# Keep leading slash for /desk/ format
 					
 					# ALWAYS set as home_page in bootinfo (override any existing)
 					# This ensures the route is set even if add_home_page set something else
@@ -292,8 +303,8 @@ def set_default_route_from_first_sidebar_item(bootinfo, role_based_sidebars):
 					# ALWAYS update role's home_page to match first sidebar item
 					role_name = sidebar_doc_info["for_role"]
 					if role_name:
-						# Add leading slash for role's home_page
-						role_route = f"/{route}" if not route.startswith("/") else route
+						# Route is already in /desk/ format with leading slash
+						role_route = route if route.startswith("/") else f"/{route}"
 						# Always update to ensure it matches the first sidebar item
 						frappe.db.set_value("Role", role_name, "home_page", role_route, update_modified=False)
 						frappe.db.commit()
@@ -319,9 +330,11 @@ def get_role_based_home_page():
 	for role in user_roles:
 		role_home_page = frappe.db.get_value("Role", role, "home_page")
 		if role_home_page:
-			# Convert desk# route to /desk# for proper client-side routing
-			if role_home_page.startswith("/desk#") or role_home_page.startswith("desk#"):
-				return role_home_page if role_home_page.startswith("/") else f"/{role_home_page}"
+			# Convert old desk# format to /desk/ format
+			if role_home_page.startswith("desk#"):
+				role_home_page = role_home_page.replace("desk#", "/desk/", 1)
+			elif role_home_page.startswith("/desk#"):
+				role_home_page = role_home_page.replace("/desk#", "/desk/", 1)
 			# If it's a regular path, ensure it starts with /
 			if not role_home_page.startswith("/"):
 				return f"/{role_home_page}"
