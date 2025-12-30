@@ -4,7 +4,6 @@
 import frappe
 from frappe import _
 from frappe.model.docstatus import DocStatus
-from frappe.permissions import get_roles
 
 # Import workflow helper functions
 from frappe.model.workflow import (
@@ -46,25 +45,11 @@ def apply_workflow(doc, action, remark=None):
 
 	# update workflow state field
 	doc.set(workflow.workflow_state_field, transition.next_state)
-	# Get remark from parameter or form_dict, default to "N/A" if not provided
-	remark = remark or frappe.form_dict.get("remark") or "N/A"
-
-	# Get user's roles (excluding standard/automatic roles)
-	user_roles = get_roles(user, with_standard=False)
-
-	# Use the first role, or "Unknown" if no roles found
-	active_role = user_roles[0] if user_roles else "Unknown"
-
-	doc.append("rejection_history", {
-		"rejected_by": user,
-		"rejected_role": active_role,
-		"rejection_remark": remark,
-		"rejected_on": frappe.utils.now()
-	})
-	doc.save(ignore_permissions=True)
 
 	# find settings for the next state
 	next_state = next(d for d in workflow.states if d.state == transition.next_state)
+
+	doc.save(ignore_permissions=True)
 
 	# update any additional field
 	if next_state.update_field:
@@ -153,4 +138,3 @@ def allow_desk_access():
 	# For now, allow all users to access the desk
 	# This can be customized based on specific requirements
 	return True
-

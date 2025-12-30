@@ -21,10 +21,9 @@
   },
   {
    "fieldname": "rejected_by",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Rejected By User",
-   "options": "User"
+   "label": "Rejected By User"
   },
   {
    "fieldname": "rejection_remark",
@@ -53,7 +52,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-30 20:49:20.675572",
+ "modified": "2025-12-30 21:55:00.870262",
  "modified_by": "Administrator",
  "module": "IRT HRMS",
  "name": "Onboarding Rejection Log",

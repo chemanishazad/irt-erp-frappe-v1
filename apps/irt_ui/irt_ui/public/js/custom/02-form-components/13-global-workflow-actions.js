@@ -145,7 +145,13 @@
 	function apply_workflow_action(frm, transition, remark) {
 		frappe.dom.freeze();
 		frm.selected_workflow_action = transition.action;
-
+// Store remark for server script access
+if (remark && transition.action.toLowerCase().includes("reject")) {
+	frm._last_workflow_remark = remark;
+	// Also store in form_dict for server access
+	frappe.form_dict = frappe.form_dict || {};
+	frappe.form_dict.remark = remark;
+}
 		frm.script_manager.trigger("before_workflow_action").then(() => {
 			// Add comment/remark if provided (especially for reject actions)
 			const comment_promise = remark 
