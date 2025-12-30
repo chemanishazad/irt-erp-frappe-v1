@@ -359,20 +359,21 @@ def override_login_redirect():
 		from frappe.integrations.frappe_providers.frappecloud_billing import get_site_login_url
 		from frappe.utils.frappecloud import on_frappecloud
 		
-		redirect_to = frappe.local.request.args.get("redirect-to")
-		redirect_to = login_module.sanitize_redirect(redirect_to)
+		# Get redirect-to parameter (but we'll ignore it and use role-based home page)
+		redirect_to_param = frappe.local.request.args.get("redirect-to")
+		redirect_to_param = login_module.sanitize_redirect(redirect_to_param) if redirect_to_param else None
 		
 		if frappe.session.user != "Guest":
-			if not redirect_to:
-				# Check role's home_page first
-				role_home_page = get_role_based_home_page()
-				if role_home_page:
-					redirect_to = role_home_page
-				elif frappe.session.data.user_type == "Website User":
-					from frappe.website.utils import get_home_page
-					redirect_to = get_default_path() or get_home_page()
-				else:
-					redirect_to = get_default_path() or "/desk"
+			# ALWAYS use role's home_page, ignore redirect-to parameter
+			# This ensures role-based routing takes precedence over any URL parameter
+			role_home_page = get_role_based_home_page()
+			if role_home_page:
+				redirect_to = role_home_page
+			elif frappe.session.data.user_type == "Website User":
+				from frappe.website.utils import get_home_page
+				redirect_to = get_default_path() or get_home_page()
+			else:
+				redirect_to = get_default_path() or "/desk"
 			
 			if redirect_to != "login":
 				frappe.local.flags.redirect_location = redirect_to

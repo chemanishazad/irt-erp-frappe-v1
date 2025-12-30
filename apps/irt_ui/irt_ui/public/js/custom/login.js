@@ -35,6 +35,9 @@ frappe.ready(function() {
 		
 		// Use MutationObserver to watch for dynamically added toggle buttons and text changes
 		observePasswordToggles();
+		
+		// Override login handlers to ignore redirect-to parameter and use role-based home page
+		overrideLoginRedirect();
 	}
 });
 
@@ -266,6 +269,44 @@ function observePasswordToggles() {
 		characterData: true,
 		attributes: false
 	});
+}
+
+/**
+ * Override login handlers to ignore redirect-to parameter
+ * Always use home_page from server response (which includes role-based routing)
+ */
+function overrideLoginRedirect() {
+	if (typeof login === 'undefined' || !login.login_handlers) {
+		return;
+	}
+	
+	// Store original handlers
+	const original_handlers = login.login_handlers;
+	
+	// Override the 200 handler to ignore redirect-to parameter
+	if (original_handlers[200]) {
+		const original_200_handler = original_handlers[200];
+		
+		login.login_handlers = Object.assign({}, original_handlers, {
+			200: function(data) {
+				if (data.message == 'Logged In') {
+					// ALWAYS use home_page from server response, ignore redirect-to URL parameter
+					// The server already sets the correct role-based home_page
+					if (data.home_page) {
+						login.set_status('Success', 'green');
+						document.body.innerHTML = document.body.innerHTML; // Keep splash screen
+						window.location.href = data.home_page;
+					} else {
+						// Fallback to original behavior if no home_page
+						original_200_handler.call(this, data);
+					}
+				} else {
+					// For other messages, use original handler
+					original_200_handler.call(this, data);
+				}
+			}
+		});
+	}
 }
 
 /**
