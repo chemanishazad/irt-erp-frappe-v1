@@ -250,22 +250,26 @@ class RoleBasedSidebar(Document):
 			return f"/desk/dashboard-view/{link_to}"
 		
 		elif link_type == "workspace":
-			# Workspace route - use /app/ format for home_page compatibility
-			# Use workspace name with proper slugging (spaces to dashes, not underscores)
+			# Workspace route - use /desk/ format for sidebar compatibility
+			# IMPORTANT: Use workspace.name (document name) and match router.slug() exactly
+			# router.slug() does: name.toLowerCase().replace(/ /g, "-")
+			# This means it ONLY replaces spaces, existing dashes stay as-is
 			try:
 				workspace = frappe.get_doc("Workspace", link_to)
-				# Use workspace name (title) for slug, convert spaces to dashes
-				from frappe.desk.utils import slug
-				workspace_slug = slug(workspace.name or link_to)
+				# Use workspace.name (document name from label field)
+				workspace_name = workspace.name or link_to
+				# Match router.slug() exactly: only replace spaces with dashes
+				# Don't modify existing dashes or other characters
+				workspace_slug = workspace_name.lower().replace(" ", "-")
 				if workspace.public:
-					return f"/app/{workspace_slug}"
+					return f"/desk/{workspace_slug}"
 				else:
-					return f"/app/private/{workspace_slug}"
+					# For private workspaces, router will append username: slug-username
+					return f"/desk/private/{workspace_slug}"
 			except Exception:
-				# Fallback: use link_to with proper slugging
-				from frappe.desk.utils import slug
-				workspace_slug = slug(link_to)
-				return f"/app/{workspace_slug}"
+				# Fallback: use link_to with simple slugging (matching router.slug behavior)
+				workspace_slug = (link_to or "").lower().replace(" ", "-")
+				return f"/desk/{workspace_slug}"
 		
 		elif link_type == "page":
 			# Page route
@@ -344,6 +348,13 @@ class RoleBasedSidebar(Document):
 			route = route.replace("desk#", "/desk/", 1)
 		elif route.startswith("/desk#"):
 			route = route.replace("/desk#", "/desk/", 1)
+		
+		# For workspace routes, keep /desk/ format (not /app/)
+		# For home_page field, convert /app/ to /desk/ if needed
+		if route.startswith("/app/"):
+			route = route.replace("/app/", "/desk/", 1)
+		elif route.startswith("/app/private/"):
+			route = route.replace("/app/private/", "/desk/private/", 1)
 		
 		# Ensure route starts with /desk/ for home_page field
 		if not route.startswith("/desk/"):

@@ -36,12 +36,15 @@ body:has(.grid-row-open) .modal-backdrop,
 	opacity: 1 !important;
 }
 
-/* Modal container */
+/* Modal container - enhanced white with theme colors */
 .modal-content {
 	font-size: var(--font-size-base) !important;
-	border-radius: var(--radius-lg);
-	box-shadow: var(--shadow-xl);
+	border-radius: 8px !important;
+	box-shadow: 0 8px 32px rgba(0, 102, 255, 0.2) !important;
+	border: 1px solid var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
+	background: var(--color-bg-white, #ffffff) !important;
 	z-index: var(--z-index-modal, 1050) !important;
+	overflow: hidden !important;
 }
 
 /* CRITICAL: Hide freeze overlay when it's empty or not needed */
@@ -97,9 +100,10 @@ body:has(.grid-row-open) .modal-backdrop,
 	z-index: 1021 !important;
 	display: block !important;
 	visibility: visible !important;
-	background: white !important;
+	background: var(--color-bg-white, #ffffff) !important;
 	border-radius: var(--border-radius-md) !important;
-	box-shadow: var(--shadow-xl) !important;
+	box-shadow: 0 4px 20px rgba(0, 102, 255, 0.15) !important;
+	border: 1px solid var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
 }
 
 /* CRITICAL: Ensure grid form header and all content is visible - default Frappe behavior */
@@ -197,27 +201,41 @@ body:has(.grid-row-open) .modal-backdrop {
 	background: rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Modal header */
+/* Modal header - white with theme color border */
 .modal-header {
-	padding: var(--spacing-lg) var(--spacing-xl);
-	border-bottom: 1px solid var(--color-border-light);
+	padding: 16px 20px !important;
+	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
+	background: var(--color-bg-white, #ffffff) !important;
 }
 
 .modal-title {
 	font-size: var(--font-size-lg) !important;
-	font-weight: var(--font-weight-semibold);
+	font-weight: var(--font-weight-semibold) !important;
+	color: var(--color-primary, #0066FF) !important;
 }
 
-/* Modal body */
+/* Modal body - white with better spacing */
 .modal-body {
 	font-size: var(--font-size-base) !important;
-	padding: var(--spacing-xl);
+	padding: 20px 24px !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	line-height: 1.6 !important;
 }
 
-/* Modal footer */
+/* Modal form groups spacing */
+.modal-body .form-group {
+	margin-bottom: 16px !important;
+}
+
+.modal-body .form-group:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* Modal footer - white with theme color border */
 .modal-footer {
-	padding: var(--spacing-md) var(--spacing-xl);
-	border-top: 1px solid var(--color-border-light);
+	padding: 16px 20px !important;
+	border-top: 1px solid var(--color-gray-200, #e5e7eb) !important;
+	background: var(--color-bg-white, #ffffff) !important;
 }
 
 /* Close buttons */
@@ -231,5 +249,152 @@ body:has(.grid-row-open) .modal-backdrop {
 .modal-close:hover,
 .btn-close:hover {
 	opacity: 1;
+}
+
+/* ============================================================
+   FRAPPE PROMPT DIALOGS - WHITE WITH THEME COLORS
+   ============================================================ */
+
+/* Frappe prompt dialog container */
+.dialog,
+.dialog-wrapper,
+.frappe-dialog {
+	background: var(--color-bg-white, #ffffff) !important;
+	border: 1px solid var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
+	border-radius: 8px !important;
+	box-shadow: 0 4px 20px rgba(0, 102, 255, 0.15) !important;
+}
+
+/* Dialog header */
+.dialog .modal-header,
+.dialog-wrapper .modal-header,
+.frappe-dialog .modal-header {
+	background: var(--color-bg-white, #ffffff) !important;
+	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
+	padding: 16px 20px !important;
+}
+
+.dialog .modal-title,
+.dialog-wrapper .modal-title,
+.frappe-dialog .modal-title {
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: var(--font-weight-semibold, 600) !important;
+}
+
+/* Dialog body */
+.dialog .modal-body,
+.dialog-wrapper .modal-body,
+.frappe-dialog .modal-body {
+	background: var(--color-bg-white, #ffffff) !important;
+	padding: 20px !important;
+}
+
+/* Dialog footer */
+.dialog .modal-footer,
+.dialog-wrapper .modal-footer,
+.frappe-dialog .modal-footer {
+	background: var(--color-bg-white, #ffffff) !important;
+	border-top: 1px solid var(--color-gray-200, #e5e7eb) !important;
+	padding: 16px 20px !important;
+}
+
+/* Dialog form controls - enhanced styling */
+.dialog .form-control,
+.dialog textarea,
+.dialog input[type="text"],
+.dialog input[type="textarea"],
+.dialog input[type="text"]:not([readonly]),
+.dialog textarea:not([readonly]) {
+	background: var(--color-bg-white, #ffffff) !important;
+	border: 1px solid var(--color-gray-300, #d1d5db) !important;
+	border-radius: 4px !important;
+	padding: 8px 12px !important;
+	font-size: var(--font-size-sm, 13px) !important;
+	transition: all 0.2s ease !important;
+}
+
+.dialog .form-control:focus,
+.dialog textarea:focus,
+.dialog input[type="text"]:focus,
+.dialog input[type="textarea"]:focus {
+	border-color: var(--color-primary, #0066FF) !important;
+	box-shadow: 0 0 0 3px var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
+	outline: none !important;
+}
+
+/* Dialog labels */
+.dialog .control-label,
+.dialog label {
+	color: var(--color-gray-700, #374151) !important;
+	font-weight: var(--font-weight-medium, 500) !important;
+	font-size: var(--font-size-sm, 13px) !important;
+	margin-bottom: 6px !important;
+}
+
+/* Dialog description text */
+.dialog .help-message,
+.dialog .description {
+	color: var(--color-gray-600, #4b5563) !important;
+	font-size: var(--font-size-xs, 12px) !important;
+	margin-top: 4px !important;
+}
+
+/* Dialog buttons - enhanced theme colors */
+.dialog .btn-primary,
+.dialog-wrapper .btn-primary,
+.frappe-dialog .btn-primary,
+.modal .btn-primary {
+	background: var(--color-primary, #0066FF) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	color: #ffffff !important;
+	font-weight: var(--font-weight-medium, 500) !important;
+	padding: 8px 16px !important;
+	border-radius: 4px !important;
+	transition: all 0.2s ease !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2) !important;
+}
+
+.dialog .btn-primary:hover,
+.dialog-wrapper .btn-primary:hover,
+.frappe-dialog .btn-primary:hover,
+.modal .btn-primary:hover {
+	background: var(--color-primary-dark, #0052CC) !important;
+	border-color: var(--color-primary-dark, #0052CC) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(0, 102, 255, 0.3) !important;
+}
+
+.dialog .btn-primary:active,
+.modal .btn-primary:active {
+	transform: translateY(0) !important;
+	box-shadow: 0 2px 4px rgba(0, 102, 255, 0.2) !important;
+}
+
+.dialog .btn-secondary,
+.dialog-wrapper .btn-secondary,
+.frappe-dialog .btn-secondary,
+.modal .btn-secondary {
+	background: var(--color-bg-white, #ffffff) !important;
+	border: 1px solid var(--color-gray-300, #d1d5db) !important;
+	color: var(--color-gray-700, #374151) !important;
+	font-weight: var(--font-weight-medium, 500) !important;
+	padding: 8px 16px !important;
+	border-radius: 4px !important;
+	transition: all 0.2s ease !important;
+}
+
+.dialog .btn-secondary:hover,
+.dialog-wrapper .btn-secondary:hover,
+.frappe-dialog .btn-secondary:hover,
+.modal .btn-secondary:hover {
+	background: var(--color-gray-50, #f9fafb) !important;
+	border-color: var(--color-primary, #0066FF) !important;
+	color: var(--color-primary, #0066FF) !important;
+	transform: translateY(-1px) !important;
+}
+
+.dialog .btn-secondary:active,
+.modal .btn-secondary:active {
+	transform: translateY(0) !important;
 }
 

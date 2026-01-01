@@ -1,0 +1,26 @@
+{
+ "content": null,
+ "creation": "2025-12-31 20:45:08.118744",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-12-31 20:45:08.118744",
+ "modified_by": "Administrator",
+ "module": "IRT HRMS",
+ "name": "onboarding_ja_dashbo",
+ "owner": "Administrator",
+ "page_name": "onboarding_ja_dashbo",
+ "roles": [
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "Junior Assistant"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Onboarding Dashboard"
+}

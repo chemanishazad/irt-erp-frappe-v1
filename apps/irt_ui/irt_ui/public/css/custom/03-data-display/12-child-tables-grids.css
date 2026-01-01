@@ -1,0 +1,333 @@
+/**
+ * Child Tables & Grids
+ * Fixes for text visibility and improved UI matching theme
+ */
+
+/* Override Frappe's grey backgrounds to white */
+.form-grid {
+	background-color: var(--color-bg-white, #ffffff) !important;
+}
+
+.form-grid .grid-body {
+	background-color: var(--color-bg-white, #ffffff) !important;
+}
+
+.form-grid .grid-heading-row .grid-row {
+	background-color: var(--color-bg-white, #ffffff) !important;
+}
+
+.form-grid .grid-heading-row .grid-static-col,
+.form-grid .grid-heading-row .row-check,
+.form-grid .grid-heading-row .row-index {
+	background-color: var(--color-bg-white, #ffffff) !important;
+}
+
+.form-grid .grid-empty {
+	background-color: var(--color-bg-white, #ffffff) !important;
+}
+
+/* ============================================================
+   GRID ROWS - AUTO HEIGHT BASED ON CONTENT
+   ============================================================ */
+
+.form-grid .data-row {
+	min-height: 36px !important;
+	height: auto !important;
+	padding: 2px 0 !important;
+}
+
+.form-grid .grid-body .data-row {
+	min-height: 36px !important;
+	height: auto !important;
+}
+
+/* ============================================================
+   SMALL TEXT / TEXTAREA FIELDS IN GRID - FIX TEXT VISIBILITY
+   ============================================================ */
+
+/* Fix for Small Text fields in grid rows - AUTO SIZE BASED ON TEXT */
+.form-grid .grid-static-col[data-fieldtype="Small Text"],
+.form-grid .grid-static-col[data-fieldtype="Text"],
+.form-grid .grid-static-col[data-fieldtype="Text Editor"] {
+	min-height: auto !important;
+	height: auto !important;
+	padding: 4px 8px !important;
+	display: flex !important;
+	align-items: flex-start !important;
+	overflow: visible !important;
+}
+
+/* Textarea in grid rows - allow proper height */
+.form-grid .data-row textarea,
+.form-grid .editable-row textarea {
+	height: auto !important;
+	min-height: 50px !important;
+	max-height: 120px !important;
+	padding: 6px 8px !important;
+	font-size: var(--font-size-sm) !important;
+	line-height: 1.5 !important;
+	resize: vertical !important;
+	overflow-y: auto !important;
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+}
+
+/* Static area for Small Text - AUTO SIZE BASED ON TEXT */
+.form-grid .grid-static-col[data-fieldtype="Small Text"] .static-area,
+.form-grid .grid-static-col[data-fieldtype="Text"] .static-area {
+	min-height: auto !important;
+	height: auto !important;
+	padding: 4px 6px !important;
+	font-size: var(--font-size-sm) !important;
+	line-height: 1.4 !important;
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+	overflow: visible !important;
+	display: block !important;
+	color: var(--color-text-primary, #1a202c) !important;
+}
+
+/* Rejection Remark text color - theme color */
+.form-grid .grid-static-col[data-fieldname="rejection_remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname="rejection_remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="rejection_remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="rejection_remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="Rejection Remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="Rejection Remark"] .control-value {
+	color: var(--color-primary, #0066FF) !important;
+}
+
+/* Control value for Small Text in grids - AUTO SIZE */
+.form-grid .grid-static-col[data-fieldtype="Small Text"] .control-value,
+.form-grid .grid-static-col[data-fieldtype="Text"] .control-value {
+	min-height: auto !important;
+	height: auto !important;
+	padding: 4px 6px !important;
+	font-size: var(--font-size-sm) !important;
+	line-height: 1.4 !important;
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+	overflow: visible !important;
+	display: block !important;
+	color: var(--color-text-primary, #1a202c) !important;
+}
+
+/* Specific fix for rejection_remark field - AUTO SIZE BASED ON TEXT */
+.form-grid .grid-static-col[data-fieldname="rejection_remark"],
+.form-grid .grid-static-col[data-fieldname*="rejection_remark"],
+.form-grid .grid-static-col[data-fieldname*="remark"],
+.form-grid .grid-static-col[data-fieldname*="Rejection Remark"] {
+	min-height: auto !important;
+	height: auto !important;
+	max-height: none !important;
+	align-items: flex-start !important;
+}
+
+.form-grid .grid-static-col[data-fieldname="rejection_remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname="rejection_remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="rejection_remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="rejection_remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="remark"] .control-value,
+.form-grid .grid-static-col[data-fieldname*="Rejection Remark"] .static-area,
+.form-grid .grid-static-col[data-fieldname*="Rejection Remark"] .control-value {
+	min-height: auto !important;
+	height: auto !important;
+	max-height: none !important;
+	overflow: visible !important;
+	overflow-y: visible !important;
+	overflow-x: hidden !important;
+	padding: 4px 8px !important;
+	color: var(--color-primary, #0066FF) !important;
+}
+
+/* Additional targeting for any column containing "remark" in class or data attributes - AUTO SIZE */
+.form-grid .grid-static-col[class*="remark"],
+.form-grid .grid-static-col[class*="Remark"] {
+	min-height: auto !important;
+	height: auto !important;
+	align-items: flex-start !important;
+}
+
+/* ============================================================
+   GRID COLUMNS - MINIMAL PADDING WITH AUTO HEIGHT
+   ============================================================ */
+
+.form-grid .grid-static-col {
+	padding: 4px 8px !important;
+	font-size: var(--font-size-sm) !important;
+	display: flex !important;
+	align-items: flex-start !important;
+	min-height: 32px !important;
+	height: auto !important;
+}
+
+/* Regular columns align center, text columns align start */
+.form-grid .grid-static-col:not([data-fieldtype="Small Text"]):not([data-fieldtype="Text"]):not([data-fieldtype="Text Editor"]):not([data-fieldname*="remark"]):not([data-fieldname*="Remark"]) {
+	align-items: center !important;
+}
+
+/* Grid header styling - white with theme color border */
+.form-grid .grid-heading-row {
+	background: var(--color-bg-white, #ffffff) !important;
+	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
+}
+
+.form-grid .grid-heading-row .grid-static-col {
+	font-weight: var(--font-weight-semibold, 600) !important;
+	color: var(--color-primary, #0066FF) !important;
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+}
+
+/* Rejection Remark header - theme color */
+.form-grid .grid-heading-row .grid-static-col[data-fieldname="rejection_remark"],
+.form-grid .grid-heading-row .grid-static-col[data-fieldname*="rejection_remark"],
+.form-grid .grid-heading-row .grid-static-col[data-fieldname*="remark"],
+.form-grid .grid-heading-row .grid-static-col[data-fieldname*="Rejection Remark"] {
+	color: var(--color-primary, #0066FF) !important;
+	font-weight: var(--font-weight-semibold, 600) !important;
+}
+
+/* ============================================================
+   GRID ROWS - ALL WHITE WITH HOVER
+   ============================================================ */
+
+.form-grid .grid-body .data-row:nth-child(even),
+.form-grid .grid-body .data-row:nth-child(odd) {
+	background: var(--color-bg-white, #ffffff) !important;
+}
+
+.form-grid .grid-body .data-row:hover {
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+	transition: background-color 0.2s ease !important;
+}
+
+/* ============================================================
+   GRID BORDERS & SPACING - MINIMAL
+   ============================================================ */
+
+.form-grid {
+	border: 1px solid var(--color-gray-200, #e5e7eb) !important;
+	border-radius: 4px !important;
+	overflow: hidden !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	margin-top: 2px !important;
+	margin-bottom: 2px !important;
+}
+
+.form-grid .grid-row .col {
+	border-right: 1px solid var(--color-gray-200, #e5e7eb) !important;
+}
+
+.form-grid .grid-body .data-row {
+	border-bottom: 1px solid var(--color-gray-200, #e5e7eb) !important;
+}
+
+.form-grid .grid-body .data-row:last-child {
+	border-bottom: none !important;
+}
+
+/* Reduce spacing around grid */
+.form-section .form-grid,
+.section-body .form-grid {
+	margin-top: 2px !important;
+	margin-bottom: 2px !important;
+}
+
+/* ============================================================
+   LIST VIEW IMPROVEMENTS - MATCHING THEME
+   ============================================================ */
+
+/* Improve list row hover effect */
+.frappe-list .list-row:hover {
+	background: var(--color-primary-rgba-08, rgba(0, 102, 255, 0.08)) !important;
+	transition: background-color 0.2s ease !important;
+}
+
+/* Minimal spacing for list columns */
+.frappe-list .list-row-col {
+	padding: 6px 10px !important;
+}
+
+/* List header improvements - white with theme color */
+.list-row-head {
+	background: var(--color-bg-white, #ffffff) !important;
+	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
+	font-weight: var(--font-weight-semibold, 600) !important;
+	color: var(--color-primary, #0066FF) !important;
+}
+
+/* List rows - all white */
+.frappe-list .list-row:nth-child(even),
+.frappe-list .list-row:nth-child(odd) {
+	background: var(--color-bg-white, #ffffff) !important;
+}
+
+/* ============================================================
+   TEXT FIELD DISPLAY IN LISTS
+   ============================================================ */
+
+/* Ensure text fields in list view show properly */
+.frappe-list .list-row-col[data-fieldtype="Small Text"],
+.frappe-list .list-row-col[data-fieldtype="Text"] {
+	white-space: normal !important;
+	word-wrap: break-word !important;
+	overflow: visible !important;
+	max-width: 300px !important;
+	line-height: 1.5 !important;
+	padding: 10px 14px !important;
+	min-height: 50px !important;
+	height: auto !important;
+	display: flex !important;
+	align-items: flex-start !important;
+}
+
+/* ============================================================
+   SECTION SPACING - MINIMAL
+   ============================================================ */
+
+/* Reduce spacing around sections containing grids */
+.form-section {
+	margin-top: 4px !important;
+	margin-bottom: 4px !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+.section-body {
+	margin-top: 2px !important;
+	margin-bottom: 2px !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+/* Remove extra padding from form layout */
+.form-layout .form-page {
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+/* Reduce section header spacing */
+.form-section .section-head {
+	margin-bottom: 4px !important;
+	padding-bottom: 4px !important;
+}
+
+/* Reduce spacing between sections */
+.form-section + .form-section {
+	margin-top: 8px !important;
+}
+
+/* ============================================================
+   RESPONSIVE FIXES
+   ============================================================ */
+
+@media (max-width: 768px) {
+	.form-grid .grid-static-col[data-fieldtype="Small Text"],
+	.form-grid .grid-static-col[data-fieldtype="Text"] {
+		min-width: 200px !important;
+	}
+}
+

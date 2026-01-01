@@ -1,0 +1,77 @@
+{
+ "app": "irt_hrms",
+ "charts": [
+  {
+   "chart_name": "Onboarding \u2013 Pending Verification",
+   "label": "Onboarding \u2013 Pending Verification"
+  }
+ ],
+ "content": "[{\"id\": \"chart_Onboarding \\u2013 Pending Verification\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Onboarding \\u2013 Pending Verification\", \"col\": 12}}, {\"id\": \"custom_block_1\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Onboarding JA\", \"col\": 12}}, {\"id\": \"nc_0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending for Verification\", \"col\": 3}}, {\"id\": \"nc_1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Returned for Correction\", \"col\": 3}}, {\"id\": \"nc_2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Verified Today\", \"col\": 3}}, {\"id\": \"nc_3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Count\", \"col\": 3}}, {\"id\": \"header_quick_lists\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Quick Lists</span>\", \"col\": 12}}, {\"id\": \"ql_0\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"My Recent Onboarding\", \"col\": 6}}, {\"id\": \"ql_1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Returned for Correction\", \"col\": 6}}, {\"id\": \"578bc7fc-be\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Onboarding stst JA\", \"col\": \"12\"}}, {\"id\": \"4b3ef563-98\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Onboarding Bar Chart JA\", \"col\": \"12\"}}, {\"id\": \"07379f59-ad\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Onboarding Recent Table ja\", \"col\": \"12\"}}, {\"id\": \"49f78d89-8d\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Onboarding Recent Activuty JA\", \"col\": \"12\"}}]",
+ "creation": "2025-12-31 13:13:46.688336",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Onboarding stst JA"
+  },
+  {
+   "custom_block_name": "Onboarding Bar Chart JA"
+  },
+  {
+   "custom_block_name": "Onboarding Recent Table ja"
+  },
+  {
+   "custom_block_name": "Onboarding Recent Activuty JA"
+  },
+  {
+   "custom_block_name": "Onboaring Rejected Ja"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "clipboard-clock",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Onboarding JA",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2026-01-01 18:37:06.445642",
+ "modified_by": "Administrator",
+ "module": "IRT HRMS",
+ "name": "Onboarding JA",
+ "number_cards": [
+  {
+   "label": "Pending for Verification",
+   "number_card_name": "Pending Verification"
+  },
+  {
+   "label": "Returned for Correction",
+   "number_card_name": "Returned for Correction"
+  },
+  {
+   "label": "Verified Today",
+   "number_card_name": "Verified Today"
+  },
+  {
+   "label": "Pending Count",
+   "number_card_name": "Pending Count"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "Junior Assistant"
+  }
+ ],
+ "sequence_id": 0.0,
+ "shortcuts": [],
+ "title": "Onboarding JA",
+ "type": "Workspace"
+}

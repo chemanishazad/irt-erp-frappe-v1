@@ -170,6 +170,32 @@ def get_role_based_sidebar_items():
 							}
 					except Exception:
 						pass
+				
+				# Add workspace data and route for Workspace link types
+				if si.link_type == "Workspace" and si.link_to:
+					try:
+						workspace = frappe.get_doc("Workspace", si.link_to)
+						# Add workspace data similar to how Report items get report data
+						# Use workspace.name (document name) - this is what router expects
+						role_sidebar["workspace"] = {
+							"name": workspace.name,  # Document name, not title
+							"title": workspace.title or workspace.name,
+							"public": workspace.public,
+						}
+						# Generate and add route for the workspace
+						# Use workspace.name (document name) for routing
+						route = w.get_route_from_item(si)
+						if route:
+							role_sidebar["route"] = route
+					except Exception as e:
+						# If workspace doesn't exist or can't be accessed, still add the item
+						# but try to generate a route from the link_to value
+						try:
+							route = w.get_route_from_item(si)
+							if route:
+								role_sidebar["route"] = route
+						except Exception:
+							pass
 
 				# Allow section breaks and check permissions for other items
 				# For role-based sidebars, be lenient - show items even if permission check is uncertain
