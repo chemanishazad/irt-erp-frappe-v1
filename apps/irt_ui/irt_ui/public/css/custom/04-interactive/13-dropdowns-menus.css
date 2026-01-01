@@ -135,3 +135,22 @@ select option:disabled {
 .awesomplete ul::-webkit-scrollbar-thumb:hover {
 	background: var(--color-gray-400);
 }
+
+/* ============================================
+   MODAL AUTOCOMPLETE DROPDOWNS - ENSURE FULL VISIBILITY
+   ============================================ */
+
+/* Ensure autocomplete dropdowns in modals are fully visible and not clipped */
+.modal .awesomplete > ul,
+.modal .awesomplete ul,
+.modal .awesomplete [role="listbox"],
+.modal-body .awesomplete > ul,
+.modal-body .awesomplete [role="listbox"] {
+	position: absolute !important;
+	z-index: 1055 !important;
+	max-height: min(60vh, 400px) !important;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	width: 100% !important;
+	min-width: 250px !important;
+}

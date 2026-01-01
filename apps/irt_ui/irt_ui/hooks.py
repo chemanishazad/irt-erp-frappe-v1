@@ -14,7 +14,7 @@ app_include_css = [
 ]
 
 app_include_js = [
-	"/assets/irt_ui/js/custom/sidebar.js?v=1.1.6",
+	"/assets/irt_ui/js/custom/sidebar.js?v=2.0.0",
 	"/assets/irt_ui/js/custom/default-route-handler.js?v=1.0.0",
 	"/assets/irt_ui/js/custom/01-core-layout/03-top-navigation.js?v=1.1.6",
 	"/assets/irt_ui/js/custom/01-core-layout/04-main-content.js?v=1.1.6",

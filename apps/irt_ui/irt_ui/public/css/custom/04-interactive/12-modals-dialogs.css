@@ -44,7 +44,7 @@ body:has(.grid-row-open) .modal-backdrop,
 	border: 1px solid var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
 	background: var(--color-bg-white, #ffffff) !important;
 	z-index: var(--z-index-modal, 1050) !important;
-	overflow: hidden !important;
+	overflow: visible !important;
 }
 
 /* CRITICAL: Hide freeze overlay when it's empty or not needed */
@@ -220,6 +220,22 @@ body:has(.grid-row-open) .modal-backdrop {
 	padding: 20px 24px !important;
 	background: var(--color-bg-white, #ffffff) !important;
 	line-height: 1.6 !important;
+	overflow: visible !important;
+}
+
+/* Ensure autocomplete dropdowns in modals are fully visible */
+.modal .awesomplete,
+.modal .awesomplete > ul,
+.modal .awesomplete [role="listbox"] {
+	overflow: visible !important;
+	z-index: 1055 !important;
+	max-height: min(60vh, 400px) !important;
+}
+
+.modal-body .awesomplete > ul,
+.modal-body .awesomplete [role="listbox"] {
+	position: absolute !important;
+	z-index: 1055 !important;
 }
 
 /* Modal form groups spacing */

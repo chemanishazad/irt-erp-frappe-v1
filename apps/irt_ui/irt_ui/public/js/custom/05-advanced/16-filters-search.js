@@ -501,11 +501,11 @@ console.log('🔍 Unified search script loaded');
 		if (pageForm) {
 			pageForm.style.setProperty('justify-content', 'flex-start', 'important');
 			pageForm.style.setProperty('align-items', 'center', 'important');
-			pageForm.style.setProperty('padding-left', '0', 'important');
-			pageForm.style.setProperty('padding', '2px 0 2px 0', 'important');
+			pageForm.style.setProperty('padding-left', '8px', 'important');
+			pageForm.style.setProperty('padding', '2px 4px 2px 8px', 'important');
 			pageForm.style.setProperty('padding-top', '2px', 'important');
 			pageForm.style.setProperty('padding-bottom', '2px', 'important');
-			pageForm.style.setProperty('padding-right', '0', 'important');
+			pageForm.style.setProperty('padding-right', '4px', 'important');
 			pageForm.style.setProperty('margin-left', '0', 'important');
 			pageForm.style.setProperty('margin-top', '0', 'important');
 			pageForm.style.setProperty('min-height', '36px', 'important');
@@ -767,11 +767,539 @@ console.log('🔍 Unified search script loaded');
 		frappe.router && frappe.router.on('change', function() {
 			setTimeout(() => {
 				if (isListRoute() || window.cur_list) {
+					// Clear date filters on route change/refresh
+					clearDateFilters();
 					ensureSearchField();
 					syncInputWithListView();
 					showNativeSearchFallback();
+					addDateRangeFilter();
 				}
 			}, 500);
 		});
 	});
+
+	/* -----------------------------------------------------------
+	 * 7. ADD DATE RANGE FILTER (FROM DATE TO DATE)
+	 * ----------------------------------------------------------- */
+	let dateRangeFilterAdded = false;
+
+	/* -----------------------------------------------------------
+	 * Helper: Convert date to system format (YYYY-MM-DD)
+	 * ----------------------------------------------------------- */
+	function convertToSystemDate(dateStr) {
+		if (!dateStr || !frappe.datetime) return dateStr;
+		
+		// Already in YYYY-MM-DD format
+		if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+			return dateStr;
+		}
+		
+		try {
+			// Try user_to_str first (handles user date format input)
+			return frappe.datetime.user_to_str(dateStr, false).split(' ')[0];
+		} catch(e) {
+			try {
+				// Try str_to_obj -> obj_to_str
+				const parsed = frappe.datetime.str_to_obj(dateStr);
+				return parsed ? frappe.datetime.obj_to_str(parsed).split('T')[0] : dateStr;
+			} catch(e2) {
+				// Fallback to moment if available
+				if (moment && moment(dateStr).isValid()) {
+					return moment(dateStr).format('YYYY-MM-DD');
+				}
+				return dateStr;
+			}
+		}
+	}
+
+	/* -----------------------------------------------------------
+	 * Helper: Remove all creation filters and update URL
+	 * ----------------------------------------------------------- */
+	function removeCreationFilters(listView) {
+		if (!listView || !listView.filter_area) return Promise.resolve();
+		
+		return new Promise((resolve) => {
+			// Remove creation filters (may need multiple attempts for >= and <=)
+			let attempts = 0;
+			const maxAttempts = 3;
+			
+			function attemptRemove() {
+				try {
+					const result = listView.filter_area.remove('creation');
+					if (result && typeof result.then === 'function') {
+						result.then(() => {
+							attempts++;
+							if (attempts < maxAttempts) {
+								setTimeout(attemptRemove, 50);
+							} else {
+								updateURL(listView);
+								resolve();
+							}
+						}).catch(() => {
+							updateURL(listView);
+							resolve();
+						});
+					} else {
+						attempts++;
+						if (attempts < maxAttempts) {
+							setTimeout(attemptRemove, 50);
+						} else {
+							updateURL(listView);
+							resolve();
+						}
+					}
+				} catch(e) {
+					updateURL(listView);
+					resolve();
+				}
+			}
+			
+			attemptRemove();
+		});
+	}
+
+	/* -----------------------------------------------------------
+	 * Helper: Update URL with current filters
+	 * ----------------------------------------------------------- */
+	function updateURL(listView) {
+		if (listView && listView.update_url_with_filters) {
+			listView.update_url_with_filters();
+		}
+	}
+
+	/* -----------------------------------------------------------
+	 * Clear date filters function
+	 * ----------------------------------------------------------- */
+	function clearDateFilters() {
+		const dateWrapper = document.querySelector('.date-range-filter-wrapper');
+		if (dateWrapper) {
+			const fromInput = dateWrapper.querySelector('.date-range-from');
+			const toInput = dateWrapper.querySelector('.date-range-to');
+			
+			[fromInput, toInput].forEach(input => {
+				if (input) {
+					input.value = '';
+					const $input = $(input);
+					if ($input.data('datepicker')) {
+						$input.data('datepicker').clear();
+					}
+				}
+			});
+		}
+		
+		const listView = window.cur_list;
+		if (listView) {
+			removeCreationFilters(listView);
+		}
+	}
+
+	function addDateRangeFilter() {
+		// Check if date range filter already exists
+		if (document.querySelector('.date-range-filter-wrapper') || dateRangeFilterAdded) {
+			return;
+		}
+
+		// Find filter section where search bar is located
+		const filterSection = document.querySelector('.filter-section') || 
+		                     document.querySelector('.standard-filter-section');
+		
+		if (!filterSection) {
+			return;
+		}
+
+		const listView = window.cur_list;
+		if (!listView || !listView.filter_area) {
+			return;
+		}
+
+		dateRangeFilterAdded = true;
+
+		// Create date range wrapper with close button
+		const dateRangeWrapper = document.createElement('div');
+		dateRangeWrapper.className = 'date-range-filter-wrapper';
+		dateRangeWrapper.style.cssText = 'display: flex !important; align-items: center !important; gap: 8px !important; margin-left: 8px !important; flex: 0 0 auto !important; order: 1 !important;';
+
+		// Create from date wrapper
+		const fromDateWrapper = document.createElement('div');
+		fromDateWrapper.className = 'date-range-from-wrapper';
+		fromDateWrapper.style.cssText = 'position: relative;';
+
+		// Create from date input using Frappe date picker
+		const fromDateInput = document.createElement('input');
+		fromDateInput.type = 'text';
+		fromDateInput.className = 'date-range-from form-control';
+		fromDateInput.placeholder = 'From Date';
+		fromDateInput.style.cssText = 'min-height: 36px !important; height: 36px !important; padding: 6px 12px !important; border-radius: 6px !important; border: 1px solid #e2e8f0 !important; background: #ffffff !important; background-color: #ffffff !important; min-width: 140px !important; font-size: 14px !important;';
+
+		// Create "to" separator
+		const toLabel = document.createElement('span');
+		toLabel.className = 'date-separator';
+		toLabel.textContent = 'to';
+		toLabel.style.cssText = 'color: #6b7280 !important; font-size: 14px !important; white-space: nowrap !important; margin: 0 4px !important;';
+
+		// Create to date wrapper
+		const toDateWrapper = document.createElement('div');
+		toDateWrapper.className = 'date-range-to-wrapper';
+		toDateWrapper.style.cssText = 'position: relative;';
+
+		// Create to date input using Frappe date picker
+		const toDateInput = document.createElement('input');
+		toDateInput.type = 'text';
+		toDateInput.className = 'date-range-to form-control';
+		toDateInput.placeholder = 'To Date';
+		toDateInput.style.cssText = 'min-height: 36px !important; height: 36px !important; padding: 6px 12px !important; border-radius: 6px !important; border: 1px solid #e2e8f0 !important; background: #ffffff !important; background-color: #ffffff !important; min-width: 140px !important; font-size: 14px !important;';
+
+		// Create close button
+		const closeButton = document.createElement('button');
+		closeButton.type = 'button';
+		closeButton.className = 'date-range-close-btn';
+		closeButton.innerHTML = '×';
+		closeButton.title = 'Clear date filter';
+		closeButton.style.cssText = 'min-height: 36px !important; height: 36px !important; width: 36px !important; padding: 0 !important; border-radius: 6px !important; border: 1px solid #e2e8f0 !important; background: #ffffff !important; background-color: #ffffff !important; color: #6b7280 !important; font-size: 20px !important; line-height: 1 !important; cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important;';
+		
+		// Close button hover
+		closeButton.addEventListener('mouseenter', function() {
+			this.style.background = '#f3f6fb';
+			this.style.borderColor = '#0066FF';
+			this.style.color = '#0066FF';
+		});
+		closeButton.addEventListener('mouseleave', function() {
+			this.style.background = '#ffffff';
+			this.style.borderColor = '#e2e8f0';
+			this.style.color = '#6b7280';
+		});
+
+		// Append elements
+		fromDateWrapper.appendChild(fromDateInput);
+		toDateWrapper.appendChild(toDateInput);
+		dateRangeWrapper.appendChild(fromDateWrapper);
+		dateRangeWrapper.appendChild(toLabel);
+		dateRangeWrapper.appendChild(toDateWrapper);
+		dateRangeWrapper.appendChild(closeButton);
+
+		// Insert after search wrapper in filter section
+		const searchWrapper = filterSection.querySelector('.unified-search-wrapper');
+		if (searchWrapper) {
+			// Insert right after search wrapper
+			if (searchWrapper.nextSibling) {
+				filterSection.insertBefore(dateRangeWrapper, searchWrapper.nextSibling);
+			} else {
+				filterSection.appendChild(dateRangeWrapper);
+			}
+		} else {
+			// If search wrapper not found, append to filter section
+			filterSection.appendChild(dateRangeWrapper);
+		}
+
+		// Define applyDateFilter function first (before date picker initialization)
+		let fromDatePicker, toDatePicker;
+		let filterTimeout;
+		
+		function applyDateFilter() {
+			clearTimeout(filterTimeout);
+			filterTimeout = setTimeout(() => {
+				const listView = window.cur_list;
+				if (!listView || !listView.filter_area) {
+					return;
+				}
+
+				// Get date values
+				const fromDate = (fromDatePicker?.get_value?.() || fromDatePicker?.$input?.val() || fromDateInput.value)?.trim();
+				const toDate = (toDatePicker?.get_value?.() || toDatePicker?.$input?.val() || toDateInput.value)?.trim();
+
+				// Convert to system format
+				const fromDateFormatted = fromDate ? convertToSystemDate(fromDate) : null;
+				const toDateFormatted = toDate ? convertToSystemDate(toDate) : null;
+
+				// Build filters array
+				const filters = [];
+				if (fromDateFormatted) {
+					filters.push([listView.doctype, 'creation', '>=', fromDateFormatted]);
+				}
+				if (toDateFormatted) {
+					filters.push([listView.doctype, 'creation', '<=', toDateFormatted]);
+				}
+
+				// Remove existing creation filters, then add new ones
+				removeCreationFilters(listView).then(() => {
+					if (filters.length > 0) {
+						const addResult = listView.filter_area.add(filters);
+						if (addResult && typeof addResult.then === 'function') {
+							addResult.then(() => updateURL(listView)).catch(() => updateURL(listView));
+						} else {
+							updateURL(listView);
+						}
+					} else {
+						updateURL(listView);
+						listView.refresh();
+					}
+				});
+			}, 300); // Debounce 300ms
+		}
+
+		// Initialize Frappe date pickers directly using jQuery datepicker
+		// This ensures calendar popup works on click and manual entry is supported
+		if ($.fn.datepicker) {
+			const sysdefaults = frappe.boot?.sysdefaults || {};
+			const dateFormat = sysdefaults.date_format || 'yyyy-mm-dd';
+			const lang = frappe.boot?.user?.language || 'en';
+			const firstDay = frappe.datetime ? frappe.datetime.get_first_day_of_the_week_index() : 0;
+			
+			// Initialize from date picker
+			const $fromInput = $(fromDateInput);
+			$fromInput.datepicker({
+				language: $.fn.datepicker.language[lang] ? lang : 'en',
+				autoClose: true,
+				todayButton: true,
+				dateFormat: dateFormat,
+				firstDay: firstDay,
+				keyboardNav: false,
+				onSelect: function(formattedDate, date, inst) {
+					applyDateFilter();
+				},
+				onShow: function(inst, animationComplete) {
+					// Ensure datepicker appears above other elements
+					inst.$datepicker.css('z-index', '10000');
+				}
+			});
+			fromDatePicker = {
+				$input: $fromInput,
+				datepicker: $fromInput.data('datepicker'),
+				get_value: function() {
+					return convertToSystemDate($fromInput.val() || '');
+				}
+			};
+			
+			// Initialize to date picker
+			const $toInput = $(toDateInput);
+			$toInput.datepicker({
+				language: $.fn.datepicker.language[lang] ? lang : 'en',
+				autoClose: true,
+				todayButton: true,
+				dateFormat: dateFormat,
+				firstDay: firstDay,
+				keyboardNav: false,
+				onSelect: function(formattedDate, date, inst) {
+					applyDateFilter();
+				},
+				onShow: function(inst, animationComplete) {
+					// Ensure datepicker appears above other elements
+					inst.$datepicker.css('z-index', '10000');
+				}
+			});
+			toDatePicker = {
+				$input: $toInput,
+				datepicker: $toInput.data('datepicker'),
+				get_value: function() {
+					return convertToSystemDate($toInput.val() || '');
+				}
+			};
+			
+			// Make inputs clickable to show calendar
+			$fromInput.on('click', function() {
+				if (fromDatePicker.datepicker) {
+					fromDatePicker.datepicker.show();
+				}
+			});
+			
+			$toInput.on('click', function() {
+				if (toDatePicker.datepicker) {
+					toDatePicker.datepicker.show();
+				}
+			});
+		}
+
+		// Close button functionality - clear date filters and update URL
+		closeButton.addEventListener('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			
+			// Clear date inputs and datepickers
+			[fromDateInput, toDateInput].forEach(input => {
+				if (input) input.value = '';
+			});
+			
+			[fromDatePicker, toDatePicker].forEach(picker => {
+				if (picker?.$input) picker.$input.val('');
+				if (picker?.datepicker) picker.datepicker.clear();
+			});
+			
+			// Remove filters and update URL
+			const listView = window.cur_list;
+			if (listView) {
+				removeCreationFilters(listView).then(() => {
+					listView.refresh();
+				});
+			}
+		});
+
+		// Bind change events for both calendar selection and manual entry
+		if (fromDatePicker && fromDatePicker.$input) {
+			fromDatePicker.$input.on('change', applyDateFilter);
+			fromDatePicker.$input.on('blur', applyDateFilter);
+		} else {
+			$(fromDateInput).on('change', applyDateFilter);
+			$(fromDateInput).on('blur', applyDateFilter);
+		}
+
+		if (toDatePicker && toDatePicker.$input) {
+			toDatePicker.$input.on('change', applyDateFilter);
+			toDatePicker.$input.on('blur', applyDateFilter);
+		} else {
+			$(toDateInput).on('change', applyDateFilter);
+			$(toDateInput).on('blur', applyDateFilter);
+		}
+
+		// Add focus styles
+		fromDateInput.addEventListener('focus', function() {
+			this.style.borderColor = '#0066FF';
+			this.style.boxShadow = '0 0 0 3px rgba(0, 102, 255, 0.1)';
+		});
+		fromDateInput.addEventListener('blur', function() {
+			this.style.borderColor = '#e2e8f0';
+			this.style.boxShadow = 'none';
+		});
+
+		toDateInput.addEventListener('focus', function() {
+			this.style.borderColor = '#0066FF';
+			this.style.boxShadow = '0 0 0 3px rgba(0, 102, 255, 0.1)';
+		});
+		toDateInput.addEventListener('blur', function() {
+			this.style.borderColor = '#e2e8f0';
+			this.style.boxShadow = 'none';
+		});
+	}
+
+	// Initialize date range filter when list view is ready
+	function initDateRangeFilter() {
+		if (dateRangeFilterAdded) return;
+		
+		const hasFilterSection = document.querySelector('.filter-section') || document.querySelector('.standard-filter-section');
+		const hasListView = window.cur_list?.filter_area;
+		
+		if (hasListView && hasFilterSection) {
+			addDateRangeFilter();
+		}
+	}
+
+	// Aggressive initialization for immediate appearance
+	function tryInitDateFilter() {
+		if (dateRangeFilterAdded) return;
+		
+		// Check if list view and filter section are ready
+		const listView = window.cur_list;
+		const filterSection = document.querySelector('.filter-section') || document.querySelector('.standard-filter-section');
+		
+		// Filter section is required, search wrapper is nice to have but not required
+		if (listView?.filter_area && filterSection) {
+			initDateRangeFilter();
+		}
+	}
+
+	// Initialize immediately on document ready
+	$(document).ready(function() {
+		// Try immediately
+		tryInitDateFilter();
+		
+		// Also try with a short delay for cases where DOM isn't fully ready
+		setTimeout(tryInitDateFilter, 50);
+		setTimeout(tryInitDateFilter, 150);
+		setTimeout(tryInitDateFilter, 300);
+		
+		// Retry mechanism for slower loads
+		let attempt = 0;
+		const maxAttempts = 15;
+		function retryInit() {
+			if (attempt >= maxAttempts || dateRangeFilterAdded) return;
+			attempt++;
+			tryInitDateFilter();
+			if (!dateRangeFilterAdded) {
+				setTimeout(retryInit, 200);
+			}
+		}
+		setTimeout(retryInit, 500);
+	});
+
+	// Watch for list view initialization
+	if (window.cur_list) {
+		// If list view already exists, try immediately
+		setTimeout(tryInitDateFilter, 0);
+	}
+
+	// Use MutationObserver to watch for filter section appearance
+	const filterObserver = new MutationObserver(function(mutations) {
+		if (!dateRangeFilterAdded) {
+			tryInitDateFilter();
+		}
+	});
+
+	// Start observing when DOM is ready
+	$(document).ready(function() {
+		const targetNode = document.querySelector('.page-form') || document.body;
+		if (targetNode) {
+			filterObserver.observe(targetNode, {
+				childList: true,
+				subtree: true
+			});
+		}
+	});
+
+	// Watch for cur_list changes and hook into list view initialization
+	let lastCurList = window.cur_list;
+	const listViewCheckInterval = setInterval(function() {
+		if (window.cur_list !== lastCurList) {
+			lastCurList = window.cur_list;
+			if (window.cur_list && !dateRangeFilterAdded) {
+				// Try immediately when cur_list changes
+				tryInitDateFilter();
+				setTimeout(tryInitDateFilter, 50);
+				setTimeout(tryInitDateFilter, 150);
+			}
+		} else if (window.cur_list && !dateRangeFilterAdded) {
+			// Also check periodically if cur_list exists but filter not added
+			tryInitDateFilter();
+		}
+	}, 100);
+
+	// Clear interval after 15 seconds to avoid memory leaks
+	setTimeout(() => clearInterval(listViewCheckInterval), 15000);
+
+	// Hook into Frappe's list view show event if available
+	if (frappe.views && frappe.views.ListView) {
+		const originalShow = frappe.views.ListView.prototype.show;
+		if (originalShow) {
+			frappe.views.ListView.prototype.show = function() {
+				const result = originalShow.apply(this, arguments);
+				// After list view is shown, try to add date filter
+				if (result && typeof result.then === 'function') {
+					result.then(() => {
+						setTimeout(tryInitDateFilter, 100);
+						setTimeout(tryInitDateFilter, 300);
+					});
+				} else {
+					setTimeout(tryInitDateFilter, 100);
+					setTimeout(tryInitDateFilter, 300);
+				}
+				return result;
+			};
+		}
+	}
+
+	// Re-initialize on route change
+	if (frappe.router) {
+		frappe.router.on('change', function() {
+			dateRangeFilterAdded = false;
+			clearDateFilters();
+			const existing = document.querySelector('.date-range-filter-wrapper');
+			if (existing) existing.remove();
+			
+			// Try to initialize immediately on route change
+			setTimeout(() => {
+				tryInitDateFilter();
+				// Also retry a few times
+				setTimeout(tryInitDateFilter, 200);
+				setTimeout(tryInitDateFilter, 500);
+			}, 100);
+		});
+	}
 })();

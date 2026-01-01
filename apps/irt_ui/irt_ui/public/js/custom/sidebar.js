@@ -1,201 +1,282 @@
 /**
  * Custom Sidebar JavaScript for Role-Based Sidebars
- * Ensures role-based sidebars persist and header stays visible when navigating
+ * Only activates when role-based sidebars exist
+ * For users without role-based sidebars, this script does NOTHING
  */
 
 (function() {
 	'use strict';
 
-	// Track current role-based sidebar - persist across navigation
-	let current_role_based_sidebar = null;
-	let role_based_sidebar_initialized = false;
-
-	// Initialize role-based sidebar on page load
-	function initializeRoleBasedSidebar() {
-		if (role_based_sidebar_initialized) return;
-		
-		if (frappe.boot && frappe.boot.workspace_sidebar_item) {
-			// Find first role-based sidebar
-			for (const [key, sidebar_data] of Object.entries(frappe.boot.workspace_sidebar_item)) {
-				if (sidebar_data.is_role_based && sidebar_data.items && sidebar_data.items.length > 0) {
-					current_role_based_sidebar = key;
-					role_based_sidebar_initialized = true;
-					
-					// Set it immediately if sidebar exists
-					if (frappe.app && frappe.app.sidebar) {
-						frappe.app.sidebar.setup(key);
+	// Check if role-based sidebars exist
+	function hasRoleBasedSidebars() {
+		try {
+			if (!frappe || !frappe.boot || !frappe.boot.workspace_sidebar_item) {
+				return false;
+			}
+			
+			const items = frappe.boot.workspace_sidebar_item;
+			if (!items || typeof items !== 'object') {
+				return false;
+			}
+			
+			// Check if ANY sidebar has is_role_based flag set to true AND has items
+			for (const key in items) {
+				if (items.hasOwnProperty(key)) {
+					const sidebar = items[key];
+					if (sidebar && 
+						sidebar.is_role_based === true && 
+						Array.isArray(sidebar.items) &&
+						sidebar.items.length > 0) {
+						return true;
 					}
-					break;
+				}
+			}
+		} catch (e) {
+			return false;
+		}
+		return false;
+	}
+
+	// Find first role-based sidebar key
+	function findFirstRoleBasedSidebar() {
+		if (frappe.boot && frappe.boot.workspace_sidebar_item) {
+			for (const key in frappe.boot.workspace_sidebar_item) {
+				if (frappe.boot.workspace_sidebar_item.hasOwnProperty(key)) {
+					const sidebar = frappe.boot.workspace_sidebar_item[key];
+					if (sidebar && 
+						sidebar.is_role_based === true && 
+						Array.isArray(sidebar.items) &&
+						sidebar.items.length > 0) {
+						return key;
+					}
 				}
 			}
 		}
+		return null;
 	}
 
-	// Initialize when boot is ready
-	if (frappe.boot) {
-		initializeRoleBasedSidebar();
-	} else {
-		frappe.ready(() => {
-			initializeRoleBasedSidebar();
-		});
+	// Initialize only if role-based sidebars exist
+	function init() {
+		// CRITICAL: If no role-based sidebars exist, do NOTHING
+		// Exit immediately - let default Frappe sidebar work normally
+		if (!hasRoleBasedSidebars()) {
+			return;
+		}
+
+		// Only reach here if role-based sidebars exist
+		// Wait for Sidebar class to be available
+		if (!frappe.ui || !frappe.ui.Sidebar) {
+			if (frappe.ready) {
+				frappe.ready(() => {
+					if (frappe.ui && frappe.ui.Sidebar && hasRoleBasedSidebars()) {
+						applyMinimalOverrides();
+					}
+				});
+			}
+			return;
+		}
+
+		if (hasRoleBasedSidebars()) {
+			applyMinimalOverrides();
+		}
 	}
 
-	// Override sidebar prepare to handle missing sidebar_data gracefully
-	if (frappe.ui && frappe.ui.Sidebar) {
-		const Sidebar = frappe.ui.Sidebar;
+	// Find default (non-role-based) sidebar for Administrator
+	function findDefaultSidebarForAdmin(currentSidebar) {
+		if (!currentSidebar) return null;
 		
+		let defaultSidebarKey = null;
+		let defaultSidebarLabel = null;
+		
+		for (const [key, sidebar] of Object.entries(frappe.boot.workspace_sidebar_item)) {
+			if (sidebar && sidebar.is_role_based !== true) {
+				// Prefer sidebar with same label or module
+				if (sidebar.label === currentSidebar.label || 
+					sidebar.module === currentSidebar.module) {
+					defaultSidebarKey = key;
+					defaultSidebarLabel = sidebar.label || key;
+					break;
+				}
+				// Otherwise, use first non-role-based sidebar as fallback
+				if (!defaultSidebarKey) {
+					defaultSidebarKey = key;
+					defaultSidebarLabel = sidebar.label || key;
+				}
+			}
+		}
+		
+		return defaultSidebarKey ? { key: defaultSidebarKey, label: defaultSidebarLabel } : null;
+	}
+
+	// Apply only minimal overrides needed for role-based sidebars
+	function applyMinimalOverrides() {
+		// Double-check role-based sidebars still exist
+		if (!hasRoleBasedSidebars()) {
+			return;
+		}
+
+		if (!frappe.ui || !frappe.ui.Sidebar) {
+			return;
+		}
+
+		const Sidebar = frappe.ui.Sidebar;
+		const firstRoleBasedSidebar = findFirstRoleBasedSidebar();
+
+		// Override prepare() to handle Administrator - use default sidebars
 		if (Sidebar.prototype.prepare) {
-			const original_prepare = Sidebar.prototype.prepare;
-			
+			const originalPrepare = Sidebar.prototype.prepare;
 			Sidebar.prototype.prepare = function() {
-				try {
-					// If we have a role-based sidebar, always use it
-					if (current_role_based_sidebar && frappe.boot.workspace_sidebar_item) {
-						const role_sidebar = frappe.boot.workspace_sidebar_item[current_role_based_sidebar];
-						if (role_sidebar && role_sidebar.is_role_based) {
-							this.sidebar_data = role_sidebar;
-							this.workspace_sidebar_items = role_sidebar.items || [];
-							
-							if (this.edit_mode) {
-								this.workspace_sidebar_items = this.new_sidebar_items;
+				// For Administrator, skip role-based sidebars and use default sidebars
+				if (frappe.session.user === "Administrator") {
+					try {
+						const currentSidebar = frappe.boot.workspace_sidebar_item[this.workspace_title.toLowerCase()];
+						if (currentSidebar && currentSidebar.is_role_based === true) {
+							// Find a default sidebar
+							const defaultSidebar = findDefaultSidebarForAdmin(currentSidebar);
+							if (defaultSidebar) {
+								this.workspace_title = defaultSidebar.label;
+								this.sidebar_data = frappe.boot.workspace_sidebar_item[defaultSidebar.key];
+							} else {
+								this.sidebar_data = currentSidebar;
 							}
-							
-							this.choose_app_name();
-							this.find_nested_items();
-							return;
+						} else {
+							this.sidebar_data = frappe.boot.workspace_sidebar_item[this.workspace_title.toLowerCase()];
 						}
-					}
-					
-					// Fallback to original logic
-					this.sidebar_data = null;
-					const sidebar_key = this.workspace_title ? this.workspace_title.toLowerCase() : null;
-					
-					if (sidebar_key && frappe.boot.workspace_sidebar_item) {
-						this.sidebar_data = frappe.boot.workspace_sidebar_item[sidebar_key];
-						
-						// Check if this is a role-based sidebar
-						if (this.sidebar_data && this.sidebar_data.is_role_based) {
-							current_role_based_sidebar = sidebar_key;
-							role_based_sidebar_initialized = true;
+						this.workspace_sidebar_items = this.sidebar_data.items;
+						if (this.edit_mode) {
+							this.workspace_sidebar_items = this.new_sidebar_items;
 						}
+						this.choose_app_name();
+						this.find_nested_items();
+					} catch (e) {
+						console.log(e);
 					}
-					
-					// Ensure sidebar_data exists even if empty
-					if (!this.sidebar_data) {
-						this.sidebar_data = { items: [] };
-					}
-					
-					// Ensure items array exists
-					if (!this.sidebar_data.items) {
-						this.sidebar_data.items = [];
-					}
-					
-					// Now safely access items
-					this.workspace_sidebar_items = this.sidebar_data.items;
-					
-					if (this.edit_mode) {
-						this.workspace_sidebar_items = this.new_sidebar_items;
-					}
-					
-					this.choose_app_name();
-					this.find_nested_items();
-				} catch (e) {
-					console.error("Error in sidebar prepare:", e);
-					// Ensure safe defaults on error
-					if (!this.sidebar_data) {
-						this.sidebar_data = { items: [] };
-					}
-					if (!this.workspace_sidebar_items) {
-						this.workspace_sidebar_items = [];
-					}
-					// Fallback to original
-					return original_prepare.call(this);
+				} else {
+					// For non-Administrator users, use original behavior
+					return originalPrepare.call(this);
 				}
 			};
 		}
 
-		// Override set_workspace_sidebar to ALWAYS use role-based sidebar
-		if (Sidebar.prototype.set_workspace_sidebar) {
-			const original_set_workspace_sidebar = Sidebar.prototype.set_workspace_sidebar;
-			
+		// Override get_correct_workspace_sidebars to exclude role-based sidebars for Administrator
+		if (Sidebar.prototype.get_correct_workspace_sidebars) {
+			const originalGetSidebars = Sidebar.prototype.get_correct_workspace_sidebars;
+			Sidebar.prototype.get_correct_workspace_sidebars = function(link_to) {
+				const sidebars = originalGetSidebars.call(this, link_to);
+				
+				// For Administrator, filter out role-based sidebars
+				if (frappe.session.user === "Administrator") {
+					return sidebars.filter(sidebarName => {
+						const sidebar = frappe.boot.workspace_sidebar_item[sidebarName.toLowerCase()];
+						return !sidebar || sidebar.is_role_based !== true;
+					});
+				}
+				
+				return sidebars;
+			};
+		}
+
+		// Override set_workspace_sidebar to use role-based sidebar for non-Administrator users
+		if (Sidebar.prototype.set_workspace_sidebar && firstRoleBasedSidebar) {
+			const original = Sidebar.prototype.set_workspace_sidebar;
 			Sidebar.prototype.set_workspace_sidebar = function(router) {
-				try {
-					// ALWAYS use role-based sidebar if available
-					if (current_role_based_sidebar && frappe.boot.workspace_sidebar_item) {
-						const role_sidebar = frappe.boot.workspace_sidebar_item[current_role_based_sidebar];
-						if (role_sidebar && role_sidebar.is_role_based && role_sidebar.items && role_sidebar.items.length > 0) {
-							this.setup(current_role_based_sidebar);
-							this.set_active_workspace_item();
-							return;
-						}
-					}
-					
-					// If no role-based sidebar set yet, find one
-					if (!current_role_based_sidebar && frappe.boot.workspace_sidebar_item) {
-						for (const [key, sidebar_data] of Object.entries(frappe.boot.workspace_sidebar_item)) {
-							if (sidebar_data.is_role_based && sidebar_data.items && sidebar_data.items.length > 0) {
-								current_role_based_sidebar = key;
-								role_based_sidebar_initialized = true;
-								this.setup(key);
-								this.set_active_workspace_item();
+				// For Administrator, use default behavior (skip role-based sidebars)
+				if (frappe.session.user === "Administrator") {
+					// Handle Administrator case - find default sidebars
+					try {
+						let route = frappe.get_route();
+						if (route[0] == "setup-wizard") return;
+						
+						if (route[0] == "Workspaces") {
+							let workspace = !route[1] ? "My Workspaces" : route[1];
+							
+							// If workspace is role-based, find default alternative
+							const workspaceSidebar = frappe.boot.workspace_sidebar_item[workspace.toLowerCase()];
+							if (workspaceSidebar && workspaceSidebar.is_role_based === true) {
+								const defaultSidebar = findDefaultSidebarForAdmin(workspaceSidebar);
+								if (defaultSidebar) {
+									workspace = defaultSidebar.label;
+								}
+							}
+							
+							this.setup(workspace);
+						} else if (route[0] == "List" || route[0] == "Form") {
+							let doctype = route[1];
+							let sidebars = this.get_correct_workspace_sidebars(doctype);
+							
+							if (sidebars.includes(this.workspace_title)) {
+								this.setup(this.workspace_title);
 								return;
 							}
+							
+							if (sidebars.length == 0) {
+								let module_name = router.meta?.module;
+								if (module_name) {
+									// Filter out role-based sidebars from module map
+									let moduleSidebars = this.sidebar_module_map[module_name] || [];
+									moduleSidebars = moduleSidebars.filter(sidebarName => {
+										const sidebar = frappe.boot.workspace_sidebar_item[sidebarName.toLowerCase()];
+										return !sidebar || sidebar.is_role_based !== true;
+									});
+									this.setup(moduleSidebars[0] || module_name);
+								}
+							} else {
+								if (this.workspace_title && sidebars.includes(this.workspace_title.toLowerCase())) {
+									this.setup(this.workspace_title.toLowerCase());
+								} else {
+									this.setup(sidebars[0]);
+								}
+							}
+						} else if (route[0] == "query-report") {
+							let doctype = route[1];
+							let sidebars = this.get_correct_workspace_sidebars(doctype);
+							if (this.workspace_title && sidebars.includes(this.workspace_title.toLowerCase())) {
+								this.setup(this.workspace_title.toLowerCase());
+							} else {
+								this.setup(sidebars[0]);
+							}
 						}
+					} catch (e) {
+						console.log(e);
 					}
 					
-					// Fallback to original only if no role-based sidebar exists
-					return original_set_workspace_sidebar.call(this, router);
-				} catch (e) {
-					console.error("Error in set_workspace_sidebar:", e);
-					// Still try to use role-based sidebar on error
-					if (current_role_based_sidebar && frappe.boot.workspace_sidebar_item) {
-						const role_sidebar = frappe.boot.workspace_sidebar_item[current_role_based_sidebar];
-						if (role_sidebar && role_sidebar.is_role_based) {
-							this.setup(current_role_based_sidebar);
-							this.set_active_workspace_item();
-							return;
-						}
-					}
-					return original_set_workspace_sidebar.call(this, router);
+					this.set_active_workspace_item();
+					return;
 				}
+				
+				// For non-Administrator users, use role-based sidebar
+				if (hasRoleBasedSidebars() && firstRoleBasedSidebar) {
+					const role_sidebar = frappe.boot.workspace_sidebar_item?.[firstRoleBasedSidebar];
+					if (role_sidebar && role_sidebar.is_role_based && role_sidebar.items && role_sidebar.items.length > 0) {
+						// Use the label from sidebar data to preserve the case (e.g., "HRMS" instead of lowercase key)
+						const sidebarTitle = role_sidebar.label || firstRoleBasedSidebar;
+						this.setup(sidebarTitle);
+						this.set_active_workspace_item();
+						return;
+					}
+				}
+				// Fallback to default behavior
+				return original.call(this, router);
 			};
 		}
+	}
 
-		// Override setup to ALWAYS maintain role-based sidebar
-		if (Sidebar.prototype.setup) {
-			const original_setup = Sidebar.prototype.setup;
-			
-			Sidebar.prototype.setup = function(sidebar_key) {
-				// If we have a role-based sidebar, don't switch away from it
-				if (current_role_based_sidebar && sidebar_key !== current_role_based_sidebar) {
-					// Check if the requested sidebar is a role-based sidebar
-					if (frappe.boot.workspace_sidebar_item && frappe.boot.workspace_sidebar_item[sidebar_key]) {
-						const requested_sidebar = frappe.boot.workspace_sidebar_item[sidebar_key];
-						if (requested_sidebar.is_role_based) {
-							// It's a role-based sidebar, allow the switch
-							current_role_based_sidebar = sidebar_key;
-							role_based_sidebar_initialized = true;
-						} else {
-							// It's not a role-based sidebar, keep using our role-based sidebar
-							return original_setup.call(this, current_role_based_sidebar);
-						}
-					} else {
-						// Requested sidebar not found, keep using role-based sidebar
-						return original_setup.call(this, current_role_based_sidebar);
-					}
-				}
-				
-				// Check if this is a role-based sidebar
-				if (frappe.boot.workspace_sidebar_item && frappe.boot.workspace_sidebar_item[sidebar_key]) {
-					const sidebar_data = frappe.boot.workspace_sidebar_item[sidebar_key];
-					if (sidebar_data.is_role_based) {
-						current_role_based_sidebar = sidebar_key;
-						role_based_sidebar_initialized = true;
-					}
-				}
-				
-				return original_setup.call(this, sidebar_key);
-			};
+	// Initialize when ready
+	if (typeof frappe === 'undefined') {
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', function() {
+				setTimeout(init, 100);
+			});
+		} else {
+			setTimeout(init, 100);
+		}
+	} else if (frappe.boot) {
+		init();
+	} else {
+		if (frappe.ready) {
+			frappe.ready(() => {
+				init();
+			});
 		}
 	}
 })();

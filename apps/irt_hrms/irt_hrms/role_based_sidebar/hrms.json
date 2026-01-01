@@ -20,7 +20,7 @@
    "label": "Home",
    "link_to": "Onboarding JA",
    "link_type": "Workspace",
-   "modified": "2026-01-01 15:52:59.984529",
+   "modified": "2026-01-01 21:17:48.212494",
    "modified_by": "Administrator",
    "name": "br8tnud0ie",
    "owner": "Administrator",
@@ -43,7 +43,7 @@
    "label": "Onboarding",
    "link_to": "onboarding",
    "link_type": "DocType",
-   "modified": "2026-01-01 15:52:59.984529",
+   "modified": "2026-01-01 21:17:48.212494",
    "modified_by": "Administrator",
    "name": "73376dc6l7",
    "owner": "Administrator",
@@ -54,7 +54,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-01-01 15:52:59.984529",
+ "modified": "2026-01-01 21:17:48.212494",
  "modified_by": "Administrator",
  "module": "Irt Hrms",
  "name": "hrms-junior_assistant",

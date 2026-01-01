@@ -9,12 +9,12 @@
    0. AGGRESSIVE LEFT ALIGNMENT - HIGHEST PRIORITY
    ============================================================ */
 
-/* Force page-form to have NO left padding/margin */
+/* Force page-form to have proper left padding */
 body[data-route*="List"] .page-form,
 body[data-route*="List"] .page-form.flex,
 [data-page-route^="List"] .page-form,
 [data-page-route^="List"] .page-form.flex {
-	padding-left: 0 !important;
+	padding-left: 8px !important;
 	margin-left: 0 !important;
 	justify-content: flex-start !important;
 }
@@ -43,10 +43,10 @@ body[data-route*="List"] .unified-search-wrapper,
 body[data-route*="List"] .filter-section .unified-search-wrapper,
 body[data-route*="List"] .standard-filter-section .unified-search-wrapper,
 [data-page-route^="List"] .unified-search-wrapper {
-	margin-left: 8px !important;
+	margin-left: 0 !important;
 	padding-left: 0 !important;
-	height: 28px !important;
-	max-height: 28px !important;
+	height: 36px !important;
+	max-height: 36px !important;
 }
 
 /* Remove padding from parent containers that might push content right - OVERRIDE 04-main-content.css */
@@ -96,17 +96,17 @@ body[data-route*="List"] .page-container {
 	padding-right: var(--spacing-md) !important;
 }
 
-/* Ensure page-form container has no left spacing - MINIMAL VERTICAL SPACING - MATCH PAGE-ACTIONS RIGHT PADDING */
+/* Ensure page-form container has proper left padding - MINIMAL VERTICAL SPACING - REDUCED RIGHT PADDING */
 body[data-route*="List"] .page-form,
 body[data-route*="List"] .page-form.flex,
 [data-page-route^="List"] .page-form {
-	padding-left: 0 !important;
+	padding-left: 8px !important;
 	margin-left: 0 !important;
 	margin-top: 0 !important;
-	padding: 2px 0 2px 0 !important;
+	padding: 2px 4px 2px 8px !important;
 	padding-top: 2px !important;
 	padding-bottom: 2px !important;
-	padding-right: 0 !important;
+	padding-right: 4px !important;
 }
 
 /* ============================================================
@@ -137,8 +137,9 @@ body[data-route*="List"] .page-form.flex,
 	flex-wrap: nowrap !important;
 	width: 100% !important;
 	max-width: none !important;
-	padding: 2px 12px 2px 0 !important;
-	padding-left: 0 !important;
+	padding: 2px 4px 2px 8px !important;
+	padding-left: 8px !important;
+	padding-right: 4px !important;
 	padding-top: 2px !important;
 	padding-bottom: 2px !important;
 	margin: 0 !important;
@@ -148,6 +149,8 @@ body[data-route*="List"] .page-form.flex,
 	min-height: 36px !important;
 	height: auto !important;
 	overflow: visible !important;
+	background: transparent !important;
+	background-color: transparent !important;
 }
 
 /* Override any col-* or grid restrictions */
@@ -194,6 +197,8 @@ body[data-route*="List"] .page-form.flex,
 	padding-left: 0 !important;
 	overflow: visible !important;
 	box-sizing: border-box !important;
+	background: transparent !important;
+	background-color: transparent !important;
 }
 
 /* Filter section - full width flex container - VISIBLE HEIGHT - NO OVERLAP - NO CLIPPING - MINIMAL SPACING */
@@ -218,6 +223,8 @@ body[data-route*="List"] .page-form.flex,
 	margin-bottom: 4px;
 	box-sizing: border-box;
 	position: relative;
+	background: transparent !important;
+	background-color: transparent !important;
 }
 
 /* Prevent filter section from overlapping table */
@@ -246,8 +253,8 @@ body[data-route*="List"] .page-form.flex,
 	height: 36px;
 	min-height: 36px;
 	max-height: none;
-	margin-right: 12px;
-	margin-left: 8px;
+	margin-right: 8px;
+	margin-left: 0;
 	margin-top: 0;
 	margin-bottom: 0;
 	padding: 0;
@@ -279,8 +286,8 @@ body[data-route*="List"] .page-form.flex,
 	height: 36px !important;
 	min-height: 36px !important;
 	max-height: none !important;
-	margin-right: 12px;
-	margin-left: 8px;
+	margin-right: 8px;
+	margin-left: 0;
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 	padding: 0 !important;
@@ -559,10 +566,11 @@ body[data-route*="List"] .page-form .form-group {
 	padding: 6px 12px !important;
 	border-radius: 6px !important;
 	line-height: 1.2 !important;
-	background: transparent !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
 	border: 1px solid #e2e8f0 !important;
 	color: var(--color-text-primary) !important;
-	box-shadow: none !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 	height: 36px !important;
 }
 
@@ -571,7 +579,8 @@ body[data-route*="List"] .page-form .form-group {
 .filter-section .sort-selector button:hover,
 .filter-section .filter-button:hover {
 	background: #f3f6fb !important;
-	border-color: var(--color-border) !important;
+	background-color: #f3f6fb !important;
+	border-color: var(--color-primary, #0066FF) !important;
 	color: var(--color-text-primary) !important;
 }
 
@@ -647,11 +656,20 @@ body[data-route*="List"] .page-form,
 
 /* Clear filters button styling (when present) */
 .filter-section .btn-clear-filters {
-	min-height: 34px !important;
+	min-height: 36px !important;
 	padding: 6px 12px !important;
 	border-radius: 6px !important;
-	background: transparent !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
 	border: 1px solid #e2e8f0 !important;
+	color: var(--color-text-primary) !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.filter-section .btn-clear-filters:hover {
+	background: #f3f6fb !important;
+	background-color: #f3f6fb !important;
+	border-color: var(--color-primary, #0066FF) !important;
 	color: var(--color-text-primary) !important;
 }
 
@@ -671,6 +689,128 @@ body[data-route*="List"] .page-form,
 .filter-section .btn-group+.btn-group,
 .filter-section .filter-button+.btn-group {
 	margin-left: 6px !important;
+}
+
+/* ============================================================
+   7. DATE RANGE FILTER - FROM DATE TO DATE
+   ============================================================ */
+
+/* Date range filter container */
+.filter-section .date-range-filter,
+.filter-section .date-filter-wrapper,
+.filter-section .form-group:has(.date-range-input),
+.filter-section .form-group:has(input[data-fieldtype="DateRange"]),
+.filter-section .form-group:has(.date-range-picker) {
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+	flex: 0 0 auto !important;
+	margin-left: 8px !important;
+	order: 1 !important;
+}
+
+/* Date range input fields */
+.filter-section .date-range-filter-wrapper input,
+.filter-section .date-range-filter-wrapper .date-range-from,
+.filter-section .date-range-filter-wrapper .date-range-to,
+.filter-section .date-range-filter input[type="date"],
+.filter-section .date-range-filter input[type="text"],
+.filter-section .date-range-filter input[data-fieldtype="Date"],
+.filter-section .date-range-filter .date-input,
+.filter-section input[data-fieldtype="DateRange"],
+.filter-section .date-range-picker input,
+.date-range-filter-wrapper input.form-control {
+	min-height: 36px !important;
+	height: 36px !important;
+	padding: 6px 12px 6px 12px !important;
+	border-radius: 6px !important;
+	border: 1px solid #e2e8f0 !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
+	color: var(--color-text-primary) !important;
+	font-size: var(--font-size-sm) !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+	min-width: 140px !important;
+	width: 140px !important;
+	cursor: text !important;
+}
+
+.filter-section .date-range-filter-wrapper input:focus,
+.filter-section .date-range-filter-wrapper .date-range-from:focus,
+.filter-section .date-range-filter-wrapper .date-range-to:focus,
+.filter-section .date-range-filter input[type="date"]:focus,
+.filter-section .date-range-filter input[type="text"]:focus,
+.filter-section .date-range-filter input[data-fieldtype="Date"]:focus,
+.filter-section .date-range-filter .date-input:focus,
+.filter-section input[data-fieldtype="DateRange"]:focus {
+	border-color: var(--color-primary, #0066FF) !important;
+	box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1) !important;
+	outline: none !important;
+}
+
+/* Date picker calendar icon - make it visible and clickable */
+.date-range-filter-wrapper .datepicker--button,
+.date-range-filter-wrapper .datepicker--button-close {
+	display: block !important;
+	cursor: pointer !important;
+}
+
+/* Ensure date picker calendar appears correctly */
+.date-range-filter-wrapper .datepicker,
+.date-range-filter-wrapper .datepicker-container {
+	z-index: 10000 !important;
+}
+
+/* Date input with calendar icon */
+.date-range-filter-wrapper input.form-control {
+	padding-right: 36px !important;
+	position: relative !important;
+}
+
+/* Calendar icon styling */
+.date-range-filter-wrapper .datepicker--button {
+	position: absolute !important;
+	right: 8px !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	cursor: pointer !important;
+	z-index: 10 !important;
+}
+
+/* Date range separator "to" */
+.filter-section .date-range-filter .date-separator,
+.filter-section .date-range-filter .to-label {
+	color: var(--color-text-secondary) !important;
+	font-size: var(--font-size-sm) !important;
+	margin: 0 4px !important;
+	white-space: nowrap !important;
+}
+
+/* Date range wrapper styling */
+.filter-section .date-range-wrapper,
+.page-actions .date-range-filter-wrapper,
+.page-form .date-range-filter-wrapper {
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+	padding: 0 !important;
+	background: transparent !important;
+}
+
+/* Date range filter in page-actions (top filters area) */
+.page-actions .date-range-filter-wrapper {
+	margin-left: 8px !important;
+	margin-right: 0 !important;
+	order: 1 !important;
+}
+
+/* Close button styling */
+.date-range-close-btn {
+	transition: all 0.2s ease !important;
+}
+
+.date-range-close-btn:hover {
+	transform: scale(1.05) !important;
 }
 
 /* Sort selector spacing - only when not at right end */

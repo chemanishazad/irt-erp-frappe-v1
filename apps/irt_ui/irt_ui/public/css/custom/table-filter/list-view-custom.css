@@ -172,12 +172,12 @@ body .frappe-list .list-row .list-row-col input[type="checkbox"].disabled-select
 body .frappe-list .list-row-col.actions,
 body[data-route*="List"] .frappe-list .list-row-col.actions {
 	display: flex !important;
-	justify-content: flex-end !important;
+	justify-content: center !important;
 	align-items: center !important;
-	padding: 0 12px !important;
+	padding: 1px 2px !important;
 	min-width: 90px !important;
 	flex-shrink: 0 !important;
-	text-align: right !important;
+	text-align: center !important;
 	background: transparent !important;
 	background-color: transparent !important;
 	border-left: none !important;
@@ -187,48 +187,32 @@ body[data-route*="List"] .frappe-list .list-row-col.actions {
 	border-right: none !important;
 }
 
-/* View button */
-.frappe-list .view-detail-btn {
+/* View button - White background, minimal padding, centered */
+.frappe-list .view-detail-btn,
+.frappe-list .view-detail-btn.btn,
+.frappe-list .view-detail-btn.btn-primary,
+.frappe-list .view-detail-btn.btn-sm,
+.frappe-list .list-row-col .view-detail-btn,
+.frappe-list .list-row .level-right .view-detail-btn {
+	padding: 1px 2px !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
+	color: var(--color-primary, #0066FF) !important;
+	border: none !important;
+	box-shadow: none !important;
+	text-decoration: none !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
-	padding: 5px 14px !important;
-	height: 28px !important;
-	min-height: 28px !important;
-	font-size: 12px !important;
-	font-weight: 600 !important;
-	letter-spacing: 0.3px !important;
-	border-radius: 0 !important;
-	background: var(--color-primary, #0066FF) !important;
-	color: #ffffff !important;
-	border: 1px solid var(--color-primary, #0066FF) !important;
-	cursor: pointer !important;
-	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-	white-space: nowrap !important;
-	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.15) !important;
+	margin: 0 auto !important;
 }
 
-.frappe-list .view-detail-btn:hover {
-	background: var(--color-primary-dark, #0052CC) !important;
-	border-color: var(--color-primary-dark, #0052CC) !important;
-	transform: translateY(-1px) !important;
-	box-shadow: 0 3px 6px rgba(0, 102, 255, 0.25) !important;
-}
-
-.frappe-list .view-detail-btn:active {
-	transform: translateY(0) !important;
-	box-shadow: 0 1px 2px rgba(0, 102, 255, 0.2) !important;
-	background: var(--color-primary-dark, #0052CC) !important;
-}
-
-.frappe-list .view-detail-btn:focus {
-	outline: none !important;
-	box-shadow: 0 0 0 3px var(--color-primary-rgba-20, rgba(0, 102, 255, 0.2)) !important;
-}
-
-.frappe-list .view-detail-btn span {
-	margin: 0 !important;
-	padding: 0 !important;
+.frappe-list .view-detail-btn:hover,
+.frappe-list .view-detail-btn.btn:hover {
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
+	color: var(--color-primary-dark, #0052CC) !important;
+	text-decoration: underline !important;
 }
 
 /* ============================================================
@@ -243,18 +227,18 @@ body[data-route*="List"] .list-row-head .list-row-col.actions-header {
 	visibility: visible !important;
 	opacity: 1 !important;
 	align-items: center !important;
-	justify-content: flex-start !important;
-	padding: 8px 12px !important;
+	justify-content: center !important;
+	padding: 1px 2px !important;
 	min-width: 90px !important;
 	flex-shrink: 0 !important;
 	font-size: 11px !important;
 	font-weight: 500 !important;
 	text-transform: uppercase !important;
 	letter-spacing: 0.3px !important;
-	color: var(--text-muted, #6c757d) !important;
-	text-align: left !important;
-	background: transparent !important;
-	background-color: transparent !important;
+	color: var(--color-primary, #0066FF) !important;
+	text-align: center !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
 	position: relative !important;
 	left: auto !important;
 	width: auto !important;
@@ -308,7 +292,7 @@ body[data-route*="List"] .list-row-head .list-row-col.actions-header {
 /* Ensure level-right container only shows Actions column */
 .frappe-list .list-row .level-right {
 	display: flex !important;
-	justify-content: flex-end !important;
+	justify-content: center !important;
 	align-items: center !important;
 	flex-shrink: 0 !important;
 	gap: 0 !important;
@@ -354,8 +338,7 @@ body[data-route*="List"] .list-row-head .list-row-col.actions-header {
 }
 
 /* Ensure level-left container itself is visible */
-.frappe-list .list-row .level-left,
-.frappe-list .list-row-head .level-left {
+.frappe-list .list-row .level-left {
 	display: flex !important;
 	visibility: visible !important;
 	opacity: 1 !important;
@@ -389,6 +372,8 @@ body .list-row-head .list-row-col:empty {
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 	align-self: stretch !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
 }
 
 /* Apply FULL vertical borders to ALL row data columns (including empty cells) - FULL HEIGHT - THIN LINES */
@@ -463,6 +448,8 @@ body[data-route*="List"] .list-row-head .level-right .list-row-col.actions-heade
 	border-right: none !important;
 	border-top: none !important;
 	border-bottom: none !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
 }
 
 /* Actions column in rows - NO left border (last data column already has right border) */
@@ -477,6 +464,13 @@ body[data-route*="List"] .frappe-list .list-row .level-right .list-row-col.actio
 	border-right: none !important;
 	border-top: none !important;
 	border-bottom: none !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
+	padding: 1px 2px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
 }
 
 /* Level-right container - NO left border (prevents double line) */
@@ -498,20 +492,40 @@ body .list-row-head .level-right {
 	min-height: 38px !important;
 }
 
-.frappe-list .list-row .level-left,
-.list-row-head .level-left {
+.frappe-list .list-row .level-left {
 	display: flex !important;
 	align-items: stretch !important;
 	height: 100% !important;
 	min-height: 100% !important;
 }
 
-.frappe-list .list-row .level-right,
+.list-row-head .level-left {
+	display: flex !important;
+	align-items: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
+}
+
+.frappe-list .list-row .level-right {
+	display: flex !important;
+	align-items: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	background-color: var(--color-bg-white, #ffffff) !important;
+	padding: 0 !important;
+}
+
 .list-row-head .level-right {
 	display: flex !important;
 	align-items: stretch !important;
 	height: 100% !important;
 	min-height: 100% !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
+	padding: 0 !important;
 }
 
 /* Horizontal row borders - THIN LAYER LINES */

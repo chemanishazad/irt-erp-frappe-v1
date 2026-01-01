@@ -60,7 +60,7 @@ body[data-route*="desk"] .container-xl {
 .page-content-wrapper {
 	width: 100%;
 	min-height: calc(100vh - var(--navbar-height, 56px));
-	background-color: var(--color-bg-white);
+	background-color: var(--color-gray-400, #9ca3af) !important;
 	padding: 0;
 }
 
@@ -69,7 +69,7 @@ body[data-route*="desk"] .container-xl {
    ============================================================ */
 
 .page-container {
-	background-color: var(--color-bg-white);
+	background-color: var(--color-gray-400, #9ca3af) !important;
 	width: 100% !important;
 	min-height: 100%;
 	padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg) var(--spacing-xl) !important;
@@ -118,9 +118,9 @@ body[data-route*="desk"] .container-xl {
 .layout-main-section {
 	width: 100% !important;
 	max-width: 100% !important;
-	background-color: transparent;
+	background-color: var(--color-gray-400, #9ca3af) !important;
 	border: none;
-	padding: 0 !important;
+	padding: 2px !important;
 	margin: 0 !important;
 }
 

@@ -43,13 +43,16 @@
 @import url('02-form-components/09-form-activity.css');
 @import url('02-form-components/10-hide-form-sidebar.css');
 
-/* ============================================
+   /* ============================================
       DATA DISPLAY (03-data-display/)
       ============================================ */
    @import url('03-data-display/09-tables-list-views.css');
    @import url('03-data-display/10-cards-panels.css');
    @import url('03-data-display/11-data-tables.css');
    @import url('03-data-display/12-child-tables-grids.css');
+   
+   /* Spreadsheet-like borders for list views */
+   @import url('table-filter/spreadsheet-borders.css');
    
    /* ============================================
       INTERACTIVE (04-interactive/)
@@ -120,6 +123,14 @@
    /* Ensure body and html don't clip dropdowns */
    body {
       overflow-x: hidden;
+      background-color: var(--color-gray-50, #9ca3af) !important;
+      background: var(--color-gray-50, #9ca3af) !important;
+   }
+   
+   /* Ensure html element also has grey400 background */
+   html {
+      background-color: var(--color-gray-50, #9ca3af) !important;
+      background: var(--color-gray-50, #9ca3af) !important;
    }
    
    /* Ensure main content doesn't create stacking context above navbar */

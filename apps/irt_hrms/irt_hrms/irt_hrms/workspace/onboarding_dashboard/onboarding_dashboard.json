@@ -1,0 +1,60 @@
+{
+ "app": "irt_hrms",
+ "charts": [],
+ "content": "[{\"id\":\"Dv2jxPpce7\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Onboarding stst JA\",\"col\":12}},{\"id\":\"iKncNQcNo8\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Onboarding Bar Chart JA\",\"col\":12}},{\"id\":\"ARYhu7ogy3\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Onboarding Recent Table ja\",\"col\":12}},{\"id\":\"2uZfhvSU5Q\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Onboaring Rejected Ja\",\"col\":12}},{\"id\":\"Q5eWHekat3\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Onboarding Recent Activuty JA\",\"col\":12}}]",
+ "creation": "2025-12-31 13:13:46.688336",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Onboaring Rejected Ja",
+   "label": "Onboaring Rejected Ja"
+  },
+  {
+   "custom_block_name": "Onboarding stst JA",
+   "label": "Onboarding stst JA"
+  },
+  {
+   "custom_block_name": "Onboarding Bar Chart JA",
+   "label": "Onboarding Bar Chart JA"
+  },
+  {
+   "custom_block_name": "Onboarding Recent Table ja",
+   "label": "Onboarding Recent Table ja"
+  },
+  {
+   "custom_block_name": "Onboarding Recent Activuty JA",
+   "label": "Onboarding Recent Activuty JA"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "clipboard-clock",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Onboarding Dashboard",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2026-01-01 19:07:25.684978",
+ "modified_by": "Administrator",
+ "module": "IRT HRMS",
+ "name": "Onboarding Dashboard",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "Junior Assistant"
+  }
+ ],
+ "sequence_id": 0.0,
+ "shortcuts": [],
+ "title": "Onboarding Dashboard",
+ "type": "Workspace"
+}

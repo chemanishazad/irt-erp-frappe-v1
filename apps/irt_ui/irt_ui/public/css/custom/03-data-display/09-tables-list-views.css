@@ -13,8 +13,11 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	background: var(--color-bg-white);
+	background: var(--color-bg-white, #ffffff) !important;
 	font-size: var(--font-size-base) !important;
+	padding: 2px !important;
+	border-radius: var(--radius-md, 8px) !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* ============================================================
@@ -28,7 +31,8 @@
 	max-height: calc(100vh - 220px);
 	width: 100%;
 	position: relative;
-	padding-right: 0; /* flush to the right */
+	padding: 2px !important;
+	background: var(--color-bg-white, #ffffff) !important;
 }
 
 /* ============================================================
@@ -61,10 +65,10 @@
 	display: flex;
 	align-items: center;
 	height: 36px;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
+	padding: 1px 2px !important;
 	
-	background: var(--color-bg-white, #ffffff) !important;
+	background: #e6f2ff !important;
+	background-color: #e6f2ff !important;
 	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
 	width: fit-content;     /* IMPORTANT */
 	min-width: 100%;        /* IMPORTANT */
@@ -91,15 +95,15 @@
 .frappe-list .list-row {
 	display: flex;
 	align-items: center;
-	height: 36px;
+	height: auto;
+	min-height: 36px;
 	
 	margin-right: 0; /* remove extra right gap */
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
+	padding: 1px 2px !important;
 	border-bottom: 1px solid var(--color-border-light, #e5e7eb);
-	background: var(--color-bg-white) !important;
+	background: var(--color-bg-white, #ffffff) !important;
 	width: fit-content;     /* IMPORTANT */
 	min-width: 100%;        /* IMPORTANT - full width without offset */
 	font-size: var(--font-size-sm) !important;
@@ -111,7 +115,7 @@
 
 .frappe-list .list-row-col,
 .list-row-head .list-row-col {
-	padding: 0 8px !important;
+	padding: 1px 2px !important;
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
@@ -200,7 +204,9 @@
 	align-items: center !important;
 	justify-content: space-between !important;
 	gap: 16px !important;
-	padding: 10px 20px !important;
+	padding: 8px 8px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
 	background: #ffffff !important;
 	border-top: 1px solid var(--color-gray-200, #e5e7eb) !important;
 	width: 100% !important;
@@ -499,8 +505,9 @@
 	height: auto !important;
 	min-height: auto !important;
 	max-height: none !important;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
+	padding: 2px !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	border-radius: var(--radius-md, 8px) !important;
 }
 
 /* ============================================================
