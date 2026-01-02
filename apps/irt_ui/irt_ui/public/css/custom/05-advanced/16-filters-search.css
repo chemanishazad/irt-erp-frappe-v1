@@ -210,7 +210,7 @@ body[data-route*="List"] .page-form.flex,
 	gap: 12px;
 	width: 100%;
 	flex: 1;
-	flex-wrap: nowrap;
+	flex-wrap: nowrap; /* Will be overridden by responsive media queries */
 	justify-content: flex-start;
 	min-height: 36px;
 	height: auto;
@@ -856,19 +856,127 @@ body[data-route*="List"] .page-form,
    8. RESPONSIVE
    ============================================================ */
 
+/* Tablet and below (768px) */
 @media (max-width: 768px) {
-
+	/* Override all base styles with higher specificity - must override flex-wrap: nowrap !important */
+	body[data-route*="List"] .page-form,
+	body[data-route*="List"] .page-form .filter-section,
+	body[data-route*="List"] .filter-section,
+	body[data-route*="List"] .standard-filter-section,
+	body[data-route*="List"] .page-head,
+	[data-page-route^="List"] .page-form,
+	[data-page-route^="List"] .page-form .filter-section,
+	[data-page-route^="List"] .filter-section,
 	.page-form,
 	.page-form .filter-section,
 	.filter-section {
 		flex-wrap: wrap !important;
 		white-space: normal !important;
+		gap: 8px !important;
+		flex-direction: row !important;
+	}
+	
+	/* Override the specific nowrap rules */
+	body[data-route*="List"] .page-head .row,
+	body[data-route*="List"] .page-head .col,
+	body[data-route*="List"] .page-head .form-group,
+	body[data-route*="List"] .page-form .row,
+	body[data-route*="List"] .page-form .col,
+	body[data-route*="List"] .page-form .form-group {
+		flex-wrap: wrap !important;
 	}
 
+	/* Search wrapper - full width on tablet - override inline styles */
+	body[data-route*="List"] .unified-search-wrapper,
+	[data-page-route^="List"] .unified-search-wrapper,
+	.filter-section .unified-search-wrapper,
+	.standard-filter-section .unified-search-wrapper,
+	.page-form .unified-search-wrapper,
 	.unified-search-wrapper {
 		order: 0 !important;
 		width: 100% !important;
-		margin-bottom: 10px !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		margin-bottom: 8px !important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+	}
+	
+	/* Force override inline styles set by JavaScript */
+	body[data-route*="List"] .unified-search-wrapper[style*="min-width"],
+	[data-page-route^="List"] .unified-search-wrapper[style*="min-width"],
+	.filter-section .unified-search-wrapper[style*="min-width"],
+	.unified-search-wrapper[style*="min-width"] {
+		min-width: 100% !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+
+	body[data-route*="List"] .unified-search-input,
+	[data-page-route^="List"] .unified-search-input,
+	.filter-section .unified-search-input,
+	.unified-search-input {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+	}
+	
+	/* Override any inline styles or base width constraints */
+	body[data-route*="List"] .unified-search-wrapper *,
+	[data-page-route^="List"] .unified-search-wrapper *,
+	.filter-section .unified-search-wrapper * {
+		max-width: 100% !important;
+	}
+
+	/* Date range filter - full width on tablet */
+	body[data-route*="List"] .date-range-filter-wrapper,
+	[data-page-route^="List"] .date-range-filter-wrapper,
+	.filter-section .date-range-filter-wrapper,
+	.standard-filter-section .date-range-filter-wrapper,
+	.page-form .date-range-filter-wrapper,
+	.date-range-filter-wrapper {
+		order: 1 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		margin-bottom: 8px !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+		display: flex !important;
+		flex-wrap: wrap !important;
+		flex-direction: row !important;
+		gap: 8px !important;
+		align-items: center !important;
+	}
+
+	.date-range-filter-wrapper .date-range-from-wrapper,
+	.date-range-filter-wrapper .date-range-to-wrapper {
+		flex: 1 1 calc(50% - 4px) !important;
+		min-width: 0 !important;
+		max-width: calc(50% - 4px) !important;
+	}
+
+	.date-range-filter-wrapper .date-range-from,
+	.date-range-filter-wrapper .date-range-to {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
+	}
+
+	.date-range-filter-wrapper .date-separator {
+		display: none !important;
+	}
+
+	.date-range-filter-wrapper .date-range-close-btn {
+		flex: 0 0 auto !important;
+		margin-left: auto !important;
+		width: auto !important;
 	}
 
 	.filter-section .btn-group,
@@ -876,8 +984,181 @@ body[data-route*="List"] .page-form,
 	.filter-section button,
 	.filter-section .sort-selector,
 	.filter-section .filter-button {
-		order: 1 !important;
+		order: 2 !important;
+		flex: 0 0 auto !important;
 	}
 
 	/* Pagination responsive styles handled in 09-tables-list-views.css */
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 576px) {
+	/* Override all base styles with higher specificity - must override flex-wrap: nowrap !important */
+	body[data-route*="List"] .page-form,
+	body[data-route*="List"] .page-form .filter-section,
+	body[data-route*="List"] .filter-section,
+	body[data-route*="List"] .standard-filter-section,
+	body[data-route*="List"] .page-head,
+	[data-page-route^="List"] .page-form,
+	[data-page-route^="List"] .page-form .filter-section,
+	[data-page-route^="List"] .filter-section,
+	.page-form,
+	.page-form .filter-section,
+	.filter-section {
+		flex-direction: column !important;
+		align-items: stretch !important;
+		gap: 8px !important;
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+		flex-wrap: wrap !important;
+	}
+	
+	/* Override the specific nowrap rules */
+	body[data-route*="List"] .page-head .row,
+	body[data-route*="List"] .page-head .col,
+	body[data-route*="List"] .page-head .form-group,
+	body[data-route*="List"] .page-form .row,
+	body[data-route*="List"] .page-form .col,
+	body[data-route*="List"] .page-form .form-group {
+		flex-wrap: wrap !important;
+		flex-direction: column !important;
+	}
+
+	/* Search wrapper - full width on mobile - override inline styles */
+	body[data-route*="List"] .unified-search-wrapper,
+	[data-page-route^="List"] .unified-search-wrapper,
+	.filter-section .unified-search-wrapper,
+	.standard-filter-section .unified-search-wrapper,
+	.page-form .unified-search-wrapper,
+	.unified-search-wrapper {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		margin-bottom: 8px !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		order: 0 !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+	}
+	
+	/* Force override inline styles set by JavaScript */
+	body[data-route*="List"] .unified-search-wrapper[style*="min-width"],
+	[data-page-route^="List"] .unified-search-wrapper[style*="min-width"],
+	.filter-section .unified-search-wrapper[style*="min-width"],
+	.unified-search-wrapper[style*="min-width"] {
+		min-width: 100% !important;
+		max-width: 100% !important;
+		width: 100% !important;
+		flex: 1 1 100% !important;
+	}
+
+	body[data-route*="List"] .unified-search-input,
+	[data-page-route^="List"] .unified-search-input,
+	.filter-section .unified-search-input,
+	.unified-search-input {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+		font-size: 16px !important; /* Prevents zoom on iOS */
+	}
+	
+	/* Override any inline styles or base width constraints */
+	body[data-route*="List"] .unified-search-wrapper *,
+	[data-page-route^="List"] .unified-search-wrapper *,
+	.filter-section .unified-search-wrapper * {
+		max-width: 100% !important;
+		min-width: 0 !important;
+	}
+
+	/* Date range filter - stack vertically on mobile */
+	body[data-route*="List"] .date-range-filter-wrapper,
+	[data-page-route^="List"] .date-range-filter-wrapper,
+	.filter-section .date-range-filter-wrapper,
+	.standard-filter-section .date-range-filter-wrapper,
+	.page-form .date-range-filter-wrapper,
+	.date-range-filter-wrapper {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		margin-bottom: 8px !important;
+		order: 1 !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+		gap: 8px !important;
+		flex: 1 1 100% !important;
+		flex-basis: 100% !important;
+	}
+
+	.date-range-filter-wrapper .date-range-from-wrapper,
+	.date-range-filter-wrapper .date-range-to-wrapper {
+		width: 100% !important;
+		flex: 1 1 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+	}
+
+	.date-range-filter-wrapper .date-range-from,
+	.date-range-filter-wrapper .date-range-to {
+		width: 100% !important;
+		min-width: 100% !important;
+		max-width: 100% !important;
+		font-size: 16px !important; /* Prevents zoom on iOS */
+	}
+
+	.date-range-filter-wrapper .date-separator {
+		display: none !important;
+	}
+
+	.date-range-filter-wrapper .date-range-close-btn {
+		width: 100% !important;
+		margin-left: 0 !important;
+		margin-top: 4px !important;
+		flex: 1 1 100% !important;
+	}
+
+	.filter-section .btn-group,
+	.filter-section .btn,
+	.filter-section button,
+	.filter-section .sort-selector {
+		width: 100% !important;
+		margin-bottom: 4px !important;
+		order: 2 !important;
+		flex: 1 1 100% !important;
+	}
+
+	.filter-section .btn-group {
+		width: 100% !important;
+		display: flex !important;
+		flex-direction: column !important;
+		flex-wrap: wrap !important;
+	}
+
+	.filter-section .btn-group .btn {
+		width: 100% !important;
+		margin-bottom: 4px !important;
+		flex: 1 1 100% !important;
+	}
+}
+
+/* Small mobile (480px and below) */
+@media (max-width: 480px) {
+	.unified-search-wrapper {
+		min-width: 100% !important;
+	}
+
+	.unified-search-input {
+		padding-left: 32px !important;
+		font-size: 16px !important;
+	}
+
+	.date-range-filter-wrapper .date-range-from,
+	.date-range-filter-wrapper .date-range-to {
+		font-size: 16px !important;
+		padding: 8px 10px !important;
+	}
 }

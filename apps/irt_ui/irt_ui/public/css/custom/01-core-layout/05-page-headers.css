@@ -39,7 +39,7 @@
 	position: sticky;
 	top: var(--navbar-height, 56px);
 	z-index: 9999;
-	background-color: #ffffff !important;
+	background-color: transparent !important;
 	border: 0;
 	box-shadow: none;
 	padding-top: 0 !important;
@@ -67,12 +67,12 @@
 	padding-bottom: 0 !important;
 }
 
-/* Single consolidated rule for all page-head elements - white background */
+/* Single consolidated rule for all page-head elements - transparent background */
 .page-head .container,
 .page-head .container-fluid,
 .page-head > div,
 .page-head .container > div {
-	background-color: #ffffff !important;
+	background-color: transparent !important;
 }
 
 /* Page head content and its children transparent */
@@ -137,15 +137,15 @@ button:has(.es-icon.icon-md),
 	margin-left: 0 !important;
 }
 
-/* Tabs white background */
+/* Tabs transparent background */
 .page-head .form-tabs-list,
 .page-head .form-tabs,
 .page-head .nav-tabs {
-	background-color: #ffffff !important;
+	background-color: transparent !important;
 }
 
 .page-head .form-tabs-list .form-tabs .nav-item .nav-link.active {
-	background-color: #ffffff !important;
+	background-color: var(--color-bg-white) !important;
 }
 
 /* ============================================================

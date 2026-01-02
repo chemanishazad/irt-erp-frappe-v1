@@ -66,10 +66,8 @@ body .section-body {
 }
 
 /* Remove grey background from tab panes and form containers */
-.tab-pane,
-.form-section.card-section,
-.form-dashboard-section.card-section {
-  background-color: var(--color-bg-white) !important;
+.tab-pane {
+  background-color: transparent !important;
   max-width: 100% !important;
   width: 100% !important;
 }
@@ -190,12 +188,35 @@ html body .form-section .section-body .select-dropdown ul li.selected {
    FORM SECTIONS
    ============================================ */
 
+/* Form sections - left margin only, no right margin */
 .form-section,
 .form-dashboard-section {
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+  margin-left: var(--spacing-xl) !important;
+  margin-right: 0 !important;
+  margin-top: 0;
   padding: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   background-color: var(--color-bg-white) !important;
+  border-radius: var(--radius-md);
   border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Force margins - override any conflicting styles */
+body[data-route*="Form"] .form-section,
+body[data-route*="Form"] .form-dashboard-section,
+body[data-route*="form"] .form-section,
+body[data-route*="form"] .form-dashboard-section,
+.std-form-layout .form-section,
+.std-form-layout .form-dashboard-section,
+.form-layout .form-section,
+.form-layout .form-dashboard-section,
+.form-page .form-section,
+.form-page .form-dashboard-section {
+  margin-left: var(--spacing-md) !important;
+  margin-right: 0 !important;
 }
 
 .form-section.card-section,
@@ -221,18 +242,12 @@ html body .form-section .section-body .select-dropdown ul li.selected {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-md);
-  margin-top: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-sm);
-  padding-left: 30px;
-  padding-right: 30px;
+  
+  padding-left: var(--spacing-2xl) !important;
+  padding-right: var(--spacing-2xl) !important;
   font-size: var(--font-size-lg) !important;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  background: transparent;
-  border: none;
-  cursor: default;
+ 
 }
 
 /* Section descriptions/subtitles - smaller font */
@@ -247,14 +262,14 @@ html body .form-section .section-body .select-dropdown ul li.selected {
 .form-section:first-child,
 .form-dashboard-section:first-child {
   border-top: none;
-  margin-top: 0;
+  margin-top: var(--spacing-xl) !important;
   padding-top: 0;
 }
 
 .form-section:first-child .section-head,
 .form-dashboard-section:first-child .section-head {
   margin-top: 0;
-  padding-top: 0;
+  padding-top: var(--spacing-md);
 }
 
 .form-section:not(:has(.section-head)),
@@ -292,24 +307,19 @@ html body .form-section .section-body .select-dropdown ul li.selected {
   transform: rotate(-90deg);
 }
 
-/* Section Body - Minimal - Add proper left padding - Remove grey background */
+/* Section Body - Minimal - Add proper left padding - White background */
 .form-section .section-body,
 .form-dashboard-section .section-body {
-  padding-top: var(--spacing-md);
-  padding-bottom: var(--spacing-md);
-  padding-left: 30px;
-  padding-right: 30px;
+ 
+  padding-right: var(--spacing-2xl) !important;
+  padding-left: var(--spacing-2xl) !important;
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
-  border: none;
-  background-color: var(--color-bg-white) !important;
-  max-width: 100% !important;
-  width: 100% !important;
+ 
 }
 .form-dashboard-section .section-body {
   display: block;
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-2xl) !important;
 }
 
 .form-section.collapsed .section-body,
@@ -429,7 +439,7 @@ html body .form-section .section-body .select-dropdown ul li.selected {
 
 .form-tabs-list {
   position: sticky;
-  background-color: var(--color-bg-white);
+  background-color: transparent !important;
   z-index: 100;
   border-bottom: none;
   margin-bottom: var(--spacing-xs);
@@ -438,11 +448,13 @@ html body .form-section .section-body .select-dropdown ul li.selected {
   justify-content: flex-start;
   align-items: center;
   gap: var(--spacing-xs);
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
 .form-tabs-list.form-tabs-sticky-up {
   top: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: none !important;
 }
 
 
@@ -520,21 +532,31 @@ html body .form-section .section-body .select-dropdown ul li.selected {
 .form-page {
   width: 100%;
   max-width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: var(--color-bg-white) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  background-color: transparent !important;
 }
 
 .std-form-layout > .form-layout > .form-page {
   box-shadow: none;
-  background-color: var(--color-bg-white) !important;
+  background-color: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* Remove grey background from form containers */
 .std-form-layout,
 .form-layout-wrapper,
 .form-container-wrapper {
-  background-color: var(--color-bg-white) !important;
+  background-color: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* ============================================
@@ -675,9 +697,21 @@ html body .form-section .section-body .select-dropdown ul li.selected {
     padding: 0 var(--spacing-xs);
   }
 
+  .form-section,
+  .form-dashboard-section {
+    margin-left: var(--spacing-md) !important;
+    margin-right: 0 !important;
+  }
+
+  .form-section .section-head,
+  .form-dashboard-section .section-head {
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
+  }
+
   .form-section .section-body {
-    padding-left: 0 !important;
-    padding-right: var(--spacing-sm);
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
   }
 }
 
@@ -685,13 +719,18 @@ html body .form-section .section-body .select-dropdown ul li.selected {
   .form-section,
   .form-dashboard-section {
     margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-sm) !important;
+    margin-right: 0 !important;
   }
 
   .form-section .section-head,
   .form-dashboard-section .section-head {
-    padding: 0 var(--spacing-xs);
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
     font-size: var(--font-size-base);
-    margin-top: var(--spacing-md);
+    margin-top: 0;
   }
 
   .form-tabs-list.form-tabs-sticky-up,
@@ -713,10 +752,12 @@ html body .form-section .section-body .select-dropdown ul li.selected {
     padding-right: 0;
   }
 
-  .form-section .section-body {
-    padding-left: var(--spacing-xs);
-    padding-right: var(--spacing-xs);
-    padding-top: 0;
+  .form-section .section-body,
+  .form-dashboard-section .section-body {
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
   }
 
   .field-group {
@@ -734,9 +775,22 @@ html body .form-section .section-body .select-dropdown ul li.selected {
 }
 
 @media (max-width: 576px) {
-  .form-section .section-body {
-    padding-left: var(--spacing-xs);
-    padding-right: var(--spacing-xs);
+  .form-section,
+  .form-dashboard-section {
+    margin-left: var(--spacing-xs) !important;
+    margin-right: 0 !important;
+  }
+
+  .form-section .section-head,
+  .form-dashboard-section .section-head {
+    padding-left: var(--spacing-sm) !important;
+    padding-right: var(--spacing-sm) !important;
+  }
+
+  .form-section .section-body,
+  .form-dashboard-section .section-body {
+    padding-left: var(--spacing-sm) !important;
+    padding-right: var(--spacing-sm) !important;
   }
 
   .form-column .frappe-control,
@@ -774,6 +828,75 @@ html body .form-section .section-body .select-dropdown ul li.selected {
 .nav-tabs .nav-item[data-label*="Comment"] .nav-link,
 .nav-tabs .nav-item[data-label*="comment"] .nav-link {
   display: none;
+}
+
+/* ============================================
+   HIDE ACTIVITY TAB AND DOT INDICATORS
+   ============================================ */
+
+/* Hide Activity tab completely - using attribute selectors */
+.nav-item[data-custom-activity-tab="1"],
+.nav-item[data-custom-activity-tab],
+.nav-item:has(a[href*="activity"]),
+.nav-item:has(a[href*="Activity"]),
+.nav-item:has(a[href="#activity_tab"]),
+.form-tabs .nav-item:has(a[href*="activity"]),
+.form-tabs .nav-item:has(a[href*="Activity"]),
+.form-tabs-list .nav-item:has(a[href*="activity"]),
+.form-tabs-list .nav-item:has(a[href*="Activity"]),
+.nav-tabs .nav-item:has(a[href*="activity"]),
+.nav-tabs .nav-item:has(a[href*="Activity"]),
+a.nav-link[href*="activity"],
+a.nav-link[href*="Activity"],
+a.nav-link[href="#activity_tab"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide Activity tab pane */
+.tab-pane#activity_tab,
+.tab-pane[id*="activity_tab"],
+.tab-pane[id*="activity-tab"],
+div#activity_tab,
+div[id*="activity_tab"],
+div[id*="activity-tab"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide dot indicators, badges, notification dots */
+.nav-item .badge,
+.nav-link .badge,
+.nav-item .dot,
+.nav-link .dot,
+.form-tabs .badge,
+.form-tabs .dot,
+.form-tabs-list .badge,
+.form-tabs-list .dot,
+.nav-tabs .badge,
+.nav-tabs .dot,
+.nav-item [class*="indicator"],
+.nav-link [class*="indicator"],
+.nav-item [class*="notification"],
+.nav-link [class*="notification"],
+.nav-item [class*="badge"],
+.nav-link [class*="badge"],
+.nav-item [class*="dot"],
+.nav-link [class*="dot"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
 /* ============================================

@@ -215,6 +215,8 @@
 	background: var(--color-bg-white, #ffffff) !important;
 	margin-top: 2px !important;
 	margin-bottom: 2px !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 }
 
 .form-grid .grid-row .col {
@@ -234,6 +236,8 @@
 .section-body .form-grid {
 	margin-top: 2px !important;
 	margin-bottom: 2px !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 }
 
 /* ============================================================
@@ -292,8 +296,12 @@
 .form-section {
 	margin-top: 4px !important;
 	margin-bottom: 4px !important;
+	margin-left: var(--spacing-xl) !important;
+	margin-right: var(--spacing-xl) !important;
 	padding-top: 2px !important;
 	padding-bottom: 2px !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 .section-body {
@@ -317,7 +325,7 @@
 
 /* Reduce spacing between sections */
 .form-section + .form-section {
-	margin-top: 8px !important;
+	margin-top: var(--spacing-md) !important;
 }
 
 /* ============================================================

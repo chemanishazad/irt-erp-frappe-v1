@@ -105,8 +105,8 @@
 			position: 'relative !important',
 			left: 'auto !important',
 			width: 'auto !important',
-			minWidth: '150px !important',
-			flex: '1.5 !important'
+			minWidth: '0 !important',
+			flex: '1.5 1 auto !important'
 		});
 
 		// Optimize level-left check - only process if needed
@@ -123,7 +123,8 @@
 						position: 'relative !important',
 						left: 'auto !important',
 						width: 'auto !important',
-						minWidth: '150px !important'
+						minWidth: '0 !important',
+						flex: '1 1 auto !important'
 					});
 				}
 			});
@@ -243,8 +244,8 @@
 				alignItems: 'center !important',
 				justifyContent: 'flex-start !important',
 				padding: '8px 12px !important',
-				minWidth: '90px !important',
-				flexShrink: '0 !important',
+				minWidth: '0 !important',
+				flex: '0 0 auto !important',
 				fontSize: '11px !important',
 				fontWeight: '500 !important',
 				textTransform: 'uppercase !important',

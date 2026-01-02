@@ -56,8 +56,8 @@
 /* Force grey100 background on html and body */
 html,
 body {
-	background-color: var(--color-gray-100, #9ca3af) !important;
-	background: var(--color-gray-100, #9ca3af) !important;
+	background-color: var(--color-gray-100, #f3f4f6) !important;
+	background: var(--color-gray-100, #f3f4f6) !important;
 }
 
 /* Ensure main content areas use grey100 */
@@ -66,13 +66,14 @@ body {
 .layout-main-section-wrapper,
 .layout-main-section,
 .page-container,
-.page-body {
-	background-color: var(--color-gray-100, #9ca3af) !important;
-	background: var(--color-gray-100, #9ca3af) !important;
+.page-body,
+.main-section {
+	background-color: var(--color-gray-100, #f3f4f6) !important;
+	background: var(--color-gray-100, #f3f4f6) !important;
 }
 
 /* Override Frappe's --bg-color variable to use grey100 */
 :root {
-	--bg-color: var(--color-gray-100, #9ca3af) !important;
+	--bg-color: var(--color-gray-100, #f3f4f6) !important;
 }
 

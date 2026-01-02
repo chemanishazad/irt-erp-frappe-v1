@@ -1,7 +1,12 @@
 /**
- * List View — Proper Width & Column Cleanup
- * UI only | Logic unchanged
- * Uses --font-scale from variables.css for sizing
+ * List View — Complete Styles
+ * Merged from list-view-custom.css and 09-tables-list-views.css
+ * - Removes all curves (border-radius: 0)
+ * - Hides checkbox column
+ * - Disables cell selection
+ * - Styles View button and Actions column
+ * - Column-wise borders
+ * - Pagination styling
  */
 
 /* ============================================================
@@ -13,11 +18,17 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	background: var(--color-bg-white, #ffffff) !important;
+	max-width: 100%;
+	background: var(--color-gray-100,) !important;
 	font-size: var(--font-size-base) !important;
-	padding: 2px !important;
-	border-radius: var(--radius-md, 8px) !important;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+	margin: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	border-left: 1px solid #94a3b8 !important;
+	border-right: 1px solid #94a3b8 !important;
+	box-sizing: border-box !important;
+	border-top: 1px solid #94a3b8 !important;
+	border-bottom: 1px solid #94a3b8 !important;
 }
 
 /* ============================================================
@@ -26,17 +37,47 @@
 
 .frappe-list .result {
 	flex: 1;
-	overflow-x: auto;
-	overflow-y: auto;
 	max-height: calc(100vh - 220px);
 	width: 100%;
-	position: relative;
-	padding: 2px !important;
+	max-width: 100%;
+	padding: 0 !important;
 	background: var(--color-bg-white, #ffffff) !important;
+	border-radius: 0 !important;
+	overflow-x: auto !important;
+	overflow-y: auto !important;
+	position: relative !important;
+	-webkit-overflow-scrolling: touch !important;
+}
+
+.frappe-list .result-container {
+	padding: 0 !important;
+	width: max-content !important;
+	min-width: 100% !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	border-radius: 0 !important;
+}
+
+/* Rows - allow horizontal expansion for scrolling */
+.frappe-list .list-row,
+.list-row-head {
+	width: max-content !important;
+	min-width: 100% !important;
+	display: flex !important;
+	flex-wrap: nowrap !important;
+}
+
+/* Remove border-radius from all table elements */
+.frappe-list .list-row-head,
+.frappe-list .list-row,
+.frappe-list .list-row-col,
+.frappe-list .list-row-container,
+.frappe-list .level-left,
+.frappe-list .level-right {
+	border-radius: 0 !important;
 }
 
 /* ============================================================
-   PAGE HEADER (UNCHANGED)
+   PAGE HEADER
    ============================================================ */
 
 .page-head,
@@ -51,30 +92,8 @@
 .page-title .title-text {
 	font-size: var(--font-size-3xl) !important;
 	font-weight: 700;
-	padding: 12px 0;
-}
-
-/* ============================================================
-   LIST HEADER
-   ============================================================ */
-
-.list-row-head {
-	position: sticky;
-	top: 0;
-	z-index: 80;
-	display: flex;
-	align-items: center;
-	height: 36px;
-	padding: 1px 2px !important;
-	
-	background: #e6f2ff !important;
-	background-color: #e6f2ff !important;
-	border-bottom: 2px solid var(--color-primary, #0066FF) !important;
-	width: fit-content;     /* IMPORTANT */
-	min-width: 100%;        /* IMPORTANT */
-	font-size: var(--font-size-sm) !important;
-	font-weight: var(--font-weight-semibold) !important;
-	color: var(--color-primary, #0066FF) !important;
+	padding: 0 0 8px 0 !important;
+	margin-bottom: 0 !important;
 }
 
 /* Ensure page actions dropdown appears above table headers */
@@ -86,59 +105,167 @@
 	overflow: visible !important;
 }
 
-/* Removed custom dropdown styling - use Frappe defaults */
+/* ============================================================
+   PAGE ACTIONS BUTTONS - MATCH VIEW BUTTON THEME
+   ============================================================ */
+
+/* Page actions buttons - use default Frappe styling (revert to original design) */
+
+/* ============================================================
+   LIST HEADER
+   ============================================================ */
+
+.list-row-head {
+	position: sticky !important;
+	top: 0 !important;
+	z-index: 80 !important;
+	display: flex !important;
+	align-items: stretch !important;
+	min-height: 38px !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	width: max-content !important;
+	min-width: 100% !important;
+	background: #e6f2ff !important;
+	border-top: 1px solid #cbd5e1 !important;
+	border-bottom: 2px solid #6387bb !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-semibold) !important;
+	flex-shrink: 0 !important;
+}
+
+.list-row-head .level-left {
+	display: flex !important;
+	align-items: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	background: #e6f2ff !important;
+	box-sizing: border-box !important;
+	flex-shrink: 0 !important;
+	margin-right: 0 !important;
+	padding-right: 0 !important;
+	gap: 0 !important;
+	width: max-content !important;
+}
+
+.list-row-head .level-right {
+	display: flex !important;
+	align-items: stretch !important;
+	flex-shrink: 0 !important;
+	gap: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	position: sticky !important;
+	right: 0 !important;
+	z-index: 11 !important;
+	background: #e6f2ff !important;
+}
 
 /* ============================================================
    LIST ROWS
    ============================================================ */
 
 .frappe-list .list-row {
-	display: flex;
-	align-items: center;
-	height: auto;
-	min-height: 36px;
-	
-	margin-right: 0; /* remove extra right gap */
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-	padding: 1px 2px !important;
-	border-bottom: 1px solid var(--color-border-light, #e5e7eb);
+	display: flex !important;
+	align-items: stretch !important;
+	min-height: 38px !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	width: max-content !important;
+	min-width: 100% !important;
 	background: var(--color-bg-white, #ffffff) !important;
-	width: fit-content;     /* IMPORTANT */
-	min-width: 100%;        /* IMPORTANT - full width without offset */
 	font-size: var(--font-size-sm) !important;
+	border-top: 1px solid #cbd5e1 !important;
+	border-bottom: 1px solid #cbd5e1 !important;
+	flex-shrink: 0 !important;
+}
+
+.frappe-list .list-row:last-child {
+	border-bottom: 1px solid #cbd5e1 !important;
+}
+
+.frappe-list .list-row .level-left {
+	display: flex !important;
+	align-items: stretch !important;
+	flex-shrink: 0 !important;
+	gap: 0 !important;
+	width: max-content !important;
+}
+
+.frappe-list .list-row .level-right {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: stretch !important;
+	flex-shrink: 0 !important;
+	gap: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	position: sticky !important;
+	right: 0 !important;
+	z-index: 10 !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	box-shadow: inset 1px 0 0 0 #cbd5e1 !important;
+}
+
+/* Hide level-right completely if it has no actions column */
+.frappe-list .list-row .level-right:not(:has(.list-row-col.actions)) {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
 }
 
 /* ============================================================
-   LIST COLUMNS (RECALCULATED)
+   LIST COLUMNS
    ============================================================ */
+
+/* Remove bottom padding from all cells */
+.frappe-list .list-row-col *,
+.list-row-head .list-row-col * {
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+}
 
 .frappe-list .list-row-col,
 .list-row-head .list-row-col {
-	padding: 1px 2px !important;
+	padding: 4px 8px !important;
+	padding-bottom: 0 !important;
+	margin: 0 !important;
+	margin-bottom: 0 !important;
 	display: flex;
-	align-items: center;
+	align-items: stretch !important;
 	white-space: nowrap;
-	min-width: 140px;
-	flex: 0 0 auto;
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
+	align-self: stretch !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	max-height: 100% !important;
+	box-sizing: border-box !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
 }
 
-/* First column (checkbox + ID) */
+/* First column (checkbox + ID) - flexible */
 .list-row-col:first-child {
-	min-width: 60px;
+	min-width: 0 !important;
+	flex: 0 1 auto !important;
 }
 
-/* Status */
+/* Status - flexible */
 .frappe-list .list-row-col.status,
 .list-row-head .list-row-col.status {
-	min-width: 140px;
+	min-width: 0 !important;
+	flex: 0 1 auto !important;
 	justify-content: center;
 }
 
-/* Changed By */
+/* Changed By - flexible */
 .frappe-list .list-row-col.changed_by,
 .list-row-head .list-row-col.changed_by {
-	min-width: 200px;
+	min-width: 0 !important;
+	flex: 0 1 auto !important;
 	white-space: normal;
 }
 
@@ -150,35 +277,118 @@
 	white-space: normal !important;
 	word-wrap: break-word !important;
 	overflow: visible !important;
-	max-width: 400px !important;
-	min-width: 200px !important;
+	max-width: none !important;
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
 	line-height: 1.4 !important;
 	padding: 4px 8px !important;
+	padding-bottom: 0 !important;
+	margin: 0 !important;
+	margin-bottom: 0 !important;
 	min-height: 40px !important;
 	height: auto !important;
 	display: flex !important;
 	align-items: flex-start !important;
+	align-self: stretch !important;
+}
+
+/* Make sure subject/first data column is visible - flexible */
+.frappe-list .list-row-col.list-subject {
+	min-width: 0 !important;
+	flex: 1.5 1 auto !important;
+}
+
+/* Ensure first visible column in level-left is visible - flexible */
+.frappe-list .list-row .level-left .list-row-col:not(.select-like):not(.checkbox-actions):first-child,
+.frappe-list .list-row-head .level-left .list-row-col:not(.select-like):not(.checkbox-actions):first-child {
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
 }
 
 /* ============================================================
-   REMOVE RIGHT-END COLUMNS COMPLETELY
+   HIDE CHECKBOX COLUMN
    ============================================================ */
 
-/* Header */
+/* Hide checkbox column header - ONLY hide select-like elements, NOT first data column */
+.list-row-head .select-like,
+.list-row-head .checkbox-actions,
+.list-row-head .level-item.select-like {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	flex: 0 !important;
+}
+
+/* Hide checkbox column in rows - ONLY hide select-like elements, NOT first data column */
+.frappe-list .list-row .select-like,
+.frappe-list .list-row .checkbox-actions,
+.frappe-list .list-row .level-item.select-like {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+	flex: 0 !important;
+}
+
+/* Hide only selection checkboxes (bulk selection column), NOT data cell checkboxes */
+.frappe-list .list-row-checkbox,
+.frappe-list .list-check-all,
+.list-row-head .select-like input[type="checkbox"],
+.frappe-list .list-row .select-like input[type="checkbox"],
+.list-row-head .checkbox-actions input[type="checkbox"],
+.frappe-list .list-row .checkbox-actions input[type="checkbox"],
+.list-row-head .level-item.select-like input[type="checkbox"],
+.frappe-list .list-row .level-item.select-like input[type="checkbox"] {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+}
+
+/* Ensure data cell checkboxes are visible */
+.frappe-list .list-row-col input[type="checkbox"] {
+	display: inline-block !important;
+}
+
+/* Ensure checked state is visible for table checkboxes */
+.frappe-list .list-row-col input[type="checkbox"]:checked,
+.frappe-list .list-row-col input[type="checkbox"][checked],
+.frappe-list .list-row-col input[type="checkbox"].disabled-selected {
+	background-color: #0066FF !important;
+	border: none !important;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, #0066FF -124.51%, #0066FF 100%) !important;
+	background-size: 57%, 100% !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+}
+
+/* ============================================================
+   REMOVE RIGHT-END COLUMNS (EXCEPT ACTIONS)
+   ============================================================ */
+
+/* Header - hide like, comment, modified, creation columns */
 .list-row-head .list-row-col.like,
 .list-row-head .list-row-col.comment,
 .list-row-head .list-row-col.modified,
-.list-row-head .list-row-col.creation,
-.list-row-head .level-right {
+.list-row-head .list-row-col.creation {
 	display: none !important;
 }
 
-/* Rows */
+/* Rows - hide like, comment, modified, creation columns */
 .frappe-list .list-row-col.like,
 .frappe-list .list-row-col.comment,
 .frappe-list .list-row-col.modified,
-.frappe-list .list-row-col.creation,
-.frappe-list .level-right {
+.frappe-list .list-row-col.creation {
 	display: none !important;
 }
 
@@ -191,9 +401,250 @@
 	display: none !important;
 }
 
+/* Hide unwanted right-end elements (but keep actions) */
+.frappe-list .list-row .level-right .list-count,
+.frappe-list .list-row-head .level-right .list-count,
+.frappe-list .list-row .level-right .list-liked-by-me,
+.frappe-list .list-row-head .level-right .list-liked-by-me,
+.frappe-list .list-row .level-right .list-row-activity,
+.frappe-list .list-row-head .level-right .list-row-activity,
+.frappe-list .list-row .level-right .level-item:not(.actions):not(.list-row-col.actions),
+.frappe-list .list-row-head .level-right .level-item:not(.actions-header):not(.list-row-col.actions-header):not(.list-row-col.actions) {
+	display: none !important;
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	left: -9999px !important;
+}
+
+/* ============================================================
+   DISABLE CELL SELECTION AND CLICKS
+   ============================================================ */
+
+/* Disable text selection on table cells */
+.frappe-list .list-row-col {
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	cursor: default !important;
+}
+
+/* Remove pointer cursor from cells */
+.frappe-list .list-row-col:not(.actions) {
+	cursor: default !important;
+}
+
+/* Remove hover effects from cells */
+.frappe-list .list-row-col:not(.actions):hover {
+	background: transparent !important;
+}
+
+/* Disable link clicks in cells */
+.frappe-list .list-row-col a:not(.view-detail-btn) {
+	pointer-events: none !important;
+	cursor: default !important;
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+/* Disable status badge/clicks */
+.frappe-list .indicator-pill,
+.frappe-list .status,
+.frappe-list [class*="status"],
+.frappe-list .filterable {
+	pointer-events: none !important;
+	cursor: default !important;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+}
+
+/* Disable clicks on status cells */
+.frappe-list .list-row-col.status,
+.frappe-list .list-row-col[class*="status"] {
+	pointer-events: none !important;
+	cursor: default !important;
+}
+
+/* ============================================================
+   VIEW BUTTON AND ACTIONS COLUMN
+   ============================================================ */
+
+/* Actions column - flexible */
+.frappe-list .list-row-col.actions {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: stretch !important;
+	padding: 4px 8px !important;
+	min-width: 0 !important;
+	flex: 0 0 auto !important;
+	text-align: center !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	position: relative !important;
+}
+
+/* View button */
+.frappe-list .view-detail-btn {
+	padding: 4px 12px !important;
+	margin: 0 auto !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	color: var(--color-primary, #0066FF) !important;
+	border: none !important;
+	box-shadow: none !important;
+	text-decoration: none !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	white-space: nowrap !important;
+}
+
+/* Remove any line after view button */
+.frappe-list .list-row-col.actions::after,
+.frappe-list .view-detail-btn::after {
+	content: none !important;
+	display: none !important;
+}
+
+.frappe-list .view-detail-btn:hover {
+	background: var(--color-bg-white, #ffffff) !important;
+	color: var(--color-primary-dark, #0052CC) !important;
+	text-decoration: underline !important;
+}
+
+/* Actions header column - flexible */
+.list-row-head .list-row-col.actions-header {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	padding: 4px 8px !important;
+	min-width: 0 !important;
+	flex: 0 0 auto !important;
+	font-size: var(--font-size-3xl) !important;
+	font-weight: 700 !important;
+	text-transform: none !important;
+	letter-spacing: -0.01em !important;
+	color: #000000 !important;
+	text-align: left !important;
+	background: #e6f2ff !important;
+}
+
+.list-row-head .list-row-col.actions-header span {
+	font-size: var(--font-size-sm) !important;
+	font-weight: 400 !important;
+	color: #000000 !important;
+}
+
+/* Actions column - sticky on right end (already set above, this is for override safety) */
+.frappe-list .list-row .level-right {
+	position: sticky !important;
+	right: 0 !important;
+	background: var(--color-bg-white, #ffffff) !important;
+	z-index: 10 !important;
+	box-shadow: inset 1px 0 0 0 #cbd5e1 !important;
+}
+
+.list-row-head .level-right {
+	position: sticky !important;
+	right: 0 !important;
+	background: #e6f2ff !important;
+	z-index: 11 !important;
+}
+
+.frappe-list .list-row-col.actions {
+	background: var(--color-bg-white, #ffffff) !important;
+}
+
+.list-row-head .list-row-col.actions-header {
+	background: #e6f2ff !important;
+}
+
+/* Reference column - right border before Actions column */
+.frappe-list .list-row .level-left .list-row-col:last-child,
+.list-row-head .level-left .list-row-col:last-child {
+	border-right: 1px solid #cbd5e1 !important;
+}
+
+/* ============================================================
+   CELL BORDERS - COLUMN WISE LINES
+   ============================================================ */
+
+/* Header columns - vertical borders */
+.list-row-head .level-left .list-row-col,
+.list-row-head .list-row-col:not(.actions-header) {
+	border-right: 1px solid #cbd5e1 !important;
+}
+
+/* Row columns - vertical borders */
+.frappe-list .list-row .level-left .list-row-col,
+.frappe-list .list-row .list-row-col:not(.actions) {
+	border-right: 1px solid #cbd5e1 !important;
+}
+
+/* Empty cells - vertical borders */
+.frappe-list .list-row-col:empty,
+.list-row-head .list-row-col:empty {
+	border-right: 1px solid #cbd5e1 !important;
+}
+
+/* ============================================================
+   LIST TEXT & LINKS
+   ============================================================ */
+
+.frappe-list a,
+.frappe-list .like-disabled-link,
+.frappe-list .list-row-col {
+	font-size: var(--font-size-sm) !important;
+}
+
+.frappe-list .level-left .list-row-col.ellipsis a {
+	font-size: var(--font-size-sm) !important;
+	font-weight: var(--font-weight-medium) !important;
+}
+
+/* Status badges */
+.frappe-list .indicator-pill,
+.frappe-list .badge,
+.frappe-list .label {
+	font-size: 11px !important;
+	font-weight: 500 !important;
+	padding: 2px 6px !important;
+	border-radius: 0 !important;
+	line-height: 1.2 !important;
+	text-transform: none !important;
+	letter-spacing: 0 !important;
+	border: none !important;
+	box-shadow: none !important;
+	background: rgba(234, 179, 8, 0.1) !important;
+	color: #a16207 !important;
+}
+
+.frappe-list .indicator-pill.green {
+	background: rgba(34, 197, 94, 0.1) !important;
+	color: #15803d !important;
+}
+
+.frappe-list .indicator-pill.red {
+	background: rgba(239, 68, 68, 0.1) !important;
+	color: #dc2626 !important;
+}
+
+.frappe-list .indicator-pill.yellow,
+.frappe-list .indicator-pill.orange {
+	background: rgba(234, 179, 8, 0.1) !important;
+	color: #a16207 !important;
+}
+
+.frappe-list .indicator-pill.blue {
+	background: rgba(59, 130, 246, 0.1) !important;
+	color: #1e40af !important;
+}
+
 /* ============================================================
    PAGINATION — PAGE-BASED WITH NUMBERS
-   Shows: 1-20 of 150 | Prev | 1 | 2 | 3 | ... | N | Next | 20/page
    ============================================================ */
 
 .list-paging-area {
@@ -203,15 +654,9 @@
 	display: flex !important;
 	align-items: center !important;
 	justify-content: space-between !important;
-	gap: 16px !important;
-	padding: 8px 8px !important;
-	padding-left: 8px !important;
-	padding-right: 8px !important;
+	
 	background: #ffffff !important;
-	border-top: 1px solid var(--color-gray-200, #e5e7eb) !important;
-	width: 100% !important;
-	margin: 0 !important;
-	box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04) !important;
+	
 }
 
 /* Left - Info text */
@@ -334,7 +779,7 @@
 	font-size: var(--font-size-xs) !important;
 }
 
-/* Right - Page size dropdown - ENHANCED UI */
+/* Right - Page size dropdown */
 .list-paging-area .pagination-size {
 	display: flex !important;
 	align-items: center !important;
@@ -383,7 +828,7 @@
 	box-shadow: 0 1px 3px rgba(0, 102, 255, 0.15) !important;
 }
 
-/* Dropdown option styling - CLEAN WHITE BACKGROUND */
+/* Dropdown option styling */
 .list-paging-area .page-size-select option {
 	padding: 10px 14px !important;
 	font-size: 13px !important;
@@ -411,11 +856,6 @@
 }
 
 /* Ensure dropdown list has white background */
-.list-paging-area .page-size-select {
-	background-color: #ffffff !important;
-}
-
-/* Remove any grey backgrounds from select element */
 .list-paging-area .page-size-select,
 .list-paging-area .page-size-select:focus,
 .list-paging-area .page-size-select:active,
@@ -424,7 +864,7 @@
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%230066FF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), #ffffff !important;
 }
 
-/* Hide old Frappe pagination elements - but only for list views */
+/* Hide old Frappe pagination elements */
 .frappe-list .list-paging-area .level-left,
 .frappe-list .list-paging-area .level-right,
 .frappe-list .list-paging-area .btn-group,
@@ -434,80 +874,16 @@
 }
 
 /* ============================================================
-   LIST TEXT & LINKS — USE VARIABLES
-   ============================================================ */
-
-.frappe-list a,
-.frappe-list .like-disabled-link,
-.frappe-list .list-row-col {
-	font-size: var(--font-size-sm) !important;
-}
-
-.frappe-list .level-left .list-row-col.ellipsis a {
-	font-size: var(--font-size-sm) !important;
-	font-weight: var(--font-weight-medium) !important;
-}
-
-/* Status badges */
-/* Status badges in list view - SIMPLIFIED */
-.frappe-list .indicator-pill,
-.frappe-list .badge,
-.frappe-list .label {
-	font-size: 11px !important;
-	font-weight: 500 !important;
-	padding: 2px 6px !important;
-	border-radius: 0 !important;
-	line-height: 1.2 !important;
-	text-transform: none !important;
-	letter-spacing: 0 !important;
-	border: none !important;
-	box-shadow: none !important;
-	background: rgba(234, 179, 8, 0.1) !important;
-	color: #a16207 !important;
-}
-
-.frappe-list .indicator-pill.green {
-	background: rgba(34, 197, 94, 0.1) !important;
-	color: #15803d !important;
-}
-
-.frappe-list .indicator-pill.red {
-	background: rgba(239, 68, 68, 0.1) !important;
-	color: #dc2626 !important;
-}
-
-.frappe-list .indicator-pill.yellow,
-.frappe-list .indicator-pill.orange {
-	background: rgba(234, 179, 8, 0.1) !important;
-	color: #a16207 !important;
-}
-
-.frappe-list .indicator-pill.blue {
-	background: rgba(59, 130, 246, 0.1) !important;
-	color: #1e40af !important;
-}
-
-/* ============================================================
    REMOVE EXTRA GAPS - MINIMAL SPACING
    ============================================================ */
 
 .list-view-container,
 .result-container,
 .frappe-list {
-	margin-top: 2px !important;
-	margin-bottom: 2px !important;
-	padding-top: 2px !important;
-	padding-bottom: 2px !important;
-}
-
-/* Remove fixed height from result-container */
-.frappe-list .result-container {
-	height: auto !important;
-	min-height: auto !important;
-	max-height: none !important;
-	padding: 2px !important;
-	background: var(--color-bg-white, #ffffff) !important;
-	border-radius: var(--radius-md, 8px) !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 /* ============================================================
@@ -527,20 +903,246 @@
 }
 
 .layout-main-section {
-	padding-right: 16px !important;
+	padding-right: 0 !important;
 }
 
 .page-container {
-	padding-right: 12px !important;
+	padding-right: 0 !important;
 }
+
 
 /* ============================================================
    RESPONSIVE SAFETY
    ============================================================ */
 
+/* ============================================================
+   RESPONSIVE - STICKY ACTIONS COLUMN
+   ============================================================ */
+
+/* Tablet and below (768px) */
 @media (max-width: 768px) {
+	/* Remove excessive padding on mobile for list views */
+	body[data-route*="List"] .layout-main-section,
+	body[data-route*="List"] .page-container,
+	body[data-route*="List"] .page-content {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	
+	/* Ensure table container is scrollable */
+	.frappe-list {
+		margin: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	
+	.frappe-list .result {
+		overflow-x: auto !important;
+		overflow-y: auto !important;
+		-webkit-overflow-scrolling: touch !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	
+	.frappe-list .result-container {
+		width: max-content !important;
+		min-width: 100% !important;
+	}
+	
+	/* Rows allow horizontal expansion */
 	.list-row-head,
 	.frappe-list .list-row {
-		min-width: 720px;
+		width: max-content !important;
+		min-width: 100% !important;
+	}
+	
+	/* Level-left scrollable */
+	.frappe-list .list-row .level-left,
+	.list-row-head .level-left {
+		width: max-content !important;
+	}
+	
+	/* Columns remain flexible */
+	.frappe-list .list-row-col,
+	.list-row-head .list-row-col {
+		min-width: 0 !important;
+		padding: 4px 6px !important;
+		font-size: 12px !important;
+		flex: 1 1 auto !important;
+	}
+	
+	/* Actions column sticky */
+	.frappe-list .list-row-col.actions,
+	.list-row-head .list-row-col.actions-header {
+		min-width: 0 !important;
+		flex: 0 0 auto !important;
+		position: sticky !important;
+		right: 0 !important;
+		z-index: 15 !important;
+	}
+	
+	/* Ensure sticky actions work on mobile */
+	.frappe-list .list-row .level-right,
+	.list-row-head .level-right {
+		position: sticky !important;
+		right: 0 !important;
+		z-index: 15 !important;
+	}
+	
+	/* Responsive pagination */
+	.list-paging-area {
+		padding: 8px 4px !important;
+		flex-wrap: wrap !important;
+		gap: 8px !important;
+	}
+	
+	.list-paging-area .pagination-info {
+		font-size: 12px !important;
+	}
+	
+	.list-paging-area .btn-nav,
+	.list-paging-area .btn-page {
+		padding: 4px 8px !important;
+		font-size: 12px !important;
+		min-width: 0 !important;
+		height: auto !important;
+	}
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 576px) {
+	/* Remove all padding on mobile for list views */
+	body[data-route*="List"] .layout-main-section,
+	body[data-route*="List"] .page-container,
+	body[data-route*="List"] .page-content {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	
+	.frappe-list {
+		margin: 0 !important;
+		border-left: none !important;
+		border-right: none !important;
+	}
+	
+	.frappe-list .result {
+		overflow-x: auto !important;
+		overflow-y: auto !important;
+		-webkit-overflow-scrolling: touch !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	
+	/* Rows allow horizontal expansion */
+	.list-row-head,
+	.frappe-list .list-row {
+		width: max-content !important;
+		min-width: 100% !important;
+	}
+	
+	/* Level-left scrollable */
+	.frappe-list .list-row .level-left,
+	.list-row-head .level-left {
+		width: max-content !important;
+	}
+	
+	/* Columns remain flexible */
+	.frappe-list .list-row-col,
+	.list-row-head .list-row-col {
+		min-width: 0 !important;
+		padding: 3px 4px !important;
+		font-size: 11px !important;
+		flex: 1 1 auto !important;
+	}
+	
+	/* Actions column sticky */
+	.frappe-list .list-row-col.actions,
+	.list-row-head .list-row-col.actions-header {
+		min-width: 0 !important;
+		flex: 0 0 auto !important;
+		padding: 3px 4px !important;
+		position: sticky !important;
+		right: 0 !important;
+		z-index: 15 !important;
+	}
+	
+	/* Compact view button */
+	.frappe-list .view-detail-btn {
+		padding: 2px 8px !important;
+		font-size: 11px !important;
+	}
+	
+	/* Responsive pagination */
+	.list-paging-area {
+		padding: 6px 4px !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+		gap: 6px !important;
+	}
+	
+	.list-paging-area .pagination-controls {
+		justify-content: center !important;
+		flex-wrap: wrap !important;
+	}
+	
+	.list-paging-area .pagination-info {
+		text-align: center !important;
+		font-size: 11px !important;
+	}
+	
+	.list-paging-area .btn-nav,
+	.list-paging-area .btn-page {
+		padding: 3px 6px !important;
+		font-size: 11px !important;
+		min-width: 0 !important;
+		height: auto !important;
+	}
+	
+	.list-paging-area .page-size-select {
+		font-size: 11px !important;
+		padding: 4px 28px 4px 10px !important;
+		height: auto !important;
+		min-height: 0 !important;
+	}
+}
+
+/* Small mobile (480px and below) */
+@media (max-width: 480px) {
+	.frappe-list .result {
+		max-height: calc(100vh - 180px) !important;
+	}
+	
+	/* Rows allow horizontal expansion */
+	.list-row-head,
+	.frappe-list .list-row {
+		width: max-content !important;
+		min-width: 100% !important;
+	}
+	
+	/* Level-left scrollable */
+	.frappe-list .list-row .level-left,
+	.list-row-head .level-left {
+		width: max-content !important;
+	}
+	
+	/* Columns remain flexible */
+	.frappe-list .list-row-col,
+	.list-row-head .list-row-col {
+		min-width: 0 !important;
+		padding: 2px 3px !important;
+		font-size: 10px !important;
+		flex: 1 1 auto !important;
+	}
+	
+	/* Actions column sticky */
+	.frappe-list .list-row-col.actions,
+	.list-row-head .list-row-col.actions-header {
+		min-width: 0 !important;
+		flex: 0 0 auto !important;
+	}
+	
+	.frappe-list .view-detail-btn {
+		padding: 2px 6px !important;
+		font-size: 10px !important;
 	}
 }
